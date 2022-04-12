@@ -3,7 +3,7 @@ package Vehiculos;
 public class Vehiculo {
     private String modelo;
     private String marca;
-    private double costo;
+    private Integer costo;
 
     public String getModelo() {
         return modelo;
@@ -21,15 +21,15 @@ public class Vehiculo {
         this.marca = marca;
     }
 
-    public double getCosto() {
+    public Integer getCosto() {
         return costo;
     }
 
-    public void setCosto(double costo) {
+    public void setCosto(Integer costo) {
         this.costo = costo;
     }
 
-    public Vehiculo(String modelo, String marca, double costo) {
+    public Vehiculo(String modelo, String marca, Integer costo) {
         this.modelo = modelo;
         this.marca = marca;
         this.costo = costo;

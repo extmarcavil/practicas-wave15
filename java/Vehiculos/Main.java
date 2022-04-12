@@ -24,36 +24,39 @@ public class Main {
 
         Garage garage = new Garage(1, vehiculos);
 
-        List<Vehiculo> listaOrdenada = garage.getVehiculos();
+        vehiculos = garage.getVehiculos();
 
         System.out.println("-------------------------");
         System.out.println("Lista ordenada por precio");
         System.out.println("-------------------------");
-        listaOrdenada.stream().sorted(Comparator.comparing(Vehiculo::getCosto)).forEach(System.out::println);
+        vehiculos.sort(Comparator.comparing(Vehiculo::getCosto));
+        vehiculos.stream().forEach(System.out::println);
+
 
         System.out.println();
         System.out.println("----------------------------------");
         System.out.println("Lista ordenada por marca y precio");
         System.out.println("----------------------------------");
-        listaOrdenada.stream().sorted(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getCosto)).forEach(System.out::println);
+        vehiculos.sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getCosto));
+        vehiculos.stream().forEach(System.out::println);
 
         System.out.println();
         System.out.println("----------------------");
         System.out.println("Vehículos menor a 1000");
         System.out.println("----------------------");
-        listaOrdenada.stream().filter(x-> x.getCosto()<1000).collect(Collectors.toList()).forEach(System.out::println);
+        vehiculos.stream().filter(x-> x.getCosto()<1000).collect(Collectors.toList()).forEach(System.out::println);
 
         System.out.println();
         System.out.println("-----------------------");
         System.out.println("Vehículos mayor a 1000");
         System.out.println("-----------------------");
-        listaOrdenada.stream().filter(x-> x.getCosto()>=1000).collect(Collectors.toList()).forEach(System.out::println);
+        vehiculos.stream().filter(x-> x.getCosto()>=1000).collect(Collectors.toList()).forEach(System.out::println);
 
         System.out.println();
         System.out.println("----------------------------");
         System.out.println("Promedio precio de vehículos ");
         System.out.println("----------------------------");
-        double promedio = listaOrdenada.stream().mapToDouble(Vehiculo::getCosto).average().getAsDouble();
+        double promedio = vehiculos.stream().mapToInt(Vehiculo::getCosto).average().getAsDouble();
         System.out.println(promedio);
     }
 }
