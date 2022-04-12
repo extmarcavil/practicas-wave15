@@ -1,4 +1,4 @@
-package project;
+package ejercicio2;
 
 public class Main {
 
