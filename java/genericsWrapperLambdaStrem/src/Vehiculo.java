@@ -1,11 +1,11 @@
 public class Vehiculo {
-    private String modelo;
     private String marca;
+    private String modelo;
     private Integer costo;
 
     public Vehiculo(String marca, String modelo, Integer costo) {
-        this.modelo = modelo;
         this.marca = marca;
+        this.modelo = modelo;
         this.costo = costo;
     }
 
