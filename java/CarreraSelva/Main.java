@@ -170,7 +170,7 @@ public class Main {
         String dni = input.nextLine();
         LinkedHashMap<String, String> eliminar = null;
         for (LinkedHashMap<String, String> persona : participantes) {
-            if (Objects.equals(persona.get("DNI"), dni)) {
+            if (persona.get("DNI").equals(dni)) {
                 eliminar = persona;
                 if (chico.contains(persona)) {
                     chico.remove(persona);
