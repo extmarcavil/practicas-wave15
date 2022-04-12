@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/PG-Arrays/PG-Arrays.iml" filepath="$PROJECT_DIR$/PG-Arrays/PG-Arrays.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround.iml" filepath="$PROJECT_DIR$/PlayGround.iml" />
+    </modules>
+  </component>
+</project>
