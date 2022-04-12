@@ -1,4 +1,4 @@
-package ejercicioP1Vivo;
+package ejercicioJavaP1Vivo;
 
 public class TemperaturasGlobales {
 
