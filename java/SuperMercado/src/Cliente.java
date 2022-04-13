@@ -9,6 +9,9 @@ public class Cliente {
 
     //region Constructor
 
+    public Cliente() {
+    }
+
     public Cliente(Long dni, String nombre, String apellido) {
         this.dni = dni;
         this.nombre = nombre;

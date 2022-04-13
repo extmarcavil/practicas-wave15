@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Factura {
     //region Atributos
-    private  int CodigoFactura;
+    private  long CodigoFactura = 0;
     private Cliente Cliente;
     private  ArrayList<Producto> ListProductos;
     private  double TotalCompra;
@@ -10,11 +10,10 @@ public class Factura {
 
     //region Constructor
 
-    public Factura(int codigoFactura, Cliente cliente, ArrayList<Producto> listProductos, double totalCompra) {
-        CodigoFactura = codigoFactura;
+    public Factura(Cliente cliente, ArrayList<Producto> listProductos) {
+        CodigoFactura++;
         Cliente = cliente;
         ListProductos = listProductos;
-        TotalCompra = totalCompra;
     }
 
 
@@ -23,11 +22,11 @@ public class Factura {
     //region Getters setters
 
 
-    public int getCodigoFactura() {
+    public long getCodigoFactura() {
         return CodigoFactura;
     }
 
-    public void setCodigoFactura(int codigoFactura) {
+    public void setCodigoFactura(long codigoFactura) {
         CodigoFactura = codigoFactura;
     }
 

@@ -51,5 +51,15 @@ public class Producto {
         CostoUnitario = costoUnitario;
     }
 
+    @Override
+    public String toString() {
+        return "Producto{" +
+                "Codigo=" + Codigo +
+                ", Nombre='" + Nombre + '\'' +
+                ", Cantidad=" + Cantidad +
+                ", CostoUnitario=" + CostoUnitario +
+                '}';
+    }
+
     //endregion
 }
