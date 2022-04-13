@@ -17,6 +17,9 @@ public class Vehiculo {
         this.peso = peso;
         this.ruedas = ruedas;
     }
+    public Vehiculo(){
+
+    }
 
     public double getVelocidad() {
         return velocidad;
@@ -64,5 +67,17 @@ public class Vehiculo {
 
     public void setRuedas(int ruedas) {
         this.ruedas = ruedas;
+    }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", patente='" + patente + '\'' +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                '}';
     }
 }
