@@ -4,8 +4,8 @@ public class BoletosViaje extends Producto {
     private String destino;
     private String tipoTransporte;
 
-    public BoletosViaje(String nombre, double costo, String destino, String tipoTransporte) {
-        super(nombre, costo);
+    public BoletosViaje(double costo, String destino, String tipoTransporte) {
+        super("BoletosViaje", costo);
         this.destino = destino;
         this.tipoTransporte = tipoTransporte;
     }

@@ -1,14 +1,14 @@
 package ar.com.alehenestroza;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class ReservaHotel extends Producto {
     private String nombreHotel;
-    private Date fechaIngreso;
-    private Date fechaSalida;
+    private LocalDate fechaIngreso;
+    private LocalDate fechaSalida;
 
-    public ReservaHotel(String nombre, double costo, String nombreHotel, Date fechaIngreso, Date fechaSalida) {
-        super(nombre, costo);
+    public ReservaHotel(double costo, String nombreHotel, LocalDate fechaIngreso, LocalDate fechaSalida) {
+        super("ReservaHotel", costo);
         this.nombreHotel = nombreHotel;
         this.fechaIngreso = fechaIngreso;
         this.fechaSalida = fechaSalida;
@@ -22,19 +22,19 @@ public class ReservaHotel extends Producto {
         this.nombreHotel = nombreHotel;
     }
 
-    public Date getFechaIngreso() {
+    public LocalDate getFechaIngreso() {
         return fechaIngreso;
     }
 
-    public void setFechaIngreso(Date fechaIngreso) {
+    public void setFechaIngreso(LocalDate fechaIngreso) {
         this.fechaIngreso = fechaIngreso;
     }
 
-    public Date getFechaSalida() {
+    public LocalDate getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(Date fechaSalida) {
+    public void setFechaSalida(LocalDate fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 }

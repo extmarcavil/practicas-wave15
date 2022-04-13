@@ -3,8 +3,8 @@ package ar.com.alehenestroza;
 public class Transporte extends Producto {
     private String tipo;
 
-    public Transporte(String nombre, double costo, String tipo) {
-        super(nombre, costo);
+    public Transporte(double costo, String tipo) {
+        super("Transporte", costo);
         this.tipo = tipo;
     }
 

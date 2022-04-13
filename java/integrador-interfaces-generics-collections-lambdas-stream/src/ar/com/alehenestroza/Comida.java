@@ -3,8 +3,8 @@ package ar.com.alehenestroza;
 public class Comida extends Producto {
     private String tipoComida;
 
-    public Comida(String nombre, double costo, String tipoComida) {
-        super(nombre, costo);
+    public Comida(double costo, String tipoComida) {
+        super("Comida", costo);
         this.tipoComida = tipoComida;
     }
 
