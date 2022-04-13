@@ -43,7 +43,11 @@ public class ClienteServicio implements  ICrudGeneral<Cliente>{
     @Override
     public Cliente Buscar(long Codigo) {
         var where =  listaClientes.stream().filter(f -> f.getDni().equals(Codigo)).collect(Collectors.toList());
-        return  where.stream().count() > 0 ? where.get(0) : null;
+       if(where.stream().count() > 0){
+          return where.stream().findFirst().get();
+       }
+       else
+           return  null;
     }
 
     @Override
