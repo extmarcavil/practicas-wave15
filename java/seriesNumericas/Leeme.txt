@@ -1,0 +1,3 @@
+Se realizaron dos soluciones ya que por lo hablado en clase el problema se podia ver de dos formas:
+1. Que la serie dependiera de la secuencia (porValorSerie)
+2. Que la serie dependiera del tipo de datos (porTipo)
