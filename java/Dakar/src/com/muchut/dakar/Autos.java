@@ -8,4 +8,15 @@ public class Autos extends Vehiculo{
         this.ruedas = 4;
     }
 
+    @Override
+    public String toString() {
+        return "Autos{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                ", patente='" + patente + '\'' +
+                '}';
+    }
 }

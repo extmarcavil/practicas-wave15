@@ -4,6 +4,18 @@ public class Vehiculo {
     protected int velocidad, aceleracion, anguloDeGiro, peso, ruedas;
     protected String patente;
 
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                ", patente='" + patente + '\'' +
+                '}';
+    }
+
     public int getVelocidad() {
         return velocidad;
     }
