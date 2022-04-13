@@ -5,14 +5,18 @@
       <module fileurl="file://$PROJECT_DIR$/Extras/EjercicioIntCA/EjercicioIntCA.iml" filepath="$PROJECT_DIR$/Extras/EjercicioIntCA/EjercicioIntCA.iml" />
       <module fileurl="file://$PROJECT_DIR$/Extras/LinkedList/LinkedList.iml" filepath="$PROJECT_DIR$/Extras/LinkedList/LinkedList.iml" />
       <module fileurl="file://$PROJECT_DIR$/Extras/MapsI/MapsI.iml" filepath="$PROJECT_DIR$/Extras/MapsI/MapsI.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-Arrays/PG-Arrays.iml" filepath="$PROJECT_DIR$/PlayGround/PG-Arrays/PG-Arrays.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-Final/PG-Final.iml" filepath="$PROJECT_DIR$/PlayGround/PG-Final/PG-Final.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-Herency/PG-Herency.iml" filepath="$PROJECT_DIR$/PlayGround/PG-Herency/PG-Herency.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-AgenciaDeTurismo/PG-AgenciaDeTurismo.iml" filepath="$PROJECT_DIR$/PlayGround/PG-AgenciaDeTurismo/PG-AgenciaDeTurismo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-CarreraDeLaSelva/PG-CarreraDeLaSelva.iml" filepath="$PROJECT_DIR$/PlayGround/PG-CarreraDeLaSelva/PG-CarreraDeLaSelva.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-DistruibuidoraDeProductos/PG-DistruibuidoraDeProductos.iml" filepath="$PROJECT_DIR$/PlayGround/PG-DistruibuidoraDeProductos/PG-DistruibuidoraDeProductos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-EjerciciosClasesAbstractasEInterfaces/PG-EjerciciosClasesAbstractasEInterfaces.iml" filepath="$PROJECT_DIR$/PlayGround/PG-EjerciciosClasesAbstractasEInterfaces/PG-EjerciciosClasesAbstractasEInterfaces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-EjerciciosClasesAbstractasEInterfaces/PG-IntegratorAbstractClass.iml" filepath="$PROJECT_DIR$/PlayGround/PG-EjerciciosClasesAbstractasEInterfaces/PG-IntegratorAbstractClass.iml" />
       <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-Lamdas&amp;Stream/PG-Lamdas&amp;Stream.iml" filepath="$PROJECT_DIR$/PlayGround/PG-Lamdas&amp;Stream/PG-Lamdas&amp;Stream.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-Maps/PG-Maps.iml" filepath="$PROJECT_DIR$/PlayGround/PG-Maps/PG-Maps.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-POO/PG-POO.iml" filepath="$PROJECT_DIR$/PlayGround/PG-POO/PG-POO.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-POOModel/PG-POOModel.iml" filepath="$PROJECT_DIR$/PlayGround/PG-POOModel/PG-POOModel.iml" />
-      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-TryCatch/PG-TryCatch.iml" filepath="$PROJECT_DIR$/PlayGround/PG-TryCatch/PG-TryCatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-POOPersonas/PG-POOPersonas.iml" filepath="$PROJECT_DIR$/PlayGround/PG-POOPersonas/PG-POOPersonas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-PracticaExcepcionesTryCatch/PG-PracticaExcepcionesTryCatch.iml" filepath="$PROJECT_DIR$/PlayGround/PG-PracticaExcepcionesTryCatch/PG-PracticaExcepcionesTryCatch.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-SaveTheRopaSA/PG-SaveTheRopaSA.iml" filepath="$PROJECT_DIR$/PlayGround/PG-SaveTheRopaSA/PG-SaveTheRopaSA.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-SeriesNumericos/PG-SeriesNumericos.iml" filepath="$PROJECT_DIR$/PlayGround/PG-SeriesNumericos/PG-SeriesNumericos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PlayGround/PG-TemperaturasGlobales/PG-TemperaturasGlobales.iml" filepath="$PROJECT_DIR$/PlayGround/PG-TemperaturasGlobales/PG-TemperaturasGlobales.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Extras/SaveTheRopa/SaveTheRopa.iml" filepath="$PROJECT_DIR$/Extras/SaveTheRopa/SaveTheRopa.iml" />
     </modules>
   </component>
 </project>
