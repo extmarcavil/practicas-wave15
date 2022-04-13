@@ -10,14 +10,14 @@ import java.util.List;
 import java.util.Optional;
 
 public class Carrera {
-    double distancia;
-    double premioEnDolares;
-    String nombre;
-    int cantidadVehiculosPermitidos;
-    List<Vehiculo> listaVehiculos;
+    private double distancia;
+    private double premioEnDolares;
+    private String nombre;
+    private int cantidadVehiculosPermitidos;
+    private List<Vehiculo> listaVehiculos;
 
-    SocorristaAuto socorristaAuto;
-    SocorristaMoto socorristaMoto;
+    private SocorristaAuto socorristaAuto;
+    private SocorristaMoto socorristaMoto;
 
     public Carrera(double distancia, double premioEnDolares, String nombre, int cantidadVehiculosPermitidos) {
         this.distancia = distancia;

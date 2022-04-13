@@ -27,4 +27,16 @@ public abstract class Vehiculo {
     public double obtenerValorCompeticion() {
         return velocidad * aceleracion/2 / (anguloDeGiro * (peso - ruedas*100));
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", patente='" + patente + '\'' +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                '}';
+    }
 }
