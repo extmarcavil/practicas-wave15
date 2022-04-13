@@ -18,6 +18,18 @@ public abstract class Vehiculo {
         this.ruedas = ruedas;
     }
 
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", patente='" + patente + '\'' +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                '}';
+    }
+
     public double getMax(){
         return (velocidad * aceleracion / 2) / (anguloDeGiro * (peso - (ruedas * 100)));
     }

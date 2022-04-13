@@ -5,14 +5,14 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Carrera {
+public class Carrera <T extends Vehiculo>{
 
     private double distancia;
     private double premioEnDolares;
     private String nombre;
     private int cantidadDeVehiculosPermitodos;
-    private List<Vehiculo> vehiculos;
-    private Socorrista socorrista;
+    private List<T> vehiculos;
+    private Socorrista<T> socorrista;
 
     public Carrera(double distancia, double premioEnDolares, String nombre, int cantidadDeVehiculosPermitodos,
                    Socorrista socorrista) {
@@ -24,15 +24,11 @@ public class Carrera {
         this.vehiculos = new ArrayList<>();
     }
 
-    public void darDeAltaAuto(Auto auto) {
-        validarCupo(auto);
+    public void darDeAltaVehiculo(T vehiculo) {
+        validarCupo(vehiculo);
     }
 
-    public void darDeAltaMoto(Moto moto) {
-        validarCupo(moto);
-    }
-
-    private void validarCupo(Vehiculo vehiculo) {
+    private void validarCupo(T vehiculo) {
         if (vehiculos.size() < cantidadDeVehiculosPermitodos) {
             vehiculos.add(vehiculo);
         } else {
@@ -40,7 +36,7 @@ public class Carrera {
         }
     }
 
-    public void eliminarVehiculo(Vehiculo vehiculo) {
+    public void eliminarVehiculo(T vehiculo) {
         this.vehiculos.remove(vehiculo);
     }
 
@@ -62,16 +58,12 @@ public class Carrera {
                 .get();
     }
 
-    public void socorrerAuto(String patente) {
+    public void socorrerVehiculo(String patente) {
         this.vehiculos.stream()
                 .filter(buscarVehiculoPorPatente(patente))
                 .findFirst()
                 .ifPresentOrElse(vehiculoEncontrado -> this.socorrista.socorrer(vehiculoEncontrado),
                         () -> System.out.println("Vehiculo con patente: "+patente+" no encontrado"));
-
-    }
-
-    public void socorrerMoto(String patente) {
 
     }
 
@@ -107,11 +99,11 @@ public class Carrera {
         this.cantidadDeVehiculosPermitodos = cantidadDeVehiculosPermitodos;
     }
 
-    public List<Vehiculo> getVehiculos() {
+    public List<T> getVehiculos() {
         return vehiculos;
     }
 
-    public void setVehiculos(List<Vehiculo> vehiculos) {
+    public void setVehiculos(List<T> vehiculos) {
         this.vehiculos = vehiculos;
     }
 }
