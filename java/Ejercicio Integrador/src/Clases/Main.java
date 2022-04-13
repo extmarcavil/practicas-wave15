@@ -26,11 +26,12 @@ public class Main {
         System.out.println("-------------------------------------");
         System.out.println("Introduzca el DNI del cliente que desea buscar: \n");
 
-        listado_clientes.stream().filter(Cliente -> Cliente.getDni() == "15323052").forEach(System.out::println);
 
         try{
             input = teclado.nextLine();
-            listado_clientes.stream().filter(Cliente -> Cliente.getDni() == input).forEach(System.out::println);
+            listado_clientes.stream().filter(Cliente -> Cliente.getDni()
+                    .equals(input))
+                    .forEach(System.out::println);
         }catch (Exception e){
             System.out.println(e.getMessage());
         }finally {
