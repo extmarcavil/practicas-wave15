@@ -18,5 +18,8 @@ public class Main {
         carrera.socorrerMoto("KLM101");
 
         System.out.println(carrera.getGanador());
+
+        carrera.eliminarVehiculoPorPatente("KLM101");
+        System.out.println(carrera.getGanador());
     }
 }
