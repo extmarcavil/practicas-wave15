@@ -1,15 +1,24 @@
+package com.models;
+
+import java.util.List;
+import java.util.Scanner;
+
 public class Item {
 
     private String nombre;
     private int codigo;
     private int cantidad;
     private double costo;
+    private Scanner in = new Scanner(System.in);
 
     public Item(String nombre, int codigo, int cantidad, double costo) {
         this.nombre = nombre;
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.costo = costo;
+    }
+
+    public Item() {
     }
 
     public String getNombre() {
@@ -53,4 +62,6 @@ public class Item {
                 ", costo=" + costo +
                 '}';
     }
+
+
 }
