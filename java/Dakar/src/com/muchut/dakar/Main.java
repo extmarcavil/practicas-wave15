@@ -14,7 +14,10 @@ public class Main {
         carrera1.darDeAltaAuto(120, 100, 2, "123456");
         carrera1.darDeAltaAuto(100, 100, 2, "1234567");
 
-        System.out.println(carrera1.ganadorDeCarrera());
+        carrera1.socorrerAuto("1234");
+        carrera1.eliminarVehiculoConPatente("1233");
+        carrera1.eliminarVehiculoConPatente("1234");
+        carrera1.ganadorDeCarrera();
 
     }
 }

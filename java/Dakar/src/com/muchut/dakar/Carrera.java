@@ -12,7 +12,8 @@ public class Carrera {
         if(listaDeVehiculos.size() < cantidadDeVehiculosPermitidos) {
             listaDeVehiculos.add(nuevoAuto);
         } else {
-            System.out.println("Error. Ya no hay cupos para agregar vehículos!");
+            System.out.println("--Error. Ya no hay cupos para agregar el auto de patente " + nuevoAuto.patente);
+            System.out.println("--Esta carrera es para " + cantidadDeVehiculosPermitidos + " vehículos");
         }
     }
     public void darDeAltaMoto(int velocidad, int aceleracion, int anguloDeGiro, String patente) {
@@ -20,22 +21,34 @@ public class Carrera {
         if(listaDeVehiculos.size() < cantidadDeVehiculosPermitidos) {
             listaDeVehiculos.add(nuevaMoto);
         } else {
-            System.out.println("Error. Ya no hay cupos para agregar vehículos!");
+            System.out.println("--Error. Ya no hay cupos para agregar la moto de patente " + nuevaMoto.patente);
+            System.out.println("--Esta carrera es para " + cantidadDeVehiculosPermitidos + " vehículos");
         }
         listaDeVehiculos.add(nuevaMoto);
     }
 
-    /**SocorristaAuto socorristaDeAuto = new SocorristaAuto();
+    // creo un socorrista de autos
+    SocorristaAuto socorristaDeAuto = new SocorristaAuto();
+    // creo el método para socorrer un auto
     public void socorrerAuto (String unaPatente) {
         for (Vehiculo v : listaDeVehiculos) {
             if (v.patente.equals(unaPatente)) {
-                socorristaDeAuto.socorrer(v);
+                socorristaDeAuto.socorrer(((Autos) v));
             }
-
         }
+    }
+    // creo un socorrista de motos
+    SocorristaMoto socorristaDeMoto = new SocorristaMoto();
+    // creo el método para socorrer una moto
+    public void socorrerMoto (String unaPatente) {
+        for (Vehiculo v : listaDeVehiculos) {
+            if (v.patente.equals(unaPatente)) {
+                socorristaDeMoto.socorrer(((Motos) v));
+            }
+        }
+    }
 
-    }**/
-
+    // método para obtener puntaje de un vehiculo
     private double puntaje (Vehiculo v) {
         double resultado = ((v.getVelocidad() * v.getAceleracion()) / 2) / (v.getAnguloDeGiro() * (v.getPeso() - (v.getRuedas() * 100)));
         return resultado;
@@ -45,15 +58,14 @@ public class Carrera {
         double puntajeAlto = 0D;
         String vehiculoGanador = null;
         for (Vehiculo v : listaDeVehiculos) {
-            System.out.println("puntajeAlto: " + puntajeAlto);
-            System.out.println("puntaje(v): " + puntaje(v));
-            System.out.println("vehiculoGanador: " + vehiculoGanador);
-            System.out.println("----------");
             if (puntaje(v) > puntajeAlto) {
+                puntajeAlto = puntaje(v);
                 vehiculoGanador = v.patente;
-
             }
         }
+        System.out.println("---------------");
+        System.out.println("El ganador de la carrera es el vehículo con patente " + vehiculoGanador + " y se lleva Us$" + premioEnDolares);
+        System.out.println("---------------");
         return vehiculoGanador;
     }
 
@@ -73,7 +85,15 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente (String unaPatente) {
+        System.out.println("Se va a eliminar el vehículo de patente " + unaPatente + "...");
+        int antes = listaDeVehiculos.size();
         listaDeVehiculos.removeIf((c) -> c.patente.equals(unaPatente));
+        int despues = listaDeVehiculos.size();
+        if (antes > despues) {
+            System.out.println("Se ha eliminado un vehículo con éxito");
+        } else {
+            System.out.println("--Error. No se ha podido eliminar el vehículo");
+        }
     }
 
     public int getDistancia() {
