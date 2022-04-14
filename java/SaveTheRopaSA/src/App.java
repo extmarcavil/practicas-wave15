@@ -17,6 +17,10 @@ public class App {
 
         System.out.println("Codigo asignado: " + nroGuardaRopa);
 
+        Integer nroGuardaRopa2 = guardaRopa.guardarPrendas(prendas);
+
+        System.out.println("Codigo asignado: " + nroGuardaRopa2);
+
         guardaRopa.mostrarPrendas();
 
         List<Prenda> prendasDevueltas = guardaRopa.devolverPrendas(nroGuardaRopa);
