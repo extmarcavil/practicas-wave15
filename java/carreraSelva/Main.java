@@ -1,8 +1,4 @@
 package carreraSelva;
-
-import carreraEnLaSelva.Categoria;
-import carreraEnLaSelva.Participante;
-
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,9 +32,9 @@ public class Main {
 
     public static void main(String[] args) {
         List<Participante> participantes = new ArrayList<Participante>();
-        List<carreraEnLaSelva.Categoria> circuitoChico = new ArrayList<carreraEnLaSelva.Categoria>();
-        List<carreraEnLaSelva.Categoria> circuitoMedio = new ArrayList<carreraEnLaSelva.Categoria>();
-        List<carreraEnLaSelva.Categoria> circuitoAvanzado = new ArrayList<carreraEnLaSelva.Categoria>();
+        List<Categoria> circuitoChico = new ArrayList<Categoria>();
+        List<Categoria> circuitoMedio = new ArrayList<Categoria>();
+        List<Categoria> circuitoAvanzado = new ArrayList<Categoria>();
         JOptionPane.showMessageDialog(null, "Inscribir un participante");
         Participante participante = addParticipante();
         participantes.add(participante);
@@ -63,7 +59,7 @@ public class Main {
                     } else {
                         monto = 1300;
                     }
-                    carreraEnLaSelva.Categoria categoria1 = new carreraEnLaSelva.Categoria(parti, monto, 1);
+                    Categoria categoria1 = new Categoria(parti, monto, 1);
                     circuitoChico.add(categoria1);
                 case "Circuito Medio":
                     if (parti.getEdad() > 18) {
@@ -71,7 +67,7 @@ public class Main {
                     } else {
                         monto = 2000;
                     }
-                    carreraEnLaSelva.Categoria categoria2 = new carreraEnLaSelva.Categoria(parti, monto, 1);
+                    Categoria categoria2 = new Categoria(parti, monto, 1);
                     circuitoMedio.add(categoria2);
                 case "Circuito Avanzado":
                     if (parti.getEdad() > 18) {
@@ -79,7 +75,7 @@ public class Main {
                     } else {
                         monto = 0;
                     }
-                    carreraEnLaSelva.Categoria categoria3 = new carreraEnLaSelva.Categoria(parti, monto, 1);
+                    Categoria categoria3 = new Categoria(parti, monto, 1);
                     circuitoAvanzado.add(categoria3);
                 default:
                     monto = 0;
@@ -93,7 +89,7 @@ public class Main {
 
 
     }
-    public static void showAll(List<carreraEnLaSelva.Categoria> cat){
+    public static void showAll(List<Categoria> cat){
         for (Categoria cate: cat){
             JOptionPane.showMessageDialog(null, "<html>Participantes Categoria" + cate.getParticipante().getCategoria() + ": <br> Nombre: "
                     + cate.getParticipante().getNombre() + "<br> Apellido: "

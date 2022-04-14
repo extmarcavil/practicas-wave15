@@ -1,6 +1,5 @@
 package carreraSelva;
 
-import carreraEnLaSelva.Participante;
 
 public class Categoria {
 
