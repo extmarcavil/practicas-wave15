@@ -1,16 +1,15 @@
 package IntegradoresP1.Supermercado;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Factura {
     private Cliente cliente;
-    private List<Item> items;
+    private List<Item> items = new LinkedList<>();
     private double total;
 
-    public Factura(Cliente cliente, List<Item> items, double total) {
-        this.cliente = cliente;
-        this.items = items;
-        this.total = total;
+    public Factura() {
     }
 
     public Cliente getCliente() {
@@ -39,10 +38,46 @@ public class Factura {
 
     @Override
     public String toString() {
-        return "Factura{" +
-                "cliente=" + cliente +
-                ", items=" + items +
-                ", total=" + total +
-                '}';
+        return "Factura del cliente " + cliente + ":\n" +
+                "\tItems:\n\t" + items +
+                "\n\tTotal: $" + total;
+    }
+
+    public void agregarItem(Scanner input){
+        // Agregar un item a una factura.
+        System.out.print("Codigo: ");
+        int codigo = Integer.parseInt(input.nextLine());
+        System.out.print("Nombre: ");
+        String nombre = input.nextLine();
+        System.out.print("Cantidad: ");
+        int cantidad = Integer.parseInt(input.nextLine());
+        System.out.print("Precio: ");
+        double costo = Double.parseDouble(input.nextLine());
+        Item item1 = new Item(codigo, nombre, cantidad, costo);
+        items.add(item1);
+        System.out.println("(+) Item agregado.");
+    }
+
+    public void eliminarItem(Scanner input) {
+        // Eliminar un item de una factura.
+        System.out.print("Codigo: ");
+        int codigo = Integer.parseInt(input.nextLine());
+        Item item = items.stream().filter(i -> i.getCodigo() == codigo).findFirst().get();
+        items.remove(item);
+        System.out.println("(-) Item eliminado.");
+    }
+
+    public void mostrarItems() {
+        // Mostrar los items de una factura.
+        items.forEach(System.out::println);
+    }
+
+    public void calcularTotal(Factura factura){
+        // Calcular el total de una factura.
+        double total = 0;
+        for (Item item : factura.getItems()){
+            total += item.getCostoUnitario() * item.getCantidadComprada();
+        }
+        factura.setTotal(total);
     }
 }

@@ -1,60 +1,71 @@
 package IntegradoresP1.Supermercado;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Cliente cliente1 = new Cliente("38135561", "Wendy", "Sclerandi");
-        Cliente cliente2 = new Cliente("38449217", "Alejandro", "Barsotti");
-        Cliente cliente3 = new Cliente("38123123", "Rafael", "Sobrero");
+        System.out.println("Supermercado El Económico");
+        System.out.println("-------------------------");
 
-        List<Cliente> clientes = new ArrayList<>();
-        clientes.add(cliente1);
-        clientes.add(cliente2);
-        clientes.add(cliente3);
+        // Creación de repositorio para guardar los clientes y facturas.
+        Repositorio repositorio = new Repositorio();
 
-        System.out.println("Listado de clientes: ");
-        for (Cliente cliente : clientes) {
-            System.out.println(cliente);
-        }
-
+        // Iniciar scanner.
         Scanner input = new Scanner(System.in);
-        String dni;
-        Cliente clienteEncontrado;
 
-        System.out.println();
-        System.out.println("Ingrese el DNI de un cliente para eliminarlo:");
-        dni = input.nextLine();
-        clienteEncontrado = null;
-        for (Cliente cliente : clientes){
-            if (cliente.getDni().equals(dni)){
-                clienteEncontrado = cliente;
-            }
-        }
-        if (clienteEncontrado != null) {
-            System.out.println("Se ha eliminado al cliente " + clienteEncontrado.getNombre());
-            clientes.remove(clienteEncontrado);
-        } else {
-            System.out.println("No se ha encontrado al cliente.");
-        }
-
-        System.out.println();
-        System.out.println("Ingrese el DNI de un cliente para mostrar sus datos:");
-        dni = input.nextLine();
-        clienteEncontrado = null;
-        for (Cliente cliente : clientes){
-            if (cliente.getDni().equals(dni)){
-                clienteEncontrado = cliente;
-            }
-        }
-        if (clienteEncontrado != null) {
-            System.out.println(clienteEncontrado);
-        } else {
-            System.out.println("No se ha encontrado al cliente.");
-        }
+        // Menu.
+        mostrarMenu(input, repositorio);
 
         input.close();
+    }
+
+    private static void mostrarMenu(Scanner input, Repositorio repositorio) {
+        System.out.println();
+        System.out.println("Seleccione una opción:");
+        System.out.println("1) (+) Agregar un cliente." );
+        System.out.println("2) (+) Agregar una factura.");
+        System.out.println("3) Listar los clientes.");
+        System.out.println("4) Listar las facturas.");
+        System.out.println("5) Mostrar los datos de un cliente.");
+        System.out.println("6) (-) Eliminar un cliente.");
+        System.out.println("7) Salir.");
+
+        int opcion = Integer.parseInt(input.nextLine());
+        switch (opcion) {
+            case 1: {
+                repositorio.agregarCliente(input);
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            case 2: {
+                repositorio.agregarFactura(input);
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            case 3: {
+                repositorio.mostrarListadoClientes();
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            case 4: {
+                repositorio.mostrarListadoFacturas();
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            case 5: {
+                repositorio.mostrarCliente(input);
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            case 6: {
+                repositorio.eliminarCliente(input);
+                mostrarMenu(input, repositorio);
+                break;
+            }
+            default:{
+                input.close();
+                break;
+            }
+        }
     }
 }

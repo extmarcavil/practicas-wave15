@@ -1,5 +1,7 @@
 package IntegradoresP1.Supermercado;
 
+import java.util.List;
+
 public class Item {
     private int codigo;
     private String nombre;
@@ -47,11 +49,9 @@ public class Item {
 
     @Override
     public String toString() {
-        return "Item{" +
-                "codigo=" + codigo +
-                ", nombre='" + nombre + '\'' +
-                ", cantidadComprada=" + cantidadComprada +
-                ", costoUnitario=" + costoUnitario +
-                '}';
+        return "(" + codigo + ") " + nombre + " | " +
+                "Cantidad: " + cantidadComprada + " | " +
+                "Precio: " + costoUnitario;
     }
+
 }
