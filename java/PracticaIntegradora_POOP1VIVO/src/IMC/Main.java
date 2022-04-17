@@ -2,9 +2,9 @@ package IMC;
 
 public class Main {
     public static void main(String[] args) {
-        Persona.Persona persona1 = new Persona.Persona();
-        Persona.Persona persona2 = new Persona.Persona("carlos", 19, "1234");
-        Persona.Persona persona3  = new Persona.Persona("carlos", 19, "1234", 80, 1.90);
+        Persona persona1 = new Persona();
+        Persona persona2 = new Persona("carlos", 19, "1234");
+        Persona persona3  = new Persona("carlos", 19, "1234", 80, 1.90);
 
 
         int imcP3 = persona3.calcularIMC();

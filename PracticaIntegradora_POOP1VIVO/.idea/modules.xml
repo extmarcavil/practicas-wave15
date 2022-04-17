@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/PracticaIntegradora_POOP1VIVO.iml" filepath="$PROJECT_DIR$/PracticaIntegradora_POOP1VIVO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../java/PracticaIntegradora_POOP1VIVO/PracticaIntegradora_POOP1VIVO.iml" filepath="$PROJECT_DIR$/../java/PracticaIntegradora_POOP1VIVO/PracticaIntegradora_POOP1VIVO.iml" />
     </modules>
   </component>
 </project>
