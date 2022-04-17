@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Garage {
     private String id;
-    private List<Vehiculo> parqueadero;
+    private List<Vehicle> vehicles;
 
     public String getId() {
         return id;
@@ -14,24 +14,24 @@ public class Garage {
         this.id = id;
     }
 
-    public List<Vehiculo> getParqueadero() {
-        return parqueadero;
+    public List<Vehicle> getVehicles() {
+        return vehicles;
     }
 
-    public void setParqueadero(List<Vehiculo> parqueadero) {
-        this.parqueadero = parqueadero;
+    public void setVehicles(List<Vehicle> vehicles) {
+        this.vehicles = vehicles;
     }
 
-    public Garage(String id, List<Vehiculo> parqueadero) {
+    public Garage(String id, List<Vehicle> parqueadero) {
         this.id = id;
-        this.parqueadero = parqueadero;
+        this.vehicles = parqueadero;
     }
 
     @Override
     public String toString() {
         return "Garage{" +
                 "id='" + id + '\'' +
-                ", parqueadero=" + parqueadero +
+                ", parqueadero=" + vehicles +
                 '}';
     }
 }

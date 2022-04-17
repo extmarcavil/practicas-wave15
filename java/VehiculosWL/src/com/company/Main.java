@@ -1,37 +1,54 @@
 package com.company;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Main {
 
     public static void main(String[] args) {
-        List<Vehiculo> vehiculoList = new List<>();
 
-        vehiculoList.add(new Vehiculo("Ford","Fiesta",1000));
-        vehiculoList.add(new Vehiculo("Ford","Focus",1200));
-        vehiculoList.add(new Vehiculo("Ford","Explorer",2500));
+        List<Vehicle> vehicles = new ArrayList<>();
 
-        vehiculoList.add(new Vehiculo("Fiat","Uno",500));
-        vehiculoList.add(new Vehiculo("Fiat","Chronos",2500));
-        vehiculoList.add(new Vehiculo("Fiat","Torino",2500));
+        vehicles.add(new Vehicle("Ford", "Fiesta", 1000));
+        vehicles.add(new Vehicle("Ford", "Focus", 1200));
+        vehicles.add(new Vehicle("Ford", "Explorer", 2500));
+        vehicles.add(new Vehicle("Ford", "Explorer", 500));
 
-        Garage nuestroGarage = new Garage("1",vehiculoList);
+        vehicles.add(new Vehicle("Fiat", "Uno", 500));
+        vehicles.add(new Vehicle("Fiat", "Chronos", 1000));
+        vehicles.add(new Vehicle("Fiat", "Torino", 1250));
 
-        List<Vehiculo> lista1 = vehiculoList.stream().sorted((vehiculo1,vehiculo2) -> {
-            if (vehiculo1.getPrecio() > vehiculo2.getPrecio()) return 1;
-            if (vehiculo2.getPrecio() > vehiculo1.getPrecio()) return -1;
+        vehicles.add(new Vehicle("Chevrolet", "Aveo", 1250));
+        vehicles.add(new Vehicle("Chevrolet", "Spin", 2500));
 
-                    return 0;
-                }
-                ).collect(Collectors.toList());
+        vehicles.add(new Vehicle("Toyota", "Corola", 1200));
+        vehicles.add(new Vehicle("Toyota", "Fortuner", 3000));
 
-        System.out.println("ORDENADOS POR PRECIO");
-        lista1.forEach(vehiculo -> System.out.println(vehiculo));
+        vehicles.add(new Vehicle("Renault", "Logan", 950));
 
+        Garage garage = new Garage("1", vehicles);
 
+        List<Vehicle> vehicles1 = vehicles.stream()
+                .sorted(Comparator.comparing(Vehicle::getPrice))
+                .toList();
 
+        List<Vehicle> vehicles2 = vehicles.stream()
+                .sorted(
+                        Comparator
+                                .comparing(Vehicle::getBrand)
+                                .thenComparing(Vehicle::getPrice)
+                ).toList();
 
+        List<Vehicle> vehicles3 = vehicles.stream()
+                .filter((vehicle) -> vehicle.getPrice() < 1000).toList();
+
+        List<Vehicle> vehicles4 = vehicles.stream()
+                .filter((vehicle) -> vehicle.getPrice() >= 1000).toList();
+
+        Double vehicles5 = vehicles.stream()
+                .mapToDouble(Vehicle::getPrice).sum()/vehicles.size();
     }
+
 }
