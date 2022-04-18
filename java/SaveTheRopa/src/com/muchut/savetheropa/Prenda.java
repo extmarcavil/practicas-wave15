@@ -12,6 +12,14 @@ public class Prenda {
         this.modelo = modelo;
     }
 
+    @Override
+    public String toString() {
+        return "Prenda{" +
+                "marca='" + marca + '\'' +
+                ", modelo='" + modelo + '\'' +
+                '}';
+    }
+
     public String getMarca() {
         return marca;
     }
