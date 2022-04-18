@@ -1,7 +1,7 @@
 package Supermercado;
 
 public class Item {
-    private long codigo;
+    private Long codigo;
     private String nombre;
     private int cant;
     private double constoUnitario;
@@ -9,18 +9,18 @@ public class Item {
     public Item() {
     }
 
-    public Item(long codigo, String nombre, int cant, double constoUnitario) {
+    public Item(Long codigo, String nombre, int cant, double constoUnitario) {
         this.codigo = codigo;
         this.nombre = nombre;
         this.cant = cant;
         this.constoUnitario = constoUnitario;
     }
 
-    public long getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(long codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 
@@ -46,5 +46,15 @@ public class Item {
 
     public void setConstoUnitario(double constoUnitario) {
         this.constoUnitario = constoUnitario;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "codigo=" + codigo +
+                ", nombre='" + nombre + '\'' +
+                ", cant=" + cant +
+                ", constoUnitario=" + constoUnitario +
+                '}';
     }
 }

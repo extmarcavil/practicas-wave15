@@ -1,5 +1,7 @@
 package AgenciaTurismo;
 
+import javax.xml.crypto.dsig.spec.TransformParameterSpec;
+
 public class Localizador {
     private Paquete paquete;
     private Cliente cliente;
@@ -23,6 +25,19 @@ public class Localizador {
     }
 
     public Localizador(Paquete paquete, Cliente cliente) {
+        boolean tieneBoleto=paquete.getBoleto().size()!=0;
+        boolean tieneComida=paquete.getComida().size()!=0;
+        boolean tieneReserva=paquete.getReserva().size()!=0;
+        boolean tieneTransporte= paquete.getTransporte() != null;
+        double descuento=0;
+        if(tieneBoleto && tieneReserva && tieneComida && tieneTransporte){
+            descuento=0.10;
+        }else if(paquete.getReserva().size()==2 || paquete.getBoleto().size()==2){
+            descuento=0.05;
+        }
+        if(descuento!=0){
+            paquete.cargarDescuento(descuento);
+        }
         this.paquete = paquete;
         this.cliente = cliente;
     }

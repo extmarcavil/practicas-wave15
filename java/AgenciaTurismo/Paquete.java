@@ -8,6 +8,7 @@ public class Paquete {
     private ArrayList<Boleto> boleto;
     private ArrayList<ReservaHotel> reserva;
     private Transporte transporte;
+    private double total;
 
     @Override
     public String toString() {
@@ -16,7 +17,7 @@ public class Paquete {
                 ", boleto=" + boleto +
                 ", reserva=" + reserva +
                 ", transporte=" + transporte +
-                '}';
+                ", Total: "+ total +"}";
     }
 
     public Paquete() {
@@ -55,5 +56,15 @@ public class Paquete {
 
     public void setTransporte(Transporte transporte) {
         this.transporte = transporte;
+    }
+
+    public void getTotal(){
+        total=this.boleto.stream().mapToDouble(Boleto::getPrecio).sum()+
+                this.transporte.getPrecio()+
+                this.reserva.stream().mapToDouble(ReservaHotel::getPrecio).sum()+
+                this.comida.stream().mapToDouble(Comida::getPrecio).sum();
+    }
+    public void cargarDescuento(double descuento){
+        total-=total*descuento;
     }
 }

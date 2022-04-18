@@ -3,7 +3,7 @@ package Supermercado;
 import java.util.ArrayList;
 
 public class Factura {
-    private long codigoF;
+    private Long codigoF;
     private double totalCompra;
     private Cliente cliente;
     private ArrayList<Item> items;
@@ -11,18 +11,18 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(long codigoF, double totalCompra, Cliente cliente, ArrayList<Item> items) {
+    public Factura(Long codigoF, double totalCompra, Cliente cliente, ArrayList<Item> items) {
         this.codigoF = codigoF;
         this.totalCompra = totalCompra;
         this.cliente = cliente;
         this.items = items;
     }
 
-    public long getCodigoF() {
+    public Long getCodigoF() {
         return codigoF;
     }
 
-    public void setCodigoF(long codigoF) {
+    public void setCodigoF(Long codigoF) {
         this.codigoF = codigoF;
     }
 
@@ -48,5 +48,15 @@ public class Factura {
 
     public void setItems(ArrayList<Item> items) {
         this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "codigoF=" + codigoF +
+                ", totalCompra=" + totalCompra +"\n"+
+                ", cliente=" + cliente +"\n"+
+                ", items=" + items +"\n"+
+                '}';
     }
 }
