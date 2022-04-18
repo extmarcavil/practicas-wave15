@@ -69,4 +69,16 @@ public abstract class Vehiculo {
     public double obtenerValorCarrera(){
         return (getVelocidad()*getAceleracion()/2)/(getAnguloDeGiro()*(getPeso()-(getRuedas()*100)));
     }
+
+    @Override
+    public String toString() {
+        return "Vehiculo{" +
+                "velocidad=" + velocidad +
+                ", aceleracion=" + aceleracion +
+                ", anguloDeGiro=" + anguloDeGiro +
+                ", patente='" + patente + '\'' +
+                ", peso=" + peso +
+                ", ruedas=" + ruedas +
+                '}';
+    }
 }
