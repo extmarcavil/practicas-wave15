@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 public class Client {
     private String dni;
@@ -36,5 +36,14 @@ public class Client {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "dni='" + dni + '\'' +
+                ", name='" + name + '\'' +
+                ", lastName='" + lastName + '\'' +
+                '}';
     }
 }

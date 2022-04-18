@@ -1,4 +1,4 @@
-package com.company;
+package com.company.model;
 
 public class Item {
     private String code;
@@ -36,5 +36,15 @@ public class Item {
 
     public void setPriceByUnit(Integer priceByUnit) {
         this.priceByUnit = priceByUnit;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "code='" + code + '\'' +
+                ", name='" + name + '\'' +
+                ", amount=" + amount +
+                ", priceByUnit=" + priceByUnit +
+                '}';
     }
 }
