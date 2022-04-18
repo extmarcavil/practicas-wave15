@@ -87,19 +87,11 @@ public class Consola {
             System.out.println("Desea seguir agregando productos? S/N");
             String salir = input.nextLine().toUpperCase(Locale.ROOT);
 
-            agregando = !salir.equals("S");
+            agregando = !salir.equals("N");
         }
 
         repositorioFactura.agregar(factura);
         return factura;
-    }
-
-    public static Integer agregarFactura(Factura factura) {
-        return repositorioFactura.agregar(factura);
-    }
-
-    public static Factura buscarFacturaPorId(Integer id) {
-        return repositorioFactura.getFacturas().get(id);
     }
 
     public static void mostrarClientes() {
