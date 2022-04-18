@@ -1,5 +1,6 @@
 package Clases;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Factura {
@@ -8,11 +9,11 @@ public class Factura {
     private ArrayList<Item> listado;
     private double costo_total;
 
-    public Factura(int id_factura, Cliente cliente, ArrayList<Item> listado, double costo_total) {
+    public Factura(int id_factura, Cliente cliente, ArrayList<Item> listado) {
         this.id_factura = id_factura;
         this.cliente = cliente;
         this.listado = listado;
-        this.costo_total = costo_total;
+        this.costo_total = 0;
     }
 
     public int getId_factura() {
@@ -29,5 +30,19 @@ public class Factura {
 
     public double getCosto_total() {
         return costo_total;
+    }
+    public void agregarProducto(Item producto){
+        this.listado.add(producto);
+        this.costo_total += producto.getCosto_unitario() * producto.getCantidad_comprada();
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "id_factura=" + id_factura +
+                ", cliente=" + cliente +
+                ", listado=" + listado +
+                ", costo_total=" + costo_total +
+                '}';
     }
 }
