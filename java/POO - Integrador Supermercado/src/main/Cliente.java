@@ -1,6 +1,8 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Cliente {
     private String nombre;
@@ -39,6 +41,15 @@ public class Cliente {
 
     public void setDni(String dni) {
         this.dni = dni;
+    }
+
+    public Cliente buscarXDni(String dni, List<Cliente> listado) {
+
+        Cliente cliente = listado.stream()
+                .filter(c -> c.getDni().equals(dni))
+                .findFirst()
+                .get();
+        return cliente;
     }
 
     @Override

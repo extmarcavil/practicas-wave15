@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Colecciones/Colecciones.iml" filepath="$PROJECT_DIR$/Colecciones/Colecciones.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Dakar/Dakar.iml" filepath="$PROJECT_DIR$/Dakar/Dakar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/carreraDeLaSelva/carreraDeLaSelva.iml" filepath="$PROJECT_DIR$/carreraDeLaSelva/carreraDeLaSelva.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicio1AbsInter/ejercicio1AbsInter.iml" filepath="$PROJECT_DIR$/ejercicio1AbsInter/ejercicio1AbsInter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicio1Java/ejercicio1Java.iml" filepath="$PROJECT_DIR$/ejercicio1Java/ejercicio1Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicio2AbstractasInterfaces/ejercicio2AbstractasInterfaces.iml" filepath="$PROJECT_DIR$/ejercicio2AbstractasInterfaces/ejercicio2AbstractasInterfaces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicio2JavaClase/ejercicio2JavaClase.iml" filepath="$PROJECT_DIR$/ejercicio2JavaClase/ejercicio2JavaClase.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicio3AbstractasInterfaces/ejercicio3AbstractasInterfaces.iml" filepath="$PROJECT_DIR$/ejercicio3AbstractasInterfaces/ejercicio3AbstractasInterfaces.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicioAgenciaDeViajes/ejercicioAgenciaDeViajes.iml" filepath="$PROJECT_DIR$/ejercicioAgenciaDeViajes/ejercicioAgenciaDeViajes.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicioGenericWrapperStreamsLamda/ejercicioGenericWrapperStreamsLamda.iml" filepath="$PROJECT_DIR$/ejercicioGenericWrapperStreamsLamda/ejercicioGenericWrapperStreamsLamda.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicioIntegradorJava/ejercicioIntegradorJava.iml" filepath="$PROJECT_DIR$/ejercicioIntegradorJava/ejercicioIntegradorJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ejercicioPOO1/ejercicioPOO1.iml" filepath="$PROJECT_DIR$/ejercicioPOO1/ejercicioPOO1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/estructurasBasicas/estructurasBasicas.iml" filepath="$PROJECT_DIR$/estructurasBasicas/estructurasBasicas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/practicas-wave15.iml" filepath="$PROJECT_DIR$/practicas-wave15.iml" />
+    </modules>
+  </component>
+</project>

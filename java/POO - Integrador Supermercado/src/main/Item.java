@@ -1,5 +1,7 @@
 package main;
 
+import java.util.List;
+
 public class Item {
     private String nombre;
     private double precio;

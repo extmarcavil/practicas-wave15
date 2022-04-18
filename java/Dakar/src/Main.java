@@ -15,7 +15,7 @@ public class Main {
 
         System.out.println("ahora eliminamos un vehiculo");
 
-        carreraAutos.eliminarVehiculoPorPatente("AB13CD");
+        carreraAutos.eliminarVehiculoPorPatente("AB23CD");
 
         carreraAutos.definirGanador();
 

@@ -3,17 +3,12 @@ package ejercicio;
 import java.util.ArrayList;
 
 public class Localizador {
-    // Las reservas son almacenadas en localizadores,
-    // los cuales contienen los datos del cliente,
-    // el total y la reserva o varias reservas dependiendo
-    // del producto adquirido. Por tanto los descuentos
-    // se aplicarán cuando:
 
     Cliente cliente;
     Double total;
     Paquete listaDeReservas;
 
-    public Localizador(Cliente cliente, Double total, Paquete listaDeReservas) {
+    public Localizador(ejercicio.Cliente cliente, Double total, ejercicio.Paquete listaDeReservas) {
         this.cliente = cliente;
         this.total = total;
         this.listaDeReservas = listaDeReservas;
