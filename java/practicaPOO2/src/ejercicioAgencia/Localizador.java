@@ -1,13 +1,21 @@
 package ejercicioAgencia;
 
-import java.util.ArrayList;
-
 public class Localizador {
+    private Cliente cliente;
     private Paquete paquete;
     private double total;
 
-    public Localizador(Paquete paquete) {
+    public Localizador(Cliente cliente, Paquete paquete) {
+        this.cliente = cliente;
         this.paquete = paquete;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public Paquete getPaquete() {
@@ -29,8 +37,15 @@ public class Localizador {
     @Override
     public String toString() {
         return "Localizador{" +
-                "paquete=" + paquete +
+                "cliente=" + cliente +
+                ", paquete=" + paquete +
                 ", total=" + total +
                 '}';
+    }
+
+    public double calcularPrecioTotalReservas() {
+        double totalReservas = paquete.getLstReservas().stream().mapToDouble(reserva -> reserva.calcularPrecioReserva()).sum();
+        System.out.println("El total de las reservas sin descuentos es de $" + totalReservas + "\n");
+        return total = totalReservas;
     }
 }

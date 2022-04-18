@@ -61,9 +61,10 @@ public class EjercicioIntegradorSupermercado {
         for (Cliente cliente : clientes) { System.out.println(cliente.toString()); }
 
         //Eliminando cliente en la posición 1 --> Romina
+        System.out.println();
+        System.out.println("Eliminando cliente...");
         clientes.remove(1);
 
-        System.out.println();
         for (Cliente cliente : clientes) { System.out.println(cliente.toString()); }
 
         Scanner scanner = new Scanner(System.in);

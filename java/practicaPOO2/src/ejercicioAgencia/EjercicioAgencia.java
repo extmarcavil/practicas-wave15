@@ -28,33 +28,49 @@ import java.util.ArrayList;
 public class EjercicioAgencia {
 
     public static void main(String[] args) {
+        //Creo la agencia de turismo
+        AgenciaDeTurismo agencia = new AgenciaDeTurismo();
+
         //Escenario 1 - Localizador con un paquete completo
-        ReservaHotel hotel1 = new ReservaHotel(2000);
-        ArrayList<ReservaHotel> lstHoteles1 = new ArrayList<>();
-        lstHoteles1.add(hotel1);
+        Reserva hotel1 = new ReservaHotel(2000, 1);
+        Reserva comida1 = new ReservaComida(500, 1);
+        Reserva boleto1 = new ReservaBoleto(1500, 1);
+        Reserva transporte1 = new ReservaTransporte(100, 1);
+        ArrayList<Reserva> lstReservas1 = new ArrayList<>();
+        lstReservas1.add(hotel1);
+        lstReservas1.add(comida1);
+        lstReservas1.add(boleto1);
+        lstReservas1.add(transporte1);
+        Paquete paqueteCompleto = new Paquete(lstReservas1);
 
-        ReservaComida comida1 = new ReservaComida(500);
-        ArrayList<ReservaComida> lstComidas1 = new ArrayList<>();
-        lstComidas1.add(comida1);
-
-        ReservaBoleto boleto1 = new ReservaBoleto(1500);
-        ArrayList<ReservaBoleto> lstBoletos1 = new ArrayList<>();
-        lstBoletos1.add(boleto1);
-
-        ReservaTransporte transporte1 = new ReservaTransporte(100);
-        ArrayList<ReservaTransporte> lstTransporte1 = new ArrayList<>();
-        lstTransporte1.add(transporte1);
-
-        Paquete paqueteCompleto = new Paquete(lstHoteles1, lstComidas1, lstBoletos1, lstTransporte1);
-
-        Localizador localizador1 = new Localizador(paqueteCompleto);
-        ArrayList<Localizador> lstLocalizadores = new ArrayList<>();
-        lstLocalizadores.add(localizador1);
         long dni = 123456789;
         String nombre = "Nicolás";
+        Cliente cliente = new Cliente(dni, nombre);
 
-        Cliente cliente = new Cliente(dni, nombre, lstLocalizadores);
+        Localizador localizador1 = new Localizador(cliente, paqueteCompleto);
+        System.out.println("Nuevo Localizador:");
+        System.out.println(agencia.calcularDescuentos(localizador1, localizador1.getCliente()));
 
-        System.out.println(cliente.toString());
+        //Escenario 2 - Localizador con 2 reservas de hotel y de boletos
+        Reserva hotel2 = new ReservaHotel(2000, 2);
+        Reserva boleto2 = new ReservaBoleto(1500, 2);
+        ArrayList<Reserva> lstReservas2 = new ArrayList<>();
+        lstReservas2.add(hotel2);
+        lstReservas2.add(boleto2);
+        Paquete paqueteHotelBoleto = new Paquete(lstReservas2);
+
+        Localizador localizador2 = new Localizador(cliente, paqueteHotelBoleto);
+        System.out.println("Nuevo Localizador:");
+        System.out.println(agencia.calcularDescuentos(localizador2, localizador2.getCliente()));
+
+        //Escenario 3 - Localizador con una sola reserva
+        Reserva comida2 = new ReservaComida(500, 1);
+        ArrayList<Reserva> lstReservas3 = new ArrayList<>();
+        lstReservas3.add(comida2);
+        Paquete paqueteUnaReserva = new Paquete(lstReservas3);
+
+        Localizador localizador3 = new Localizador(cliente, paqueteUnaReserva);
+        System.out.println("Nuevo Localizador:");
+        System.out.println(agencia.calcularDescuentos(localizador3, localizador3.getCliente()));
     }
 }
