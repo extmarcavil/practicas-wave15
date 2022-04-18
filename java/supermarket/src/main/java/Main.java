@@ -1,12 +1,15 @@
-import database.ClientDatabase;
+import repository.ClientRepository;
 import model.Client;
+import service.ClientService;
 
-import java.util.List;
 import java.util.stream.Stream;
 
 public class Main {
 
     public static void main(String[] args) {
+
+        ClientRepository repository = ClientRepository.getInstance();
+        ClientService clientService = ClientService.getInstance();
 
         Client[] clients = Stream.of(
                 new Client("33334434", "pepe", "elpepe"),
@@ -14,21 +17,9 @@ public class Main {
                 new Client("23233677", "olivia", "oli")
         ).toArray(Client[]::new);
 
-        ClientDatabase.saveClient(clients);
-
-        List<Client> clientList = ClientDatabase.getAll();
-        printClients(clientList);
-        ClientDatabase.deleteClient(clients[2]);
-        printClients(clientList);
-        findByDni("33334434");
+        repository.save(clients);
+        clientService.printClients();
+        repository.delete(clients[2]);
     }
 
-    public static void printClients(List<Client> clients) {
-        clients.forEach(System.out::println);
-    }
-
-    public static void findByDni(String dni) {
-        ClientDatabase.findByDni(dni)
-                .ifPresentOrElse(System.out::println, () -> System.out.printf("Client with DNI %s wasn't found%n", dni));
-    }
 }
