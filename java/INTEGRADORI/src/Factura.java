@@ -6,8 +6,9 @@ public class Factura {
     ArrayList<Producto> listProducts;
     double totalCompra;
 
-    public Factura(Cliente cliente, double totalCompra) {
+    public Factura(Cliente cliente, ArrayList<Producto> listProducts, double totalCompra) {
         this.cliente = cliente;
+        this.listProducts = listProducts;
         this.totalCompra = totalCompra;
     }
 
@@ -35,7 +36,7 @@ public class Factura {
         this.totalCompra = totalCompra;
     }
 
-    public void buscarCliente(ArrayList<Cliente> listClients, Cliente cliente){
+    public boolean buscarCliente(ArrayList<Cliente> listClients, Cliente cliente){
         boolean loEncontre = false;
         for (Cliente c : listClients) {
             if (cliente.getDni().equalsIgnoreCase(c.getDni())) {
@@ -43,8 +44,15 @@ public class Factura {
             }
         }
 
-        if(loEncontre == false){
-            Cliente cli = new Cliente();
-        }
+       return loEncontre;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "cliente=" + cliente +
+                ", listProducts=" + listProducts +
+                ", totalCompra=" + totalCompra +
+                '}';
     }
 }
