@@ -20,6 +20,17 @@ public class Main {
 
         supermercado.datosCliente(12);
 
+        //--------Generar Factura--------
+        Producto prod= new Producto(1,"galletitas oreo",3,250);
+        Producto prod2= new Producto(2,"leche",2,150);
+        List<Producto> productos= new ArrayList<>();
+        productos.add(prod);
+        productos.add(prod2);
+
+        supermercado.agregarFactura(13,productos);
+
+
+
 
 
 

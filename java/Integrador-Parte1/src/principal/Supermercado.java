@@ -4,8 +4,8 @@ import java.util.*;
 
 public class Supermercado {
     private String nombre;
-   private Map<Integer,Cliente> clientes; //K=dni v=Cliente
-   private Map<Integer,Factura> facturas; //K=dni del cliente v= Factura correspondiente;
+    private Map<Integer,Cliente> clientes; //K=dni v=Cliente
+    private Map<Integer,Factura> facturas; //K=dni del cliente v= Factura correspondiente;
 
     public Supermercado(String nombre){
         this.nombre= nombre;
@@ -13,7 +13,7 @@ public class Supermercado {
         this.facturas= new HashMap<>();
     }
 
-   public void agregarCliente(String nombre,String apellido,int dni){
+    public void agregarCliente(String nombre,String apellido,int dni){
         if(!clientes.containsKey(dni)){
             Cliente nuevoCli= new Cliente(nombre,apellido,dni);
             clientes.put(dni,nuevoCli);
@@ -22,7 +22,7 @@ public class Supermercado {
             System.out.println("ups! el usuario ya existe");
         }
 
-   }
+    }
 
     public void eliminarCliente(int dni){
         if(clientes.containsKey(dni)){
@@ -45,8 +45,22 @@ public class Supermercado {
         if(clientes.containsKey(dni)){
             System.out.println(clientes.get(dni));
         }else
-        System.out.println("Error, el cliente no existe");
+            System.out.println("Error, el cliente no existe");
     }
+
+    public void agregarFactura(int dni, List<Producto> productos){
+        if(!clientes.containsKey(dni)){
+            System.out.println("Error,no se pudo crear la factura, el cliente no existe");
+        }else{
+            Cliente cliente= clientes.get(dni);
+            Factura factura =new Factura(cliente,productos);
+            facturas.put(cliente.getDni(),factura);
+            System.out.println(factura);
+        }
+
+
+    }
+
 
 
 
