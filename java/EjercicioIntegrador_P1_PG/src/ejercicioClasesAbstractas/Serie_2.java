@@ -1,6 +1,6 @@
 package ejercicioClasesAbstractas;
 
-public class Clase1 extends Prototipo <Integer>{
+public class Serie_2 extends  Prototipo<Integer>{
 
     private int n=0;
     private int n0=0;
@@ -8,7 +8,7 @@ public class Clase1 extends Prototipo <Integer>{
 
     @Override
     public int nMasUno() {
-        n = series(n0) + n;
+        n = 2 + n;
         return n;
     }
 
@@ -24,28 +24,6 @@ public class Clase1 extends Prototipo <Integer>{
         n = n0;
     }
 
-    public int series (int ni){
-        int nMas;
-
-        switch (ni){
-            case 2:
-                nMas= 2;
-                break;
-
-            case 1:
-                nMas = 2;
-                break;
-
-            case 3:
-                nMas=3;
-                break;
-
-            default:
-                nMas=0;
-        }
-        return nMas;
-    }
-
     public int valorN (){
         cont++;
         if (cont <= 1 ) {
@@ -53,5 +31,4 @@ public class Clase1 extends Prototipo <Integer>{
         }else {return nMasUno();}
 
     }
-
 }

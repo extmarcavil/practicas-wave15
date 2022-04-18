@@ -2,28 +2,25 @@ package ejercicioClasesAbstractas;
 
 public class Main {
     public static void main(String[] args) {
-        Clase1 clase1 = new Clase1();
-        clase1.establecerValorInicial(1);
 
         int contador = 1;
+        Serie_2 serie_2 = new Serie_2();
+        serie_2.establecerValorInicial(1);
 
         while (contador < 9 ){
-            System.out.println(clase1.valorN());
+            System.out.println(serie_2.nMasUno());
             contador++;
         }
 
-        clase1.reiniciarSeri();
-
-        System.out.println("--------------");
+        System.out.println("---------------------------------------");
 
         contador = 1;
+        Serie_3 serie_3 = new Serie_3();
+        serie_3.establecerValorInicial(15);
 
         while (contador < 9 ){
-            System.out.println(clase1.valorN());
+            System.out.println(serie_3.nMasUno());
             contador++;
         }
-
-
-
     }
 }
