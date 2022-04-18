@@ -6,8 +6,6 @@ public class Localizador {
     private Paquete paquete;
     private Cliente cliente;
 
-
-
     public Paquete getPaquete() {
         return paquete;
     }
@@ -44,9 +42,8 @@ public class Localizador {
 
     @Override
     public String toString() {
-        String texto= "Localizador:\n"+
+        return "Localizador:\n"+
                 "Paquete:" + paquete.toString() +"\n"+
                 "Cliente:" + cliente.toString();
-        return texto;
     }
 }

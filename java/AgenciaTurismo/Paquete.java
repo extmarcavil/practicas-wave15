@@ -67,4 +67,21 @@ public class Paquete {
     public void cargarDescuento(double descuento){
         total-=total*descuento;
     }
+
+    public Integer getCantidadReservas(){
+        Integer cont=0;
+        if(!this.boleto.isEmpty()){
+            cont++;
+        }
+        if(!this.comida.isEmpty()){
+            cont++;
+        }
+        if(!this.reserva.isEmpty()){
+            cont++;
+        }
+        if(this.transporte!=null){
+            cont++;
+        }
+        return cont;
+    }
 }
