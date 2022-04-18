@@ -1,3 +1,5 @@
+package model;
+
 public class Item {
 
     private String codigo;
@@ -46,5 +48,15 @@ public class Item {
 
     public void setCostoUnitario(Double costoUnitario) {
         this.costoUnitario = costoUnitario;
+    }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "codigo='" + codigo + '\'' +
+                ", nombre='" + nombre + '\'' +
+                ", cantidadComprada=" + cantidadComprada +
+                ", costoUnitario=" + costoUnitario +
+                '}';
     }
 }

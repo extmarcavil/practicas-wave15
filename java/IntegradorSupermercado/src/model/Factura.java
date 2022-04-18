@@ -1,3 +1,5 @@
+package model;
+
 import java.util.List;
 
 public class Factura {
@@ -47,5 +49,15 @@ public class Factura {
 
     public void setTotal(Double total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "codigo=" + codigo +
+                ", cliente=" + cliente.toString() +
+                ", listaItems=" + listaItems +
+                ", total=" + total +
+                '}';
     }
 }
