@@ -28,6 +28,13 @@ public class RepositorioFactura implements Repositorio<Integer, Factura> {
         this.contador = contador;
     }
 
+    public void mostrarFacturas() {
+        this.facturas.forEach((p, q) -> {
+            System.out.println("Factura " + p + ":");
+            System.out.println(q.toString());
+        });
+    }
+
     @Override
     public Integer agregar(Factura factura) {
         Integer facturaId = contador;

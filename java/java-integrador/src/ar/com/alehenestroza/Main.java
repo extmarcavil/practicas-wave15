@@ -3,16 +3,16 @@ package ar.com.alehenestroza;
 public class Main {
 
     public static void main(String[] args) {
-        boolean running = true;
-
-        while (running) {
+        while (Consola.isRunning()) {
             Consola.mostrarMenu();
             int option = Consola.getInput();
 
             switch (option) {
                 case 1:
-                    Cliente c = Consola.buscarCliente(Consola.agregarCliente());
-                    System.out.println("Cliente creado.\n" + c.toString());
+                    Cliente c = Consola.crearCliente();
+                    if (c != null) {
+                        System.out.println("Cliente creado.\n" + c.toString());
+                    }
                     break;
                 case 2:
                     Consola.mostrarClientes();
@@ -25,14 +25,19 @@ public class Main {
                     }
                     break;
                 case 4:
+                    Factura f = Consola.crearFactura();
+                    if (f != null) {
+                        System.out.println("Factura creada.\n" + f.toString());
+                    }
                     break;
                 case 5:
+                    Consola.mostrarFacturas();
                     break;
                 case 6:
-                    running = false;
                     Consola.salir();
                     break;
                 default:
+                    System.out.println("Por favor, ingrese una opcion valida.\n");
                     break;
             }
         }

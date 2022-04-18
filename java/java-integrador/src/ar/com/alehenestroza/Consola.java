@@ -9,6 +9,7 @@ public class Consola {
     private final static RepositorioFactura repositorioFactura = new RepositorioFactura();
     private final static RepositorioCliente repositorioCliente = new RepositorioCliente();
     private final static Scanner input = new Scanner(System.in);
+    private static boolean running = true;
 
     public static RepositorioFactura getRepositorioFactura() {
         return repositorioFactura;
@@ -22,18 +23,19 @@ public class Consola {
         return input;
     }
 
-    public static String agregarCliente() {
+    public static Cliente crearCliente() {
         System.out.println("Ingrese los datos del cliente.");
         System.out.print("Ingrese el nombre: ");
         String nombre = input.nextLine();
         System.out.print("Ingrese el apellido: ");
         String apellido = input.nextLine();
-        System.out.println("Ingrese el documento: ");
+        System.out.print("Ingrese el documento: ");
         String documento = input.nextLine();
 
         if (!clienteYaExiste(documento)) {
             Cliente nuevoCliente = new Cliente(documento, nombre, apellido);
-            return repositorioCliente.agregar(nuevoCliente);
+            repositorioCliente.agregar(nuevoCliente);
+            return nuevoCliente;
         } else {
             System.out.println("El cliente ya se encuentra registrado en nuestra base de datos.");
             return null;
@@ -48,7 +50,7 @@ public class Consola {
         Cliente cliente = repositorioCliente.buscarPorDocumento(documento);
         if (cliente == null) {
             System.out.println("No se encontro el cliente en la base de datos. Por favor, registrelo a continuacion.");
-            documento = agregarCliente();
+            return crearCliente();
         }
         return repositorioCliente.buscarPorDocumento(documento);
     }
@@ -68,9 +70,8 @@ public class Consola {
         return new Item(nombre, codigo, cantidad, precioUnitario);
     }
 
-    public static Integer agregarFactura() {
+    public static Factura crearFactura() {
         System.out.println("Ingrese los datos de la factura.");
-
         System.out.print("Ingrese el documento del cliente: ");
         String documento = input.nextLine();
 
@@ -83,14 +84,17 @@ public class Consola {
         while (agregando) {
             factura.addItem(agregarProducto());
 
-            System.out.println("Desea seguir agregando productos? S / N");
+            System.out.println("Desea seguir agregando productos? S/N");
             String salir = input.nextLine().toUpperCase(Locale.ROOT);
 
-            if (salir.equals("S")) {
-                agregando = false;
-            }
+            agregando = !salir.equals("S");
         }
 
+        repositorioFactura.agregar(factura);
+        return factura;
+    }
+
+    public static Integer agregarFactura(Factura factura) {
         return repositorioFactura.agregar(factura);
     }
 
@@ -100,6 +104,10 @@ public class Consola {
 
     public static void mostrarClientes() {
         repositorioCliente.mostrarClientes();
+    }
+
+    public static void mostrarFacturas() {
+        repositorioFactura.mostrarFacturas();
     }
 
     public static boolean eliminarCliente() {
@@ -135,8 +143,12 @@ public class Consola {
         return returnValue;
     }
 
+    public static boolean isRunning() {
+        return running;
+    }
+
     public static void salir() {
         input.close();
-        System.exit(0);
+        running = false;
     }
 }
