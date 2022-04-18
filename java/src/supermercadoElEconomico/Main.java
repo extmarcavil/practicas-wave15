@@ -2,12 +2,20 @@ package supermercadoElEconomico;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Main {
-    static ArrayList<Cliente> listaClientes = new ArrayList<>();;
+    //static ArrayList<Cliente> listaClientes = new ArrayList<>();
+    static ArrayList<Factura> listaFacturas = new ArrayList<>();
+
     public static void main(String[] args) {
+
+        ClienteImp cliImp = new ClienteImp();
+        FacturaImp facturaImp = new FacturaImp();
+
+        ArrayList<Item> listaItem = new ArrayList<>();
 
         int dni;
         Cliente c1 = new Cliente(38,"Lisandro","Lopez");
@@ -20,89 +28,72 @@ public class Main {
 
         while(!salir){
 
-            System.out.println("\n1. Crear cliente");
-            System.out.println("2. Eliminar cliente");
-            System.out.println("3. Consultar cliente");
-            System.out.println("4. Salir");
+            System.out.println("\n\t1) Crear cliente");
+            System.out.println("\t2) Eliminar cliente");
+            System.out.println("\t3) Consultar clientes");
+            System.out.println("\t4) Crear una factura");
+            System.out.println("\t5) Salir");
 
-            System.out.print("\nEscribe una de las opciones: ");
+
+            System.out.print("\nElija una de las opciones: ");
             opcion = sn.nextInt();
 
             switch(opcion){
                 case 1:
-                    crearCliente(c1);
-                    crearCliente(c2);
-                    crearCliente(c3);
+                    cliImp.guardar(c1);
+                    cliImp.guardar(c2);
+                    cliImp.guardar(c3);
                     break;
                 case 2:
-                    eliminarCliente();
+                    cliImp.eliminar();
                     break;
                 case 3:
-                    consultarGenerico();
+                    cliImp.consultar();
                     break;
-                case 4:
+                case 5:
                     salir = true;
                     break;
+                case 4:
+
+                    Item it = new Item(1,"Shampoo",2,150);
+                    Item it2 = new Item(2,"Jabón",5,85);
+                    Item it3 = new Item(3,"Pasta dental",1,230);
+
+                    listaItem.add(it);
+                    listaItem.add(it2);
+                    listaItem.add(it3);
+
+                    Cliente c = null;
+
+                    System.out.print("\n\tIngrese DNI cliente: ");
+                    int dniTemp = sn.nextInt();
+                    Cliente cliTemp = cliImp.buscar(dniTemp);
+                    if(cliTemp == null){
+
+                        System.out.print("\tIngrese el nombre: ");
+                        String nombre = sn.next();
+                        System.out.print("\tIngrese el apellido: ");
+                        String apellido = sn.next();
+
+                        c = new Cliente(dniTemp,nombre,apellido);
+                        cliImp.guardar(c);
+                    }else{
+                        c = cliTemp;
+                    }
+
+                    Factura f = new Factura(c,listaItem);
+                    f.calcularTotal();
+
+                    facturaImp.guardar(f);
+                    facturaImp.consultar();
+
+                    break;
                 default:
-                    System.out.println("Solo números entre 1 y 4");
+                    System.out.println("Solo números entre 1 y 5");
             }
 
         }
 
-    }
-
-    public static void crearCliente(Cliente cliente){
-        listaClientes.add(cliente);
-    }
-
-    public static void consultar(){
-        listaClientes.forEach(System.out::println);
-    }
-
-    public static void consultar(int dni){
-        listaClientes.stream().filter(x -> x.getDni() == dni).forEach(System.out::println);
-        List<Cliente> listaTemp = listaClientes.stream()
-                .filter(x -> x.getDni() == dni).collect(Collectors.toList());
-        if(listaTemp.size() == 0)
-            System.out.println("DNI no encontrado.");
-
-    }
-
-    public static void eliminarCliente(){
-
-        Scanner sn = new Scanner(System.in);
-
-        System.out.print("\nIngrese DNI: ");
-        int dni = sn.nextInt();
-
-        List<Cliente> listaTemp = listaClientes.stream()
-                .filter(x -> x.getDni() == dni).collect(Collectors.toList());
-        if(listaTemp.size() == 0) {
-            System.out.println("DNI no encontrado.");
-        }else{
-            listaClientes.removeIf(p -> p.getDni() == dni);
-        }
-    }
-
-    public static void consultarGenerico(){
-        int dni;
-        Scanner sn = new Scanner(System.in);
-        System.out.println("\n1. Consultar todos");
-        System.out.println("2. Consultar por DNI");
-        System.out.println("\nEscribe una de las opciones");
-        int opcion = sn.nextInt();
-        switch(opcion){
-            case 1:
-                consultar();
-                break;
-            case 2:
-                System.out.print("\nIngrese DNI: ");
-                dni = sn.nextInt();
-                consultar(dni);
-                break;
-            default:
-                System.out.println("Solo números entre 1 y 2");
-        }
     }
 
 }

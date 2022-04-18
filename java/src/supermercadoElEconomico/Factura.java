@@ -13,7 +13,11 @@ public class Factura {
     }
 
     public void calcularTotal(){
-
+        double suma = 0;
+        for(Item i: listaItems){
+            suma = suma + (i.getCantidad()*i.getCostoUnitario());
+        }
+        totalCompra = suma;
     }
 
     public Cliente getCliente() {
@@ -38,5 +42,14 @@ public class Factura {
 
     public void setTotalCompra(double totalCompra) {
         this.totalCompra = totalCompra;
+    }
+
+    @Override
+    public String toString() {
+        return "Factura{" +
+                "cliente=" + cliente +
+                ", listaItems=" + listaItems +
+                ", totalCompra=" + totalCompra +
+                '}';
     }
 }
