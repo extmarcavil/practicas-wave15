@@ -1,22 +1,22 @@
 package ar.com.alehenestroza;
 
 public class Cliente {
-    private String dni;
+    private String documento;
     private String nombre;
     private String apellido;
 
-    public Cliente(String dni, String nombre, String apellido) {
-        this.dni = dni;
+    public Cliente(String documento, String nombre, String apellido) {
+        this.documento = documento;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
-    public String getDni() {
-        return dni;
+    public String getDocumento() {
+        return documento;
     }
 
-    public void setDni(String dni) {
-        this.dni = dni;
+    public void setDocumento(String documento) {
+        this.documento = documento;
     }
 
     public String getNombre() {
@@ -38,9 +38,17 @@ public class Cliente {
     @Override
     public String toString() {
         return "Cliente{" +
-                "dni='" + dni + '\'' +
+                "documento='" + documento + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Cliente) {
+            return this.documento.equals(((Cliente) obj).getDocumento());
+        }
+        return false;
     }
 }
