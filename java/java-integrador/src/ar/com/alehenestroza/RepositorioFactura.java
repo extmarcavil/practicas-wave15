@@ -35,6 +35,10 @@ public class RepositorioFactura implements Repositorio<Integer, Factura> {
         });
     }
 
+    public Factura buscarPorId(Integer id) {
+        return facturas.get(id);
+    }
+
     @Override
     public Integer agregar(Factura factura) {
         Integer facturaId = contador;

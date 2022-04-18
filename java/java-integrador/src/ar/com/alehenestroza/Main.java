@@ -18,22 +18,25 @@ public class Main {
                     Consola.mostrarClientes();
                     break;
                 case 3:
+                    Consola.buscarCliente();
+                    break;
+                case 4:
                     if (Consola.eliminarCliente()) {
                         System.out.println("Cliente eliminado con exito.");
                     } else {
                         System.out.println("No se encontro el cliente.");
                     }
                     break;
-                case 4:
+                case 5:
                     Factura f = Consola.crearFactura();
                     if (f != null) {
                         System.out.println("Factura creada.\n" + f.toString());
                     }
                     break;
-                case 5:
+                case 6:
                     Consola.mostrarFacturas();
                     break;
-                case 6:
+                case 7:
                     Consola.salir();
                     break;
                 default:

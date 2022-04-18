@@ -1,7 +1,5 @@
 package ar.com.alehenestroza;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -42,20 +40,15 @@ public class Consola {
         }
     }
 
-    public static boolean clienteYaExiste(String documento) {
+    private static boolean clienteYaExiste(String documento) {
         return repositorioCliente.getClientes().containsKey(documento);
     }
 
-    public static Cliente buscarCliente(String documento) {
-        Cliente cliente = repositorioCliente.buscarPorDocumento(documento);
-        if (cliente == null) {
-            System.out.println("No se encontro el cliente en la base de datos. Por favor, registrelo a continuacion.");
-            return crearCliente();
-        }
+    private static Cliente buscarClientePorDocumento(String documento) {
         return repositorioCliente.buscarPorDocumento(documento);
     }
 
-    public static Item agregarProducto() {
+    private static Item agregarProducto() {
         System.out.print("Ingrese el nombre del producto: ");
         String nombre = input.nextLine();
         System.out.print("Ingrese el codigo del producto: ");
@@ -75,7 +68,11 @@ public class Consola {
         System.out.print("Ingrese el documento del cliente: ");
         String documento = input.nextLine();
 
-        Cliente cliente = buscarCliente(documento);
+        Cliente cliente = buscarClientePorDocumento(documento);
+        if (cliente == null) {
+            System.out.println("No se encontro el cliente en la base de datos. Por favor, registrelo a continuacion.");
+            cliente = crearCliente();
+        }
         Factura factura = new Factura(cliente);
 
         System.out.println("Ingrese los productos comprados");
@@ -111,14 +108,27 @@ public class Consola {
         return c != null;
     }
 
+    public static void buscarCliente() {
+        System.out.print("Ingrese el documento del cliente: ");
+        String documento = input.nextLine();
+        Cliente cliente = buscarClientePorDocumento(documento);
+        if (cliente != null) {
+            System.out.println("Cliente encontrado:");
+            System.out.println(cliente.toString());
+        } else {
+            System.out.println("No se encontro un cliente con ese documento.");
+        }
+    }
+
     public static void mostrarMenu() {
         System.out.println("--- Supermercado \"El Económico\" ---");
         System.out.println("\n1: Nuevo Cliente\n" +
                 "2: Mostrar Clientes\n" +
-                "3: Eliminar Cliente\n" +
-                "4: Nueva Factura\n" +
-                "5: Mostrar Facturas\n" +
-                "6: Salir\n");
+                "3: Buscar cliente\n" +
+                "4: Eliminar Cliente\n" +
+                "5: Nueva Factura\n" +
+                "6: Mostrar Facturas\n" +
+                "7: Salir\n");
     }
 
     public static int getInput() {
