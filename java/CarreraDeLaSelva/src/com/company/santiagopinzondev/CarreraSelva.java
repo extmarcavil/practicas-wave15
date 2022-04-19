@@ -13,6 +13,7 @@ public class CarreraSelva {
         System.out.println("Introduzca un grupo sanguineo");
         String sanguineo = entrada.nextLine();
         System.out.println("Introduzca una categoria");
+        System.out.println("- chico\n - medio\n - avanzado");
         String categoria = entrada.nextLine();
         System.out.println("Introduzca la edad");
         String edad = entrada.nextLine();
@@ -34,7 +35,6 @@ public class CarreraSelva {
         user.put("sanguineo", sanguineo);
 
         if (categoria.equals("chico")){
-            System.out.println("etreeeeee");
             listaChico.add(user);
         }
         else if (categoria.equals("medio")){
@@ -46,14 +46,21 @@ public class CarreraSelva {
 
 
     }
-    static void deleteUser(Scanner entrada, List<Map> listaChico) {
+
+    static void deleteUser(Scanner entrada, List<Map> listaChico, List<Map> listaMedio, List<Map> listaAvanzado) {
         System.out.println("Escriba el dni del user que quiere eliminar");
         int dniEliminar = Integer.parseInt(entrada.nextLine());
+
+        listaChico = knowIndexUser(dniEliminar, listaChico);
+        listaMedio = knowIndexUser(dniEliminar, listaMedio);
+        listaAvanzado = knowIndexUser(dniEliminar, listaAvanzado);
+
+    }
+    static List<Map> knowIndexUser(int dniEliminar, List<Map> listaCategory){
         int indexUser = 0;
         boolean exitFor = false;
 
-
-        for(Map<String, String> person : listaChico) {
+        for(Map<String, String> person : listaCategory) {
             // get entrySet() into Set
             Set<String> setOfListaChico = person.keySet();
             // Collection Iterator
@@ -72,8 +79,12 @@ public class CarreraSelva {
             }
             indexUser++;
         }
-        listaChico.remove(indexUser);
-        System.out.println("El user ha sido eliminado");
+        if (indexUser < listaCategory.size() && exitFor){
+            listaCategory.remove(indexUser);
+            System.out.println("El user ha sido eliminado");
+        }
+
+        return listaCategory;
     }
     static void listUserCategoria(Scanner entrada, List<Map> listaChico, List<Map> listaMedio, List<Map> listaAvanzado){
         System.out.println("Escriba la categoria, para listar los usuarios de esta: ");
@@ -101,7 +112,7 @@ public class CarreraSelva {
                         break;
                 case 2: listUserCategoria(entrada, listaChico, listaMedio, listaAvanzado);
                         break;
-                case 3: deleteUser(entrada, listaChico);
+                case 3: deleteUser(entrada, listaChico, listaMedio, listaAvanzado);
                         break;
             }
         } while (breaks != 0);
