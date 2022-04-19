@@ -1,10 +1,10 @@
 public class Vehiculo {
-    double velocidad;
-    double aceleracion;
-    double anguloDeGiro;
-    String patente;
-    double peso;
-    int ruedas;
+    private double velocidad;
+    private double aceleracion;
+    private double anguloDeGiro;
+    private String patente;
+    private double peso;
+    private int ruedas;
 
     public Vehiculo(double velocidad, double aceleracion, double anguloDeGiro, String patente, double peso, int ruedas) {
         this.velocidad = velocidad;
@@ -17,14 +17,7 @@ public class Vehiculo {
 
     @Override
     public String toString() {
-        return "Vehiculo{" +
-                "velocidad=" + velocidad +
-                ", aceleracion=" + aceleracion +
-                ", anguloDeGiro=" + anguloDeGiro +
-                ", patente='" + patente + '\'' +
-                ", peso=" + peso +
-                ", ruedas=" + ruedas +
-                '}';
+        return "Hola soy un/a " + this.getClass().getSimpleName() +" con patente " + patente;
     }
 
     public double getVelocidad() {

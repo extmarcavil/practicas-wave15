@@ -2,7 +2,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Carrera {
-
     private double distancia;
     private int premioEnDolares;
     private String nombre;
@@ -22,26 +21,23 @@ public class Carrera {
     }
 
     public void darDeAltaAuto(double velocidad, double aceleracion, double anguloDeGiro, String patente) {
-        if(vehiculos.size()<cantidadVehiculos) {
-            Auto auto = new Auto(velocidad, aceleracion, anguloDeGiro, patente);
-            vehiculos.add(auto);
-        } else{
+        if(vehiculos.size()>=cantidadVehiculos) {
             System.out.println("No hay espacio para mas vehiculos :(");
+            return;
         }
 
+        Auto auto = new Auto(velocidad, aceleracion, anguloDeGiro, patente);
+        vehiculos.add(auto);
     }
 
     public void darDeAltaMoto(double velocidad,double aceleracion,double anguloDeGiro,String patente){
-
-
         if(vehiculos.size()>=cantidadVehiculos){
             System.out.println("No hay espacio para mas vehiculos :(");
             return;
         }
+
         Moto moto = new Moto(velocidad, aceleracion, anguloDeGiro, patente);
         vehiculos.add(moto);
-
-
     }
 
     public void eliminarVehiculo(Vehiculo vehiculo){
@@ -54,7 +50,6 @@ public class Carrera {
     }
 
     public void eliminarVehiculoConPatente(String unaPatente){
-
         Vehiculo vehiculo=vehiculos.stream()
                 .filter(v -> v.getPatente().equalsIgnoreCase(unaPatente))
                 .findFirst()
@@ -68,7 +63,6 @@ public class Carrera {
     }
 
     public Vehiculo ganador(){
-
         double max=-214748364;
         Vehiculo ganador=null;
 
@@ -80,43 +74,39 @@ public class Carrera {
                 ganador=v;
             }
         }
+
         return ganador;
-
-
     }
 
     public void socorrerAuto(String patente){
-
         Vehiculo vehiculo=vehiculos.stream()
                 .filter(v -> v.getPatente().equals(patente))
                 .findFirst()
                 .orElse( null);
 
 
-        if(vehiculo!=null){
-            socorristaAuto.scorrer(vehiculo);
-            System.out.println("Auto socorrido");
+        if(vehiculo==null){
+            System.out.println("No se encontro Auto para socorrer con la petente: " + patente);
+            return;
         }
 
+        socorristaAuto.socorrer(vehiculo);
+        System.out.println("Auto socorrido");
     }
 
     public void socorrerMoto(String patente){
-
         Vehiculo vehiculo=vehiculos.stream()
                 .filter(v -> v.getPatente().equals(patente))
                 .findFirst()
                 .orElse( null);
 
 
-        if(vehiculo!=null){
-            socorristaMoto.scorrer(vehiculo);
-            System.out.println("Moto socorrida");
+        if(vehiculo==null){
+            System.out.println("No se encontro Moto para socorrer con la petente: " + patente);
+            return;
         }
 
+        socorristaMoto.socorrer(vehiculo);
+        System.out.println("Moto socorrida");
     }
-
-
-
-
-
 }
