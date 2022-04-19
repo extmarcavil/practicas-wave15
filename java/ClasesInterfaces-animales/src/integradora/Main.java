@@ -18,5 +18,10 @@ public class Main {
 
         vaca.emitirSonido();
         vaca.comerHierba();
+
+        Comer comer = new Comer();
+        comer.comerAnimal(new Gato());
+        comer.comerAnimal(new Perro());
+        comer.comerAnimal(new Vaca());
     }
 }
