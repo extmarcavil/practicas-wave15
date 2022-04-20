@@ -9,9 +9,9 @@ import java.util.Map;
 
 @RestController
 public class MorseCodeController {
-    @GetMapping("/{morseCode}")
-    public String getMessage(@PathVariable String morseCode){
-        Map<String, String> morseChars = new HashMap<>();
+    public static Map<String, String> morseChars;
+    static {
+        morseChars = new HashMap<>();
         morseChars.put(".-", "A");
         morseChars.put("-...", "B");
         morseChars.put("-.-.", "C");
@@ -52,7 +52,10 @@ public class MorseCodeController {
         morseChars.put("-.-.--", "!");
         morseChars.put(".-.-.-", ".");
         morseChars.put("--..--", ",");
+    }
 
+    @GetMapping("/{morseCode}")
+    public String getMessage(@PathVariable String morseCode){
         String message = "";
 
         for(String word : morseCode.split("   ")){
@@ -62,6 +65,6 @@ public class MorseCodeController {
             message += " ";
         }
 
-        return message;
+        return message.substring(0, message.length() - 1);
     }
 }
