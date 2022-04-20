@@ -56,8 +56,8 @@ public class EjercicioVehiculos {
 
         //Lista ordenada por precio de menor a mayor
         System.out.println("Lista ordenada por precio de menor a mayor:");
-//        garaje.getVehiculos().stream()
-//            .sorted(Comparator.comparingDouble(Vehiculo::getCosto))
+    //        garaje.getVehiculos().stream()
+    //            .sorted(Comparator.comparingDouble(Vehiculo::getCosto))
 //            .forEach(System.out::println);
         garaje.getVehiculos().sort(Comparator.comparingDouble(Vehiculo::getCosto));
         garaje.getVehiculos().stream().forEach(System.out::println);
