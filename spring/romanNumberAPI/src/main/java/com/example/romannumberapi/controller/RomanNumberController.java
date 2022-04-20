@@ -4,73 +4,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.TreeMap;
+
 @RestController
 public class RomanNumberController {
 
-    @GetMapping("/convertToRoman /{number}")
-    public static String convertToRoman(@PathVariable double number) {
-        double i, miles, centenas, decenas, unidades;
+    @GetMapping("/convertToRoman/{number}")
+    public static String convertToRoman(@PathVariable int number) {
+        TreeMap<Integer, String> map = new TreeMap<Integer, String>();
+        map.put(1000, "M");
+        map.put(900, "CM");
+        map.put(500, "D");
+        map.put(400, "CD");
+        map.put(100, "C");
+        map.put(90, "XC");
+        map.put(50, "L");
+        map.put(40, "XL");
+        map.put(10, "X");
+        map.put(9, "IX");
+        map.put(5, "V");
+        map.put(4, "IV");
+        map.put(1, "I");
+
         String romanNumber = "";
 
-        //Obtener cifras del nro
-        miles = number / 1000;
-        centenas = number / 100 % 10;
-        decenas = number / 10 % 10;
-        unidades = number % 10;
-
-        //Validar millar
-        for (i = 1; i <= miles; i++) {
-            romanNumber = romanNumber + "M";
+        while( number != 0 ){
+            int floorKeyNumber = map.floorKey(number);
+            romanNumber += map.get(floorKeyNumber);
+            number -= floorKeyNumber;
         }
-
-        //Validar centenas
-        if (centenas == 9) {
-            romanNumber = romanNumber + "CM";
-        } else if (centenas >= 5) {
-            romanNumber = romanNumber + "D";
-            for (i = 6; i <= centenas; i++) {
-                romanNumber = romanNumber + "C";
-            }
-        } else if (centenas == 4) {
-            romanNumber = romanNumber + "CD";
-        } else {
-            for (i = 1; i <= centenas; i++) {
-                romanNumber = romanNumber + "C";
-            }
-        }
-
-        //Validar decenas
-        if (decenas == 9) {
-            romanNumber = romanNumber + "XC";
-        } else if (decenas >= 5) {
-            romanNumber = romanNumber + "L";
-            for (i = 6; i <= decenas; i++) {
-                romanNumber = romanNumber + "X";
-            }
-        } else if (decenas == 4) {
-            romanNumber = romanNumber + "XL";
-        } else {
-            for (i = 1; i <= decenas; i++) {
-                romanNumber = romanNumber + "X";
-            }
-        }
-
-        //Validar unidades
-        if (unidades == 9) {
-            romanNumber = romanNumber + "IX";
-        } else if (unidades >= 5) {
-            romanNumber = romanNumber + "V";
-            for (i = 6; i <= unidades; i++) {
-                romanNumber = romanNumber + "I";
-            }
-        } else if (unidades == 4) {
-            romanNumber = romanNumber + "IV";
-        } else {
-            for (i = 1; i <= unidades; i++) {
-                romanNumber = romanNumber + "I";
-            }
-        }
-
         return romanNumber;
     }
 
