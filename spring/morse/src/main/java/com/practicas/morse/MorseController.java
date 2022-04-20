@@ -46,10 +46,7 @@ public class MorseController {
         for (String parte: cadena.split("   ")) {
             for (String caracter: parte.split(" ")) {
                 String temp = caracteres.get(caracter);
-                if(temp == null){
-                    temp = "";
-                }
-                resultado = resultado + temp;
+                resultado = (temp == null) ? resultado + "" : resultado + temp;
             }
             resultado = resultado + " ";
         }
@@ -62,14 +59,11 @@ public class MorseController {
         for (String parte: cadena.toUpperCase().split(" ")) {
             for (Character caracter: parte.toCharArray()) {
                 String temp = caracteresInversos.get(caracter.toString());
-                if(temp == null){
-                    temp = "";
-                }
-                resultado = resultado + temp+" ";
+                resultado = (temp == null) ? resultado + "" : resultado + " " + temp;
             }
             resultado = resultado + "   ";
         }
-        return resultado.substring(0,resultado.length()-4);
+        return resultado.substring(1,resultado.length()-3);
     }
 
 }
