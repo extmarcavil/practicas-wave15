@@ -11,12 +11,6 @@ import java.util.Map;
 @RestController
 public class CodigomorseApplicationController {
 
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String create(@RequestBody String body) {
-        return body;
-    }
-
     @GetMapping("/convert/{code}")
     public String convertMorse(@PathVariable String code){
         String[] palabras = code.split("   ");
