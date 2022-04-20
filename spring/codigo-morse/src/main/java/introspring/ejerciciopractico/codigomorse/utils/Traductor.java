@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 public class Traductor {
     private static final Map<String, String> caracteres;
@@ -34,6 +35,14 @@ public class Traductor {
     public static String traducir(String palabraMorse){
         StringBuilder resp= new StringBuilder();
         String[] palabras=palabraMorse.split("   ");
+        /*return Arrays.stream(palabras)
+                .map(s ->
+                     Arrays.stream(s.split(" "))
+                            .map(letra->caracteres.getOrDefault(letra,"*"))
+                            .reduce(String::concat).orElse("ERROR")
+                )
+                .reduce("",(x,y)-> x +" "+y);
+*/
         for (String palabra : palabras) {
             String[] letras = palabra.split(" ");
             for(String letra : letras){
