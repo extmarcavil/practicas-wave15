@@ -1,0 +1,13 @@
+package com.apideportistas;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class ApiDeportistasApplicationTests {
+
+    @Test
+    void contextLoads() {
+    }
+
+}
