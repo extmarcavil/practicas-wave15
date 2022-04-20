@@ -15,15 +15,13 @@ public class MorseController {
         StringBuilder result = new StringBuilder();
         String[] codeArrayWithSpaces = code.split("   ");
         for(String array : codeArrayWithSpaces){
-            String[] newArray = array.split(" ");
-            for(int i=0; i<newArray.length; i++){
-                String letra = mapMorse().get(newArray[i]);
+            String[] codeArrayPalabra = array.split(" ");
+            for(int i=0; i<codeArrayPalabra.length; i++){
+                String letra = mapMorse().get(codeArrayPalabra[i]);
                 result.append(letra);
             }
             result.append(" ");
         }
-
-
         return result;
     }
     public static Map<String, String> mapMorse() {
