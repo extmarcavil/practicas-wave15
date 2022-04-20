@@ -9,9 +9,11 @@ import java.util.Map;
 
 @RestController
 public class MorseController {
-    public static Map<String, String> caracteres;
+    public static HashMap<String, String> caracteres;
+    public static HashMap<String, String> caracteresInversos;
     static {
         caracteres = new HashMap<>();
+        caracteresInversos = new HashMap<>();
         caracteres.put(".-", "A");caracteres.put("-...", "B");
         caracteres.put("-.-.", "C");caracteres.put("-..", "D");
         caracteres.put(".", "E");caracteres.put("..-.", "F");
@@ -33,6 +35,9 @@ public class MorseController {
         caracteres.put("..--..", "?");caracteres.put("-.-.--", "!");
         caracteres.put(".-.-.-", ".");caracteres.put("--..--", ",");
 
+        for(Map.Entry<String, String> entry : caracteres.entrySet()){
+            caracteresInversos.put(entry.getValue(), entry.getKey());
+        }
     }
 
     @GetMapping("morse/{cadena}")
@@ -48,6 +53,23 @@ public class MorseController {
             }
             resultado = resultado + " ";
         }
-        return resultado;
+        return resultado.substring(0, resultado.length()-1);
     }
+
+    @GetMapping("string/{cadena}")
+    public String getMorse(@PathVariable String cadena){
+        String resultado = "";
+        for (String parte: cadena.toUpperCase().split(" ")) {
+            for (Character caracter: parte.toCharArray()) {
+                String temp = caracteresInversos.get(caracter.toString());
+                if(temp == null){
+                    temp = "";
+                }
+                resultado = resultado + temp+" ";
+            }
+            resultado = resultado + "   ";
+        }
+        return resultado.substring(0,resultado.length()-4);
+    }
+
 }
