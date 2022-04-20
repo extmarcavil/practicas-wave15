@@ -4,79 +4,115 @@ import java.util.*;
 
 public class Morse {
 
-    private ArrayList<String> palabraEnMorse;
-    public static Map<String, String> morseALetra;
-    static {
-        morseALetra = new HashMap<>();
-        morseALetra.put(".-", "A");
-        morseALetra.put("-...", "B");
-        morseALetra.put("-.-.", "C");
-        morseALetra.put("-..", "D");
-        morseALetra.put(".", "E");
-        morseALetra.put("..-.", "F");
-        morseALetra.put("--.", "G");
-        morseALetra.put("....", "H");
-        morseALetra.put("..", "I");
-        morseALetra.put(".---", "J");
-        morseALetra.put("-.-", "K");
-        morseALetra.put(".-..", "L");
-        morseALetra.put("--", "M");
-        morseALetra.put("-.", "N");
-        morseALetra.put("---", "O");
-        morseALetra.put(".--.", "P");
-        morseALetra.put("--.-", "Q");
-        morseALetra.put(".-.", "R");
-        morseALetra.put("...", "S");
-        morseALetra.put("-", "T");
-        morseALetra.put("..-", "U");
-        morseALetra.put("...-", "V");
-        morseALetra.put(".--", "W");
-        morseALetra.put("-..-", "X");
-        morseALetra.put("-.--", "Y");
-        morseALetra.put("--..", "Z");
-        morseALetra.put(".----", "1");
-        morseALetra.put("..---", "2");
-        morseALetra.put("...--", "3");
-        morseALetra.put("....-", "4");
-        morseALetra.put(".....", "5");
-        morseALetra.put("-....", "6");
-        morseALetra.put("--...", "7");
-        morseALetra.put("---..", "8");
-        morseALetra.put("----.", "9");
-        morseALetra.put("-----", "0");
-        morseALetra.put("..--..", "?");
-        morseALetra.put("-.-.--", "!");
-        morseALetra.put(".-.-.-", ".");
-        morseALetra.put("--..--", ",");
-    }
+    static class MyHashMap<K, V> extends HashMap<K, V>
+    {
+        Map<V, K> reverseMap = new HashMap<>();
 
-    public Morse(String fraseEnMorse) {
-        this.palabraEnMorse = new ArrayList<>( Arrays.asList( fraseEnMorse.split("   ") ) );
-    }
-
-    public String convertirPalabras(String pabraEnMorse) {
-        ArrayList<String> letrasEnMorse =new ArrayList<>( Arrays.asList( pabraEnMorse.split(" ") ) );
-        return letrasEnMorse.stream().map(this::convertirLetra).reduce("",String::concat)  ;
-    }
-
-    public String convertirLetra(String letraEnMorse) {
-        String letra = "";
-        if( morseALetra.containsKey(letraEnMorse)){
-            letra = morseALetra.get(letraEnMorse);
-        }else{
-            letra = "*"; //MorseNoReconocido
+        @Override
+        public V put(K key, V value)
+        {
+            reverseMap.put(value, key);
+            return super.put(key, value);
         }
-        return letra;
+
+        public K getKey(V value) {
+            return reverseMap.get(value);
+        }
+
     }
 
-    public String convertir(){
-        String fraseCompleta = this.palabraEnMorse.
-                stream()
-                .map(this::convertirPalabras)
+    public static MyHashMap<String, String> morseToLetterMap;
+    static {
+        morseToLetterMap = new MyHashMap<>();
+        morseToLetterMap.put(".-", "A");
+        morseToLetterMap.put("-...", "B");
+        morseToLetterMap.put("-.-.", "C");
+        morseToLetterMap.put("-..", "D");
+        morseToLetterMap.put(".", "E");
+        morseToLetterMap.put("..-.", "F");
+        morseToLetterMap.put("--.", "G");
+        morseToLetterMap.put("....", "H");
+        morseToLetterMap.put("..", "I");
+        morseToLetterMap.put(".---", "J");
+        morseToLetterMap.put("-.-", "K");
+        morseToLetterMap.put(".-..", "L");
+        morseToLetterMap.put("--", "M");
+        morseToLetterMap.put("-.", "N");
+        morseToLetterMap.put("---", "O");
+        morseToLetterMap.put(".--.", "P");
+        morseToLetterMap.put("--.-", "Q");
+        morseToLetterMap.put(".-.", "R");
+        morseToLetterMap.put("...", "S");
+        morseToLetterMap.put("-", "T");
+        morseToLetterMap.put("..-", "U");
+        morseToLetterMap.put("...-", "V");
+        morseToLetterMap.put(".--", "W");
+        morseToLetterMap.put("-..-", "X");
+        morseToLetterMap.put("-.--", "Y");
+        morseToLetterMap.put("--..", "Z");
+        morseToLetterMap.put(".----", "1");
+        morseToLetterMap.put("..---", "2");
+        morseToLetterMap.put("...--", "3");
+        morseToLetterMap.put("....-", "4");
+        morseToLetterMap.put(".....", "5");
+        morseToLetterMap.put("-....", "6");
+        morseToLetterMap.put("--...", "7");
+        morseToLetterMap.put("---..", "8");
+        morseToLetterMap.put("----.", "9");
+        morseToLetterMap.put("-----", "0");
+        morseToLetterMap.put("..--..", "?");
+        morseToLetterMap.put("-.-.--", "!");
+        morseToLetterMap.put(".-.-.-", ".");
+        morseToLetterMap.put("--..--", ",");
+    }
+
+    private Morse(){}
+
+    private static String convertMorseWord(String morseWord) {
+        ArrayList<String> listOfLettersInMorse = Morse.toList(morseWord," ");
+        return listOfLettersInMorse.stream().map(Morse::convertMorseLetter).reduce("",String::concat)  ;
+    }
+
+    private static String convertToMorseWord(String wordToConvert) {
+        ArrayList<String> listOfLetters = Morse.toList(wordToConvert,"");
+        return listOfLetters.stream().map(Morse::convertToMorseLetter).reduce("",(x,y)->x + " " + y)  ;
+    }
+
+    private static String convertMorseLetter(String letterInMorse) {
+        return morseToLetterMap.getOrDefault(letterInMorse, "*");
+    }
+
+    private static String convertToMorseLetter(String letterToConvert) {
+        return morseToLetterMap.getKey(letterToConvert);
+    }
+
+    private static ArrayList<String> toList(String sentenceToConvert, String separator){
+        return new ArrayList<>( Arrays.asList( sentenceToConvert.split(separator) ) );
+    }
+
+    public static String morseToSentence(String fraseEnMorse){
+        ArrayList<String> palabraEnMorse = Morse.toList(fraseEnMorse, "   ");
+        String fraseCompleta =
+                palabraEnMorse
+                .stream()
+                .map(Morse::convertMorseWord)
                 .reduce("",(x,y)->x + " " + y);
 
         fraseCompleta.substring(0, fraseCompleta.length() - 1);
         return fraseCompleta;
+
+    }
+
+    public static String sentenceToMorse(String sentenceToConvert) {
+
+        ArrayList<String> listOfWordsToConvert = Morse.toList(sentenceToConvert.toUpperCase(Locale.ROOT)," ");
+
+        String sentenceInMorse  =  listOfWordsToConvert
+                                .stream()
+                                .map(Morse::convertToMorseWord)
+                                .reduce("",(x,y)->x + "   " + y);
+        return sentenceInMorse;
+
 
     }
 }

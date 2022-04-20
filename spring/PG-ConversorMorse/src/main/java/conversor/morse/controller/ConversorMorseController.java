@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConversorMorseController {
 
 
-    @GetMapping("/{morseCodePhrase}")
-    public String getMorseCode(@PathVariable String morseCodePhrase){
-
-        Morse nuevaPalabraEnMorse = new Morse(morseCodePhrase);
-
-        return nuevaPalabraEnMorse.convertir();
+    @GetMapping("/morse/{morseSentence}")
+    public String obtenerFraseEnMorse(@PathVariable String morseSentence){
+        return Morse.morseToSentence(morseSentence);
     }
+
+    @GetMapping("/word/{sentenceToConvertToMorse}")
+    public String obtenerFraseAConvertirAMorse(@PathVariable String sentenceToConvertToMorse){
+        return Morse.sentenceToMorse(sentenceToConvertToMorse);
+    }
+
 }
