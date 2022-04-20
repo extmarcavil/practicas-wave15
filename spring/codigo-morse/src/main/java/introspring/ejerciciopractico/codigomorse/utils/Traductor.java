@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Traductor {
-    private static Map<String, String> caracteres;
+    private static final Map<String, String> caracteres;
     static {
         caracteres = new HashMap<>();
         caracteres.put(".-", "A");caracteres.put("-...", "B");
@@ -33,9 +33,9 @@ public class Traductor {
 
     public static String traducir(String palabraMorse){
         StringBuilder resp= new StringBuilder();
-        List<String> palabras = Arrays.asList(palabraMorse.split("   ") );
+        String[] palabras=palabraMorse.split("   ");
         for (String palabra : palabras) {
-            List<String> letras = Arrays.asList(palabra.split(" "));
+            String[] letras = palabra.split(" ");
             for(String letra : letras){
                 resp.append(caracteres.get(letra));
             }
