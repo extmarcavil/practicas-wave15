@@ -15,6 +15,7 @@ public class CodigoMorseController {
 
     @GetMapping("/language/spanish/from_morse/{text}")
     public String morseToText(@PathVariable String text) {
+
         HashMap<String, String> caracteres = new HashMap<>();
         caracteres.put(".-", "A");
         caracteres.put("-...", "B");
@@ -59,12 +60,15 @@ public class CodigoMorseController {
         caracteres.put("", " ");
 
         StringBuilder result = new StringBuilder();
+        String[] morseWords = text.split("   ");
 
-        String[] morseWords = text.split(" ");
+        //Casos de prueba:
+        //.... --- .-.. .-     ... --- -.--     -- .- .-. - .. -.
+        //-- . .-. -.-. .- -.. ---     .-.. .. -... .-. .
 
         for(String w : morseWords) {
-            result.append(caracteres.get(w));
-            //System.out.println(w);
+            for(String l : w.split(" "))
+            result.append(caracteres.get(l));
         }
 
         return result.toString();
