@@ -1,13 +1,13 @@
-package com.example.holaMundo;
+package com.apicodigomorse;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class HolaMundoApplicationTests {
+class ApiCodigoMorseApplicationTests {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
