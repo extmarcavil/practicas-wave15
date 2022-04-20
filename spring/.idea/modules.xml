@@ -2,6 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/PG-AgeGetter/PG-AgeGetter.iml" filepath="$PROJECT_DIR$/PG-AgeGetter/PG-AgeGetter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PG-MorseConverter/PG-MorseConverter.iml" filepath="$PROJECT_DIR$/PG-MorseConverter/PG-MorseConverter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PG-RomanConverter/PG-RomanConverter.iml" filepath="$PROJECT_DIR$/PG-RomanConverter/PG-RomanConverter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PG-SportSearcher/PG-SportSearcher.iml" filepath="$PROJECT_DIR$/PG-SportSearcher/PG-SportSearcher.iml" />
+      <module fileurl="file://$PROJECT_DIR$/holaMundo/holaMundo.iml" filepath="$PROJECT_DIR$/holaMundo/holaMundo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/roman-numerals/roman-numerals.iml" filepath="$PROJECT_DIR$/roman-numerals/roman-numerals.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/spring.iml" filepath="$PROJECT_DIR$/.idea/spring.iml" />
     </modules>
   </component>

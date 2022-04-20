@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="PG-MorseConverter" />
+        <module name="PG-RomanConverter" />
+        <module name="roman-numerals" />
+        <module name="PG-SportSearcher" />
+        <module name="PG-AgeGetter" />
+        <module name="holaMundo" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="holaMundo" target="11" />
+      <module name="PG-AgeGetter" target="11" />
+      <module name="PG-MorseConverter" target="11" />
+      <module name="PG-RomanConverter" target="11" />
+      <module name="PG-SportSearcher" target="11" />
+      <module name="roman-numerals" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="PG-AgeGetter" options="-parameters" />
+      <module name="PG-MorseConverter" options="-parameters" />
+      <module name="PG-RomanConverter" options="-parameters" />
+      <module name="PG-SportSearcher" options="-parameters" />
+      <module name="holaMundo" options="-parameters" />
+      <module name="roman-numerals" options="-parameters" />
+    </option>
+  </component>
+</project>
