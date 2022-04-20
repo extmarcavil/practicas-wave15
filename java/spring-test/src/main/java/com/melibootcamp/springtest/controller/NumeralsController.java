@@ -151,10 +151,11 @@ public class NumeralsController {
 
         StringBuilder result = new StringBuilder();
 
-        String[] morseWords = text.split(" ");
+        String[] morseWords = text.split("   ");
 
         for(String w : morseWords) {
-            result.append(caracteres.get(w));
+            for(String l : w.split(" "))
+                result.append(caracteres.get(l));
         }
 
         return result.toString();
