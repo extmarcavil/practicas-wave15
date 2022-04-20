@@ -102,7 +102,7 @@ public class MorseController {
     @GetMapping(path = "/morse/{codigo}")
     public String controladorMorse(@PathVariable String codigo) {
         String[] palabras = codigo.split("   ");
-        String traduccion = new String();
+        String traduccion = "";
 
         for (String palabra : palabras) {
             String[] letras = palabra.split(" ");
@@ -118,7 +118,7 @@ public class MorseController {
     @GetMapping(path = "/ascii/{codigo}")
     public String controladorAscii(@PathVariable String codigo) {
         String[] palabras = codigo.split(" ");
-        String traduccion = new String();
+        String traduccion = "";
 
         for (String palabra : palabras) {
             String[] letras = palabra.split("");
