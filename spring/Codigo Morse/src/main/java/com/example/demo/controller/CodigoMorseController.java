@@ -59,7 +59,11 @@ public class CodigoMorseController {
         for (String palabra: palabrasMorse) {
             String[] letrasMorse = palabra.split(" ");
             for (String letra: letrasMorse) {
-                resultado.append(caracteres.get(letra));
+                String letraAux = caracteres.get(letra);
+                if(letraAux == null){
+                    return "Parámetro inválido: " + letra;
+                }
+                resultado.append(letraAux);
             }
             resultado.append(" ");
         }
