@@ -5,52 +5,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequestMapping("/api")
 public class NumeroController {
 
     @GetMapping("/decimal-a-romano/{numeroDecimal}")
     public String getNumeroRomano(@PathVariable Integer numeroDecimal){
-        switch (numeroDecimal){
-            case 1:{
-                return "I";
-            }
-            case 2: {
-                return "II";
-            }
-            case 3: {
-                return "III";
-            }
-            case 4: {
-                return "IV";
-            }
-            case 5:{
-                return "V";
-            }
-            case 7:{
-                return "VII";
-            }
-            case 10: {
-                return "X";
-            }
-            case 13: {
-                return "XIII";
-            }
-            case 50: {
-                return "L";
-            }
-            case 100:{
-                return "C";
-            }
-            case 500:{
-                return "D";
-            }
-            case 1000: {
-                return "M";
-            }
-            default:{
-                return "Parametro " + numeroDecimal + " invalido";
-            }
-        }
+        Map<Integer, String> decimalARomano = new HashMap<>();
+        decimalARomano.put(1, "I");
+        decimalARomano.put(2, "II");
+        decimalARomano.put(3,"III");
+        decimalARomano.put(4, "IV");
+        decimalARomano.put(5, "V");
+        decimalARomano.put(7,"VII");
+        decimalARomano.put(10, "X");
+        decimalARomano.put(13, "XIII");
+        decimalARomano.put(50,"L");
+        decimalARomano.put(100, "C");
+        decimalARomano.put(500, "D");
+        decimalARomano.put(1000,"M");
+        return decimalARomano.getOrDefault(numeroDecimal, "Parámetro " + numeroDecimal + " inválido");
     }
 }
