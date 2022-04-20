@@ -34,7 +34,8 @@ public class CodigoMorseController {
             }
             palabra += " ";
         }
-        return palabra;
+
+        return palabra.substring(0, palabra.length() - 1);
     }
 
     private Map<String, String> inicializarMapa() {
