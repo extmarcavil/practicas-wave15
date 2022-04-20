@@ -13,13 +13,18 @@ public class MorseController {
     @GetMapping("/convert/{code}")
     public StringBuilder convert (@PathVariable String code){
         StringBuilder result = new StringBuilder();
+        // creo un array donde cada item es una palabra (en codigo)
         String[] codeArrayWithSpaces = code.split("   ");
+        // recorro ese array de palabras
         for(String array : codeArrayWithSpaces){
+            // a cada palabra la transformo en un nuevo array, donde cada item es una letra (en codigo)
             String[] codeArrayPalabra = array.split(" ");
             for(int i=0; i<codeArrayPalabra.length; i++){
+                // busco cada código dentro del mapMorse
                 String letra = mapMorse().get(codeArrayPalabra[i]);
                 result.append(letra);
             }
+            // luego de cada ciclo for, agrego un espacio
             result.append(" ");
         }
         return result;
