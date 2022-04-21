@@ -70,12 +70,18 @@ public class Morse {
 
     private static String convertMorseWord(String morseWord) {
         ArrayList<String> listOfLettersInMorse = Morse.toList(morseWord," ");
-        return listOfLettersInMorse.stream().map(Morse::convertMorseLetter).reduce("",String::concat)  ;
+        return listOfLettersInMorse
+                .stream()
+                .map(Morse::convertMorseLetter)
+                .reduce("",String::concat)  ;
     }
 
     private static String convertToMorseWord(String wordToConvert) {
         ArrayList<String> listOfLetters = Morse.toList(wordToConvert,"");
-        return listOfLetters.stream().map(Morse::convertToMorseLetter).reduce("",(x,y)->x + " " + y)  ;
+        return listOfLetters
+                .stream()
+                .map(Morse::convertToMorseLetter)
+                .reduce("",Morse::concatMorseLetters) ;
     }
 
     private static String convertMorseLetter(String letterInMorse) {
@@ -90,16 +96,34 @@ public class Morse {
         return new ArrayList<>( Arrays.asList( sentenceToConvert.split(separator) ) );
     }
 
-    public static String morseToSentence(String fraseEnMorse){
-        ArrayList<String> palabraEnMorse = Morse.toList(fraseEnMorse, "   ");
-        String fraseCompleta =
-                palabraEnMorse
-                .stream()
-                .map(Morse::convertMorseWord)
-                .reduce("",(x,y)->x + " " + y);
+    private static String concatWords(String word, String nextWord){
+        return Morse.concat(word,nextWord,""," ");
+    }
 
-        fraseCompleta.substring(0, fraseCompleta.length() - 1);
-        return fraseCompleta;
+    private static String concatMorseLetters(String morseLetter, String nextMorseLetter){
+        return Morse.concat(morseLetter,nextMorseLetter,""," ");
+    }
+
+    private static String concatMorseWords(String morseWord, String nextMorseWord){
+       return Morse.concat(morseWord,nextMorseWord,"","   ");
+    }
+
+    private static String concat(String aString,String nextString,String identityString,String spaceConcat){
+        if(aString.equals(identityString))
+            return nextString;
+        return aString + spaceConcat + nextString;
+    }
+
+    public static String morseToSentence(String morseSentence){
+        ArrayList<String> listOfMorseWords = Morse.toList(morseSentence, "   ");
+        String convertedSentence =
+                listOfMorseWords
+                        .stream()
+                        .map(Morse::convertMorseWord)
+                        .reduce("",Morse::concatWords);
+
+        convertedSentence.substring(0, convertedSentence.length() - 1);
+        return convertedSentence;
 
     }
 
@@ -107,12 +131,12 @@ public class Morse {
 
         ArrayList<String> listOfWordsToConvert = Morse.toList(sentenceToConvert.toUpperCase(Locale.ROOT)," ");
 
-        String sentenceInMorse  =  listOfWordsToConvert
-                                .stream()
-                                .map(Morse::convertToMorseWord)
-                                .reduce("",(x,y)->x + "   " + y);
+        String sentenceInMorse = listOfWordsToConvert
+                .stream()
+                .map(Morse::convertToMorseWord)
+                .reduce("",Morse::concatMorseWords);
         return sentenceInMorse;
 
-
     }
+
 }
