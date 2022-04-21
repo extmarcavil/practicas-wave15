@@ -11,17 +11,13 @@ import java.time.format.DateTimeFormatter;
 @RestController
 public class EdadPersonaController {
     @GetMapping("/{dia}/{mes}/{anio}")
-    public String getEdad(@PathVariable String dia,
-                          @PathVariable String mes,
-                          @PathVariable String anio){
-        
-        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate fechaNacimiento = LocalDate.parse(dia + "/" + mes + "/" + anio, formato);
+    public String getEdad(@PathVariable Integer dia, @PathVariable Integer mes, @PathVariable Integer anio){
+
+        LocalDate fechaNacimiento = LocalDate.of(anio, mes, dia);
         LocalDate fechaHoy = LocalDate.now();
 
         Period periodo = Period.between(fechaNacimiento, fechaHoy);
 
-        return "La edad de la persona es " + periodo.getYears() + "años.";
-
+        return "La edad de la persona es " + periodo.getYears() + " años.";
     }
 }
