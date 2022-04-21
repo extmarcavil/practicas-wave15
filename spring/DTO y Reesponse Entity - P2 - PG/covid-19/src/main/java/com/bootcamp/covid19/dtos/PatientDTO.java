@@ -3,28 +3,18 @@ package com.bootcamp.covid19.dtos;
 import java.io.Serializable;
 import java.util.List;
 
-public class SickDTO implements Serializable {
-    private String id;
+public class PatientDTO implements Serializable {
     private String fullName;
     private int age;
     private List<String> listSymptom;
 
-    public SickDTO() {
+    public PatientDTO() {
     }
 
-    public SickDTO(String id, String fullName, int age, List<String> nameSymptom) {
-        this.id = id;
+    public PatientDTO(String fullName, int age, List<String> nameSymptom) {
         this.fullName = fullName;
         this.age = age;
         this.listSymptom = nameSymptom;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getFullName() {

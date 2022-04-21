@@ -1,12 +1,13 @@
 package com.bootcamp.covid19.repository;
 
-import com.bootcamp.covid19.dtos.SymptomDTO;
 import com.bootcamp.covid19.model.Symptom;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymptomRepository {
+@Repository
+public class SymptomRepository implements ISymptomRepository {
     static List<Symptom> listSymptom;
     static {
         listSymptom = new ArrayList<>();
@@ -16,22 +17,17 @@ public class SymptomRepository {
         listSymptom.add(new Symptom("4","Agotamiento",3));
     }
 
-    public List<SymptomDTO> findSymptom(){
-        List<SymptomDTO> symptoms = new ArrayList<>();
-        for (Symptom symptom : listSymptom) {
-            symptoms.add(new SymptomDTO(symptom));
-        }
-        return symptoms;
+    @Override
+    public List<Symptom> findSymptom(){
+        return listSymptom;
     }
 
-    public SymptomDTO findSymptomByName(String name){
-        Symptom symptom = listSymptom.stream()
+    @Override
+    public Symptom findSymptomByName(String name){
+        return listSymptom.stream()
                 .filter(s -> s.getName().equals(name))
                 .findFirst()
                 .orElse(null);
-
-        return symptom != null ? new SymptomDTO(symptom) : null;
     }
-
 
 }
