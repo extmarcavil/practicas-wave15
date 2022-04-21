@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="de60c002-76e0-4df0-937d-4534d178d890" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="$USER_HOME$/.m2/wrapper/dists/apache-maven-3.6.3-bin/1iopthnavndlasol9gbrbg6bf2/apache-maven-3.6.3" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1nJlrYU1mvmac5v77Enx3uzFKIy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RequestMappingsPanelOrder0" value="0" />
+    <property name="RequestMappingsPanelOrder1" value="1" />
+    <property name="RequestMappingsPanelWidth0" value="75" />
+    <property name="RequestMappingsPanelWidth1" value="75" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+  </component>
+  <component name="RunManager" selected="JUnit.RomanNumeralsApplicationTests">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RomanNumeralsApplicationTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="roman-numerals" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.mercadolibre.romannumerals.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.mercadolibre.romannumerals" />
+      <option name="MAIN_CLASS_NAME" value="com.mercadolibre.romannumerals.RomanNumeralsApplicationTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="RomanNumeralsApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="roman-numerals" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.mercadolibre.romannumerals.RomanNumeralsApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.RomanNumeralsApplicationTests" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="de60c002-76e0-4df0-937d-4534d178d890" name="Default Changelist" comment="" />
+      <created>1611116276665</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1611116276665</updated>
+      <workItem from="1611116278068" duration="1400000" />
+      <workItem from="1611153323680" duration="796000" />
+      <workItem from="1650391627313" duration="228000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1878" height="267" key="GridCell.Tab.0.bottom" timestamp="1611147902918">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.0.bottom/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902918" />
+    <state width="1878" height="267" key="GridCell.Tab.0.center" timestamp="1611147902917">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.0.center/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902917" />
+    <state width="1878" height="267" key="GridCell.Tab.0.left" timestamp="1611147902915">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.0.left/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902915" />
+    <state width="1878" height="267" key="GridCell.Tab.0.right" timestamp="1611147902917">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.0.right/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902917" />
+    <state width="1878" height="267" key="GridCell.Tab.1.bottom" timestamp="1611147902921">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.1.bottom/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902921" />
+    <state width="1878" height="267" key="GridCell.Tab.1.center" timestamp="1611147902920">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.1.center/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902920" />
+    <state width="1878" height="267" key="GridCell.Tab.1.left" timestamp="1611147902919">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.1.left/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902919" />
+    <state width="1878" height="267" key="GridCell.Tab.1.right" timestamp="1611147902920">
+      <screen x="0" y="25" width="1920" height="994" />
+    </state>
+    <state width="1878" height="267" key="GridCell.Tab.1.right/-1680.300.1680.1025/0.25.1920.994@0.25.1920.994" timestamp="1611147902920" />
+  </component>
+</project>
