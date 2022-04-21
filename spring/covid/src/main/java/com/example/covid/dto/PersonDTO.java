@@ -11,4 +11,10 @@ public class PersonDTO implements Serializable {
     private String fullName;
     private int age;
     private String symptoms;
+
+    public PersonDTO(String fullName, int age, String symptoms) {
+        this.fullName = fullName;
+        this.age = age;
+        this.symptoms = symptoms;
+    }
 }

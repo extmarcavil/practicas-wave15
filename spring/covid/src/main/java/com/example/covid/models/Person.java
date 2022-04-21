@@ -32,7 +32,19 @@ public class Person {
         this.symptoms = new ArrayList<>();
     }
 
+    public String getFullName(){
+        return this.name + " " + this.lastname;
+    }
+
     public String getSymptomsString() {
         return symptoms.stream().map(s -> s.getName()).collect(Collectors.joining(", "));
+    }
+
+    public boolean hasSymptoms(){
+        return this.getSymptoms().size() >= 1;
+    }
+
+    public boolean isOld(){
+        return this.getAge() > 60;
     }
 }
