@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.covid.dto;
 
 public class SintomaGravedadDTO {
 

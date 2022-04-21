@@ -1,10 +1,10 @@
-package com.example.demo.controller;
+package com.example.covid.controller;
 
-import com.example.demo.dto.PersonaDTO;
-import com.example.demo.dto.SintomaDTO;
-import com.example.demo.dto.SintomaGravedadDTO;
-import com.example.demo.model.Persona;
-import com.example.demo.model.Sintoma;
+import com.example.covid.dto.PersonaDTO;
+import com.example.covid.dto.SintomaDTO;
+import com.example.covid.dto.SintomaGravedadDTO;
+import com.example.covid.model.Persona;
+import com.example.covid.model.Sintoma;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
