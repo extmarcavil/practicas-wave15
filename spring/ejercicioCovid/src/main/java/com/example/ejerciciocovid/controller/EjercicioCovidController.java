@@ -39,7 +39,6 @@ public class EjercicioCovidController {
             return ResponseEntity.badRequest().body("No existe el sintoma.");
     }
 
-
     @GetMapping("/findRiskPerson")
     @ResponseBody
     public List<DTOPersonaDeRiesgo> findRiskPerson(){
