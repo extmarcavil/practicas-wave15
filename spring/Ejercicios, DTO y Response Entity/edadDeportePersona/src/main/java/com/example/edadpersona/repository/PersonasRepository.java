@@ -25,7 +25,9 @@ public class PersonasRepository {
 
     public static List<PersonaDTO> getPersonasDeportistas(){
         List<PersonaDTO> deportistasDto = new ArrayList<>();
-        List<Persona> deportistas = personas.stream().filter(p -> p.getDeportes().size() >= 1).collect(Collectors.toList());
+        List<Persona> deportistas = personas.stream()
+                .filter(p -> p.getDeportes().size() >= 1)
+                .collect(Collectors.toList());
 
         for (Persona deportista : deportistas) {
             List<String> deportes = new ArrayList<>();

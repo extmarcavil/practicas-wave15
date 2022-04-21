@@ -1,6 +1,6 @@
 package com.example.edadpersona.controller;
 
-import com.example.edadpersona.model.Deporte;
+import com.example.edadpersona.dtos.DeporteDTO;
 import com.example.edadpersona.dtos.PersonaDTO;
 import com.example.edadpersona.repository.DeportesRepository;
 import com.example.edadpersona.repository.PersonasRepository;
@@ -16,12 +16,12 @@ import java.util.List;
 public class DeportesController {
 
     @GetMapping("/findSports")
-    public ResponseEntity<List<Deporte>> findSports() {
+    public ResponseEntity<List<DeporteDTO>> findSports() {
         return new ResponseEntity<>(DeportesRepository.getDeportes(), HttpStatus.OK);
     }
 
     @GetMapping("/findSports/{name}")
-    public ResponseEntity<Deporte> findSportByName(@PathVariable String name) {
+    public ResponseEntity<DeporteDTO> findSportByName(@PathVariable String name) {
         return new ResponseEntity<>(DeportesRepository.getDeporteByName(name),
                 DeportesRepository.getDeporteByName(name) != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
     }
