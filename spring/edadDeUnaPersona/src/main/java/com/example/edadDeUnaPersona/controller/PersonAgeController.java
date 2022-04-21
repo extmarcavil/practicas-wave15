@@ -19,7 +19,9 @@ public class PersonAgeController {
     public ResponseEntity<PersonAgeDTO> calcularAge (@RequestBody BornDTO born) {
         LocalDate now = LocalDate.now();
         Period period = Period.between(born.getBorn(), now);
-        ResponseEntity<PersonAgeDTO> resultado = new ResponseEntity<>(new PersonAgeDTO(period.getYears()), HttpStatus.OK);
+        PersonAgeDTO body = new PersonAgeDTO(period.getYears());
+        ResponseEntity<PersonAgeDTO> resultado = ResponseEntity.status(200).body(body);
+
         return resultado;
     }
 
