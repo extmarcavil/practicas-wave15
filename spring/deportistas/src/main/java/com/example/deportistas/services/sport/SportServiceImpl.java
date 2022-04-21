@@ -2,13 +2,19 @@ package com.example.deportistas.services.sport;
 
 import com.example.deportistas.model.Deporte;
 import com.example.deportistas.repositories.DeporteRepo;
+import com.example.deportistas.repositories.IDeporteRepo;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class SportServiceImpl implements SportService{
-    DeporteRepo deporteRepo = new DeporteRepo();
+
+    private IDeporteRepo deporteRepo;
+
+    public SportServiceImpl(IDeporteRepo deporteRepo){
+        this.deporteRepo = deporteRepo;
+    }
     @Override
     public List<Deporte> findAll() {
         return deporteRepo.getDeporteList() ;

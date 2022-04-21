@@ -2,6 +2,7 @@ package com.example.deportistas.services.person;
 
 import com.example.deportistas.model.Deporte;
 import com.example.deportistas.model.Persona;
+import com.example.deportistas.repositories.IPersonaRepo;
 import com.example.deportistas.repositories.PersonaRepo;
 import org.springframework.boot.autoconfigure.batch.BatchDataSource;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,11 @@ import java.util.List;
 @Service
 public class PersonServiceImpl implements PersonService{
 
-    PersonaRepo personaRepo = new PersonaRepo();
+    private IPersonaRepo personaRepo;
+
+    public PersonServiceImpl(IPersonaRepo personaRepo) {
+        this.personaRepo = personaRepo;
+    }
 
     @Override
     public void addPersona(Persona persona) {

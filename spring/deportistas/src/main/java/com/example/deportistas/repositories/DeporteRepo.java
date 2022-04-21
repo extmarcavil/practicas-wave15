@@ -3,13 +3,15 @@ package com.example.deportistas.repositories;
 import com.example.deportistas.model.Deporte;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-public class DeporteRepo {
+@Repository
+public class DeporteRepo implements IDeporteRepo{
     List<Deporte> deporteList;
     public DeporteRepo(){
         deporteList = new ArrayList<>(List.of(
@@ -20,11 +22,16 @@ public class DeporteRepo {
                                     ));
     }
 
+    @Override
     public void addDeporte(Deporte d) {
         deporteList.add(d);
     }
 
+    @Override
     public void addAll(List<Deporte> deportes) {
         deporteList.addAll(deportes);
     }
+
+    @Override
+    public List<Deporte> getDeporteList(){return deporteList;}
 }
