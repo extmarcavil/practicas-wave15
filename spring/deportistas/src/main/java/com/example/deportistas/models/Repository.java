@@ -1,8 +1,13 @@
 package com.example.deportistas.models;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.ArrayList;
 import java.util.List;
 
+@Getter
+@Setter
 public class Repository {
     private List<Person> persons = new ArrayList();
     private List<Sport> sports = new ArrayList();
@@ -22,13 +27,5 @@ public class Repository {
         Person p2 = new Person("Alejandro", "Barsotti", 27, s3);
         persons.add(p1);
         persons.add(p2);
-    }
-
-    public List<Person> getPersons() {
-        return persons;
-    }
-
-    public List<Sport> getSports() {
-        return sports;
     }
 }

@@ -6,38 +6,34 @@ import com.example.deportistas.models.Repository;
 import com.example.deportistas.models.Sport;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
+@RequestMapping("/sports")
 public class SportController {
     Repository repository = new Repository();
 
     @GetMapping("/findSports")
-    public List<Sport> findSports(){
-        return repository.getSports();
+    public ResponseEntity<List<Sport>> findSports(){
+        return new ResponseEntity<>(repository.getSports(), HttpStatus.OK);
     }
 
     @GetMapping("/findSport/{name}")
     public ResponseEntity<String> findSport(@PathVariable String name){
         Optional<Sport> sport = repository.getSports().stream()
-                .filter(s -> s.getName().toLowerCase().equals(name.toLowerCase())).findFirst();
+                .filter(s -> s.getName().equalsIgnoreCase(name)).findFirst();
         if (sport.isEmpty()){
             return new ResponseEntity<>("No encontrado", HttpStatus.NOT_FOUND);
         }
-        String msg = "Nivel: " + sport.get().getLevel();
-        return new ResponseEntity<>(msg, HttpStatus.OK);
+        return new ResponseEntity<>("Nivel: " + sport.get().getLevel(), HttpStatus.OK);
     }
 
     @GetMapping("/findSportsPersons")
-    @ResponseBody
-    public List<PersonDTO> findSportsPersons(){
+    public ResponseEntity<List<PersonDTO>> findSportsPersons(){
         List<PersonDTO> persons = new ArrayList<>();
         for (Person person : repository.getPersons()){
             PersonDTO personDTO = new PersonDTO();
@@ -45,6 +41,6 @@ public class SportController {
             personDTO.setSportName(person.getSport().getName());
             persons.add(personDTO);
         }
-        return persons;
+        return new ResponseEntity<>(persons, HttpStatus.OK);
     }
 }
