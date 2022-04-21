@@ -1,9 +1,10 @@
 package com.example.ejerciciocovid.controller;
 
-import com.example.ejerciciocovid.dto.DTOPersonaDeRiesgo;
-import com.example.ejerciciocovid.model.Sintoma;
-import com.example.ejerciciocovid.service.PersonaService;
-import com.example.ejerciciocovid.service.SintomaService;
+import com.example.ejerciciocovid.dto.RiskPersonDTO;
+import com.example.ejerciciocovid.dto.SymptomDTO;
+import com.example.ejerciciocovid.service.IPersonService;
+import com.example.ejerciciocovid.service.ISymptomService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,41 +12,41 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RestController
 public class EjercicioCovidController {
 
-    public SintomaService sintomaService = new SintomaService();
-    public PersonaService personaService = new PersonaService();
+    private ISymptomService symptomService;
+    private IPersonService personService;
+
+    public EjercicioCovidController(ISymptomService symptomService, IPersonService personService) {
+        this.symptomService = symptomService;
+        this.personService = personService;
+    }
 
     @GetMapping("/findSymptom")
     @ResponseBody
-    public List<Sintoma> findSymptom(){
-        return sintomaService.getSintomasList();
+    public ResponseEntity<List<SymptomDTO>> findSymptom(){
+        return new ResponseEntity<>(symptomService.getSymptomsList(), HttpStatus.OK);
     }
 
 
     @GetMapping("/findSymptom/{name}")
-    ResponseEntity<String> findSymptomByName(@PathVariable String name){
-        Sintoma sintoma = sintomaService.getSintomaByName(name);
+    public ResponseEntity<SymptomDTO> findSymptomByName(@PathVariable String name){
+        SymptomDTO symptom = symptomService.getSymptomDTO(name);
 
-        if (sintoma != null)
-            return ResponseEntity.status(200).body("Nivel de gravedad: " + sintoma.getNivel_de_gravedad());
+        if (symptom != null)
+            return new ResponseEntity<>(symptom, HttpStatus.OK);
         else
-            return ResponseEntity.badRequest().body("No existe el sintoma.");
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/findRiskPerson")
     @ResponseBody
-    public List<DTOPersonaDeRiesgo> findRiskPerson(){
-        List<DTOPersonaDeRiesgo> personasDeRiesgo = new ArrayList<>();
+    public ResponseEntity<List<RiskPersonDTO>> findRiskPerson(){
+        List<RiskPersonDTO> riskPerson = personService.getRiskPersonsList();
 
-        personaService.getPersonasList().stream()
-                .filter(x -> x.getEdad() > 59).collect(Collectors.toList())
-                .forEach(x -> personasDeRiesgo.add(new DTOPersonaDeRiesgo(x.getNombre(), x.getApellido())));
-
-        return personasDeRiesgo;
+        return new ResponseEntity<>(riskPerson, HttpStatus.OK);
     }
 
 }

@@ -7,12 +7,12 @@ import java.io.Serializable;
 
 @Getter
 @Setter
-public class DTOPersonaDeRiesgo implements Serializable {
+public class RiskPersonDTO implements Serializable {
 
     private String nombre;
     private String apellido;
 
-    public DTOPersonaDeRiesgo(String nombre, String apellido) {
+    public RiskPersonDTO(String nombre, String apellido) {
         this.nombre = nombre;
         this.apellido = apellido;
     }
