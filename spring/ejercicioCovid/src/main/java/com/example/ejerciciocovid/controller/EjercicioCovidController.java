@@ -1,7 +1,6 @@
 package com.example.ejerciciocovid.controller;
 
 import com.example.ejerciciocovid.dto.DTOPersonaDeRiesgo;
-import com.example.ejerciciocovid.model.Persona;
 import com.example.ejerciciocovid.model.Sintoma;
 import com.example.ejerciciocovid.service.PersonaService;
 import com.example.ejerciciocovid.service.SintomaService;
