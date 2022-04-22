@@ -6,15 +6,17 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="PG-MorseConverter" />
         <module name="PG-RomanConverter" />
         <module name="roman-numerals" />
         <module name="PG-SportSearcher" />
         <module name="PG-AgeGetter" />
+        <module name="covid" />
+        <module name="PG-MorseConverter" />
         <module name="holaMundo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="covid" target="11" />
       <module name="holaMundo" target="11" />
       <module name="PG-AgeGetter" target="11" />
       <module name="PG-MorseConverter" target="11" />
@@ -29,6 +31,7 @@
       <module name="PG-MorseConverter" options="-parameters" />
       <module name="PG-RomanConverter" options="-parameters" />
       <module name="PG-SportSearcher" options="-parameters" />
+      <module name="covid" options="-parameters" />
       <module name="holaMundo" options="-parameters" />
       <module name="roman-numerals" options="-parameters" />
     </option>
