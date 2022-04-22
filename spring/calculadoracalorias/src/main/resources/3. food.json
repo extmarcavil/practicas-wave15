@@ -1,0 +1,1226 @@
+[
+  {
+    "name": "Aceitunas negras",
+    "calories": 349
+  },
+  {
+    "name": "Aceitunas verdes",
+    "calories": 132
+  },
+  {
+    "name": "Acelgas",
+    "calories": 33
+  },
+  {
+    "name": "Ajos",
+    "calories": 169
+  },
+  {
+    "name": "Alcachofas",
+    "calories": 64
+  },
+  {
+    "name": "Apio",
+    "calories": 20
+  },
+  {
+    "name": "Berenjena",
+    "calories": 29
+  },
+  {
+    "name": "Berros",
+    "calories": 21
+  },
+  {
+    "name": "Brócoli",
+    "calories": 31
+  },
+  {
+    "name": "Calabacín",
+    "calories": 31
+  },
+  {
+    "name": "Calabaza",
+    "calories": 24
+  },
+  {
+    "name": "Cebolla",
+    "calories": 47
+  },
+  {
+    "name": "Cebolla tierna",
+    "calories": 39
+  },
+  {
+    "name": "Champiñón y otras setas",
+    "calories": 28
+  },
+  {
+    "name": "Col",
+    "calories": 28
+  },
+  {
+    "name": "Col de Bruselas",
+    "calories": 54
+  },
+  {
+    "name": "Coliflor",
+    "calories": 30
+  },
+  {
+    "name": "Endibia",
+    "calories": 22
+  },
+  {
+    "name": "Escarola",
+    "calories": 37
+  },
+  {
+    "name": "Espárragos",
+    "calories": 26
+  },
+  {
+    "name": "Espárragos en lata",
+    "calories": 24
+  },
+  {
+    "name": "Espinaca",
+    "calories": 32
+  },
+  {
+    "name": "Espinacas congeladas",
+    "calories": 25
+  },
+  {
+    "name": "Habas tiernas",
+    "calories": 64
+  },
+  {
+    "name": "Hinojo",
+    "calories": 16
+  },
+  {
+    "name": "Lechuga",
+    "calories": 18
+  },
+  {
+    "name": "Nabos",
+    "calories": 29
+  },
+  {
+    "name": "Papas cocidas",
+    "calories": 86
+  },
+  {
+    "name": "Pepino",
+    "calories": 12
+  },
+  {
+    "name": "Perejil",
+    "calories": 55
+  },
+  {
+    "name": "Pimiento",
+    "calories": 22
+  },
+  {
+    "name": "Porotos verdes",
+    "calories": 21
+  },
+  {
+    "name": "Puerros",
+    "calories": 42
+  },
+  {
+    "name": "Rábanos",
+    "calories": 20
+  },
+  {
+    "name": "Remolacha",
+    "calories": 40
+  },
+  {
+    "name": "Repollo",
+    "calories": 19
+  },
+  {
+    "name": "Rúcula",
+    "calories": 37
+  },
+  {
+    "name": "Soja, Brotes de",
+    "calories": 50
+  },
+  {
+    "name": "Tomate triturado en conserva",
+    "calories": 39
+  },
+  {
+    "name": "Tomates",
+    "calories": 22
+  },
+  {
+    "name": "Trufa",
+    "calories": 92
+  },
+  {
+    "name": "Zanahoria",
+    "calories": 42
+  },
+  {
+    "name": "Zumo de tomate",
+    "calories": 21
+  },
+  {
+    "name": "Arándanos",
+    "calories": 41
+  },
+  {
+    "name": "Caqui",
+    "calories": 64
+  },
+  {
+    "name": "Cereza",
+    "calories": 47
+  },
+  {
+    "name": "Chirimoya",
+    "calories": 78
+  },
+  {
+    "name": "Ciruela",
+    "calories": 44
+  },
+  {
+    "name": "Ciruela seca",
+    "calories": 290
+  },
+  {
+    "name": "Coco",
+    "calories": 646
+  },
+  {
+    "name": "Dátil",
+    "calories": 279
+  },
+  {
+    "name": "Dátil seco",
+    "calories": 306
+  },
+  {
+    "name": "Frambuesa",
+    "calories": 40
+  },
+  {
+    "name": "Fresas",
+    "calories": 36
+  },
+  {
+    "name": "Granada",
+    "calories": 65
+  },
+  {
+    "name": "Grosella",
+    "calories": 37
+  },
+  {
+    "name": "Higos",
+    "calories": 80
+  },
+  {
+    "name": "Higos secos",
+    "calories": 275
+  },
+  {
+    "name": "Kiwi",
+    "calories": 51
+  },
+  {
+    "name": "Limón",
+    "calories": 39
+  },
+  {
+    "name": "Mandarina",
+    "calories": 40
+  },
+  {
+    "name": "Mango",
+    "calories": 57
+  },
+  {
+    "name": "Manzana",
+    "calories": 52
+  },
+  {
+    "name": "Melón",
+    "calories": 31
+  },
+  {
+    "name": "Mora",
+    "calories": 37
+  },
+  {
+    "name": "Naranja",
+    "calories": 44
+  },
+  {
+    "name": "Nectarina",
+    "calories": 64
+  },
+  {
+    "name": "Nísperos",
+    "calories": 97
+  },
+  {
+    "name": "Papaya",
+    "calories": 45
+  },
+  {
+    "name": "Pera",
+    "calories": 61
+  },
+  {
+    "name": "Piña",
+    "calories": 51
+  },
+  {
+    "name": "Piña en almíbar",
+    "calories": 84
+  },
+  {
+    "name": "Plátano",
+    "calories": 90
+  },
+  {
+    "name": "Pomelo",
+    "calories": 30
+  },
+  {
+    "name": "Sandía",
+    "calories": 30
+  },
+  {
+    "name": "Uva",
+    "calories": 81
+  },
+  {
+    "name": "Uva pasa",
+    "calories": 324
+  },
+  {
+    "name": "Zumo de fruta",
+    "calories": 45
+  },
+  {
+    "name": "Zumo de Naranja",
+    "calories": 42
+  },
+  {
+    "name": "Almendras",
+    "calories": 620
+  },
+  {
+    "name": "Avellanas",
+    "calories": 675
+  },
+  {
+    "name": "Castañas",
+    "calories": 199
+  },
+  {
+    "name": "Maní",
+    "calories": 560
+  },
+  {
+    "name": "Nueces",
+    "calories": 660
+  },
+  {
+    "name": "Piñones",
+    "calories": 660
+  },
+  {
+    "name": "Pistacho",
+    "calories": 581
+  },
+  {
+    "name": "Cuajada",
+    "calories": 92
+  },
+  {
+    "name": "Flan de huevo",
+    "calories": 126
+  },
+  {
+    "name": "Flan de vainilla",
+    "calories": 102
+  },
+  {
+    "name": "Helados lácteos",
+    "calories": 167
+  },
+  {
+    "name": "Leche condensada c/azúcar",
+    "calories": 350
+  },
+  {
+    "name": "Leche condensada s/azúcar",
+    "calories": 160
+  },
+  {
+    "name": "Leche de cabra",
+    "calories": 72
+  },
+  {
+    "name": "Leche de oveja",
+    "calories": 96
+  },
+  {
+    "name": "Leche descremada",
+    "calories": 36
+  },
+  {
+    "name": "Leche en polvo descremada",
+    "calories": 373
+  },
+  {
+    "name": "Leche en polvo entera",
+    "calories": 500
+  },
+  {
+    "name": "Leche entera",
+    "calories": 68
+  },
+  {
+    "name": "Leche semi descremada",
+    "calories": 49
+  },
+  {
+    "name": "Mousse",
+    "calories": 177
+  },
+  {
+    "name": "Nata o crema de leche",
+    "calories": 298
+  },
+  {
+    "name": "Queso blanco desnatado",
+    "calories": 70
+  },
+  {
+    "name": "Queso Brie",
+    "calories": 263
+  },
+  {
+    "name": "Queso cammembert",
+    "calories": 312
+  },
+  {
+    "name": "Queso cheddar",
+    "calories": 381
+  },
+  {
+    "name": "Queso crema",
+    "calories": 245
+  },
+  {
+    "name": "Queso de bola",
+    "calories": 349
+  },
+  {
+    "name": "Queso de Burgos",
+    "calories": 174
+  },
+  {
+    "name": "Queso de oveja",
+    "calories": 245
+  },
+  {
+    "name": "Queso edam",
+    "calories": 306
+  },
+  {
+    "name": "Queso emmental",
+    "calories": 415
+  },
+  {
+    "name": "Queso fundido untable",
+    "calories": 285
+  },
+  {
+    "name": "Queso gruyere",
+    "calories": 391
+  },
+  {
+    "name": "Queso manchego",
+    "calories": 376
+  },
+  {
+    "name": "Queso mozzarella",
+    "calories": 245
+  },
+  {
+    "name": "Queso parmesano",
+    "calories": 393
+  },
+  {
+    "name": "Queso ricota",
+    "calories": 400
+  },
+  {
+    "name": "Queso roquefort",
+    "calories": 405
+  },
+  {
+    "name": "Requesón",
+    "calories": 96
+  },
+  {
+    "name": "Yogur desnatado",
+    "calories": 45
+  },
+  {
+    "name": "Yogur desnatado con frutas",
+    "calories": 82
+  },
+  {
+    "name": "Yogur enriquecido con nata",
+    "calories": 65
+  },
+  {
+    "name": "Yogur natural",
+    "calories": 62
+  },
+  {
+    "name": "Yogur natural con fruta",
+    "calories": 100
+  },
+  {
+    "name": "Bacon (Panceta ahumada)",
+    "calories": 665
+  },
+  {
+    "name": "Butifarra cocida",
+    "calories": 390
+  },
+  {
+    "name": "Butifarra, salchicha fresca",
+    "calories": 326
+  },
+  {
+    "name": "Cabrito",
+    "calories": 127
+  },
+  {
+    "name": "Cerdo, chuleta",
+    "calories": 330
+  },
+  {
+    "name": "Cerdo, hígado",
+    "calories": 153
+  },
+  {
+    "name": "Cerdo, lomo",
+    "calories": 208
+  },
+  {
+    "name": "Chicharrón",
+    "calories": 601
+  },
+  {
+    "name": "Chorizo",
+    "calories": 468
+  },
+  {
+    "name": "Ciervo",
+    "calories": 120
+  },
+  {
+    "name": "Codorniz y perdiz",
+    "calories": 114
+  },
+  {
+    "name": "Conejo, liebre",
+    "calories": 162
+  },
+  {
+    "name": "Cordero lechón",
+    "calories": 105
+  },
+  {
+    "name": "Cordero pierna",
+    "calories": 98
+  },
+  {
+    "name": "Cordero, costillas",
+    "calories": 215
+  },
+  {
+    "name": "Cordero, hígado",
+    "calories": 132
+  },
+  {
+    "name": "Faisán",
+    "calories": 144
+  },
+  {
+    "name": "Foie-Gras",
+    "calories": 518
+  },
+  {
+    "name": "Gallina",
+    "calories": 369
+  },
+  {
+    "name": "Hamburguesa",
+    "calories": 230
+  },
+  {
+    "name": "Jabalí",
+    "calories": 107
+  },
+  {
+    "name": "Jamón",
+    "calories": 380
+  },
+  {
+    "name": "Jamón cocido",
+    "calories": 126
+  },
+  {
+    "name": "Jamón crudo",
+    "calories": 296
+  },
+  {
+    "name": "Jamón York",
+    "calories": 289
+  },
+  {
+    "name": "Lengua de vaca",
+    "calories": 191
+  },
+  {
+    "name": "Lomo embuchado",
+    "calories": 380
+  },
+  {
+    "name": "Mortadela",
+    "calories": 265
+  },
+  {
+    "name": "Pato",
+    "calories": 200
+  },
+  {
+    "name": "Pavo, Muslo",
+    "calories": 186
+  },
+  {
+    "name": "Pavo, Pechuga",
+    "calories": 134
+  },
+  {
+    "name": "Perdiz",
+    "calories": 120
+  },
+  {
+    "name": "Pies de cerdo",
+    "calories": 290
+  },
+  {
+    "name": "Pollo, Hígado",
+    "calories": 129
+  },
+  {
+    "name": "Pollo, Muslo",
+    "calories": 186
+  },
+  {
+    "name": "Pollo",
+    "calories": 134
+  },
+  {
+    "name": "Salami",
+    "calories": 325
+  },
+  {
+    "name": "Salchicha Frankfurt",
+    "calories": 315
+  },
+  {
+    "name": "Salchichón",
+    "calories": 294
+  },
+  {
+    "name": "Ternera",
+    "calories": 181
+  },
+  {
+    "name": "Ternera, chuleta",
+    "calories": 168
+  },
+  {
+    "name": "Ternera, hígado",
+    "calories": 140
+  },
+  {
+    "name": "Ternera, lengua",
+    "calories": 207
+  },
+  {
+    "name": "Ternera, riñón",
+    "calories": 86
+  },
+  {
+    "name": "Ternera, sesos",
+    "calories": 125
+  },
+  {
+    "name": "Ternera, solomillo",
+    "calories": 290
+  },
+  {
+    "name": "Tira de asado",
+    "calories": 401
+  },
+  {
+    "name": "Tripas",
+    "calories": 100
+  },
+  {
+    "name": "Vacuno, Hígado",
+    "calories": 129
+  },
+  {
+    "name": "Almejas",
+    "calories": 50
+  },
+  {
+    "name": "Anchoas",
+    "calories": 175
+  },
+  {
+    "name": "Anguilas",
+    "calories": 200
+  },
+  {
+    "name": "Atún en lata con aceite vegetal",
+    "calories": 280
+  },
+  {
+    "name": "Atún en lata con agua",
+    "calories": 127
+  },
+  {
+    "name": "Atún fresco",
+    "calories": 225
+  },
+  {
+    "name": "Bacalao fresco",
+    "calories": 74
+  },
+  {
+    "name": "Bacalao seco",
+    "calories": 322
+  },
+  {
+    "name": "Besugo",
+    "calories": 118
+  },
+  {
+    "name": "Caballa",
+    "calories": 153
+  },
+  {
+    "name": "Calamar",
+    "calories": 82
+  },
+  {
+    "name": "Cangrejo",
+    "calories": 85
+  },
+  {
+    "name": "Caviar",
+    "calories": 233
+  },
+  {
+    "name": "Congrio",
+    "calories": 112
+  },
+  {
+    "name": "Dorada",
+    "calories": 80
+  },
+  {
+    "name": "Gallo",
+    "calories": 73
+  },
+  {
+    "name": "Gambas",
+    "calories": 96
+  },
+  {
+    "name": "Langosta",
+    "calories": 67
+  },
+  {
+    "name": "Langostino",
+    "calories": 96
+  },
+  {
+    "name": "Lenguado",
+    "calories": 73
+  },
+  {
+    "name": "Lubina",
+    "calories": 118
+  },
+  {
+    "name": "Lucio",
+    "calories": 81
+  },
+  {
+    "name": "Mejillón",
+    "calories": 74
+  },
+  {
+    "name": "Merluza",
+    "calories": 86
+  },
+  {
+    "name": "Mero",
+    "calories": 118
+  },
+  {
+    "name": "Ostras",
+    "calories": 80
+  },
+  {
+    "name": "Pejerrey",
+    "calories": 87
+  },
+  {
+    "name": "Pez espada",
+    "calories": 109
+  },
+  {
+    "name": "Pulpo",
+    "calories": 57
+  },
+  {
+    "name": "Rodaballo",
+    "calories": 81
+  },
+  {
+    "name": "Salmón",
+    "calories": 172
+  },
+  {
+    "name": "Salmón ahumado",
+    "calories": 154
+  },
+  {
+    "name": "Salmonete",
+    "calories": 97
+  },
+  {
+    "name": "Sardina en lata con aceite vegetal",
+    "calories": 192
+  },
+  {
+    "name": "Sardinas",
+    "calories": 151
+  },
+  {
+    "name": "Trucha",
+    "calories": 94
+  },
+  {
+    "name": "Azúcar",
+    "calories": 380
+  },
+  {
+    "name": "Cacao en polvo con azúcar instantáneo",
+    "calories": 366
+  },
+  {
+    "name": "Caramelos",
+    "calories": 378
+  },
+  {
+    "name": "Chocolate con leche",
+    "calories": 550
+  },
+  {
+    "name": "Chocolate sin leche",
+    "calories": 530
+  },
+  {
+    "name": "Crema chocolate con avellanas",
+    "calories": 549
+  },
+  {
+    "name": "Dulce de membrillo",
+    "calories": 215
+  },
+  {
+    "name": "Helados de agua",
+    "calories": 139
+  },
+  {
+    "name": "Mermeladas con azúcar",
+    "calories": 280
+  },
+  {
+    "name": "Mermeladas sin azúcar",
+    "calories": 145
+  },
+  {
+    "name": "Miel",
+    "calories": 300
+  },
+  {
+    "name": "Arroz blanco",
+    "calories": 354
+  },
+  {
+    "name": "Arroz integral",
+    "calories": 350
+  },
+  {
+    "name": "Avena",
+    "calories": 367
+  },
+  {
+    "name": "Cebada",
+    "calories": 373
+  },
+  {
+    "name": "Centeno",
+    "calories": 350
+  },
+  {
+    "name": "Cereales con chocolate",
+    "calories": 358
+  },
+  {
+    "name": "Cereales desayuno, con miel",
+    "calories": 386
+  },
+  {
+    "name": "Copos de maíz",
+    "calories": 350
+  },
+  {
+    "name": "Harina de maíz",
+    "calories": 349
+  },
+  {
+    "name": "Harina de trigo integral",
+    "calories": 340
+  },
+  {
+    "name": "Harina de trigo refinada",
+    "calories": 353
+  },
+  {
+    "name": "Pan de centeno",
+    "calories": 241
+  },
+  {
+    "name": "Pan de trigo blanco",
+    "calories": 255
+  },
+  {
+    "name": "Pan de trigo integral",
+    "calories": 239
+  },
+  {
+    "name": "Pan de trigo molde blanco",
+    "calories": 233
+  },
+  {
+    "name": "Pan de trigo molde integral",
+    "calories": 216
+  },
+  {
+    "name": "Pasta al huevo",
+    "calories": 368
+  },
+  {
+    "name": "Pasta de sémola",
+    "calories": 361
+  },
+  {
+    "name": "Polenta",
+    "calories": 358
+  },
+  {
+    "name": "Sémola de trigo",
+    "calories": 368
+  },
+  {
+    "name": "Yuca",
+    "calories": 338
+  },
+  {
+    "name": "Garbanzos",
+    "calories": 361
+  },
+  {
+    "name": "Judías",
+    "calories": 343
+  },
+  {
+    "name": "Lentejas",
+    "calories": 336
+  },
+  {
+    "name": "Clara",
+    "calories": 48
+  },
+  {
+    "name": "Huevo duro",
+    "calories": 147
+  },
+  {
+    "name": "Huevo entero",
+    "calories": 162
+  },
+  {
+    "name": "Yema",
+    "calories": 368
+  },
+  {
+    "name": "Bizcocho",
+    "calories": 456
+  },
+  {
+    "name": "Croissant chocolate",
+    "calories": 469
+  },
+  {
+    "name": "Croissant, donut",
+    "calories": 456
+  },
+  {
+    "name": "Galletas de chocolate",
+    "calories": 524
+  },
+  {
+    "name": "Galletas de mantequilla tipo “Danesas”",
+    "calories": 397
+  },
+  {
+    "name": "Galletas saladas",
+    "calories": 464
+  },
+  {
+    "name": "Magdalenas",
+    "calories": 469
+  },
+  {
+    "name": "Pasta de hojaldre cocida",
+    "calories": 565
+  },
+  {
+    "name": "Pastel de manzana",
+    "calories": 311
+  },
+  {
+    "name": "Pastel de manzana, masa hojaldre",
+    "calories": 456
+  },
+  {
+    "name": "Pastel de queso",
+    "calories": 414
+  },
+  {
+    "name": "Agua ardiente",
+    "calories": 280
+  },
+  {
+    "name": "Agua tónica",
+    "calories": 34
+  },
+  {
+    "name": "Anís",
+    "calories": 312
+  },
+  {
+    "name": "Batido lácteo de cacao",
+    "calories": 100
+  },
+  {
+    "name": "Cacao en polvo sin azúcar a la taza",
+    "calories": 439
+  },
+  {
+    "name": "Café",
+    "calories": 1
+  },
+  {
+    "name": "Cerveza negra",
+    "calories": 37
+  },
+  {
+    "name": "Cerveza rubia",
+    "calories": 45
+  },
+  {
+    "name": "Champaña demi-sec",
+    "calories": 90
+  },
+  {
+    "name": "Champaña dulce",
+    "calories": 118
+  },
+  {
+    "name": "Champaña seca",
+    "calories": 85
+  },
+  {
+    "name": "Coñac, brandy",
+    "calories": 243
+  },
+  {
+    "name": "Crema de cacao",
+    "calories": 260
+  },
+  {
+    "name": "Daiquiri",
+    "calories": 122
+  },
+  {
+    "name": "Gin & Tónica",
+    "calories": 76
+  },
+  {
+    "name": "Ginebra",
+    "calories": 244
+  },
+  {
+    "name": "Leche de almendras",
+    "calories": 335
+  },
+  {
+    "name": "Licor de caña",
+    "calories": 273
+  },
+  {
+    "name": "Piña colada",
+    "calories": 194
+  },
+  {
+    "name": "Pisco",
+    "calories": 210
+  },
+  {
+    "name": "Refrescos carbonatados",
+    "calories": 48
+  },
+  {
+    "name": "Ron",
+    "calories": 244
+  },
+  {
+    "name": "Sidra dulce",
+    "calories": 33
+  },
+  {
+    "name": "Sidra seca",
+    "calories": 35
+  },
+  {
+    "name": "Té",
+    "calories": 1
+  },
+  {
+    "name": "Vermouth amargo",
+    "calories": 112
+  },
+  {
+    "name": "Vermouth dulce",
+    "calories": 160
+  },
+  {
+    "name": "Vino de mesa",
+    "calories": 70
+  },
+  {
+    "name": "Vino dulce, jerez",
+    "calories": 160
+  },
+  {
+    "name": "Vino oporto",
+    "calories": 160
+  },
+  {
+    "name": "Vodka",
+    "calories": 315
+  },
+  {
+    "name": "Whisky",
+    "calories": 244
+  },
+  {
+    "name": "Aceite de girasol",
+    "calories": 900
+  },
+  {
+    "name": "Aceite de oliva",
+    "calories": 900
+  },
+  {
+    "name": "Manteca",
+    "calories": 670
+  },
+  {
+    "name": "Mantequilla",
+    "calories": 752
+  },
+  {
+    "name": "Margarina vegetal",
+    "calories": 752
+  },
+  {
+    "name": "Bechamel",
+    "calories": 115
+  },
+  {
+    "name": "Caldos concentrados",
+    "calories": 259
+  },
+  {
+    "name": "Ketchup",
+    "calories": 98
+  },
+  {
+    "name": "Mayonesa",
+    "calories": 718
+  },
+  {
+    "name": "Mayonesa light",
+    "calories": 374
+  },
+  {
+    "name": "Mostaza",
+    "calories": 15
+  },
+  {
+    "name": "Salsa de soja",
+    "calories": 61
+  },
+  {
+    "name": "Salsa de tomate en conserva",
+    "calories": 86
+  },
+  {
+    "name": "Sofrito",
+    "calories": 116
+  },
+  {
+    "name": "Vinagres",
+    "calories": 8
+  }
+]
