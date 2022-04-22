@@ -12,6 +12,7 @@
         <module name="PG-AgeGetter" />
         <module name="covid" />
         <module name="PG-MorseConverter" />
+        <module name="PG-Covid" />
         <module name="holaMundo" />
       </profile>
     </annotationProcessing>
@@ -19,6 +20,7 @@
       <module name="covid" target="11" />
       <module name="holaMundo" target="11" />
       <module name="PG-AgeGetter" target="11" />
+      <module name="PG-Covid" target="11" />
       <module name="PG-MorseConverter" target="11" />
       <module name="PG-RomanConverter" target="11" />
       <module name="PG-SportSearcher" target="11" />
@@ -28,6 +30,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="PG-AgeGetter" options="-parameters" />
+      <module name="PG-Covid" options="-parameters" />
       <module name="PG-MorseConverter" options="-parameters" />
       <module name="PG-RomanConverter" options="-parameters" />
       <module name="PG-SportSearcher" options="-parameters" />
