@@ -1,7 +1,7 @@
 package com.spring.calculadoraDeCaloria.service;
 
-import com.spring.calculadoraDeCaloria.DTO.InfoComidaDTO;
-import com.spring.calculadoraDeCaloria.DTO.IngredientesClienteDTO;
+import com.spring.calculadoraDeCaloria.DTO.response.InfoComidaDTO;
+import com.spring.calculadoraDeCaloria.DTO.request.IngredientesClienteDTO;
 
 import java.util.List;
 

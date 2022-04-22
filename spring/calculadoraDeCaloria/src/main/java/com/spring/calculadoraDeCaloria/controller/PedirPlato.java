@@ -1,10 +1,8 @@
 package com.spring.calculadoraDeCaloria.controller;
 
-import com.spring.calculadoraDeCaloria.DTO.ComidasDTO;
-import com.spring.calculadoraDeCaloria.DTO.InfoComidaDTO;
-import com.spring.calculadoraDeCaloria.DTO.IngredientesClienteDTO;
+import com.spring.calculadoraDeCaloria.DTO.response.InfoComidaDTO;
+import com.spring.calculadoraDeCaloria.DTO.request.IngredientesClienteDTO;
 import com.spring.calculadoraDeCaloria.service.IPedirPlatoService;
-import com.spring.calculadoraDeCaloria.service.PedirPlatoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

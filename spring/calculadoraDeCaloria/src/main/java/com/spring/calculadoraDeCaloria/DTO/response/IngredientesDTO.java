@@ -1,4 +1,4 @@
-package com.spring.calculadoraDeCaloria.DTO;
+package com.spring.calculadoraDeCaloria.DTO.response;
 
 import lombok.Getter;
 import lombok.Setter;
