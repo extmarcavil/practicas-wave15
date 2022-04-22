@@ -24,7 +24,17 @@ public class SymptomsController {
     }
 
     @GetMapping("/findSymptom/{name}")
-    public ResponseEntity<Symptom> findSymptom(@PathVariable String name) {
-        return new ResponseEntity<>(this.symptomService.findSymptom(name), HttpStatus.OK);
+    public ResponseEntity<String> findSymptom(@PathVariable String name) {
+        Symptom symptom = this.symptomService.findSymptom(name);
+        String message;
+        HttpStatus status;
+        if (symptom == null) {
+            message = "Sintoma no encontrado";
+            status = HttpStatus.NOT_FOUND;
+        } else {
+            message = "Severidad del sintoma: " + symptom.getSeverity();
+            status = HttpStatus.OK;
+        }
+        return new ResponseEntity<>(message, status);
     }
 }
