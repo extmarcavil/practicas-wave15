@@ -18,7 +18,7 @@ public class PacientesService implements IPacientesService {
 
     @Override
     public List<Sintoma> getListadoSintomas(){
-        return repository.GetAllSintomas();
+        return repository.GetAll Sintomas();
     }
 
     @Override
