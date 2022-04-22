@@ -7,7 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Deporte {
-    private String nombre;
-    private String nivel;
+public class Person {
+    private String name;
+    private String surname;
+    private int age;
 }
