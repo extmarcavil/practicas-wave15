@@ -1,4 +1,4 @@
-package com.spring.covid;
+package com.bootcamp.covid;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
