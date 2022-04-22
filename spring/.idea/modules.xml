@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/PG-AgeGetter/PG-AgeGetter.iml" filepath="$PROJECT_DIR$/PG-AgeGetter/PG-AgeGetter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/PG-CalculadoraDeCalorias/PG-CalculadoraDeCalorias.iml" filepath="$PROJECT_DIR$/PG-CalculadoraDeCalorias/PG-CalculadoraDeCalorias.iml" />
       <module fileurl="file://$PROJECT_DIR$/PG-Covid/PG-Covid.iml" filepath="$PROJECT_DIR$/PG-Covid/PG-Covid.iml" />
       <module fileurl="file://$PROJECT_DIR$/PG-MorseConverter/PG-MorseConverter.iml" filepath="$PROJECT_DIR$/PG-MorseConverter/PG-MorseConverter.iml" />
       <module fileurl="file://$PROJECT_DIR$/PG-RomanConverter/PG-RomanConverter.iml" filepath="$PROJECT_DIR$/PG-RomanConverter/PG-RomanConverter.iml" />
