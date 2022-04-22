@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class Person {
-    private String name;
-    private String surname;
-    private int age;
+    private String  name;
+    private String  surname;
+    private String  sportName;
+    private int     age;
 }

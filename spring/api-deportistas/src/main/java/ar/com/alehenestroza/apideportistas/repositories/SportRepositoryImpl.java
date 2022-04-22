@@ -15,7 +15,7 @@ public class SportRepositoryImpl implements SportRepository {
         this.sports = new ArrayList<>(Arrays.asList(
                 new Sport("Football", "Primera"),
                 new Sport("Tenis", "Amateur"),
-                new Sport("Carreras", "Formula 1")
+                new Sport("Boxeo", "Peso Mediano")
         ));
     }
 
