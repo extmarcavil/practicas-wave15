@@ -8,6 +8,7 @@ import com.bootcamp.Covid19.service.ISymptomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class SymptomController {
     }
 
     @GetMapping("/findSymptoms/{name}")
-    public ResponseEntity<SymptomDTO> getSymptomByName(String name){
+    public ResponseEntity<SymptomDTO> getSymptomByName(@PathVariable String name){
         return new ResponseEntity<>(service_symptom.get_symptomByNameDTO(name),HttpStatus.OK);
     }
 
