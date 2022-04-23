@@ -33,7 +33,12 @@ public class InfoComidaService implements IService{
                 .collect(Collectors.toMap(Ingrediente::getNombre, Function.identity()));
 
         ingredientesDto.forEach(
-                ingredienteDTO -> ingredienteDTO.setCalorias(ingredientes.get(ingredienteDTO.getNombre()).getCalorias())
+                ingredienteDTO -> {
+                    ingredienteDTO.setCalorias(ingredientes.get(ingredienteDTO.getNombre()).getCalorias());
+                    //logica de negocio en el servicio.
+                    // DTO solo para SET y GET. no puede haber logica de negocio en el DTO
+                    ingredienteDTO.setTotal(ingredienteDTO.getCantidad()*ingredienteDTO.getCalorias()/100.);
+                }
         );
 
         comidaInfoDTO.setIngredientes(ingredientesDto);

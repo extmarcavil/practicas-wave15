@@ -7,9 +7,6 @@ public class IngredienteDTO {
     private String nombre;
     private Integer cantidad;
     private Integer calorias;
+    private Double total;
 
-    public Double getTotal(){
-        double div=cantidad*calorias/100;
-        return div;
-    }
 }
