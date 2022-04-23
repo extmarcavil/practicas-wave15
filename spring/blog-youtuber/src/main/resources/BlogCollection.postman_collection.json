@@ -1,0 +1,64 @@
+{
+	"info": {
+		"_postman_id": "8748b347-f1b9-4719-b45a-1619c0f1b755",
+		"name": "BlogCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "allBlogs",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": null
+			},
+			"response": []
+		},
+		{
+			"name": "getBlogById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/blogs/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"blogs",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "addBlog",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"id\": 8,\n    \"titulo\": \"Titulo\",\n    \"autor\": \"Autor\",\n    \"fechaPublicacion\": \"2022-04-25\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/bogs",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"bogs"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

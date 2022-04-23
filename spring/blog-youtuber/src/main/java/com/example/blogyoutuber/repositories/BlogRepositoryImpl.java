@@ -13,10 +13,7 @@ public class BlogRepositoryImpl implements BlogRepository {
     private List<Blog> blogs;
 
     public BlogRepositoryImpl() {
-        blogs = new ArrayList<>(Arrays.asList(
-                new Blog(1, "Primer articulo", "Pablo Perez", LocalDate.now()),
-                new Blog(2, "Segundo articulo", "Pablo Perez", LocalDate.now())
-        ));
+        blogs = loadBase();
     }
 
     @Override
@@ -38,4 +35,11 @@ public class BlogRepositoryImpl implements BlogRepository {
                 .orElse(null)
                 ;
     }
+
+    private List<Blog> loadBase() {
+        return new ArrayList<>(Arrays.asList(
+                new Blog(1, "Primer articulo", "Pablo Perez", LocalDate.now()),
+                new Blog(2, "Segundo articulo", "Pablo Perez", LocalDate.now())));
+    }
 }
+

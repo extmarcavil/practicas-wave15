@@ -3,6 +3,8 @@ package com.example.blogyoutuber.controllers;
 import com.example.blogyoutuber.models.Blog;
 import com.example.blogyoutuber.services.BlogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,19 +15,18 @@ public class BlogController {
 
     private final BlogService blogService;
 
-
     @GetMapping("/allBlogs")
-    public List<Blog> allBlogs(){
-        return blogService.getAll();
+    public ResponseEntity<List<Blog>> allBlogs(){
+        return new ResponseEntity<>(blogService.getAll(), HttpStatus.OK);
     }
 
-    @GetMapping("blogs/{id}")
-    Blog getBlogById(@PathVariable Integer id){
-        return (Blog) blogService.getBlog(id);
+    @GetMapping("/blogs/{id}")
+    public ResponseEntity <Blog> getBlogById(@PathVariable Integer id){
+        return new ResponseEntity<>(blogService.getBlog(id), HttpStatus.OK);
     }
 
-    @PostMapping("blogs")
-    Blog addBlog(@RequestBody Blog blog){
-        return blogService.save(blog);
+    @PostMapping("/blogs")
+    public ResponseEntity<Blog> addBlog(@RequestBody Blog blog){
+        return new ResponseEntity<>(blogService.save(blog), HttpStatus.OK);
     }
 }
