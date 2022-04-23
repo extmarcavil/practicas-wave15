@@ -11,6 +11,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Repository
 public class PersonajeRepositorioImpl implements PersonajeRepositorio {
@@ -24,13 +26,13 @@ public class PersonajeRepositorioImpl implements PersonajeRepositorio {
 
     @Override
     public List<PersonajeDTO> getPersonajesPorNombre(String nombre) {
-        List<PersonajeDTO> listaResultante = null;
-        for(PersonajeDTO personajeDTO : listaPersonajes){
-            if (personajeDTO.getName().contains(nombre)){
-                listaPersonajes.add(personajeDTO);
-            }
-        }
-        return listaResultante;
+        return listaPersonajes.stream()
+                              .filter(characterDTO -> contiene(nombre, characterDTO))
+                              .collect(Collectors.toList());
+    }
+
+    private boolean contiene(String query, PersonajeDTO characterDTO) {
+        return characterDTO.getName().toUpperCase().contains(query.toUpperCase());
     }
 
     public List<PersonajeDTO> initData(){

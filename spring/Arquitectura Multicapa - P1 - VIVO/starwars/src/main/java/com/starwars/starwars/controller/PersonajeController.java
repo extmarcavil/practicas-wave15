@@ -21,7 +21,7 @@ public class PersonajeController {
 
     //Punto 1.
     @GetMapping("/{nombre}")
-    public ResponseEntity<List<PersonajeDTO>> listSymptoms (@PathVariable String nombre) {
-        return new ResponseEntity<>(personajeServicio.getPersonajesPorNombre(nombre), HttpStatus.OK);
+    public List<PersonajeDTO> listSymptoms (@PathVariable String nombre) {
+        return personajeServicio.getPersonajesPorNombre(nombre);
     }
 }
