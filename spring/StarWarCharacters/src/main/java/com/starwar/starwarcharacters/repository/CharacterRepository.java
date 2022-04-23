@@ -13,7 +13,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.springframework.util.ResourceUtils;
-import com.starwar.starwarcharacters.entity.Character;
 
 @Repository
 public class CharacterRepository {
@@ -39,7 +38,6 @@ public class CharacterRepository {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return characters;
     }
 

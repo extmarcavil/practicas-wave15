@@ -29,12 +29,12 @@ public class Main {
         Comparator<Vehiculo> ordenPorPrecio = Comparator.comparing(Vehiculo::getCosto);
         g.getListaVehiculos().sort(ordenPorPrecio);
         System.out.println("Lista ordenada por precio");
-        g.getListaVehiculos().stream().forEach(System.out::println);
+        g.getListaVehiculos().forEach(System.out::println);
 
         Comparator<Vehiculo> ordenPorMarcaPrecio = Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getCosto);
         System.out.println("Lista ordenada por Marca y Precio");
         g.getListaVehiculos().sort(ordenPorMarcaPrecio);
-        g.getListaVehiculos().stream().forEach(System.out::println);
+        g.getListaVehiculos().forEach(System.out::println);
 
         System.out.println("Vehiculos con precio no mayor a 1000");
         List<Vehiculo> l1 = g.getListaVehiculos().stream().filter(x -> x.getCosto()<1000).collect(Collectors.toList());
