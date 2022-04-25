@@ -6,7 +6,7 @@ import com.vparula.youtuber.model.EntradaBlog;
 import java.util.List;
 
 public interface IServiceBlog {
-    public void agregarBlog(EntradaBlog blog);
+    public void agregarBlog(EntradaDTO blog);
     public EntradaDTO getEntrada(int entrada);
     public List<EntradaDTO> obtenerEntradas();
 }

@@ -24,11 +24,12 @@ public class ServiceBlog implements IServiceBlog {
     }
 
     @Override
-    public void agregarBlog(EntradaBlog blog) {
+    public void agregarBlog(EntradaDTO blog) {
         if(repo.existeId(blog.getId())){
             throw new BlogExisteException("Ya existe una entrada al blog con id: " + blog.getId());
         }
-        repo.agregarEntrada(blog);
+        EntradaBlog entrada = mapper.map(blog,EntradaBlog.class);
+        repo.agregarEntrada(entrada);
     }
 
     @Override

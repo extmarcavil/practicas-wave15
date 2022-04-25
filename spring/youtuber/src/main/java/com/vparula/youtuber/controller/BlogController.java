@@ -19,7 +19,7 @@ public class BlogController {
 
 
     @PostMapping("/blog")
-    public ResponseEntity<String> agregarBlog(@RequestBody EntradaBlog blog){
+    public ResponseEntity<String> agregarBlog(@RequestBody EntradaDTO blog){
             service.agregarBlog(blog);
             return new ResponseEntity<>("Se ha agregado la entrada con exito", HttpStatus.OK);
     }
