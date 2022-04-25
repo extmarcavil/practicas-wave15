@@ -1,7 +1,8 @@
 package com.bootcamp.covid.controller;
 
+import com.bootcamp.covid.dto.PersonDTO;
 import com.bootcamp.covid.dto.SymptomDTO;
-import com.bootcamp.covid.model.Symptom;
+import com.bootcamp.covid.service.PersonService;
 import com.bootcamp.covid.service.SymptomService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,11 @@ import java.util.List;
 
 @RestController
 public class CovidController {
+    private PersonService personService;
+
+    public CovidController(PersonService personService) {
+        this.personService = personService;
+    }
 
     @GetMapping("/findSymptom")
     public List<SymptomDTO> findSymptom(){
@@ -24,5 +30,10 @@ public class CovidController {
         return new ResponseEntity<>(SymptomService.findSymptomByName(name),
                 SymptomService.findSymptomByName(name) !=null ? HttpStatus.OK: HttpStatus.BAD_REQUEST
         );
+    }
+
+    @GetMapping("/findRiskPerson")
+    public List<PersonDTO> findRiskPerson(){
+        return personService.findRiskPerson();
     }
 }
