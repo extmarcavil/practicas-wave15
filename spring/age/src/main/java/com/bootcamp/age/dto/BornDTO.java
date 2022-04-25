@@ -15,5 +15,5 @@ public class BornDTO implements Serializable {
     private Integer year;
 
     @JsonFormat(pattern= "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
-    LocalDate born;
+    private LocalDate born;
 }

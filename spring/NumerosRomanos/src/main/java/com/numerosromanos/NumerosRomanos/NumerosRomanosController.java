@@ -14,6 +14,7 @@ public class NumerosRomanosController {
     }
 
     private static String toRoman(int number) {
+        //Con el TreeMap Se le asigna una cifra numerica a un  letra
         TreeMap<Integer, String> map = new TreeMap<Integer, String>();
         map.put(1000, "M");
         map.put(900, "CM");
@@ -29,6 +30,7 @@ public class NumerosRomanosController {
         map.put(4, "IV");
         map.put(1, "I");
 
+        //map.floorrkey retorna el numero menor mas cercanoa o igual al numero ingresado
         int l =  map.floorKey(number);
         if ( number == l ) {
             return map.get(number);
