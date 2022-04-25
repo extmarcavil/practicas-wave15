@@ -26,6 +26,7 @@ public class SymptomRepository implements ISymptomRepository{
     public List<SymptomDTO> getAllSymptoms () {
         return symptoms;
     }
+
     @Override
     public Optional<SymptomDTO> getSymptomByName ( String name ) {
         return symptoms.stream()
@@ -33,6 +34,7 @@ public class SymptomRepository implements ISymptomRepository{
             .equals(name))
           .findFirst();
     }
+
     @Override
     public List<PersonDTO> getPeople () {
         List<PersonDTO> riskPeople = people.stream()
