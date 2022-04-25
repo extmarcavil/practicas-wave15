@@ -1,25 +1,12 @@
 package Bootcamp.Spring.EjCovid.Model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Persona {
     private int id, edad;
     private String nombre, apellido;
-
-    public Persona(int id, int edad, String nombre, String apellido) {
-        this.id = id;
-        this.edad = edad;
-        this.nombre = nombre;
-        this.apellido = apellido;
-    }
-
-    @Override
-    public String toString() {
-        return "Persona{" +
-                "id=" + id +
-                ", edad=" + edad +
-                ", nombre='" + nombre + '\'' +
-                ", apellido='" + apellido + '\'' +
-                '}';
-    }
+    private List<Sintoma> sintomas;
 
     public int getId() {
         return id;
@@ -51,5 +38,32 @@ public class Persona {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public List<Sintoma> getSintomas() {
+        return sintomas;
+    }
+
+    public void setSintomas(ArrayList<Sintoma> sintomas) {
+        this.sintomas = sintomas;
+    }
+
+    public Persona(int id, int edad, String nombre, String apellido, List<Sintoma> sintomas) {
+        this.id = id;
+        this.edad = edad;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.sintomas = sintomas;
+    }
+
+    @Override
+    public String toString() {
+        return "Persona{" +
+                "id=" + id +
+                ", edad=" + edad +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", sintomas=" + sintomas +
+                '}';
     }
 }

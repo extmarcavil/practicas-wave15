@@ -1,6 +1,8 @@
 package Bootcamp.Spring.EjCovid.Controller;
 
+import Bootcamp.Spring.EjCovid.Model.Persona;
 import Bootcamp.Spring.EjCovid.Model.Sintoma;
+import Bootcamp.Spring.EjCovid.Service.SymptomService;
 import lombok.Getter;
 import org.apache.el.parser.SimpleNode;
 import org.springframework.http.HttpStatus;
@@ -10,37 +12,37 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 public class CovidController {
 
+        SymptomService service;
+
+        public CovidController(){
+                service = new SymptomService();
+        }
+
         @GetMapping("/findSymptom")
-        public ResponseEntity<ArrayList<Sintoma>> showsymptoms (){
-                ArrayList<Sintoma> sintomas = crearSintomas();
-                return new ResponseEntity<ArrayList<Sintoma>>(sintomas, HttpStatus.I_AM_A_TEAPOT);
+        public ResponseEntity<List<Sintoma>> showsymptoms (){
+                return new ResponseEntity<>(service.getsintomas(), HttpStatus.I_AM_A_TEAPOT);
         }
 
-        @GetMapping("findSymptom/{name}")
-        public ResponseEntity<Integer> showsymptomsbyname (@PathVariable String name){
-                ArrayList<Sintoma> sintomas = crearSintomas();
-                for (Sintoma s: sintomas) {
-                        if (Objects.equals(s.getNombre(), name)) {
-                                return new ResponseEntity<Integer>(s.getNivel_de_gravedad(), HttpStatus.I_AM_A_TEAPOT);
-                        }
-                }
-                return new ResponseEntity<Integer>(123456789,HttpStatus.BAD_REQUEST);
+
+        @GetMapping("/findSymptom/{name}")
+        public ResponseEntity<Sintoma> showsymptomsbyname (@PathVariable String name){
+                return new ResponseEntity<>(service.getSintomaEncontrado(name),HttpStatus.OK);
         }
 
-        public ArrayList<Sintoma> crearSintomas (){
-                ArrayList<Sintoma> sintomas = new ArrayList<>();
-                Sintoma s1 = new Sintoma(1,0,"fiebre");
-                Sintoma s2 = new Sintoma(2,4,"headache");
-                Sintoma s3 = new Sintoma(3,1,"toz");
-                sintomas.add(s1);
-                sintomas.add(s2);
-                sintomas.add(s3);
-                return sintomas;
+
+        @GetMapping("/findRiskPerson")
+        public ResponseEntity<List<Persona>> personasDeRiesgo(){
+                return new ResponseEntity<List<Persona>>(service.getRiesgosos(), HttpStatus.OK);
 
         }
+
+
+
 }
