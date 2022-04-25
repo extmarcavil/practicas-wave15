@@ -1,6 +1,7 @@
 package com.example.starwars.Controller;
 
 import com.example.starwars.Service.CharacterServiceImp;
+import com.example.starwars.Service.ICharacterService;
 import com.example.starwars.dto.CharacterDTO;
 import com.example.starwars.dto.ResponseCharacterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +16,12 @@ import java.util.List;
 @RestController
 public class CharacterController {
 
-    CharacterServiceImp service;
+    ICharacterService service;
 
-    public CharacterController(CharacterServiceImp service) {
+    public CharacterController(ICharacterService service) {
         this.service = service;
     }
+
 
     @GetMapping("/findSW/{name}")
     public ResponseEntity<List<CharacterDTO>> encontrarPersonaje (@PathVariable String name){

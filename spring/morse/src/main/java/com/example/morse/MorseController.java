@@ -7,7 +7,7 @@ import java.util.Hashtable;
 
 
 @RestController
-public class MorseController { 
+public class MorseController {
 
     @GetMapping (path = "convert/{morse}")
     public String toChar (@PathVariable("morse") String morse){
