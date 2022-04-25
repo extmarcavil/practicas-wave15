@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
+@RequestMapping("/personaje")
 public class BuscarPersonajeController {
     ModelMapper mm = new ModelMapper();
     IBuscarPersonajeService buscarPersonajeService;
@@ -23,7 +25,7 @@ public class BuscarPersonajeController {
         this.buscarPersonajeService=buscarPersonajeService;
     }
 
-    @GetMapping("/personaje/{name}")
+    @GetMapping("{name}")
     public List<CharacterResponseDTO> findByName(@PathVariable String name){
         return buscarPersonajeService.findAllByNameContains(name)
                 .stream()
