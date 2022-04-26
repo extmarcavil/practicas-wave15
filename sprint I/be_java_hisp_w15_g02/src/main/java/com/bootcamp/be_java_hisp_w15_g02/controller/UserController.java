@@ -1,6 +1,7 @@
 package com.bootcamp.be_java_hisp_w15_g02.controller;
 
 
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowedByUserDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
 import com.bootcamp.be_java_hisp_w15_g02.service.IUserService;
@@ -37,5 +38,10 @@ public class UserController {
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable int userId){
         return new ResponseEntity<>(userService.getFollowersBySeller(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<GetFollowedByUserDTO> getFollowersByUser(@PathVariable int userId){
+        return new ResponseEntity<>(userService.getFollowedByUser(userId), HttpStatus.OK);
     }
 }
