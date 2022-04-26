@@ -27,6 +27,23 @@ public class SocialMeliService implements ISocialMeliService {
 
         User followerUser = this.repository.getUserByID(userID);
         User followedUser = this.repository.getUserByID(userIdToFollow);
+        // falta validar si pueden efectivamente hacer el follow en el usuario
         followerUser.follow(followedUser);
+    }
+
+    @Override
+    public void unfollow(int userID, int userIdToUnfollow) {
+        if( this.repository.existUser(userID) == false ){
+            throw new UserNotFound("Usuario seguidor con id: "+ userID + " no fue encontrado");
+        }
+
+        if (this.repository.existUser(userIdToUnfollow) == false){
+            throw new UserNotFound("Usuario a seguir con id: "+ userIdToUnfollow + " no fue encontrado");
+        }
+
+        User followerUser = this.repository.getUserByID(userID);
+        User followedUser = this.repository.getUserByID(userIdToUnfollow);
+        // falta validar si pueden efectivamente hacer el unfollow en el usuario
+        followerUser.unfollow(followedUser);
     }
 }

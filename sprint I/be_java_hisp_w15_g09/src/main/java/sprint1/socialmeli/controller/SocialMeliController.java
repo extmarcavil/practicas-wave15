@@ -25,7 +25,7 @@ public class SocialMeliController {
     @PostMapping("/users/{userID}/follow/{userIdToFollow}")
     public ResponseEntity<?> follow(@PathVariable int userID, @PathVariable int userIdToFollow){
         service.follow(userID,userIdToFollow);
-        return new ResponseEntity<>("",HttpStatus.OK);
+        return new ResponseEntity<>("El usuario: "+ userID + " comenzo a seguir a "+ userIdToFollow ,HttpStatus.OK);
     }
 
 
@@ -149,6 +149,13 @@ public class SocialMeliController {
     //US 0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
     //POST users/{userId}/unfollow/{userIdToUnfollow}
     //Ejemplo: /users/1569/unfollow/1235
+
+    @PostMapping("/users/{userID}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollow(@PathVariable int userID, @PathVariable int userIdToUnfollow){
+        service.unfollow(userID,userIdToUnfollow);
+        return new ResponseEntity<>("El usuario: "+ userID + " dejo de seguir a "+ userIdToUnfollow ,HttpStatus.OK);
+    }
+
 
     //US 0008: Ordenamiento alfabético ascendente y descendente
     //GET

@@ -26,7 +26,15 @@ public class User {
     public void follow(User followedUser) {
         this.listOfFollowed.add(followedUser);
         followedUser.addTolistOfFollowers(this);
+    }
 
+    public void unfollow(User followedUser) {
+        this.listOfFollowed.remove(followedUser);
+        followedUser.removeFromListOfFollowers(this);
+    }
+
+    private void removeFromListOfFollowers(User user) {
+        this.listOfFollowers.remove(user);
     }
 
     private void addTolistOfFollowers(User user) {
