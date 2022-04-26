@@ -1,10 +1,7 @@
 package com.bootcamp.Covid19.repository;
 
-import com.bootcamp.Covid19.dto.SymptomDTO;
-import com.bootcamp.Covid19.model.Persona;
 import com.bootcamp.Covid19.model.Symptom;
 import org.springframework.stereotype.Repository;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
