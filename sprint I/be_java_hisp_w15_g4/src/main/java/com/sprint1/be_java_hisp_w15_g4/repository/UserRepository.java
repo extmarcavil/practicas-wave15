@@ -1,6 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.repository;
 
 import com.sprint1.be_java_hisp_w15_g4.model.User;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -8,7 +10,7 @@ import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    List<User> users;
+    private List<User> users;
 
     public UserRepository() {
         this.users = createUsers();
