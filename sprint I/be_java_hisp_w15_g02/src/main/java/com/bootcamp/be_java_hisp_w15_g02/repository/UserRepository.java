@@ -1,7 +1,8 @@
 package com.bootcamp.be_java_hisp_w15_g02.repository;
 
-import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
+import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -10,6 +11,8 @@ import java.util.List;
 @Repository
 public class UserRepository implements IUserRepository {
     List<User> listUser;
+
+
 
     public void init() {
         listUser = new ArrayList<>();
@@ -49,12 +52,14 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> getListUser() {
-        return null;
+        return listUser;
     }
 
     @Override
-    public User getUserById(int user_id) {
-        return null;
+    public User getUserById(int userId) {
+        return listUser.stream().
+                filter(f -> f.getUserId() == userId)
+                .findFirst().orElseThrow(UserNotFoundException::new);
     }
 
     @Override

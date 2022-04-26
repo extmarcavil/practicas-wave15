@@ -51,4 +51,12 @@ public class User {
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;
     }
+
+    public boolean isSeller() {
+        return isSeller;
+    }
+
+    public void setSeller(boolean seller) {
+        isSeller = seller;
+    }
 }
