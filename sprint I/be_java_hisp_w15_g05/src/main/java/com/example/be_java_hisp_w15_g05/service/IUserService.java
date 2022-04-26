@@ -2,11 +2,13 @@ package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
-import org.apache.coyote.Response;
-import org.springframework.http.ResponseEntity;
+import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
+
 
 public interface IUserService {
-    ResponseEntity<ResFollowPostDTO> follow(int userId, int userToFollowId);
+    ResFollowPostDTO follow(int userId, int userToFollowId);
+
+    ResListFollowersDTO getListFollowers(int userId);
 
     /**
      *

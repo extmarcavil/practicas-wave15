@@ -4,7 +4,7 @@ import com.example.be_java_hisp_w15_g05.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository {
@@ -14,6 +14,7 @@ public class UserRepository implements IUserRepository {
         User galperin = new User(1, "Marcos Galperin", true);
         User juan = new User(10, "Juan", false);
         User pedro = new User(11, "Pedro", false);
+        User valentina = new User(12, "Valentina", false);
 
         galperin.agregarSeguidor(juan);
         juan.seguir(galperin);
@@ -24,6 +25,7 @@ public class UserRepository implements IUserRepository {
         users.add(galperin);
         users.add(juan);
         users.add(pedro);
+        users.add(valentina);
     }
 
     @Override
@@ -65,7 +67,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public List<User> followersList(int id) {
-        return null;
+    public Optional<User> followersList(int id) {
+        return users.stream().filter(user -> user.getUserId() == id).findFirst();
     }
 }
