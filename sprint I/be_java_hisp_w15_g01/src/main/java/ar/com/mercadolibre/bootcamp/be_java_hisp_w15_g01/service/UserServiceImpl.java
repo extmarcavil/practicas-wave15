@@ -2,6 +2,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDto;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
@@ -48,13 +49,17 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public UserDto findAllFollowersById(Long userId) {
-        List<User> followers = followRepository.findByUserFollowedId(userId);
+    public UserDto findAllFollowedByUserId(Long userId) {
+        List<User> followed = followRepository.findFollowedByUserId(userId);
         User userFollowing = findById(userId);
+
+        if(followed.isEmpty()){
+            throw new NotFollowedException();
+        }
         UserDto userDto = new UserDto();
         userDto.setUserName(userFollowing.getUserName());
         userDto.setUserId(userId);
-        userDto.setFollowed(followers);
+        userDto.setFollowed(followed);
         return userDto;
     }
 }

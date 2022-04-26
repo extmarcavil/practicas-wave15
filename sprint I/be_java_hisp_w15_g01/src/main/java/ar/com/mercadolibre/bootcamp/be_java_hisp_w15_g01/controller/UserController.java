@@ -26,10 +26,10 @@ public class UserController {
                 .body(userService.follow(userId, userIdToFollow));
     }
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserDto> followers(@PathVariable Long userId){
+    public ResponseEntity<UserDto> AllFollowedByUserId(@PathVariable Long userId){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.findAllFollowersById(userId));
+                .body(userService.findAllFollowedByUserId(userId));
 
     }
 }
