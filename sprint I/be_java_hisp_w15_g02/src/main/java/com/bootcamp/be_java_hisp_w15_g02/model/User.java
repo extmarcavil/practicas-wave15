@@ -9,19 +9,20 @@ public class User {
     private int userId;
     private String userName;
 
-    private boolean isSeller;
     private List<Follow> followList;
     private List<Follow> followerList;
+    private boolean isSeller;
 
-    public User() {
-    }
 
-    public User(int userId, String userName) {
+    public User(int userId, String userName, List<Follow> followList, List<Follow> followerList) {
         this.userId = userId;
         this.userName = userName;
-        this.followList = new ArrayList<>();
-        this.followerList = new ArrayList<>();
+        this.followList = followList;
+        this.followerList = followerList;
+        this.isSeller = false;
     }
+
+
 
     public int getUserId() {
         return userId;
@@ -50,6 +51,7 @@ public class User {
     public List<Follow> getFollowerList() {
         return followerList;
     }
+
 
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;

@@ -1,6 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.repository;
 
-import com.bootcamp.be_java_hisp_w15_g02.model.User;
+import com.bootcamp.be_java_hisp_w15_g02.model.*;
 
 import java.util.List;
 
