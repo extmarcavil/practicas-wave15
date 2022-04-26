@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.view.RedirectView;
 
+import org.springframework.web.bind.annotation.*;
+
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -20,13 +22,22 @@ public class UserController {
         this.userService = userService;
     }
 
+
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<Integer> redirect(@PathVariable String userId){
+    public ResponseEntity<FollowersCountDTO> redirect(@PathVariable String userId){
 
         FollowersCountDTO followers = userService.followersCount(Integer.parseInt(userId));
-        return new ResponseEntity<>(followers.getCount(), HttpStatus.OK);
+        return new ResponseEntity<>(followers, HttpStatus.OK);
 
 
+    }
+
+
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<?> followUser(@PathVariable Integer userId,
+                                     @PathVariable Integer userIdToFollow){
+        userService.followUser(userId, userIdToFollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

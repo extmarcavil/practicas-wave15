@@ -1,8 +1,10 @@
 package com.example.be_java_hisp_w15_g07.repository;
 
+import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
 import com.example.be_java_hisp_w15_g07.model.User;
 import org.springframework.stereotype.Repository;
 
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.*;
 
 @Repository
@@ -18,30 +20,38 @@ public class UserRepository implements IUserRepository{
         // Create user.
         User user = new User(1, "User 1");
         // Add followers
-        List<Integer> followers = new ArrayList<>(Arrays.asList(2, 3));
+        Set<Integer> followers = new TreeSet<>(Arrays.asList(2, 3));
         user.setFollowers(followers);
         // Add followed.
-        List<Integer> followed = new ArrayList<>(Arrays.asList(2, 3));
+        Set<Integer> followed = new TreeSet<>(Arrays.asList(2, 3));
         user.setFollowers(followed);
         // Add user to database.
         database.put(user.getUserId(), user);
 
         user = new User(2, "User 2");
-        followers = new ArrayList<>(Arrays.asList(1, 2));
+        followers = new TreeSet<>(Arrays.asList(1, 2));
         user.setFollowers(followers);
         database.put(user.getUserId(), user);
 
         user = new User(3, "User 3");
-        followed = new ArrayList<>(Arrays.asList(1, 2, 3));
+        followed = new TreeSet<>(Arrays.asList(1, 2, 3));
         user.setFollowers(followed);
         database.put(user.getUserId(), user);
 
         user = new User(4, "User 4");
-        followers = new ArrayList<>(Arrays.asList(1, 2, 3));
+        followers = new TreeSet<>(Arrays.asList(1, 2, 3));
         user.setFollowers(followers);
-        followed = new ArrayList<>(Arrays.asList(2, 3));
+        followed = new TreeSet<>(Arrays.asList(2, 3));
         user.setFollowers(followed);
         database.put(user.getUserId(), user);
 
+    }
+
+    @Override
+    public User findById(Integer id) {
+        if(database.containsKey(id)){
+            return database.get(id);
+        }
+        throw new UserNotFoundException("Usuario con id: " + id + " no encontrado");
     }
 }
