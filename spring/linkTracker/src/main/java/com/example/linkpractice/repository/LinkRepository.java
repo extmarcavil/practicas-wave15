@@ -1,5 +1,6 @@
 package com.example.linkpractice.repository;
 
+import com.example.linkpractice.exceptions.NotFoundException;
 import com.example.linkpractice.models.Link;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +9,7 @@ import java.util.HashMap;
 @Repository
 public class LinkRepository implements IRepository {
 
-    HashMap<Integer, Link> linkMap = new HashMap<Integer, Link>();
+    static HashMap<Integer, Link> linkMap = new HashMap<Integer, Link>();
     static private Integer keyLinkMap = 1;
 
 
@@ -31,7 +32,13 @@ public class LinkRepository implements IRepository {
     }
 
     @Override
-    public Link getLink(String id) {
-        return null;
+    public String getLink(Integer id) {
+        System.out.println(linkMap.entrySet());
+        System.out.println("buscando con id " + id);
+        String link = linkMap.get(id).getLink();
+        System.out.println("link: "+ link);
+        if (link == null) throw new NotFoundException("No se encontró link con el ID " + id);
+
+        return link;
     }
 }

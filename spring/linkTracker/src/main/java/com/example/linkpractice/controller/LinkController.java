@@ -23,9 +23,10 @@ public class LinkController {
     }
 
     @GetMapping("/link/{linkId}")
-    public ResponseEntity<Object> redirect(@RequestParam String linkId) {
+    public ResponseEntity<Object> redirect(@PathVariable Integer linkId) {
+        String linkToRedirect = service.getLinkById(linkId);
         return ResponseEntity.status(HttpStatus.FOUND)
-                .location(URI.create("https://www.yahoo.com"))
+                .location(URI.create(linkToRedirect))
                 .build();
     }
 

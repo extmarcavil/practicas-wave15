@@ -6,7 +6,8 @@ import com.example.linkpractice.DTO.response.CreateLinkDTOResponse;
 
 public interface IService {
 
-    public CreateLinkDTOResponse createLink(CreateLinkDTO link);
-    public Integer getVisits();
-    public void invalidate();
+    CreateLinkDTOResponse createLink(CreateLinkDTO link);
+    Integer getVisits();
+    void invalidate();
+    String getLinkById(Integer id);
 }

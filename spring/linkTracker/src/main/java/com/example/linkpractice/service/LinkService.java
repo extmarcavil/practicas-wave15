@@ -2,9 +2,12 @@ package com.example.linkpractice.service;
 
 import com.example.linkpractice.DTO.request.CreateLinkDTO;
 import com.example.linkpractice.DTO.response.CreateLinkDTOResponse;
+import com.example.linkpractice.exceptions.NotFoundException;
 import com.example.linkpractice.models.Link;
 import com.example.linkpractice.repository.IRepository;
 import org.springframework.stereotype.Service;
+
+import java.io.NotActiveException;
 
 @Service
 public class LinkService implements IService{
@@ -45,6 +48,13 @@ public class LinkService implements IService{
     @Override
     public void invalidate() {
 
+    }
+
+    @Override
+    public String getLinkById(Integer id) {
+        String linkById = repo.getLink(id);
+        if (linkById == null) throw new NotFoundException("No se pudo encontrar el link con el ID " + id);
+        return linkById;
     }
 
 }

@@ -7,5 +7,5 @@ public interface IRepository {
     public Integer saveLink(Link link);
     public Integer getVisits(String id);
     public void invalidate(String id);
-    public Link getLink(String id);
+    public String getLink(Integer id);
 }
