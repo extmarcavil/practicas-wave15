@@ -15,11 +15,11 @@ public class UserRepository implements IUserRepository{
         User juan = new User(10,"Juan",false);
         User pedro = new User(11, "Pedro",false);
 
-        galperin.agregarSeguidor(10);
-        juan.seguir(1);
+        galperin.agregarSeguidor(juan);
+        juan.seguir(galperin);
 
-        galperin.agregarSeguidor(11);
-        pedro.seguir(1);
+        galperin.agregarSeguidor(pedro);
+        pedro.seguir(galperin);
 
 
         users.add(galperin);

@@ -27,9 +27,10 @@ public class UserService implements IUserService{
 
     @Override
     public List<ResListFollowersDTO> getListFollowers(int userId) {
-        //userRepository.followersList(userId).orElse(throw new UserNotFoundException("No se encontró el usuario ");
+        User user = userRepository.followersList(userId).orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
+        user.getSeguidores()
+        return new ResListFollowersDTO(user.getUserId(), user.getName(), null);
 
-        return null;
     }
 
 
