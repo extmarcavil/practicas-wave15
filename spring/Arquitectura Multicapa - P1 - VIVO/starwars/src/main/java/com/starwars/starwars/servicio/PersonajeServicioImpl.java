@@ -5,7 +5,6 @@ import com.starwars.starwars.repository.PersonajeRepositorio;
 import org.springframework.stereotype.Service;
 import java.util.List;
 
-
 @Service
 public class PersonajeServicioImpl implements PersonajeServicio{
     PersonajeRepositorio personajeRepositorio;
