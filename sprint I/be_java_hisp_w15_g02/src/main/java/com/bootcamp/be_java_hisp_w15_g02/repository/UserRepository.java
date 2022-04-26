@@ -12,8 +12,6 @@ import java.util.List;
 public class UserRepository implements IUserRepository {
     List<User> listUser;
 
-
-
     public void init() {
         listUser = new ArrayList<>();
         List<Follow> listFollowers = new ArrayList<>();
@@ -33,11 +31,15 @@ public class UserRepository implements IUserRepository {
         listFollowers2.add(new Follow(2));
         listFollowers2.add(new Follow(3));
 
-        listUser.add(new User(1, "Martin", listFollows, null));
-        listUser.add(new User(2, "Leo", listFollows2, null));
-        listUser.add(new User(3, "Diana", listFollows, null));
-        listUser.add(new User(4, "Carlos", null, listFollowers));
-        listUser.add(new User(5, "Ramiro", listFollows2, listFollowers2));
+        User user4 = new User(4, "Carlos", new ArrayList<>(), listFollowers);
+        User user5 = new User(5, "Ramiro", listFollows2, listFollowers2);
+        user4.setSeller(true);
+        user5.setSeller(true);
+        listUser.add(new User(1, "Martin", listFollows, new ArrayList<>()));
+        listUser.add(new User(2, "Leo", listFollows2, new ArrayList<>()));
+        listUser.add(new User(3, "Diana", listFollows, new ArrayList<>()));
+        listUser.add(user4);
+        listUser.add(user5);
 
     }
 
