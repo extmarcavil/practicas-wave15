@@ -4,7 +4,7 @@ import com.example.be_java_hisp_w15_g05.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -15,7 +15,7 @@ public class UserRepository implements IUserRepository{
         ArrayList<Integer> galperinSeguidos = new ArrayList<>();
         galperinSeguidores.add(10);
 
-        User galperin = new User(1,"Marcos Galperin",true,galperinSeguidos,galperinSeguidores);
+        User galperin = new User(1,"Marcos Galperin",true,galperinSeguidos, galperinSeguidores);
         User juan = new User(10,"Juan",false,null,null);
 
         users.add(galperin);
@@ -38,7 +38,7 @@ public class UserRepository implements IUserRepository{
     }
 
     @Override
-    public List<User> followersList(int id) {
-        return null;
+    public Optional<User> followersList(int id) {
+        return users.stream().filter(user -> user.getUserId() == id).findFirst();
     }
 }
