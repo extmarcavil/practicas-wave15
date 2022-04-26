@@ -20,15 +20,13 @@ public class UserController {
 
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<ResFollowPostDTO> follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
-        ResFollowPostDTO res = userService.follow(userId,userIdToFollow);
+        ResFollowPostDTO res = userService.follow(userId, userIdToFollow);
 
         return new ResponseEntity<>(res, HttpStatus.OK);
-    };
+    }
 
     @GetMapping("/users/{userId}/followers/count")
-    public ResponseEntity<ResCountFollowersDTO> countFollowers(@PathVariable int userId){
-        ResCountFollowersDTO res = userService.countFollowers(userId);
-
-        return new ResponseEntity<>(res,HttpStatus.OK);
+    public ResponseEntity<ResCountFollowersDTO> countFollowers(@PathVariable int userId) {
+        return new ResponseEntity<>(userService.countFollowers(userId), HttpStatus.OK);
     }
 }

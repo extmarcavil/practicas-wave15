@@ -7,13 +7,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserRepository implements IUserRepository{
+public class UserRepository implements IUserRepository {
     ArrayList<User> users = new ArrayList<>();
 
-    public UserRepository(){
-        User galperin = new User(1,"Marcos Galperin",true);
-        User juan = new User(10,"Juan",false);
-        User pedro = new User(11, "Pedro",false);
+    public UserRepository() {
+        User galperin = new User(1, "Marcos Galperin", true);
+        User juan = new User(10, "Juan", false);
+        User pedro = new User(11, "Pedro", false);
 
         galperin.agregarSeguidor(10);
         juan.seguir(1);
@@ -28,7 +28,12 @@ public class UserRepository implements IUserRepository{
 
     @Override
     public User findById(int id) {
-        return null;
+        User user = users.stream()
+                .filter(u -> u.getUserId() == id)
+                .findFirst()
+                .orElse(null);
+
+        return user;
     }
 
     @Override
@@ -43,7 +48,7 @@ public class UserRepository implements IUserRepository{
                 .findFirst()
                 .orElse(null);
 
-        if(user == null) return 0;
+        if (user == null) return 0;
 
         return user.getSeguidores().size();
     }
