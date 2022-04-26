@@ -3,10 +3,9 @@ package com.sprint.be_java_hisp_w15_g10.Controller;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.sprint.be_java_hisp_w15_g10.Model.User;
+import com.sprint.be_java_hisp_w15_g10.Service.UserService;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.function.EntityResponse;
 
 import java.util.List;
@@ -25,6 +24,14 @@ public class UserController {
 
 
         return null;
+    }
+
+
+    @PostMapping("/users/{userId}/follow/{userIdToFollow}")
+    public EntityResponse followUser(@PathVariable int userId){
+        UserService userService = new UserService();
+        if (UserService.)
+        return   ;
     }
 
 }

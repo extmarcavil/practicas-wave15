@@ -6,6 +6,9 @@ import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class UserService implements IUserService {
 
@@ -28,4 +31,20 @@ public class UserService implements IUserService {
 
         return userDTO;
     }
+
+    @Override
+    public boolean seguirUsuario(Integer userId, Integer userIdToFollow) {
+
+        User user1 = users.getUserById(userId);
+        User user2 = users.getUserById(userIdToFollow);
+
+        if (user1 != null && user2 != null){
+            user1.seguirUsuario(user2);
+            return true;
+        }
+        return false;
+
+    }
+
+
 }

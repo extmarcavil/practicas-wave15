@@ -29,4 +29,13 @@ public class UserRepository {
         user3.seguirUsuario(user1);
 
     }
+
+    public User getUserById(Integer userId){
+        // Se filtra comparando ids, si no encuentra retorna null
+        return usuarios.stream().filter(user->user.getUser_id()==userId).findFirst().orElse(null);
+    }
+
+    public List<User> getAllUsers(){
+        return usuarios;
+    }
 }
