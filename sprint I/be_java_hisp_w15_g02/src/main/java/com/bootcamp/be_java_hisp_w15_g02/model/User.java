@@ -48,6 +48,7 @@ public class User {
         return followerList;
     }
 
+
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;
     }
