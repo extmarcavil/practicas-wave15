@@ -2,14 +2,17 @@ package sprint1.socialmeli.model;
 
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @AllArgsConstructor
 public class Product {
-    String product_name;
-    Integer product_id;
-    String type;
-    String brand ;
-    String color;
-    String notes;
-
+    private Integer productId;
+    private String productName;
+    private String type;
+    private String brand;
+    private String color;
+    private String notes;
 }
