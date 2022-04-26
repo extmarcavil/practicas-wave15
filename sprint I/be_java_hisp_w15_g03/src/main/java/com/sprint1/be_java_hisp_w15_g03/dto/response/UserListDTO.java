@@ -17,6 +17,5 @@ import java.util.List;
 @NoArgsConstructor
 public class UserListDTO extends PersonDTO {
 
-
     private List<PersonDTO> followed;
 }

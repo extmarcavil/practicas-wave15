@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -18,5 +19,10 @@ public class User extends Person{
     @Override
     public String toString() {
         return null;
+    }
+
+    public User(Integer id, String name){
+        super(id, name);
+        followed = new ArrayList<>();
     }
 }
