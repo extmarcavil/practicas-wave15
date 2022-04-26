@@ -3,8 +3,7 @@ package com.example.be_java_hisp_w15_g07.repository;
 import com.example.be_java_hisp_w15_g07.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -16,11 +15,33 @@ public class UserRepository implements IUserRepository{
     }
 
     private void initDatabase(){
+        // Create user.
         User user = new User(1, "User 1");
+        // Add followers
+        List<Integer> followers = new ArrayList<>(Arrays.asList(2, 3));
+        user.setFollowers(followers);
+        // Add followed.
+        List<Integer> followed = new ArrayList<>(Arrays.asList(2, 3));
+        user.setFollowers(followed);
+        // Add user to database.
         database.put(user.getUserId(), user);
+
         user = new User(2, "User 2");
+        followers = new ArrayList<>(Arrays.asList(1, 2));
+        user.setFollowers(followers);
         database.put(user.getUserId(), user);
+
         user = new User(3, "User 3");
+        followed = new ArrayList<>(Arrays.asList(1, 2, 3));
+        user.setFollowers(followed);
         database.put(user.getUserId(), user);
+
+        user = new User(4, "User 4");
+        followers = new ArrayList<>(Arrays.asList(1, 2, 3));
+        user.setFollowers(followers);
+        followed = new ArrayList<>(Arrays.asList(2, 3));
+        user.setFollowers(followed);
+        database.put(user.getUserId(), user);
+
     }
 }
