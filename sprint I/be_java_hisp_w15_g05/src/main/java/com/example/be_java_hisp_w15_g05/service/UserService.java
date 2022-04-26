@@ -2,6 +2,7 @@ package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
+import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class UserService implements IUserService {
         User user = userRepository.findById(userId);
 
         if (user == null) {
-            throw new RuntimeException("Usuario no encontrado");
+            throw new UserNotFoundException("Usuario " + userId + " no encontrado.");
         }
 
         int cantFollowers = userRepository.cantFollowers(userId);
