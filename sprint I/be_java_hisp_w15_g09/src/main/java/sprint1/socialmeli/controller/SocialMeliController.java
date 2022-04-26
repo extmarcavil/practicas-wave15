@@ -1,5 +1,9 @@
 package sprint1.socialmeli.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sprint1.socialmeli.service.ISocialMeliService;
 
@@ -18,6 +22,11 @@ public class SocialMeliController {
     //Response
     //Status Code 200 (todo OK)
     //Status Code 400 (Bad Request)
+    @PostMapping("/users/{userID}/follow/{userIdToFollow}")
+    public ResponseEntity<?> follow(@PathVariable int userID, @PathVariable int userIdToFollow){
+        service.follow(userID,userIdToFollow);
+        return new ResponseEntity<>("",HttpStatus.OK);
+    }
 
 
     //US 0002: Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
