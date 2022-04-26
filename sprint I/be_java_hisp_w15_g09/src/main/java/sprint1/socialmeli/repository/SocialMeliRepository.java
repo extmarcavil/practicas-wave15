@@ -33,7 +33,7 @@ public class SocialMeliRepository implements ISocialMeliRepository {
     }
 
     @Override
-    public User getUserByID(Integer userID) {
+    public User findUserById(Integer userID) {
         return userDB.get(userID);
     }
 

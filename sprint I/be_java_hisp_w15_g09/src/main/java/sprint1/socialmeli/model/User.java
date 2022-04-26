@@ -16,7 +16,7 @@ public class User {
     List<User> listOfFollowed;
     //...List<>
 
-    public User(int id, String name) {
+    public User(Integer id, String name) {
         this.name = name;
         this.id = id;
         this.listOfFollowed = new ArrayList<>();
