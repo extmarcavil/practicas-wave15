@@ -18,4 +18,15 @@ public class Product {
     private String color;
     private String notes;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "productId=" + productId +
+                ", productName='" + productName + '\'' +
+                ", type='" + type + '\'' +
+                ", brand='" + brand + '\'' +
+                ", color='" + color + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }

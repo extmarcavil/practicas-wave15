@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g03.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g03.model.Category;
 import com.sprint1.be_java_hisp_w15_g03.model.Product;
@@ -21,6 +22,7 @@ import java.time.LocalDate;
 public class PublicationRespDTO {
 
     private Integer postId;
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
     private Integer category;
     private Double price;
