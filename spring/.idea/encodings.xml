@@ -3,6 +3,7 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/PG-AgeGetter/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/PG-AgeGetter/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/PG-Blog/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/PG-CalculadoraDeCalorias/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/PG-Covid/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/PG-Covid/src/main/resources" charset="UTF-8" />
@@ -16,6 +17,5 @@
     <file url="file://$PROJECT_DIR$/holaMundo/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/holaMundo/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/roman-numerals/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/starwars/src/main/java" charset="UTF-8" />
   </component>
 </project>
