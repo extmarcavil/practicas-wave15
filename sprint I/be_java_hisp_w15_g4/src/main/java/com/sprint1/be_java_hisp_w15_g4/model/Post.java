@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 @Setter
 @Getter
@@ -13,4 +14,9 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
+
+    public boolean ultimas2Semanas() {
+        Period periodo = Period.between(date, LocalDate.now());
+        return periodo.getDays() <= 14;
+    }
 }

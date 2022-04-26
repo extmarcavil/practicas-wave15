@@ -6,13 +6,20 @@ import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
+import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SocialMeliService implements ISocialMeliService {
     IUserRepository repo;
+    ModelMapper mapper = new ModelMapper();
 
 
     public SocialMeliService(IUserRepository repo) {
@@ -52,7 +59,24 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public PostListDTO lastTwoWeeksPosts(int userID) {
-        return null;
+        List<User> vendedoresSeguidos = repo.findUser(userID).getFollowing();
+
+        List<Post> posts = vendedoresSeguidos.stream()
+                .flatMap(v -> v.getPosts().stream())
+                .filter(p -> p.ultimas2Semanas())
+                .collect(Collectors.toList());
+
+        List<Post> ordenado = orderByDate(posts);
+
+        List<PostDTO> lastPostsDTO = posts.stream()
+                .map(m -> mapper.map(m, PostDTO.class))
+                .collect(Collectors.toList());
+
+        return new PostListDTO(userID, lastPostsDTO);
+    }
+
+    private List<Post> orderByDate(List<Post> posts) {
+        return posts; //posts.sort(Comparator.comparing(Post::getDate));
     }
 
     @Override
