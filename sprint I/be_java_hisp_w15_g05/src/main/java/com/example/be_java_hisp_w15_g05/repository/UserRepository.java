@@ -38,7 +38,18 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean follow(int seguidor, int seguido) {
-        return false;
+
+        User comprador = findById(seguidor);
+        User vendedor = findById(seguido);
+
+        if(vendedor.isSeller()){
+            vendedor.agregarSeguidor(comprador);
+            comprador.seguir(vendedor);
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     @Override

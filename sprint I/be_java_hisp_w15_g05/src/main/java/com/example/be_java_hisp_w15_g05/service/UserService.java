@@ -4,6 +4,8 @@ import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,9 +17,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public ResFollowPostDTO follow(int userId, int userToFollowId) {
-        userRepository.findById(userId);
-        return null;
+    public ResponseEntity<ResFollowPostDTO> follow(int userId, int userToFollowId) {
+
+        boolean resultado = userRepository.follow(userId, userToFollowId);
+        if(resultado){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
     @Override
