@@ -11,11 +11,11 @@ import java.util.List;
 
 @Repository
 public class PostRepository {
-    List<Post> postList = new ArrayList<>();
-    CategoryRepository categoryRepository;
-    ProductRepository productRepository;
+    private List<Post> postList = new ArrayList<Post>();
+    private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
 
-    PostRepository(CategoryRepository categoryRepository, ProductRepository productRepository){
+    public PostRepository(CategoryRepository categoryRepository, ProductRepository productRepository){
        this.categoryRepository = categoryRepository;
        this.productRepository = productRepository;
 

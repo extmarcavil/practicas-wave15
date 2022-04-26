@@ -24,4 +24,12 @@ public class User {
         this.followed = new ArrayList<>();
         this.posts = new ArrayList<>();
     }
+
+    public void seguirUsuario(User user){
+        followed.add(user);
+    }
+
+    public void agregarSeguidor(User user){
+        followers.add(user);
+    }
 }

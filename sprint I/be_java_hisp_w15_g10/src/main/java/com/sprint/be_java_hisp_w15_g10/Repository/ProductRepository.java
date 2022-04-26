@@ -9,9 +9,9 @@ import java.util.List;
 
 @Repository
 public class ProductRepository {
-    List<Product> productList = new ArrayList<>();
+    private List<Product> productList = new ArrayList<Product>();
 
-    ProductRepository(){
+    public ProductRepository(){
         Product product1 = new Product(  1, "Saco", "Mujer", "Koaj", "Rosado","notas");
         Product product2 = new Product(  2, "Botella", "Vidrio", "Meli", "Azul","botella");
         Product product3 = new Product(  3, "Silla", "Gamer", "Lenovo", "Amarillo","silla gamer");

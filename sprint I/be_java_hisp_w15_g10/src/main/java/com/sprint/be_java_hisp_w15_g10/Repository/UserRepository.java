@@ -8,14 +8,24 @@ import java.util.List;
 
 @Repository
 public class UserRepository {
-    List<User> usuarios;
+    private List<User> usuarios;
 
-    UserRepository(){
+    public UserRepository(){
 
         User user1 = new User(1, "Alejandro");
         User user2 = new User(2, "Camilo");
         User user3 = new User(3, "Luis");
 
-        List<User> followers1 = ArrayList<>
+        usuarios.add(user1);
+        usuarios.add(user2);
+        usuarios.add(user3);
+
+        user1.agregarSeguidor(user3);
+        user1.seguirUsuario(user2);
+
+        user2.agregarSeguidor(user1);
+
+        user3.seguirUsuario(user1);
+
     }
 }
