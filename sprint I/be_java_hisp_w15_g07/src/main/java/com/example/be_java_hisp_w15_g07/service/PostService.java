@@ -8,9 +8,10 @@ import org.springframework.stereotype.Service;
 public class PostService implements IPostService{
 
     private IPostRepository postRepository;
+    private ModelMapper modelMapper;
 
     public PostService(IPostRepository postRepository) {
         this.postRepository = postRepository;
-        ModelMapper modelMapper = new ModelMapper();
+        modelMapper = new ModelMapper();
     }
 }

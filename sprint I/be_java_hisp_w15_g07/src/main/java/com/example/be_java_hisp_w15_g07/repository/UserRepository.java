@@ -54,4 +54,8 @@ public class UserRepository implements IUserRepository{
         }
         throw new UserNotFoundException("Usuario con id: " + id + " no encontrado");
     }
+
+    public User getFollowersList(Integer userId) {
+        return this.findById(userId);
+    }
 }
