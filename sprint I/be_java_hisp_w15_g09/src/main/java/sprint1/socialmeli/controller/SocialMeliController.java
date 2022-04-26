@@ -1,6 +1,13 @@
 package sprint1.socialmeli.controller;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import sprint1.socialmeli.dto.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.service.ISocialMeliService;
 
 @RestController
@@ -29,6 +36,10 @@ public class SocialMeliController {
     //    "user_name": "vendedor1",
     //    "followers_count": 35
     //}
+    @GetMapping("/users/{userId}/followers/count")
+    public ResponseEntity<ResponseFollowersCountDTO> countFollowers(@PathVariable Integer userId){
+        return new ResponseEntity<>(service.countFollowers(userId), HttpStatus.OK);
+    }
 
     //US 0003: Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
     //GET users/{userId}/followers/list
@@ -53,6 +64,11 @@ public class SocialMeliController {
     //    ]
     //}
 
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<ResponseFollowersListDTO> listFollowers(@PathVariable Integer userId){
+        return new ResponseEntity<>(service.listFollowers(userId), HttpStatus.OK);
+    }
+
     //US 0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
     //GET users/{userId}/followed/list
     //Ejemplo: /users/4698/followed/list
@@ -75,6 +91,11 @@ public class SocialMeliController {
     //        }
     //    ]
     //}
+
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<ResponseFollowedListDTO> listFollowed(@PathVariable Integer userId){
+        return new ResponseEntity<>(service.listFollowed(userId), HttpStatus.OK);
+    }
 
     //US 0005: Dar de alta una nueva publicación
     //POST products/post
