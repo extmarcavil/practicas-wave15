@@ -30,13 +30,13 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void follow(Integer userToFollow, Integer userId) {
-
+    public void follow(Integer userId, Integer userToFollow) {
+        userRepository.follow(userId,userToFollow);
     }
 
     @Override
-    public void unfollow(Integer userToFollow, Integer userId) {
-
+    public void unfollow(Integer userId, Integer userToUnfollow) {
+        userRepository.unfollow(userId,userToUnfollow);
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/users")
@@ -18,6 +19,16 @@ public class UserController {
     @Autowired
     public UserController(IUserService userService) {
         this.userService = userService;
+    }
+
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    public void follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
+        userService.follow(userId,userIdToFollow);
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public void unfollow(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
+        userService.unfollow(userId,userIdToUnfollow);
     }
 
 
