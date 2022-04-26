@@ -4,10 +4,12 @@ package com.bootcamp.be_java_hisp_w15_g02.controller;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
 import com.bootcamp.be_java_hisp_w15_g02.service.IUserService;
-import org.springframework.http.HttpStatus;
+import com.bootcamp.be_java_hisp_w15_g02.service.UserService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,6 +21,12 @@ public class UserController {
 
     public UserController(IUserService userService) {
         this.userService = userService;
+    }
+
+    @PostMapping("{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<?> follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
+        userService.follow(userId, userIdToFollow);
+        return ResponseEntity.ok("Seguidor añadido");
     }
 
     @GetMapping("/{userId}/followers/count")

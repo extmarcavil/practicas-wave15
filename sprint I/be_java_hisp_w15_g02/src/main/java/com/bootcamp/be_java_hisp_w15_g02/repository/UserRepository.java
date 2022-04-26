@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.repository;
 
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
@@ -10,7 +11,8 @@ import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    List<User> listUser;
+
+    private List<User> listUser;
 
     public void init() {
         listUser = new ArrayList<>();
@@ -43,12 +45,14 @@ public class UserRepository implements IUserRepository {
 
     }
 
+
     public UserRepository() {
         init();
     }
 
     @Override
     public boolean createUser(User user) {
+
         return false;
     }
 
@@ -65,12 +69,21 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void follow(int user_id, int user_to_follow) {
+    public boolean follow(int userId, int userIdToFollow) {
+        User user = getUserById(userId);
+        User userToFollow = getUserById(userIdToFollow);
 
+        if (!userToFollow.isSeller())
+            return false;
+
+        userToFollow.getFollowerList().add(new Follow(user.getUserId()));
+        user.getFollowList().add(new Follow(userToFollow.getUserId()));
+        return true;
     }
 
     @Override
     public void unfollow(int user_id, int user_to_unfollow) {
 
     }
+
 }

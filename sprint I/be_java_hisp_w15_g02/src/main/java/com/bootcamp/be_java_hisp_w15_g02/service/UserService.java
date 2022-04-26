@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.service;
 
+import com.bootcamp.be_java_hisp_w15_g02.exception.NotSellerException;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
@@ -20,6 +21,10 @@ public class UserService implements IUserService {
     }
 
     @Override
+    public void follow(int userId, int userIdToFollow) {
+        if (!userRepository.follow(userId, userIdToFollow))
+            throw new NotSellerException("Error en seguir usuario");
+    }
     public GetFollowersCountDTO getFollowersCount(int userId) {
         User user = userRepository.getUserById(userId);
         GetFollowersCountDTO response = new GetFollowersCountDTO(user.getUserId(),
