@@ -9,7 +9,7 @@ import java.util.List;
 public interface IUserService {
     ResFollowPostDTO follow(int userId, int userToFollowId);
 
-    List<ResListFollowersDTO> getListFollowers(int userId);
+    ResListFollowersDTO getListFollowers(int userId);
 
     /**
      *
