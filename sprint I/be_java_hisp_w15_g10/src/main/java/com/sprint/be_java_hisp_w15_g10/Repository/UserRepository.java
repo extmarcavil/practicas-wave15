@@ -5,12 +5,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
     private List<User> usuarios;
 
-    public UserRepository(){
+    public UserRepository() {
         usuarios = new ArrayList<User>();
 
         User user1 = new User(1, "Alejandro");
@@ -30,12 +31,15 @@ public class UserRepository {
 
     }
 
-    public User getUserById(Integer userId){
-        // Se filtra comparando ids, si no encuentra retorna null
-        return usuarios.stream().filter(user->user.getUser_id()==userId).findFirst().orElse(null);
-    }
 
-    public List<User> getAllUsers(){
+    public List<User> getAllUsers() {
         return usuarios;
+
+        public Optional<User> getUserById ( int userID){
+            return usuarios.stream()
+                    .filter(user -> user.getUser_id() == userID)
+                    .findFirst();
+
+        }
     }
 }
