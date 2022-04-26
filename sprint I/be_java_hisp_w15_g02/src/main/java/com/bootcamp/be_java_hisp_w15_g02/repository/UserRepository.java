@@ -70,25 +70,14 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean follow(int userId, int userIdToFollow) {
-        /*User user = null;
-        User userToFollow = null;
-        for(User u : users) {
-            if (u.getUserId() == userId)
-                user = u;
-            if (u.getUserId() == userIdToFollow && u.isSeller())
-                userToFollow = u;
-        }
+        User user = getUserById(userId);
+        User userToFollow = getUserById(userIdToFollow);
 
-        if (user == null || userToFollow == null)
+        if (!userToFollow.isSeller())
             return false;
 
         userToFollow.getFollowerList().add(new Follow(user.getUserId()));
         user.getFollowList().add(new Follow(userToFollow.getUserId()));
-
-
-        for (User u : users) {
-            System.out.println(u.getFollowerList());
-        }*/
         return true;
     }
 

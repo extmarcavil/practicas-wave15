@@ -4,12 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Usuario no puede ser seguido")
-public class CantFollowException extends RuntimeException {
+public class NotSellerException extends RuntimeException {
 
-    public CantFollowException() {
+    public NotSellerException() {
     }
 
-    public CantFollowException(String message) {
+    public NotSellerException(String message) {
         super(message);
     }
 }

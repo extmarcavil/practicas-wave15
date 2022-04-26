@@ -9,9 +9,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class ControllerAdviceClient{
 
-    @ExceptionHandler(CantFollowException.class)
-    public ResponseEntity<?> cantFollowHandler() {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Error en proceso de seguir");
+    @ExceptionHandler(NotSellerException.class)
+    public ResponseEntity<ErrorDTO> cantFollowHandler() {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage("El usuario que intentas seguir no es vendedor");
+        errorDTO.setStatus(false);
+        return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.BAD_REQUEST);
     }
     
     @ExceptionHandler(UserNotFoundException.class)
