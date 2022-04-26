@@ -8,8 +8,6 @@ import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -26,20 +24,15 @@ public class UserService implements IUserService {
     @Override
     public ResFollowPostDTO follow(int userId, int userToFollowId) {
 
-        User follower = userRepository.findById(userId);
-        User toFollow = userRepository.findById(userToFollowId);
+        User follower = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
 
-        if(follower==null){
-            throw new UserNotFoundException("Usuario " + userId + " no encontrado.");
-        }
-        if(toFollow==null){
-            throw new UserNotFoundException("Usuario " + userToFollowId + " no encontrado.");
-        }
+        User toFollow = userRepository.findById(userToFollowId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToFollowId + " no encontrado."));;
 
-        boolean resultado = userRepository.follow(userId, userToFollowId);
+        boolean resultado = userRepository.follow(follower, toFollow);
 
         if(!resultado){
-
             throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
         }
         return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
@@ -55,13 +48,10 @@ public class UserService implements IUserService {
     }
 
     public ResCountFollowersDTO countFollowers(int userId) {
-        User user = userRepository.findById(userId);
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
 
-        if (user == null) {
-            throw new UserNotFoundException("Usuario " + userId + " no encontrado.");
-        }
-
-        int cantFollowers = userRepository.cantFollowers(userId);
+        int cantFollowers = userRepository.cantFollowers(user);
 
         return new ResCountFollowersDTO(userId, user.getName(), cantFollowers);
     }

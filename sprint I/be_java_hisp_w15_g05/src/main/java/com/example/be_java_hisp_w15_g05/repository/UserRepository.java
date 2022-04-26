@@ -29,45 +29,29 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public User findById(int id) {
-        User user = users.stream()
+    public Optional<User> findById(int id) {
+        return users.stream()
                 .filter(u -> u.getUserId() == id)
-                .findFirst()
-                .orElse(null);
-
-        return user;
+                .findFirst();
     }
 
     @Override
-    public boolean follow(int seguidor, int seguido) {
-
-        User comprador = findById(seguidor);
-        User vendedor = findById(seguido);
-
+    public boolean follow(User usuario, User vendedor) {
         if(vendedor.isSeller()){
-            vendedor.agregarSeguidor(comprador);
-            comprador.seguir(vendedor);
+            vendedor.agregarSeguidor(usuario);
+            usuario.seguir(vendedor);
             return true;
         }
-        else{
-            return false;
-        }
+        return false;
     }
 
     @Override
-    public int cantFollowers(int id) {
-        User user = users.stream()
-                .filter(u -> u.getUserId() == id)
-                .findFirst()
-                .orElse(null);
-
-        if (user == null) return 0;
-
+    public int cantFollowers(User user) {
         return user.getSeguidores().size();
     }
 
     @Override
     public Optional<User> followersList(int id) {
-        return users.stream().filter(user -> user.getUserId() == id).findFirst();
+        return findById(id);
     }
 }

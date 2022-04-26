@@ -7,15 +7,16 @@ import java.util.Optional;
 public interface IUserRepository {
     /**
      * @id el id para buscar al usuario
+     * @return
      */
-    User findById(int id);
-    boolean follow(int seguidor, int seguido);
+    Optional<User> findById(int id);
+    boolean follow(User usuario, User vendedor);
 
     /**
      *
      * @param id id del usuario
      * @return cantidad de followers de dicho usuario
      */
-    int cantFollowers(int id);
+    int cantFollowers(User user);
     Optional<User> followersList(int id);
 }
