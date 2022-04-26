@@ -1,5 +1,9 @@
 package edad.calculaedad.controller;
 
+import edad.calculaedad.dto.AgeDTO;
+import edad.calculaedad.dto.BornDTO;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -57,6 +61,17 @@ public class CalculaedadController {
 
         return "Age: " + period.getYears();
 
+    }
+
+    @GetMapping("/dto/calc")
+    //public AgeDTO calcAgePath(@RequestBody BornDTO born){
+    public ResponseEntity<AgeDTO> calcAgePath(@RequestBody BornDTO born){
+
+        LocalDate now = LocalDate.now();
+        Period period =  Period.between(born.getBorn(),now);
+
+        //return new AgeDTO(period.getYears());
+        return new ResponseEntity<>(new AgeDTO(period.getYears()), HttpStatus.OK);
     }
 
 }
