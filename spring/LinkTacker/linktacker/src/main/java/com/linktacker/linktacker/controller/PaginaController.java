@@ -25,8 +25,8 @@ public class PaginaController {
     }
 
     @GetMapping("/link/{id}")
-    public ModelAndView redireccionPagina(@PathVariable int id){
-        return new ModelAndView("redirect:" + paginaService.redirectURL(id));
+    public ModelAndView redireccionPagina(@PathVariable int id, @RequestParam("password") String password){
+        return new ModelAndView("redirect:" + paginaService.redirectURL(id, password));
     }
 
     @GetMapping("/metrics/{id}")

@@ -36,8 +36,8 @@ public class PaginaService implements IPaginaService{
     }
 
     @Override
-    public URL redirectURL(Integer linkId) {
-        var infoPagina = paginaRepository.paginaInfo(linkId);
+    public URL redirectURL(Integer linkId, String password) {
+        var infoPagina = paginaRepository.paginaIdPassword(linkId, password);
         if(!infoPagina.isValidada())
             throw  new PaginaInvalidaExeption();
 
