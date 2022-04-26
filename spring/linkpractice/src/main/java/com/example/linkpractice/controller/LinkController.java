@@ -18,7 +18,7 @@ public class LinkController {
     }
 
     @PostMapping("/link")
-    public ResponseEntity<Integer> createLink(@RequestParam String link, @RequestParam String password) {
+    public ResponseEntity<LinkResponseDTO> createLink(@RequestParam String link, @RequestParam String password) {
         return ResponseEntity.ok(linkService.createLink(link, password));
     }
 

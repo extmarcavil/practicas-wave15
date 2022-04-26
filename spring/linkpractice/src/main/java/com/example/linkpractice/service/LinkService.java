@@ -1,5 +1,6 @@
 package com.example.linkpractice.service;
 
+import com.example.linkpractice.dtos.LinkResponseDTO;
 import com.example.linkpractice.models.Link;
 import com.example.linkpractice.repository.IRepository;
 import org.springframework.stereotype.Service;
@@ -14,8 +15,8 @@ public class LinkService implements IService {
     }
 
     @Override
-    public Integer createLink(String linkInfo, String password) {
-        return repo.saveLink(new Link(linkInfo, password));
+    public LinkResponseDTO createLink(String linkInfo, String password) {
+        return new LinkResponseDTO(repo.saveLink(new Link(linkInfo, password)));
     }
 
     @Override
