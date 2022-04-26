@@ -1,6 +1,6 @@
 package com.example.be_java_hisp_w15_g07.exception;
 
-import com.example.be_java_hisp_w15_g07.dto.ErrorDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

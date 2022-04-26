@@ -1,9 +1,11 @@
 package com.example.be_java_hisp_w15_g07.service;
 
-import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
+import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowersDTO;
+import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.User;
+
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -31,6 +33,12 @@ public class UserService implements IUserService{
                 .collect(Collectors.toList());
         followers.setFollowers(userFollowers);
         return followers;
+    }
+
+    public FollowersCountDTO followersCount(Integer idUser){
+        User user = userRepository.findById(idUser);
+        FollowersCountDTO followers = new FollowersCountDTO(user.getFollowers().size(), user.getUserName(), user.getUserId());
+        return  followers;
     }
 
     @Override
