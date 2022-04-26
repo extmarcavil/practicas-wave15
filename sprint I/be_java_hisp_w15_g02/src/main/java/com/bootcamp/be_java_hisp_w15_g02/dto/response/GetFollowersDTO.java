@@ -5,10 +5,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class FollowersResponseDTO {
+public class GetFollowersDTO {
     private int user_id;
     private String user_name;
 
-    public FollowersResponseDTO() {
+    public GetFollowersDTO() {
     }
 }
