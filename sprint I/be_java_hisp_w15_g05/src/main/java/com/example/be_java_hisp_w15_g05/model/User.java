@@ -21,11 +21,19 @@ public class User {
         this.isSeller = isSeller;
     }
 
+<<<<<<< HEAD
     public void agregarSeguidor(User user){
         seguidores.add(user);
     }
 
     public void seguir(User user){
+=======
+    public void agregarSeguidor(User user) {
+        seguidores.add(user);
+    }
+
+    public void seguir(User user) {
+>>>>>>> rodrigo_gomez
         seguidos.add(user);
     }
 }

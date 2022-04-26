@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class UserService implements IUserService{
+public class UserService implements IUserService {
     private IUserRepository userRepository;
 
     public UserService(IUserRepository userRepository) {
@@ -37,9 +37,13 @@ public class UserService implements IUserService{
     public ResCountFollowersDTO countFollowers(int userId) {
         User user = userRepository.findById(userId);
 
+        if (user == null) {
+            throw new RuntimeException("Usuario no encontrado");
+        }
+
         int cantFollowers = userRepository.cantFollowers(userId);
 
-        return new ResCountFollowersDTO(userId,user.getName(),cantFollowers);
+        return new ResCountFollowersDTO(userId, user.getName(), cantFollowers);
     }
 
 }
