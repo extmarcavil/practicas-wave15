@@ -2,10 +2,8 @@ package sprint1.socialmeli.controller;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.lang.Nullable;
+import org.springframework.web.bind.annotation.*;
 import sprint1.socialmeli.dto.ResponseFollowedListDTO;
 import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
 import sprint1.socialmeli.dto.ResponseFollowersListDTO;
@@ -71,8 +69,11 @@ public class SocialMeliController {
     //}
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<ResponseFollowersListDTO> listFollowers(@PathVariable Integer userId){
-        return new ResponseEntity<>(service.listFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowersListDTO> listFollowers(@PathVariable Integer userId, @RequestParam @Nullable String order){
+        if (order == null) {
+            return new ResponseEntity<>(service.listFollowers(userId), HttpStatus.OK);
+        }
+        return ResponseEntity.ok(this.service.sortedListFollowers(userId, order));
     }
 
     //US 0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
@@ -99,8 +100,11 @@ public class SocialMeliController {
     //}
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<ResponseFollowedListDTO> listFollowed(@PathVariable Integer userId){
-        return new ResponseEntity<>(service.listFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<ResponseFollowedListDTO> listFollowed(@PathVariable Integer userId, @RequestParam @Nullable String order){
+        if (order == null) {
+            return new ResponseEntity<>(service.listFollowed(userId), HttpStatus.OK);
+        }
+        return ResponseEntity.ok(this.service.sortedListFollowed(userId, order));
     }
 
     //US 0005: Dar de alta una nueva publicación

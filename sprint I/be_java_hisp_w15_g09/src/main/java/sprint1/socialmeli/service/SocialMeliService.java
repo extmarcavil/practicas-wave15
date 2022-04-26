@@ -9,6 +9,7 @@ import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Service
@@ -75,5 +76,55 @@ public class SocialMeliService implements ISocialMeliService {
                 .stream()
                 .map(ud -> new UserDTO(ud.getId(), ud.getName()))
                 .collect(Collectors.toList()));
+    }
+
+    @Override
+    public ResponseFollowersListDTO sortedListFollowers(Integer userId, String order) {
+        if (!(order.equalsIgnoreCase("name_asc") || order.equalsIgnoreCase("name_desc"))) {
+            return null;
+        }
+
+        User user = repository.findUserById(userId);
+        if (order.equals("name_desc")) {
+            return new ResponseFollowersListDTO(user.getId(),
+                    user.getName(),
+                    user.getListOfFollowers()
+                            .stream()
+                            .sorted(Comparator.comparing(User::getName).reversed())
+                            .map(ud -> new UserDTO(ud.getId(), ud.getName()))
+                            .collect(Collectors.toList()));
+        }
+        return new ResponseFollowersListDTO(user.getId(),
+                                            user.getName(),
+                                            user.getListOfFollowers()
+                                                    .stream()
+                                                    .sorted(Comparator.comparing(User::getName))
+                                                    .map(ud -> new UserDTO(ud.getId(), ud.getName()))
+                                                    .collect(Collectors.toList()));
+    }
+
+    @Override
+    public ResponseFollowedListDTO sortedListFollowed(Integer userId, String order) {
+        if (!(order.equalsIgnoreCase("name_asc") || order.equalsIgnoreCase("name_desc"))) {
+            return null;
+        }
+
+        User user = repository.findUserById(userId);
+        if (order.equals("name_desc")) {
+            return new ResponseFollowedListDTO(user.getId(),
+                    user.getName(),
+                    user.getListOfFollowed()
+                            .stream()
+                            .sorted(Comparator.comparing(User::getName).reversed())
+                            .map(ud -> new UserDTO(ud.getId(), ud.getName()))
+                            .collect(Collectors.toList()));
+        }
+        return new ResponseFollowedListDTO(user.getId(),
+                user.getName(),
+                user.getListOfFollowed()
+                        .stream()
+                        .sorted(Comparator.comparing(User::getName))
+                        .map(ud -> new UserDTO(ud.getId(), ud.getName()))
+                        .collect(Collectors.toList()));
     }
 }
