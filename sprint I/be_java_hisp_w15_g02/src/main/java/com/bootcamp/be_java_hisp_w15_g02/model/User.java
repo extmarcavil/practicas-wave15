@@ -9,15 +9,15 @@ public class User {
     private String userName;
     private List<Follow> followList;
     private List<Follow> followerList;
+    private boolean isSeller;
 
-    public User() {
-    }
 
     public User(int userId, String userName, List<Follow> followList, List<Follow> followerList) {
         this.userId = userId;
         this.userName = userName;
         this.followList = followList;
         this.followerList = followerList;
+        this.isSeller = false;
     }
 
     public int getUserId() {
@@ -51,5 +51,13 @@ public class User {
 
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;
+    }
+
+    public boolean isSeller() {
+        return isSeller;
+    }
+
+    public void setSeller(boolean seller) {
+        isSeller = seller;
     }
 }

@@ -1,14 +1,15 @@
 package com.bootcamp.be_java_hisp_w15_g02.repository;
 
+import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import org.springframework.stereotype.Repository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
 public class UserRepository implements IUserRepository {
-<<<<<<< Updated upstream
-=======
     List<User> listUser;
 
     public void init() {
@@ -40,13 +41,11 @@ public class UserRepository implements IUserRepository {
         listUser.add(user4);
         listUser.add(user5);
 
-
     }
 
     public UserRepository() {
         init();
     }
->>>>>>> Stashed changes
 
     @Override
     public boolean createUser(User user) {
@@ -55,14 +54,14 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public List<User> getListUser() {
-        return null;
+        return listUser;
     }
 
     @Override
     public User getUserById(int userId) {
         return listUser.stream().
                 filter(f -> f.getUserId() == userId)
-                .findFirst().orElse(null);
+                .findFirst().orElseThrow(UserNotFoundException::new);
     }
 
     @Override
