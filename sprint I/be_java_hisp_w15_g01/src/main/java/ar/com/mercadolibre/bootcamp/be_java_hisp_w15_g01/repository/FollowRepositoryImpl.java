@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class FollowRepositoryImpl implements FollowRepository {
@@ -22,5 +23,13 @@ public class FollowRepositoryImpl implements FollowRepository {
         follow.setFollowing(following);
         follows.add(follow);
         return follow;
+    }
+
+    @Override
+    public List<Follow> whoFollows(Long id) {
+        return follows
+                .stream()
+                .filter(f -> f.getFollowing().getUserId().equals(id))
+                .collect(Collectors.toList());
     }
 }
