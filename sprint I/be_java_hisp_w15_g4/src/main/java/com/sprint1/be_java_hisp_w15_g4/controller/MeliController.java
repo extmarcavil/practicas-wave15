@@ -1,6 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,13 @@ public class MeliController {
         return new ResponseEntity<>(service.countFollowers(userId),HttpStatus.OK);
     }
 
-
-        ////////////////////US0003////////////////////
+    ////////////////////US0003////////////////////
     //Lucas - Luciano
+        @GetMapping("/users/{userId}/followers/list")
+        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId){
+            return new ResponseEntity<>(service.listFollowers(userId),HttpStatus.OK);
+        }
+
 
     ////////////////////US0004////////////////////
     //Nico - Nico

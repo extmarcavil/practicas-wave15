@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.service;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -9,6 +10,8 @@ import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.stream.Collectors;
 
 @Service
 public class SocialMeliService implements ISocialMeliService {
@@ -40,7 +43,13 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public FollowerListDTO listFollowers(int userID) {
-        return null;
+        User user = repo.findUser(userID);
+        if (user == null)
+            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+        FollowerListDTO dto = new FollowerListDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().stream()
+                .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
+                .collect(Collectors.toList()));
+        return dto;
     }
 
     @Override
