@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -7,17 +8,19 @@ public class User {
 
     private int userId;
     private String userName;
+
+    private boolean isSeller;
     private List<Follow> followList;
     private List<Follow> followerList;
 
     public User() {
     }
 
-    public User(int userId, String userName, List<Follow> followList, List<Follow> followerList) {
+    public User(int userId, String userName) {
         this.userId = userId;
         this.userName = userName;
-        this.followList = followList;
-        this.followerList = followerList;
+        this.followList = new ArrayList<>();
+        this.followerList = new ArrayList<>();
     }
 
     public int getUserId() {
@@ -50,5 +53,13 @@ public class User {
 
     public void setFollowerList(List<Follow> followerList) {
         this.followerList = followerList;
+    }
+
+    public boolean isSeller() {
+        return isSeller;
+    }
+
+    public void setSeller(boolean seller) {
+        isSeller = seller;
     }
 }

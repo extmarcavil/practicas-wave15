@@ -8,7 +8,7 @@ public interface IUserRepository {
     boolean createUser(User user);
     List<User> getListUser();
     User getUserById(int user_id);
-    void follow(int user_id, int user_to_follow);
+    boolean follow(int user_id, int user_to_follow);
     void unfollow(int user_id, int user_to_unfollow);
 
 }
