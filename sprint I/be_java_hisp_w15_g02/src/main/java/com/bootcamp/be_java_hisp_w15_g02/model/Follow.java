@@ -1,20 +1,20 @@
 package com.bootcamp.be_java_hisp_w15_g02.model;
 
 public class Follow {
-    private int user_to_follow;
+    private int userToFollow;
 
     public Follow() {
     }
 
-    public Follow(int user_to_follow) {
-        this.user_to_follow = user_to_follow;
+    public Follow(int userToFollow) {
+        this.userToFollow = userToFollow;
     }
 
-    public int getUser_to_follow() {
-        return user_to_follow;
+    public int getUserToFollow() {
+        return userToFollow;
     }
 
-    public void setUser_to_follow(int user_to_follow) {
-        this.user_to_follow = user_to_follow;
+    public void setUserToFollow(int userToFollow) {
+        this.userToFollow = userToFollow;
     }
 }

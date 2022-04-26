@@ -1,8 +1,8 @@
 package com.bootcamp.be_java_hisp_w15_g02.model;
 
 public class Product {
-    private int product_id;
-    private String product_name;
+    private int productId;
+    private String productName;
     private String type;
     private String brand;
     private String color;
@@ -11,29 +11,29 @@ public class Product {
     public Product() {
     }
 
-    public Product(int product_id, String product_name, String type, String brand, String color, String notes) {
-        this.product_id = product_id;
-        this.product_name = product_name;
+    public Product(int productId, String productName, String type, String brand, String color, String notes) {
+        this.productId = productId;
+        this.productName = productName;
         this.type = type;
         this.brand = brand;
         this.color = color;
         this.notes = notes;
     }
 
-    public int getProduct_id() {
-        return product_id;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
-    public String getProduct_name() {
-        return product_name;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProduct_name(String product_name) {
-        this.product_name = product_name;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getType() {

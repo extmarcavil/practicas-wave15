@@ -3,43 +3,43 @@ package com.bootcamp.be_java_hisp_w15_g02.model;
 import java.time.LocalDate;
 
 public class Post {
-    private int user_id;
+    private int userId;
     private LocalDate date;
     private int category;
     private Product detail;
     private double price;
-    private boolean has_promo;
+    private boolean hasPromo;
     private double discount;
 
     public Post() {
     }
 
-    public Post(int user_id, LocalDate date, int category, Product detail, double price, boolean has_promo, double discount) {
-        this.user_id = user_id;
+    public Post(int userId, LocalDate date, int category, Product detail, double price, boolean hasPromo, double discount) {
+        this.userId = userId;
         this.date = date;
         this.category = category;
         this.detail = detail;
         this.price = price;
-        this.has_promo = has_promo;
+        this.hasPromo = hasPromo;
         this.discount = discount;
     }
 
-    public Post(int user_id, LocalDate date, int category, Product detail, double price) {
-        this.user_id = user_id;
+    public Post(int userId, LocalDate date, int category, Product detail, double price) {
+        this.userId = userId;
         this.date = date;
         this.category = category;
         this.detail = detail;
         this.price = price;
-        this.has_promo = false;
+        this.hasPromo = false;
         this.discount = 0.0;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public LocalDate getDate() {
@@ -74,12 +74,12 @@ public class Post {
         this.price = price;
     }
 
-    public boolean isHas_promo() {
-        return has_promo;
+    public boolean isHasPromo() {
+        return hasPromo;
     }
 
-    public void setHas_promo(boolean has_promo) {
-        this.has_promo = has_promo;
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
     }
 
     public double getDiscount() {
