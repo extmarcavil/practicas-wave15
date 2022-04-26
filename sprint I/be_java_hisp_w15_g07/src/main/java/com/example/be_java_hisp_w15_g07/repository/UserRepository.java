@@ -4,8 +4,11 @@ import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
 import com.example.be_java_hisp_w15_g07.model.User;
 import org.springframework.stereotype.Repository;
 
-import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -53,5 +56,9 @@ public class UserRepository implements IUserRepository{
             return database.get(id);
         }
         throw new UserNotFoundException("Usuario con id: " + id + " no encontrado");
+    }
+
+    public User getFollowersList(Integer userId) {
+        return this.findById(userId);
     }
 }
