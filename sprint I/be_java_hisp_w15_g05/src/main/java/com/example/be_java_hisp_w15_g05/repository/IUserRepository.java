@@ -2,7 +2,7 @@ package com.example.be_java_hisp_w15_g05.repository;
 
 import com.example.be_java_hisp_w15_g05.model.User;
 
-import java.util.List;
+import java.util.Optional;
 
 public interface IUserRepository {
     /**
@@ -17,5 +17,5 @@ public interface IUserRepository {
      * @return cantidad de followers de dicho usuario
      */
     int cantFollowers(int id);
-    List<User> followersList(int id);
+    Optional<User> followersList(int id);
 }
