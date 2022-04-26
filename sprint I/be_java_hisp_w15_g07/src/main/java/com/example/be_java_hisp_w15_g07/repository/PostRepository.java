@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Repository
-public class PostRepository {
+public class PostRepository implements IPostRepository{
     private Map<Integer, Post> database;
 
     public PostRepository() {
