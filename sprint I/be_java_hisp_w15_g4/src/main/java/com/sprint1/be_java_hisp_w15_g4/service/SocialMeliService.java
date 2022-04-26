@@ -32,7 +32,10 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public FollowerCountDTO countFollowers(int userID) {
-        return null;
+        User user = repo.findUser(userID);
+        if (user == null)
+            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+        return new FollowerCountDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().size());
     }
 
     @Override
