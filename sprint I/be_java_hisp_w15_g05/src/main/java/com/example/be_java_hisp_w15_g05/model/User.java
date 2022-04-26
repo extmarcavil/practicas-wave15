@@ -12,15 +12,21 @@ public class User {
     private String name;
     private boolean isSeller;
 
-    private ArrayList<Integer> seguidos;
-    private ArrayList<Integer> seguidores;
+    private ArrayList<Integer> seguidos = new ArrayList<>();
+    private ArrayList<Integer> seguidores = new ArrayList<>();
 
-    public User(int userId, String name, boolean isSeller, ArrayList<Integer> seguidos, ArrayList<Integer> seguidores) {
+    public User(int userId, String name, boolean isSeller) {
         this.userId = userId;
         this.name = name;
         this.isSeller = isSeller;
-        this.seguidos = seguidos;
-        this.seguidores = seguidores;
+    }
+
+    public void agregarSeguidor(int id){
+        seguidores.add(id);
+    }
+
+    public void seguir(int id){
+        seguidos.add(id);
     }
 }
 
