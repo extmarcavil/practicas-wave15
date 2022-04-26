@@ -1,6 +1,6 @@
 package com.bootcamp.linktracker.service;
 
-import com.bootcamp.linktracker.dtos.response.LinkDTO;
+import com.bootcamp.linktracker.dtos.LinkDTO;
 
 public interface ILinkService {
     Integer save(LinkDTO link);

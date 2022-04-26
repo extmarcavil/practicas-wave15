@@ -1,6 +1,6 @@
 package com.bootcamp.linktracker.controller;
 
-import com.bootcamp.linktracker.dtos.response.LinkDTO;
+import com.bootcamp.linktracker.dtos.LinkDTO;
 import com.bootcamp.linktracker.service.ILinkService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

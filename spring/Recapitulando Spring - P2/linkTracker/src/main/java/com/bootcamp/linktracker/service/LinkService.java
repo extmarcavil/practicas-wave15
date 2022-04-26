@@ -1,12 +1,10 @@
 package com.bootcamp.linktracker.service;
 
-import com.bootcamp.linktracker.dtos.response.LinkDTO;
+import com.bootcamp.linktracker.dtos.LinkDTO;
 import com.bootcamp.linktracker.exception.NotFoundException;
 import com.bootcamp.linktracker.exception.UnauthorizedException;
 import com.bootcamp.linktracker.model.Link;
 import com.bootcamp.linktracker.repository.ILinkRepository;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

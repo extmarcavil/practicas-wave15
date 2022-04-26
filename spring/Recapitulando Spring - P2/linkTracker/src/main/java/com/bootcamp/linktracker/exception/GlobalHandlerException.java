@@ -1,6 +1,6 @@
 package com.bootcamp.linktracker.exception;
 
-import com.bootcamp.linktracker.dtos.response.ErrorDTO;
+import com.bootcamp.linktracker.dtos.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

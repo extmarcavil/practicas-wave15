@@ -1,4 +1,4 @@
-package com.bootcamp.linktracker.dtos.response;
+package com.bootcamp.linktracker.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
