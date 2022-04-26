@@ -11,6 +11,7 @@ public class UserRepository {
     private List<User> usuarios;
 
     public UserRepository(){
+        usuarios = new ArrayList<User>();
 
         User user1 = new User(1, "Alejandro");
         User user2 = new User(2, "Camilo");

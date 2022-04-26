@@ -9,9 +9,10 @@ import java.util.List;
 
 @Repository
 public class CategoryRepository {
-    private List<Category> categoryList = new ArrayList<Category>();
+    private List<Category> categoryList;
 
     public CategoryRepository(){
+        categoryList = new ArrayList<Category>();
         Category category1 = new Category(1, "Hogar");
         Category category2 = new Category(2, "Ropa");
         Category category3 = new Category(3, "Accesorios");
