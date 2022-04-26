@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g05.controller;
 
+import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
 import com.example.be_java_hisp_w15_g05.service.IUserService;
 import org.springframework.http.HttpStatus;
@@ -23,4 +24,11 @@ public class UserController {
 
         return new ResponseEntity<>(res, HttpStatus.OK);
     };
+
+    @GetMapping("/users/{userId}/followers/count")
+    public ResponseEntity<ResCountFollowersDTO> countFollowers(@PathVariable int userId){
+        ResCountFollowersDTO res = userService.countFollowers(userId);
+
+        return new ResponseEntity<>(res,HttpStatus.OK);
+    }
 }
