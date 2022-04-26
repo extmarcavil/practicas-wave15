@@ -1,5 +1,6 @@
 package com.example.linkpractice.repository;
 
+import com.example.linkpractice.exceptions.NotFoundException;
 import com.example.linkpractice.models.Link;
 import org.springframework.stereotype.Repository;
 
@@ -24,7 +25,7 @@ public class LinkRepository implements IRepository {
         Link link = links.getOrDefault(id, null);
 
         if(link == null)
-            throw new RuntimeException();
+            throw new NotFoundException("No se ha encontrado el link con el id: " + id);
 
         return link;
     }
