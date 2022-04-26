@@ -18,7 +18,7 @@ public class LinkRepository implements IRepository {
         Integer key = keyLinkMap;
         linkMap.put(key, link);
         keyLinkMap += 1;
-        return keyLinkMap;
+        return key;
     }
 
     @Override
@@ -33,11 +33,12 @@ public class LinkRepository implements IRepository {
 
     @Override
     public String getLink(Integer id) {
-        System.out.println(linkMap.entrySet());
-        System.out.println("buscando con id " + id);
-        String link = linkMap.get(id).getLink();
-        System.out.println("link: "+ link);
-        if (link == null) throw new NotFoundException("No se encontró link con el ID " + id);
+        String link;
+        try{
+            link = linkMap.get(id).getLink();
+        } catch (Exception e) {
+            throw new NotFoundException("No se encontró link con el ID " + id);
+        }
 
         return link;
     }
