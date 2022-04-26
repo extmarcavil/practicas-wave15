@@ -1,12 +1,10 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MeliController {
@@ -33,6 +31,10 @@ public class MeliController {
 
     ////////////////////US0004////////////////////
     //Nico - Nico
+    @GetMapping("/users/{userId}/followed/list")
+    public ResponseEntity<FollowingListDTO> getFollowingList(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.listFollowing(userId, order));
+    }
 
     ////////////////////US0005////////////////////
     //Nico - Nico

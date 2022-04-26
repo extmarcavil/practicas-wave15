@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.service;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -9,6 +10,8 @@ import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.*;
 
 @Service
 public class SocialMeliService implements ISocialMeliService {
@@ -41,8 +44,32 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public FollowingListDTO listFollowing(int userID) {
-        return null;
+    public FollowingListDTO listFollowing(int userID, String order) {
+        FollowingListDTO followingsDTO = new FollowingListDTO();
+        List<UserDTO> userDTO = new ArrayList<>();
+
+        User user = repo.findUser(userID);
+
+        if (user == null)
+            throw new IDNotFoundException("No se encontró el ID del usuario solicitado.");
+
+        followingsDTO.setUser_id(user.getUser_id());
+        followingsDTO.setUser_name(user.getUser_name());
+
+        // Usar Mapper
+        for (User u : user.getFollowing()) {
+            userDTO.add(new UserDTO(u.getUser_id(), u.getUser_name()));
+        }
+
+        if (order == null || order.equals("name_asc")) {
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
+        } else if (order.equals("name_desc")) {
+            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
+        }
+
+        followingsDTO.setFollowingList(userDTO);
+
+        return followingsDTO;
     }
 
     @Override
