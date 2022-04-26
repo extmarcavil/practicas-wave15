@@ -1,13 +1,16 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDto;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -42,5 +45,16 @@ public class UserServiceImpl implements  UserService {
         } else {
             throw new UserNotFoundException();
         }
+    }
+
+    @Override
+    public UserDto findAllFollowersById(Long userId) {
+        List<User> followers = followRepository.findByUserFollowedId(userId);
+        User userFollowing = findById(userId);
+        UserDto userDto = new UserDto();
+        userDto.setUserName(userFollowing.getUserName());
+        userDto.setUserId(userId);
+        userDto.setFollowed(followers);
+        return userDto;
     }
 }
