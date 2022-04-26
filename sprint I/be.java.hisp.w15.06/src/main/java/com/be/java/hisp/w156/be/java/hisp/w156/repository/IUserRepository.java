@@ -9,7 +9,7 @@ public interface IUserRepository {
 
     void initData();
 
-    User getUser();
+    User getUser(Integer id);
 
     void follow(Integer userToFollow, Integer userId);
 
