@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class UserRepository {
@@ -28,5 +29,11 @@ public class UserRepository {
 
         user3.seguirUsuario(user1);
 
+    }
+
+    public Optional<User> getUserById(int userID){
+        return usuarios.stream()
+                .filter(user -> user.getUser_id()==userID)
+                .findFirst();
     }
 }
