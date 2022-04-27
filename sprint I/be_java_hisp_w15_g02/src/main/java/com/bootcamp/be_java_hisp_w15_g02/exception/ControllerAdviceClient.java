@@ -32,4 +32,12 @@ public class ControllerAdviceClient{
         errorDTO.setStatus(false);
         return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(OrderNotFoundException.class)
+    public ResponseEntity<ErrorDTO> orderNotFoundHandler(Exception e) {
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage("Order no validoo");
+        errorDTO.setStatus(false);
+        return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.NOT_FOUND);
+    }
 }

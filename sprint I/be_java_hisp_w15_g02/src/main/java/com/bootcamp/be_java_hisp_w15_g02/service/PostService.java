@@ -9,6 +9,7 @@ import java.time.ZoneId;
 
 @Service
 public class PostService implements IPostService{
+
     private IPostRepository postRepository;
 
     public PostService(IPostRepository postRepository) {
