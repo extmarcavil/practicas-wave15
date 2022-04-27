@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class UserFollowersDTO {
+
     private Integer user_id;
     private String user_name;
-
+    private List<UserDTO> followers;
 
 }

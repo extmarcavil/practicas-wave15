@@ -9,11 +9,11 @@ public interface IUserRepository {
 
     void initData();
 
-    User getUser();
+    User getUser(Integer id);
 
-    void follow(Integer userToFollow, Integer userId);
+    void follow(Integer userId, Integer userIdToFollow);
 
-    void unfollow(Integer userToFollow, Integer userId);
+    void unfollow(Integer userId, Integer userIdToUnfollow);
 
     Integer getCountFollow(Integer id);
 
