@@ -38,7 +38,7 @@ public class MeliController {
     ////////////////////US0003////////////////////
     //Lucas - Luciano
         @GetMapping("/users/{userId}/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId){
+        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
             return new ResponseEntity<>(service.listFollowers(userId),HttpStatus.OK);
         }
 

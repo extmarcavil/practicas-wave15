@@ -74,11 +74,7 @@ public class SocialMeliService implements ISocialMeliService {
             userDTO.add(new UserDTO(u.getUser_id(), u.getUser_name()));
         }
 
-        if (order == null || order.equals("name_asc")) {
-            userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
-        } else if (order.equals("name_desc")) {
-            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
-        }
+        orderByName(order, userDTO);
 
         followingsDTO.setFollowingList(userDTO);
 
@@ -108,9 +104,15 @@ public class SocialMeliService implements ISocialMeliService {
         return new PostListDTO(userID, lastPostsDTO);
     }
 
+    private void orderByName(String order, List<UserDTO> userDTO) {
+        if (order == null || order.equals("name_asc")) {
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
+        } else if (order.equals("name_desc")) {
+            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
+        }
+    }
+
     private List<Post> orderByDate(List<Post> posts) {
-        //return posts.sort((p1, p2) -> p1.getDate().compareTo(p2.getDate()));
-        //return posts.stream().sorted((p1, p2) -> p1.getDate().compareTo(p2.getDate())).collect(Collectors.toList());
         return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
     }
 
@@ -118,6 +120,4 @@ public class SocialMeliService implements ISocialMeliService {
     public void unfollow(int userID, int userIDToUnfollow) {
 
     }
-    //    void orderByAlphabet(/* PostListDTO listaDelReq06*/); //Req 08: ordena alfabeticamente de manera ascendente y descendente a los post del Req 06
-    //    void orderByDate(/* PostListDTO listaDelReq06*/); //Req 09: ordena ascendente y descendentemente por fecha a los post del Req 06
 }
