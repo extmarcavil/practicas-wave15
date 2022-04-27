@@ -31,10 +31,10 @@ public class ProductController {
 
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<PostListDTO> create(@PathVariable Long userId) {
+    public ResponseEntity<PostListDTO> create(@PathVariable Long userId, @RequestParam(required = false) String order) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(service.getPostsByFollowedUsers(userId));
+                .body(service.getPostsByFollowedUsers(userId, order));
     }
 
 

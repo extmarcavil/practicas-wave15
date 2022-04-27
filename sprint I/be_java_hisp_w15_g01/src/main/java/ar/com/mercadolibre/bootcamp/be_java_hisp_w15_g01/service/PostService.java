@@ -11,5 +11,5 @@ public interface PostService {
 
     ResponseDTO createPost(PostDTO postDto);
 
-    PostListDTO getPostsByFollowedUsers(Long userId);
+    PostListDTO getPostsByFollowedUsers(Long userId, String order);
 }
