@@ -8,6 +8,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
+import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -146,7 +147,9 @@ public class SocialMeliService implements ISocialMeliService {
     public void unfollow(int userID, int userIDToUnfollow) {
         User user = getUser(userID);
         User userToUnfollow = getUser(userIDToUnfollow);
-
+        if(!user.getFollowing().contains(userToUnfollow)){
+            throw new NotFollowException(userIDToUnfollow);
+        }
         user.removeFollowing(userToUnfollow);
         userToUnfollow.removeFollower(user);
     }
