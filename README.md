@@ -1,46 +1,56 @@
 
-# Wave 15 Practicas
+# be_java_hisp_w15_g06
+​
+Objetivo: Aplicar los contenidos dados hasta el momento durante el BOOTCAMP MeLi (Git, Java y Spring), con la finalidad de poder implementar una API REST a partir de un enunciado propuesto, una especificación de requisitos y documentación anexada.
+​
 
-Repositorio de practicas de Bootcamp DH Java Wave 15
+​
 
-## Directrices de creación de ramas
-
-Al momento de crear las ramas convenimos una directriz de "Naming" para las mismas:
-
-* El nombre debe ser en lowercase (minuscula).
-* Debe contener unicamente el nombre y apellido del bootcamper.
-* Si tienen muchos nombres y apellidos, usar su primer nombre y su primer apellido.
-* Usar snake_case.
-
-Ejemplo:
-
-```
- git branch [apellido]_[nombre]
-```
-
-## Flujo de trabajo
+## Requerimientos: 
 
 
-Cada desarrolador cuenta con un branch con la estructura ya creada a su nombre para trabajar en las prácticas y desafíos.
+- US 0001: Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
+- US 0002: Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
+- US 0003: Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
+- US 0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
+- US 0005: Dar de alta una nueva publicación
+- US 0006: Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
+- US 0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
+- US 0008: Ordenamiento alfabético ascendente y descendente
+- US 0009: Ordenamiento por fecha ascendente y descendente
 
-1. Clonar el repositorio (branch y estructura)
-   
-   `git clone git@github.com:extmarcavil/practicas-wave15.git`
-   
-2. Entrar a la carpeta del proyecto clonado y crear el branch con su apellido y nombre
+ https://docs.google.com/document/d/1Q-xGaOMPij-qk_gMvcN0Sk0isbCPqjJS/edit
 
-   `git branch [apellido]_[nombre]`
-   o
-   `git checkout -b [apellido]_[nombre]`
-   
-3. Subir la rama que crearon
-   
-   `git push -u origin [apellido]_[nombre]`
+## Miembros
 
-4. Luego trabajar con el flujo habitual 
+- Alvarez, Matias;
+- Leonetti, Julieta;
+- Bazzano, Silvia;
+- Pichetti, Gonzalo;
+- Vilte, Ali;
+- Vitale, Nicolás;
 
-   `git add .`
-   
-   `git commit -m "mensaje de commit"`
-   
-   `git push`
+
+## Consideraciones
+
+- El código se ha definido que se escriba en inglés para mantener su coherencia; 
+- Se decidió que los usuarios tendrán dos listas (Followed and Followers) 
+- Se decidió que los POST serán valores de User
+- Utilizamos @DefaultValue por delante de @RequestParam 
+- Distincion de paquetes dentro de DTO para response y request 
+- Utilizamos SuccessDTO para enviar los mensajes de éxito
+- Por convención, se decidió utilizar DTO en mayúscula en todos los casos.
+- Hicimos el mapper de manera manual.
+- Creamos un bean nuevo para poder adaptar el formato dd-MM-yyyy custom
+- Realizamos 5 excepciones para tratar algunas validaciones
+
+## 🔗 Github Links
+- https://github.com/extmarcavil/practicas-wave15/tree/leonetti_julieta/
+- https://github.com/extmarcavil/practicas-wave15/tree/vilte_ali/
+- https://github.com/extmarcavil/practicas-wave15/tree/bazzano_silvia/
+- https://github.com/extmarcavil/practicas-wave15/tree/pichetti_gonzalo/
+- https://github.com/extmarcavil/practicas-wave15/tree/alvarez_matias/
+- https://github.com/extmarcavil/practicas-wave15/tree/vitale_nicolas
+
+
+
