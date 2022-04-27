@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
@@ -13,7 +14,7 @@ public interface UserService {
     FollowersListDTO whoFollowsMe(Long id);
     FollowersCountDTO wowManyFollowsMe(Long userId);
 
-    FollowersListDTO findAllFollowedByUserId(Long userId);
+    FollowedListDTO findAllFollowedByUserId(Long userId);
 
     ResponseDTO unFollow(Long userId, long userIdToUnfollow);
 

@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowersListDTO> AllFollowedByUserId(@PathVariable Long userId){
+    public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@PathVariable Long userId){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.findAllFollowedByUserId(userId));
