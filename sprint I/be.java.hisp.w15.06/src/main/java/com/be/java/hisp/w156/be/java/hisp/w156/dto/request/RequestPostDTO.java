@@ -9,7 +9,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -17,7 +16,6 @@ import java.time.LocalDate;
 @Setter
 public class RequestPostDTO {
 
-    @NotNull
     private Integer user_id;
 
     @JsonSerialize(using = JsonAdapterSerializer.class)

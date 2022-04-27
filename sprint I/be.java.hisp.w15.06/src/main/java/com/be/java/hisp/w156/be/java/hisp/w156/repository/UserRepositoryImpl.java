@@ -9,8 +9,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -26,12 +24,15 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
-        List<Post> posts = List.of(
+        List<Post> posts = Stream.of(
                 new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
-                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50));
-        List<Post> posts2 = List.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50));
+                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50)
+        ).collect(Collectors.toList());
 
-        User user1 = new User(1, "Pepe", null, new ArrayList<User>(), new ArrayList<User>());
+        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50))
+                .collect(Collectors.toList());
+
+        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
         User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
         User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>());
         User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>());
@@ -53,89 +54,7 @@ public class UserRepositoryImpl implements IUserRepository {
     public User getUser(Integer id) {
         return this.users.stream()
                 .filter(x -> x.getId() == id)
-                .findFirst().orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado"));
-    }
-
-    @Override
-    public void follow(Integer userId, Integer userIdToFollow) {
-
-        User user = users.stream().filter(id -> id.getId() == userId).findFirst().orElse(null);
-        User userToFollow = users.stream().filter(id -> id.getId() == userIdToFollow).findFirst().orElse(null);
-
-        if(Objects.isNull(user))
-            throw new UserNotFoundException("Usuario " + userId + " no encontrado");
-
-        if(Objects.isNull(userToFollow))
-            throw new UserNotFoundException("Usuario " + userIdToFollow + " no encontrado");
-
-        if(userId == userIdToFollow)
-            throw new UserNotFoundException("El usuario no puede seguirse a si mismo");
-
-        List<User> followed = user.getFollowed();
-
-        if(followed.contains(userToFollow))
-            throw new UserNotFoundException("El usuario " + userId + " ya estaba siguiendo al usuario " + userIdToFollow);
-
-        followed.add(userToFollow);
-        user.setFollowed(followed);
-
-        List<User> followers = userToFollow.getFollowers();
-        followers.add(user);
-        userToFollow.setFollowers(followers);
-
-    }
-
-    @Override
-    public void unfollow(Integer userId, Integer userIdToUnfollow) {
-
-        User user = users.stream().filter(id -> id.getId() == userId).findFirst().orElse(null);
-        User userToUnfollow = users.stream().filter(id -> id.getId() == userIdToUnfollow).findFirst().orElse(null);
-
-        if(Objects.isNull(user))
-            throw new UserNotFoundException("Usuario " + userId + " no encontrado");
-
-        if(Objects.isNull(userToUnfollow))
-            throw new UserNotFoundException("Usuario " + userIdToUnfollow + " no encontrado");
-
-        List<User> followed = user.getFollowed();
-        if(!followed.contains(userToUnfollow))
-            throw new UserNotFoundException("El usuario " + userId + " no seguia al usuario " + userIdToUnfollow);
-
-        followed.remove(userToUnfollow);
-        user.setFollowed(followed);
-
-        List<User> followers = userToUnfollow.getFollowers();
-        followers.remove(user);
-        userToUnfollow.setFollowers(followers);
-    }
-
-    @Override
-    public Integer getCountFollow(Integer id) {
-        User user = this.users.stream()
-                .filter(x -> x.getId() == id)
-                .findFirst().orElse(null);
-
-        return user.getFollowers().size();
-    }
-
-    @Override
-    public List<User> getFollowers(Integer id) {
-        return null;
-    }
-
-    @Override
-    public List<User> getFollowed(Integer id) {
-        return null;
-    }
-
-    @Override
-    public void savePost(Post post) {
-
-    }
-
-    @Override
-    public List<Post> getPostsLastTwoWeekById(Integer id) {
-        return null;
+                .findFirst().orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override

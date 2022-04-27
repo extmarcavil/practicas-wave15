@@ -10,9 +10,9 @@ import java.util.List;
 public class RecentlyPostDTO {
 
     private final Integer user_id;
-    private final List<ResponsePostDto> posts;
+    private final List<ResponsePostDTO> posts;
 
-    public static RecentlyPostDTO from(Integer id, List<ResponsePostDto> posts) {
+    public static RecentlyPostDTO from(Integer id, List<ResponsePostDTO> posts) {
         return new RecentlyPostDTO(id, posts);
     }
 }
