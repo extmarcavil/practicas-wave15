@@ -17,14 +17,14 @@ public class Seller extends Person{
     private List<User> followers;
     private List<Publication> publications;
 
-//    @Override
-//    public String toString() {
-//        return null;
-//    }
-
     public Seller(Integer userId, String userName, List<Publication> publications) {
         super(userId, userName);
         this.publications = publications;
+    }
+
+    public Seller(Integer id, String name){
+        super(id, name);
+        followers = new ArrayList<>();
     }
 
     @Override
@@ -35,8 +35,4 @@ public class Seller extends Person{
                 '}';
     }
 
-    public Seller(Integer id, String name){
-        super(id, name);
-        followers = new ArrayList<>();
-    }
 }

@@ -1,6 +1,5 @@
 package com.sprint1.be_java_hisp_w15_g03.dto.response;
 
-import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

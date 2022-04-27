@@ -18,5 +18,4 @@ public class SellerCountDTO extends PersonDTO {
 
     private Integer followersCount;
 
-
 }
