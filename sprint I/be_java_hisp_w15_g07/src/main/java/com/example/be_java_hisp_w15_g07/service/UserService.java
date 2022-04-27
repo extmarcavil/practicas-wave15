@@ -11,6 +11,7 @@ import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -38,6 +39,57 @@ public class UserService implements IUserService{
     }
 
     @Override
+    public FollowersDTO getFollowersList(Integer userId, String order) {
+        List<User> followers;
+        if(!order.equals("name_asc") && !order.equals("name_desc")){
+            throw new BadRequestException("Argumento de ordenamiento invalido");
+        }
+        else{
+            if(order.equals("name_asc")){
+                followers = userRepository.findFollowersOrderByNameAsc(userId);
+            }
+            else {
+                followers = userRepository.findFollowersOrderByNameDesc(userId);
+            }
+        }
+        FollowersDTO followersDTO = new FollowersDTO();
+        followersDTO.setUserID(userId);
+        followersDTO.setUserName(userRepository.findById(userId).getUserName());
+
+        List<UserFollowersDTO> userFollowers = followers.stream()
+                .map(v -> modelMapper.map(userRepository.findById(v.getUserId()), UserFollowersDTO.class))
+                .collect(Collectors.toList());
+        followersDTO.setFollowers(userFollowers);
+        return followersDTO;
+    }
+
+    @Override
+    public FollowedDTO getFollowedList(Integer userId, String order) {
+        List<User> followed;
+        if(!order.equals("name_asc") && !order.equals("name_desc")){
+            throw new BadRequestException("Argumento de ordenamiento invalido");
+        }
+        else{
+            if(order.equals("name_asc")){
+                followed = userRepository.findFollowedOrderByNameAsc(userId);
+            }
+            else {
+                followed = userRepository.findFollowedOrderByNameDesc(userId);
+            }
+        }
+        FollowedDTO followedDTO = new FollowedDTO();
+        followedDTO.setUserID(userId);
+        followedDTO.setUserName(userRepository.findById(userId).getUserName());
+
+        List<UserFollowersDTO> userFollowers = followed.stream()
+                .map(v -> modelMapper.map(userRepository.findById(v.getUserId()), UserFollowersDTO.class))
+                .collect(Collectors.toList());
+        followedDTO.setFollowed(userFollowers);
+        return followedDTO;
+    }
+
+
+    @Override
     public FollowedDTO getFollowedList(Integer userId) {
         User user = userRepository.findById(userId);
         FollowedDTO followed = modelMapper.map(user, FollowedDTO.class);
@@ -47,6 +99,7 @@ public class UserService implements IUserService{
         followed.setFollowed(userFollowed);
         return followed;
     }
+
 
     public FollowersCountDTO followersCount(Integer idUser){
         User user = userRepository.findById(idUser);
