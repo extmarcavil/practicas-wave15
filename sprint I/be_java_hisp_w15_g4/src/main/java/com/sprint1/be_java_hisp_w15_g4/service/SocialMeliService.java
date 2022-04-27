@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.service;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -50,10 +51,9 @@ public class SocialMeliService implements ISocialMeliService {
         User user = repo.findUser(userID);
         if (user == null)
             throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
-        FollowerListDTO dto = new FollowerListDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().stream()
+        return new FollowerListDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().stream()
                 .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
                 .collect(Collectors.toList()));
-        return dto;
     }
 
     @Override
@@ -96,12 +96,12 @@ public class SocialMeliService implements ISocialMeliService {
 
         List<Post> posts = vendedoresSeguidos.stream()
                 .flatMap(v -> v.getPosts().stream())
-                .filter(p -> p.ultimas2Semanas())
+                .filter(Post :: ultimas2Semanas)
                 .collect(Collectors.toList());
 
         List<Post> ordenado = orderByDate(posts);
 
-        List<PostDTO> lastPostsDTO = posts.stream()
+        List<PostDTO> lastPostsDTO = ordenado.stream()
                 .map(m -> mapper.map(m, PostDTO.class))
                 .collect(Collectors.toList());
 
@@ -109,7 +109,9 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private List<Post> orderByDate(List<Post> posts) {
-        return posts; //posts.sort(Comparator.comparing(Post::getDate));
+        //return posts.sort((p1, p2) -> p1.getDate().compareTo(p2.getDate()));
+        //return posts.stream().sorted((p1, p2) -> p1.getDate().compareTo(p2.getDate())).collect(Collectors.toList());
+        return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
     }
 
     @Override
