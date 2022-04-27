@@ -60,7 +60,7 @@ public class SocialMeliService implements ISocialMeliService {
                 .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
                 .collect(Collectors.toList())
         );
-        orderByName(order, retorno.getFollowerList());
+        orderByName(order, retorno.getFollowers());
         return retorno;
     }
 
@@ -81,7 +81,7 @@ public class SocialMeliService implements ISocialMeliService {
 
         orderByName(order, userDTO);
 
-        followingsDTO.setFollowingList(userDTO);
+        followingsDTO.setFollowed(userDTO);
 
         return followingsDTO;
     }
@@ -136,7 +136,7 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private List<Post> orderByDate(List<Post> posts, String order) {
-        if (order == null || order.equals("date_asc"))
+        if (order == null || order.equals("date_desc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
 
         return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
@@ -148,5 +148,6 @@ public class SocialMeliService implements ISocialMeliService {
         User userToUnfollow = getUser(userIDToUnfollow);
 
         user.removeFollowing(userToUnfollow);
+        userToUnfollow.removeFollower(user);
     }
 }

@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Setter
@@ -34,8 +35,11 @@ public class User {
     public void removeFollowing(User user) {
         following.remove(user);
     }
-
+    public void removeFollower(User user) {
+        followers.remove(user);
+    }
     public void addPost(Post post) {
         posts.add(post);
     }
+
 }

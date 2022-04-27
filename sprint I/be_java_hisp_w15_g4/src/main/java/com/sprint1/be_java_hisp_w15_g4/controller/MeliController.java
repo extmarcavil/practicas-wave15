@@ -66,7 +66,7 @@ public class MeliController {
 
     ////////////////////US0007////////////////////
     //Yamil - Nacho
-    @GetMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();

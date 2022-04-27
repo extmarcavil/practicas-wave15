@@ -14,6 +14,5 @@ import java.util.List;
 public class FollowerListDTO {
     private int user_id;
     private String user_name;
-    @JsonProperty("followers")
-    private List<UserDTO> followerList;
+    private List<UserDTO> followers;
 }
