@@ -17,6 +17,8 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
+    private boolean has_promo;
+    private double discount;
 
     public boolean ultimas2Semanas() {
         Period periodo = Period.between(date, LocalDate.now());

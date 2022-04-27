@@ -1,10 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -71,5 +69,22 @@ public class MeliController {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    ////////////////////US00010////////////////////
+    // individual luciano
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> postPromoProduct(@RequestBody PostPromoDTO post){
+        service.createPromoPost(post);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    ////////////////////US00011////////////////////
+    // individual luciano
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<CountPromosDTO> countPromo(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.countPromo(user_id));
+    }
+
+
 
 }
