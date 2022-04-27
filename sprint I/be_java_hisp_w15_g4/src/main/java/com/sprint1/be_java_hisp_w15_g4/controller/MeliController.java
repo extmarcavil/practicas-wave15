@@ -4,10 +4,13 @@ import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MeliController {
@@ -25,7 +28,6 @@ public class MeliController {
     }
 
 
-
     ////////////////////US0002////////////////////
     //Lucas - Luciano
     @GetMapping("/users/{userId}/followers/count")
@@ -33,11 +35,11 @@ public class MeliController {
         return new ResponseEntity<>(service.countFollowers(userId),HttpStatus.OK);
     }
 
-    ////////////////////US0003////////////////////
+    ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
         @GetMapping("/users/{userId}/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId){
-            return new ResponseEntity<>(service.listFollowers(userId),HttpStatus.OK);
+        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
+            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
         }
 
 
@@ -57,6 +59,10 @@ public class MeliController {
     }
     ////////////////////US0006////////////////////
     //Yamil - Nacho
+    @GetMapping("/products/followed/{userId}/list")
+    public ResponseEntity<PostListDTO> lastPosts (@PathVariable int userId) {
+        return ResponseEntity.ok(service.lastTwoWeeksPosts(userId));
+    }
 
     ////////////////////US0007////////////////////
     //Yamil - Nacho
