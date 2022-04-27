@@ -5,10 +5,11 @@ import lombok.Setter;
 
 import java.util.List;
 
+
 @Getter
 @Setter
-public class FollowersListDTO {
+public class FollowedListDTO {
     private Long userId;
     private String userName;
-    List<UserDTO> followers;
+    List<UserDTO> followed;
 }
