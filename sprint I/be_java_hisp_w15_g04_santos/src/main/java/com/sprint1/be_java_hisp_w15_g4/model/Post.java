@@ -10,20 +10,25 @@ import java.time.Period;
 @Setter
 @Getter
 public class Post {
-    private int user_id;
     private static AtomicInteger idSequence = new AtomicInteger();
+    private int user_id;
     private int post_id;
-    private LocalDate date; //se obtiene en el momento LocalDate.now()
+    private LocalDate date;
     private Product detail;
     private int category;
     private double price;
+    private boolean has_promo;
+    private double discount;
+
+
+    public Post(){
+        this.post_id = idSequence.incrementAndGet();
+    }
 
     public boolean ultimas2Semanas() {
         Period periodo = Period.between(date, LocalDate.now());
         return periodo.getDays() <= 14;
     }
 
-    public Post(){
-        this.post_id = idSequence.incrementAndGet();
-    }
+
 }

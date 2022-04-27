@@ -1,10 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +35,10 @@ public class MeliController {
 
     ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
-        @GetMapping("/users/{userId}/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
-            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
-        }
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
+        return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
+    }
 
 
     ////////////////////US0004////////////////////
@@ -70,6 +68,19 @@ public class MeliController {
     public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // US0010
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> getPromoPosts(@RequestBody PostPromoDTO postPromoDTO) {
+        service.getPromoPosts(postPromoDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    // US0011
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<PromoPostCountDTO> getPromoPostBySeller(@RequestParam int user_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPromoPostBySeller(user_id));
     }
 
 }

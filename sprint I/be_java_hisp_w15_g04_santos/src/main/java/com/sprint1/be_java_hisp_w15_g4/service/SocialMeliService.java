@@ -3,10 +3,8 @@ package com.sprint1.be_java_hisp_w15_g4.service;
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
@@ -34,14 +32,16 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void follow(int userID, int userIDToFollow) {
 
-
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
+
         if (!seguidor.getFollowing().contains(seguido) ){
             seguido.addFollower(seguidor);
             seguidor.addFollowing(seguido);
         }
-        else throw new AlreadyFollowing(userID,userIDToFollow);
+        else {
+            throw new AlreadyFollowing(userID,userIDToFollow);
+        }
     }
 
     @Override
@@ -52,8 +52,10 @@ public class SocialMeliService implements ISocialMeliService {
 
     private User getUser(int userID) {
         User user = repo.findUser(userID);
+
         if (user == null)
             throw new IDNotFoundException(userID);
+
         return user;
     }
 
@@ -80,7 +82,6 @@ public class SocialMeliService implements ISocialMeliService {
         followingsDTO.setUser_id(user.getUser_id());
         followingsDTO.setUser_name(user.getUser_name());
 
-        // Usar Mapper
         for (User u : user.getFollowing()) {
             userDTO.add(new UserDTO(u.getUser_id(), u.getUser_name()));
         }
@@ -92,7 +93,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followingsDTO;
     }
 
-    public Product productDTOToproduct(ProductDTO productDetail){
+    private Product productDTOToproduct(ProductDTO productDetail){
         Product producto = new Product();
         producto.setProduct_id(productDetail.getProduct_id());
         producto.setProduct_name(productDetail.getProduct_name());
@@ -157,5 +158,38 @@ public class SocialMeliService implements ISocialMeliService {
         }
         user.removeFollowing(userToUnfollow);
         userToUnfollow.removeFollower(user);
+    }
+
+    @Override
+    public void getPromoPosts(PostPromoDTO postPromoDTO) {
+        Post promoPostToAdd = new Post();
+        User user = getUser(postPromoDTO.getUser_id());
+
+        promoPostToAdd.setUser_id(postPromoDTO.getUser_id());
+        promoPostToAdd.setDate(postPromoDTO.getDate());
+        promoPostToAdd.setDetail(productDTOToproduct(postPromoDTO.getDetail()));
+        promoPostToAdd.setCategory(postPromoDTO.getCategory());
+        promoPostToAdd.setPrice(postPromoDTO.getPrice());
+        promoPostToAdd.setHas_promo(postPromoDTO.isHas_promo());
+        promoPostToAdd.setDiscount(postPromoDTO.getDiscount());
+
+        user.addPost(promoPostToAdd);
+    }
+
+    @Override
+    public PromoPostCountDTO getPromoPostBySeller(int user_id) {
+        PromoPostCountDTO promoPostCountDTO = new PromoPostCountDTO();
+        User user = getUser(user_id);
+
+        int promoPostQuantity = (int) user.getPosts().stream()
+                .filter(Post::isHas_promo)
+                .count();
+
+        promoPostCountDTO.setUser_id(user.getUser_id());
+        promoPostCountDTO.setUser_name(user.getUser_name());
+        promoPostCountDTO.setPromo_products_count(promoPostQuantity);
+
+        return promoPostCountDTO;
+
     }
 }

@@ -1,10 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.service;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 
 public interface ISocialMeliService {
     void follow(int userID, int userIDToFollow); //Req 01
@@ -14,4 +12,6 @@ public interface ISocialMeliService {
     void createPost(PostDTO post); //Req 05: le llega una publicaciondto y devuelve un OK
     PostListDTO lastTwoWeeksPosts(int userID, String order); //Req 06: Devuelve una lista con los post de las últimas dos semanas de los seguidos de un usuario.
     void unfollow(int userID, int userIDToUnfollow); //Req 07
+    void getPromoPosts(PostPromoDTO postPromoDTO);
+    PromoPostCountDTO getPromoPostBySeller(int user_id);
 }
