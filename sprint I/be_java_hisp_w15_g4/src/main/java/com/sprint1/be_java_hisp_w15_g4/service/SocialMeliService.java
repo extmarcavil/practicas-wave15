@@ -1,11 +1,15 @@
 package com.sprint1.be_java_hisp_w15_g4.service;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
+import com.sprint1.be_java_hisp_w15_g4.model.Post;
+import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
 import org.springframework.stereotype.Service;
@@ -82,9 +86,29 @@ public class SocialMeliService implements ISocialMeliService {
         return followingsDTO;
     }
 
+    public Product productDTOToproduct(ProductDTO productDetail){
+        Product producto = new Product();
+        producto.setProduct_id(productDetail.getProduct_id());
+        producto.setProduct_name(productDetail.getProduct_name());
+        producto.setBrand(productDetail.getBrand());
+        producto.setColor(productDetail.getColor());
+        producto.setType(productDetail.getType());
+        producto.setNotes(productDetail.getNotes());
+        return producto;
+    }
+
     @Override
     public void createPost(PostDTO post) {
-
+        User user = repo.findUser(post.getUser_id());
+        if (user == null)
+            throw new IDNotFoundException("No se encontró el ID del usuario solicitado.");
+        Post postToAdd = new Post();
+        postToAdd.setCategory(post.getCategory());
+        postToAdd.setDate(post.getDate());
+        postToAdd.setDetail(productDTOToproduct(post.getDetail()));
+        postToAdd.setUser_id(post.getUser_id());
+        postToAdd.setPrice(post.getPrice());
+        user.addPost(postToAdd);
     }
 
     @Override

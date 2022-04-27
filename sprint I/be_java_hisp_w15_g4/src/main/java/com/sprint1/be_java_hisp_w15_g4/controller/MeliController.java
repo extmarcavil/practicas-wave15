@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -49,7 +50,11 @@ public class MeliController {
 
     ////////////////////US0005////////////////////
     //Nico - Nico
-
+    @PostMapping("/products/post")
+    public ResponseEntity<?> postProduct(@RequestBody PostDTO post){
+        service.createPost(post);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
     ////////////////////US0006////////////////////
     //Yamil - Nacho
 
