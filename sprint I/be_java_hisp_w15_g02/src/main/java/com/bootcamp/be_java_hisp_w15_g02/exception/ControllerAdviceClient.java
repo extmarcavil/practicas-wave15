@@ -24,4 +24,12 @@ public class ControllerAdviceClient{
         errorDTO.setStatus(false);
         return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorDTO> PostNotFoundException(Exception e){
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setMessage("El usuario no tiene posts");
+        errorDTO.setStatus(false);
+        return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.NOT_FOUND);
+    }
 }

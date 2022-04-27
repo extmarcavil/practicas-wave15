@@ -42,18 +42,6 @@ public class UserService implements IUserService {
         var user = userRepository.getUserById(userId);
         var listFollowers = new ArrayList<GetFollowersDTO>();
 
-//        var listIntFollowers = user.getFollowerList();
-//        if (user.isSeller()) {
-//            listIntFollowers.forEach(item -> {
-//                var newDto = new GetFollowersDTO();
-//                newDto.setUser_id(item.getUserToFollow());
-//                newDto.setUser_name(userRepository.getUserById(item.getUserToFollow()).getUserName());
-//                listFollowers.add(newDto);
-//            });
-//            result.setUser_id(user.getUserId());
-//            result.setUser_name(user.getUserName());
-//            result.setFollowers((List) listFollowers);
-//        }
         if (user.isSeller()) {
             listFollowers = (ArrayList<GetFollowersDTO>) mapFollowDTO(user.getFollowerList());
             result.setUser_id(user.getUserId());

@@ -3,6 +3,7 @@ package com.bootcamp.be_java_hisp_w15_g02.model;
 import java.time.LocalDate;
 
 public class Post {
+    private int postId;
     private int userId;
     private LocalDate date;
     private int category;
@@ -14,7 +15,7 @@ public class Post {
     public Post() {
     }
 
-    public Post(int userId, LocalDate date, int category, Product detail, double price, boolean hasPromo, double discount) {
+    public Post(int postId, int userId, LocalDate date, int category, Product detail, double price, boolean hasPromo, double discount) {
         this.userId = userId;
         this.date = date;
         this.category = category;
@@ -22,9 +23,10 @@ public class Post {
         this.price = price;
         this.hasPromo = hasPromo;
         this.discount = discount;
+        this.postId = postId;
     }
 
-    public Post(int userId, LocalDate date, int category, Product detail, double price) {
+    public Post(int postId,int userId, LocalDate date, int category, Product detail, double price) {
         this.userId = userId;
         this.date = date;
         this.category = category;
@@ -32,6 +34,15 @@ public class Post {
         this.price = price;
         this.hasPromo = false;
         this.discount = 0.0;
+        this.postId = postId;
+    }
+
+    public int getPostId() {
+        return postId;
+    }
+
+    public void setPostId(int postId) {
+        this.postId = postId;
     }
 
     public int getUserId() {

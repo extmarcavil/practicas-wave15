@@ -82,7 +82,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void unfollow(int user_id, int user_to_unfollow) {
+    public void unfollow(int userId, int userToUnfollow) {
 
     }
 
