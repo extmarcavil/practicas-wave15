@@ -1,11 +1,10 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -57,7 +56,7 @@ public class MeliController {
         service.createPost(post);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-    ////////////////////US0006////////////////////
+    ////////////////////US0006 - US0008////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<PostListDTO> lastPosts(@PathVariable int userId, @RequestParam(required = false) String order) {
@@ -67,9 +66,28 @@ public class MeliController {
     ////////////////////US0007////////////////////
     //Yamil - Nacho
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+    public ResponseEntity<?> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    ////////////////////US00010////////////////////
+    @PostMapping("products/promo-post")
+    public ResponseEntity<?> postPromoPost(@RequestBody PromoPostDTO promoPostDTO) {
+        service.createPromoPost(promoPostDTO);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    ////////////////////US00011////////////////////
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<?> countPromoPost(@RequestParam Integer user_id) {
+        return ResponseEntity.ok(service.countPromoPosts(user_id));
+    }
+
+    ////////////////////US00012////////////////////
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PromoPostListDTO> listPromoPost(@RequestParam Integer user_id) {
+        return ResponseEntity.ok(service.listPromoPost(user_id));
     }
 
 }

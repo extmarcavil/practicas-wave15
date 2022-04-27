@@ -3,10 +3,8 @@ package com.sprint1.be_java_hisp_w15_g4.service;
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
@@ -112,6 +110,7 @@ public class SocialMeliService implements ISocialMeliService {
         postToAdd.setDetail(productDTOToproduct(post.getDetail()));
         postToAdd.setUser_id(post.getUser_id());
         postToAdd.setPrice(post.getPrice());
+        postToAdd.setHas_promo(false);
         user.addPost(postToAdd);
     }
 
@@ -158,4 +157,34 @@ public class SocialMeliService implements ISocialMeliService {
         user.removeFollowing(userToUnfollow);
         userToUnfollow.removeFollower(user);
     }
+
+    @Override
+    public void createPromoPost(PromoPostDTO promoPostDTO) {
+        User user = getUser(promoPostDTO.getUser_id());
+        Post postToAdd = mapper.map(promoPostDTO,Post.class);
+        user.addPost(postToAdd);
+    }
+
+    @Override
+    public PromoPostCountDTO countPromoPosts(int userID) {
+        User user=getUser(userID);
+        return new PromoPostCountDTO(user.getUser_id(),user.getUser_name(),
+                (int) user.getPosts().stream()
+                .filter(Post::isHas_promo)
+                .count()
+        );
+    }
+
+    @Override
+    public PromoPostListDTO listPromoPost(int userID) {
+        User user=getUser(userID);
+        return new PromoPostListDTO(user.getUser_id(),user.getUser_name(),
+                user.getPosts().stream()
+                        .filter(Post::isHas_promo)
+                        .map(post -> mapper.map(post,PromoPostDTO.class))
+                        .collect(Collectors.toList())
+        );
+    }
+
+
 }
