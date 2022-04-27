@@ -8,6 +8,8 @@ import java.util.List;
 public interface FollowRepository {
     Follow save(User follower, User following);
 
+    Boolean existByFollowerAndFollowed(User follower, User followed);
+
     List<Follow> whoFollows(Long id);
 
     List<User> findFollowedByUserId(Long id);

@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.AlreadyFollowerExcepcion;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
@@ -19,11 +20,19 @@ public class FollowRepositoryImpl implements FollowRepository {
 
     @Override
     public Follow save(User follower, User following) {
+        if(existByFollowerAndFollowed(follower, following)){
+            throw new AlreadyFollowerExcepcion();
+        }
         Follow follow = new Follow();
         follow.setFollower(follower);
         follow.setFollowing(following);
         follows.add(follow);
         return follow;
+    }
+
+    @Override
+    public Boolean existByFollowerAndFollowed(User follower, User followed) {
+        return follows.stream().anyMatch(f -> f.getFollowing().equals(followed) && f.getFollower().equals(follower));
     }
 
 
