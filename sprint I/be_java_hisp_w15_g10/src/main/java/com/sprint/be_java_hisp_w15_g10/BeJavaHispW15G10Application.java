@@ -11,10 +11,4 @@ public class BeJavaHispW15G10Application {
 	public static void main(String[] args) {
 		SpringApplication.run(BeJavaHispW15G10Application.class, args);
 	}
-
-	@Bean
-	public ModelMapper modelMapper() {
-		return new ModelMapper();
-	}
-
 }

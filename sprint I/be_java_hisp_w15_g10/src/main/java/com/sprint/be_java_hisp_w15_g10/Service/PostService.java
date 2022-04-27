@@ -96,5 +96,14 @@ public class PostService implements IPostService{
         return userPostResponseDTO;
     }
 
+    @Override
+    public List<PostResponseDTO> getAllPosts(){
+        List<Post> posts = postRepository.getAll();
+        List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
+
+        return responseDTOS;
+    }
+
+
 
 }

@@ -3,6 +3,7 @@ package com.sprint.be_java_hisp_w15_g10.Controller;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
@@ -34,8 +35,13 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostResponseDTO> getPosts(@PathVariable int userId){
+    public ResponseEntity<UserPostResponseDTO> getAllPostsByFollowerId(@PathVariable int userId){
         return new ResponseEntity<UserPostResponseDTO>(postService.getAllPostsByFollowerId(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<PostResponseDTO>> getAllPosts(){
+        return new ResponseEntity<List<PostResponseDTO>>(postService.getAllPosts(), HttpStatus.OK);
     }
 
 }
