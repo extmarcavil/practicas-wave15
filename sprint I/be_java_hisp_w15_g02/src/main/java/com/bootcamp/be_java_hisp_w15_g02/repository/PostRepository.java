@@ -46,10 +46,10 @@ public class PostRepository implements  IPostRepository {
     }
 
     private void init(){
-        listPost.add(new Post(1,1, LocalDate.now(),1,new Product(1,"iphone 13","electronic","apple","black","iphone 128 GB"),13000));
-        listPost.add(new Post(2,2, LocalDate.now(),2,new Product(2,"iphone 12","electronic","apple","rose gold","iphone 64 GB"),10000));
-        listPost.add(new Post(3,3, LocalDate.now(),3,new Product(3,"iphone 11","electronic","apple","blue","iphone 256 GB"),9000));
-        listPost.add(new Post(4,4, LocalDate.now(),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
+        listPost.add(new Post(1,4, LocalDate.parse("2022-03-20"),1,new Product(1,"iphone 13","electronic","apple","black","iphone 128 GB"),13000));
+        listPost.add(new Post(2,4, LocalDate.parse("2022-04-25"),2,new Product(2,"iphone 12","electronic","apple","rose gold","iphone 64 GB"),10000));
+        listPost.add(new Post(3,4, LocalDate.parse("2022-04-21"),3,new Product(3,"iphone 11","electronic","apple","blue","iphone 256 GB"),9000));
+        listPost.add(new Post(4,5, LocalDate.parse("2022-04-10"),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
         listPost.add(new Post(5,5, LocalDate.now(),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
     }
 }
