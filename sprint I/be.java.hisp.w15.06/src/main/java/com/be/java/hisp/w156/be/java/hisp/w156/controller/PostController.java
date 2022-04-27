@@ -2,6 +2,7 @@ package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPromoPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class PostController {
                                                                    @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsLastTwoWeekById(userId, order);
 
+    }
+
+    @PostMapping("promo-post")
+    public ResponseEntity<SuccessDTO> createNewPromoPost(@RequestBody RequestPromoPostDTO requestPromoPostDTO){
+        return productService
     }
 
 }
