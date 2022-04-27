@@ -1,27 +1,23 @@
-package com.sprint.be_java_hisp_w15_g10.Model;
+package com.sprint.be_java_hisp_w15_g10.DTO.Response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import lombok.*;
-
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import java.time.LocalDate;
 
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
-public class Post {
+@NoArgsConstructor
+public class PostResponseDTO {
     private int post_id;
-    private Product detail;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
-    private Category category;
+    private ProductResponseDTO detail;
+    private int category_id;
     private double price;
     private boolean has_promo;
     private double discount;
-
-    public Post(){
-        has_promo = false;
-        discount = 0.0;
-    }
 }

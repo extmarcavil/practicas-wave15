@@ -4,6 +4,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,11 @@ public class PostController {
     @GetMapping("")
     public ResponseEntity<List<ProductResponseDTO>> getProducts(){
         return new ResponseEntity<List<ProductResponseDTO>>(postService.getAllProducts(), HttpStatus.OK);
+    }
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<UserPostResponseDTO> getPosts(@PathVariable int userId){
+        return new ResponseEntity<UserPostResponseDTO>(postService.getAllPostsByFollowerId(userId), HttpStatus.OK);
     }
 
 }
