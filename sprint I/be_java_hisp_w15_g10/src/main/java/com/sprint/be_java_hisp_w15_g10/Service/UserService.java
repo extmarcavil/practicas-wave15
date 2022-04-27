@@ -52,13 +52,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserDTO convertToDTo(User user) {
-        UserDTO userDTO = modelMapper.map(user, UserDTO.class);
-
-        return userDTO;
-    }
-
-    @Override
     public FollowUserDTO followUser(int userId, int userIdToUnfollow){
         User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));

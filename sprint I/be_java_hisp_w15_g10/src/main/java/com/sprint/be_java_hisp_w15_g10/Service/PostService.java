@@ -16,14 +16,19 @@ import com.sprint.be_java_hisp_w15_g10.Repository.CategoryRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.PostRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.ProductRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.time.temporal.ChronoUnit.DAYS;
+
+@Slf4j
 @Service
 public class PostService implements IPostService{
     private final ModelMapper modelMapper;
@@ -80,7 +85,8 @@ public class PostService implements IPostService{
 
         followed.forEach(follow -> {
             follow.getPosts().forEach(post ->{
-                posts.add(post);
+                long dias = DAYS.between(post.getDate(), LocalDate.now());
+                if(dias <= 15) posts.add(post);
             });
         });
 

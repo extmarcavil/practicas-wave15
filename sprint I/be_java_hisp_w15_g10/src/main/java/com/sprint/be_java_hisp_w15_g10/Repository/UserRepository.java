@@ -25,12 +25,13 @@ public class UserRepository {
         usuarios.add(user3);
 
         user1.agregarSeguidor(user3);
-        user1.seguirUsuario(user2);
+        user1.seguirUsuario(user3);
 
         user2.agregarSeguidor(user1);
 
         user3.seguirUsuario(user1);
 
+        user3.agregarPost(postRepository.getAll().get(0));
     }
 
     public Optional<User> getById(int id) {
