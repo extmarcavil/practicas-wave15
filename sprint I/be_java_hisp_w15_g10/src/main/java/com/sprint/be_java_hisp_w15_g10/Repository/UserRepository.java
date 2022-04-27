@@ -33,12 +33,12 @@ public class UserRepository {
 
     }
 
-    public Optional<User> getById(int id){
+    public Optional<User> getById(int id) {
         return usuarios.stream()
-                .filter(user -> user.getUser_id()==id)
+                .filter(user -> user.getUser_id() == id)
                 .findFirst();
     }
-
+ 
     public List<User> getAll(){
         return usuarios;
     }

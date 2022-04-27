@@ -9,4 +9,6 @@ public interface IUserService {
     UserDTO convertToDTo(User user);
     UserWithFollowersCountDTO getUsersWithFollowersCount(int userId);
     UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow);
+    public boolean seguirUsuario(Integer userId, Integer userIdToFollow);
+
 }

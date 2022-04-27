@@ -51,4 +51,22 @@ public class UserService implements IUserService {
 
         return userDTO;
     }
+
+    @Override
+    public boolean seguirUsuario(Integer userId, Integer userIdToFollow) {
+
+        User user1 = userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        User user2 = userRepository.getById(userIdToFollow)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+
+        if (user1 != null && user2 != null){
+            user1.seguirUsuario(user2);
+            return true;
+        }
+        return false;
+
+    }
+
+
 }
