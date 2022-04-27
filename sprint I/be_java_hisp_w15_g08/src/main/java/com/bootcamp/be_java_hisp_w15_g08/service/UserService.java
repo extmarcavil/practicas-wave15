@@ -5,6 +5,7 @@ import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
+import com.bootcamp.be_java_hisp_w15_g08.utils.SortUsers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +21,12 @@ public class UserService implements IUserService{
 
     IUserRepository repository;
     ModelMapper mapper;
+    private int idsPost;
 
     public UserService(IUserRepository repository) {
         this.repository = repository;
         mapper = new ModelMapper();
+        idsPost = 1;
     }
 
     @Override
@@ -34,44 +37,41 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public FollowersListDTO getFollowersList(Integer idUser/*,String order*/){
+    public FollowersListDTO getFollowersList(Integer idUser,String order){
         User user =repository.findUser(idUser);
-        user.getFollowers().forEach(user1 -> System.out.println(user1.getName()));
         List<UserDTO> listDto = user.getFollowers()
                 .stream()
                 .map(user1 -> mapper.map(user1,UserDTO.class))
                 .collect(toList());
 
-        listDto.forEach(user1 -> System.out.println(user1.getName()));
-
-//        if(order!= null){
-//            listDto = SortUsers.order(listDto,order);
-//        }
+        if(order!= null){
+            listDto = SortUsers.order(listDto,order);
+        }
         FollowersListDTO followersListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);
         return followersListDTO;
     }
 
     @Override
-    public FollowersListDTO getFollowedList(Integer userId/*,String order*/) {
+    public FollowersListDTO getFollowedList(Integer userId,String order) {
         User user =repository.findUser(userId);
         List<UserDTO> listDto = user.getFollowing()
                 .stream()
                 .map(user1 -> mapper.map(user1,UserDTO.class))
                 .collect(toList());
-//        if(order!= null){
-//            listDto = SortUsers.order(listDto,order);
-//        }
+        if(order!= null){
+            listDto = SortUsers.order(listDto,order);
+        }
         FollowersListDTO followedListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);
         return followedListDTO;
     }
 
     @Override
-    public NewPostDTO addPost(NewPostDTO newPostDTO){
+    public PostNotUserIdDTO addPost(NewPostDTO newPostDTO){
         User user = repository.findUser(newPostDTO.getUser_id());
         Post post = mapper.map(newPostDTO,Post.class);
-        post.setPostID(1);
+        post.setPostID(idsPost++);
         user.addPost(post);
-        return mapper.map(post,NewPostDTO.class);
+        return mapper.map(post,PostNotUserIdDTO.class);
     }
 
     @Override
@@ -83,10 +83,11 @@ public class UserService implements IUserService{
             List<Post> postsFlitrado = user2.getPosts()
                     .values()
                     .stream()
-                    .filter(post -> DAYS.between(LocalDate.now(), post.getDate()) < 14)
+                    //.filter(post -> DAYS.between(LocalDate.now(), post.getDate()) < 14)
                     .collect(Collectors.toList());
             posts1.addAll(postsFlitrado);
         });
+        System.out.println(posts1.size());
         //List<Post> posts =  followedUsers.stream().map(user2 ->  user2.getPosts().values().collect(toList()));
         PostListDTO postListDTO = new PostListDTO();
         postListDTO.setUser_id(userId);

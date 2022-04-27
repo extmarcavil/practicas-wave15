@@ -11,7 +11,7 @@ import java.time.LocalDate;
 public class NewPostDTO {
     private int postID;
     private Integer user_id;
-    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
     private DetailDTO detail;
     private Integer category;
