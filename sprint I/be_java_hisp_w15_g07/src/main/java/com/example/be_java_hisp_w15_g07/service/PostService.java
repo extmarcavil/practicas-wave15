@@ -46,12 +46,12 @@ public class PostService implements IPostService{
             }
         }
 
-        if (order.equals("date_asc")) {
+        if (order.equals("date_desc")) {
             listPostsOrdered = listPostsOrdered.stream()
                         .sorted(Comparator.comparing(Post::getDate).reversed())
                         .collect(Collectors.toList());
         }
-        if (order.equals("date_desc")) {
+        if (order.equals("date_asc")) {
             listPostsOrdered = listPostsOrdered.stream()
                         .sorted(Comparator.comparing(Post::getDate))
                         .collect(Collectors.toList());
