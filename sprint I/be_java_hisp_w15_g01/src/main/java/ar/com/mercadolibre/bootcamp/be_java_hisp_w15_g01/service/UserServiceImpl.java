@@ -5,10 +5,12 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotSellerException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,11 +22,13 @@ import java.util.stream.Collectors;
 @Service
 public class UserServiceImpl implements  UserService {
     private final UserRepository userRepository;
+    private final PostRepository postRepository;
     private final FollowRepository followRepository;
     private final ModelMapper mapper;
 
-    public UserServiceImpl(UserRepository userRepository, FollowRepository followRepository) {
+    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, FollowRepository followRepository) {
         this.userRepository = userRepository;
+        this.postRepository = postRepository;
         this.followRepository = followRepository;
         this.mapper = new ModelMapper();
     }
@@ -36,6 +40,9 @@ public class UserServiceImpl implements  UserService {
         }
         User follower = this.findById(userId);
         User followed = this.findById(userIdToFollow);
+        if(this.postRepository.isseller(followed)) {
+        	thow new NotSellerException();
+        }
         this.followRepository.save(follower, followed);
 
         ResponseDTO dto = new ResponseDTO();

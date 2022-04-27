@@ -9,4 +9,6 @@ public interface PostRepository {
 
     boolean create(User user, LocalDate date, Product detail, Integer category, Float price);
 
+	boolean isseller(User user);
+
 }
