@@ -25,10 +25,14 @@ public class SocialMeliService implements ISocialMeliService {
         existUser(userID, "Usuario seguidor con id:");
         existUser(userIdToFollow, "Usuario a seguir con id");
 
-        User followerUser = this.repository.findUserById(userID);
-        User followedUser = this.repository.findUserById(userIdToFollow);
+        User followerUser = getUserFromRepositoryById(userID);
+        User followedUser = getUserFromRepositoryById(userIdToFollow);
         // falta validar si pueden efectivamente hacer el follow en el usuario
         followerUser.follow(followedUser);
+    }
+
+    private User getUserFromRepositoryById(Integer userID) {
+        return this.repository.findUserById(userID);
     }
 
     @Override
@@ -36,30 +40,30 @@ public class SocialMeliService implements ISocialMeliService {
         existUser(userID, "Usuario seguidor con id:");
         existUser(userIdToUnfollow, "Usuario seguido con id:");
 
-        User followerUser = this.repository.findUserById(userID);
-        User followedUser = this.repository.findUserById(userIdToUnfollow);
+        User followerUser = getUserFromRepositoryById(userID);
+        User followedUser = getUserFromRepositoryById(userIdToUnfollow);
         followerUser.unfollow(followedUser);
     }
 
     @Override
     public ResponseFollowersCountDTO countFollowers(Integer userID) {
         existUser(userID, "Usuario con id:");
-        User user1 = repository.findUserById(userID);
-        return new ResponseFollowersCountDTO(user1.getId(), user1.getName(), user1.getListOfFollowers().size());
+        User user1 = getUserFromRepositoryById(userID);
+        return new ResponseFollowersCountDTO(user1);
     }
 
     @Override
     public ResponseFollowersListDTO listFollowers(Integer userId) {
         existUser(userId, "Usuario con id:");
-        User user = repository.findUserById(userId);
-        return new ResponseFollowersListDTO(user.getId(), user.getName(), userConverter.createFromEntities(user.getListOfFollowers()) );
+        User user = getUserFromRepositoryById(userId);
+        return new ResponseFollowersListDTO( user, userConverter.createFromEntities(user.getListOfFollowers()));
     }
 
     @Override
     public ResponseFollowedListDTO listFollowed(Integer userId) {
         existUser(userId, "Usuario con id:");
-        User user = repository.findUserById(userId);
-        return new ResponseFollowedListDTO(user.getId(), user.getName(), userConverter.createFromEntities(user.getListOfFollowed()) );
+        User user = getUserFromRepositoryById(userId);
+        return new ResponseFollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
     }
 
     private static void checkOrderParam(String order) {
@@ -74,7 +78,7 @@ public class SocialMeliService implements ISocialMeliService {
     public ResponseFollowersListDTO sortedListFollowers(Integer userId, String order) {
         checkOrderParam(order);
 
-        User user = repository.findUserById(userId);
+        User user = getUserFromRepositoryById(userId);
         ResponseFollowersListDTO followersList = new ResponseFollowersListDTO(
                 user.getId(),
                 user.getName(),
@@ -94,7 +98,7 @@ public class SocialMeliService implements ISocialMeliService {
     public ResponseFollowedListDTO sortedListFollowed(Integer userId, String order) {
         checkOrderParam(order);
 
-        User user = repository.findUserById(userId);
+        User user = getUserFromRepositoryById(userId);
         ResponseFollowedListDTO followedList = new ResponseFollowedListDTO(
                 user.getId(),
                 user.getName(),
@@ -105,7 +109,7 @@ public class SocialMeliService implements ISocialMeliService {
                         .collect(Collectors.toList()));
 
         if (order.equals("name_desc")) {
-            followedList.getFollowers().sort(Comparator.comparing(UserDTO::getUserName).reversed());
+            followedList.getFollowed().sort(Comparator.comparing(UserDTO::getUserName).reversed());
         }
         return followedList;
     }

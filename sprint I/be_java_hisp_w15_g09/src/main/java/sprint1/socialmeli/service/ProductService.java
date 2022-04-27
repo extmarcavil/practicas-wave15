@@ -13,7 +13,6 @@ import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -27,51 +26,69 @@ public class ProductService implements IProductService {
     private final PostConverter converter;
 
     @Override
-    public PostResponseDTO save(PostRequestDTO post) throws InvalidPostException {
-        Post newPost = new Post(post.getUserId(), LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy")), post.getDetail(), post.getCategory(), post.getPrice());
-        // Validar y si no pasa, tirar BAD_REQUEST
-        if (newPost.getUserId() == null ||
-            newPost.getDate() == null ||
-            newPost.getDetail() == null ||
-            newPost.getCategory() == null ||
-            newPost.getPrice() == null) {
-            throw new InvalidPostException("El post contiene campos incompletos.");
-        }
+    public PostResponseDTO save(PostRequestDTO postDTO) throws InvalidPostException {
+        Post newPost = new Post(postDTO);
         this.postRepository.save(newPost);
-
         return new PostResponseDTO(newPost);
     }
 
     @Override
     public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID, String order) {
-        User userFollower = userRepository.findUserById(userFollowerID);
-        List<User> listFollowed = userFollower.getListOfFollowed();
-
-        ArrayList<Post> listOfPost = new ArrayList<>();
-        for(User eachUser : listFollowed){
-            int followedIDToSearch = eachUser.getId();
-            listOfPost.addAll(
-                    postRepository
-                            .getListOfPostOfUser(followedIDToSearch)
-                            .stream()
-                            .filter(x->x.getDate().isAfter( LocalDate.now().minusDays(14) ))
-                            .collect(Collectors.toList()));
-        }
-        return sortPosts(this.converter.createFromEntities(listOfPost), (order == null) ? "date_desc" : order);
+        String sortOrder = setDefaultOrder(order);
+        validateOrder(sortOrder);
+        List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
+        ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
+        return sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder);
     }
 
-    public List<PostResponseDTO> sortPosts(List<PostResponseDTO> posts, String order) {
+    private ArrayList<Post> getPostsOfLast2Week(List<User> listFollowed) {
+        ArrayList<Post> listOfPost = new ArrayList<>();
+        for(User eachFollowedUser : listFollowed){
+            listOfPost.addAll( getUserPostOfLast2Week( eachFollowedUser.getId()) );
+        }
+        return listOfPost;
+    }
+
+    private List<User> getFollowedListOfAnUser(int userFollowerID) {
+        User userFollower = getUserFromRepositoryById(userFollowerID);
+        List<User> listFollowed = userFollower.getListOfFollowed();
+        return listFollowed;
+    }
+
+    private User getUserFromRepositoryById(int userID) {
+        return userRepository.findUserById(userID);
+    }
+
+    private String setDefaultOrder(String order) {
+        return (order == null) ? "date_desc" : order;
+    }
+
+    //----------Private----------//
+
+    private List<PostResponseDTO> sortDTOPosts(List<PostResponseDTO> posts, String order) {
+        List<PostResponseDTO> sortedPosts = posts.stream()
+                .sorted(Comparator.comparing(PostResponseDTO::getDate))
+                .collect(Collectors.toList());
+        if (order.equals("date_desc")) {
+            sortedPosts.sort(Comparator.comparing(PostResponseDTO::getDate).reversed());
+        }
+        return sortedPosts;
+    }
+
+
+    private List<Post> getUserPostOfLast2Week(int followedIDToSearch) {
+        return postRepository
+                .getListOfPostOfUser(followedIDToSearch)
+                .stream()
+                .filter(x -> x.getDate().isAfter(LocalDate.now().minusDays(14)))
+                .collect(Collectors.toList());
+    }
+
+    private void validateOrder(String order) {
         if (!(order.equals("date_asc") || order.equals("date_desc"))) {
             throw new InvalidParamsException("Los parámetros ingresados son incorrectos. Este endpoint admite solo:\n" +
                     "order=date_asc\n" +
                     "order=date_desc");
         }
-        List<PostResponseDTO> sortedPosts = posts.stream()
-                                                .sorted(Comparator.comparing(PostResponseDTO::getDate))
-                                                .collect(Collectors.toList());
-        if (order.equals("date_desc")) {
-            sortedPosts.sort(Comparator.comparing(PostResponseDTO::getDate).reversed());
-        }
-        return sortedPosts;
     }
 }
