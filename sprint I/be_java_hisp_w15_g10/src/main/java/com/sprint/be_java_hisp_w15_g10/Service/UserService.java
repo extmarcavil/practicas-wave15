@@ -68,7 +68,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public VendedorsFollowedDTO getVendorsFollow(int userId) {
+    public VendedorsFollowedDTO getVendorsFollow(int userId, String order) {
         User user = userRepository.getById(userId).get();
         VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
         List<UserDTO> listUsers = new ArrayList<>();
@@ -79,6 +79,9 @@ public class UserService implements IUserService {
             userDTO.setUser_name(u.getUser_name());
             listUsers.add(userDTO);
         });
+
+        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+        else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
 
         vendedorsFollowedDTO.setFollowed(listUsers);
         vendedorsFollowedDTO.setUserId(user.getUser_id());
