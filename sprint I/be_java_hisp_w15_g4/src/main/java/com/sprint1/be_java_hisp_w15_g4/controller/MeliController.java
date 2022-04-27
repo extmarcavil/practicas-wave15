@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -34,12 +35,12 @@ public class MeliController {
         return new ResponseEntity<>(service.countFollowers(userId), HttpStatus.OK);
     }
 
-    ////////////////////US0003////////////////////
+    ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
-    @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order) {
-        return new ResponseEntity<>(service.listFollowers(userId), HttpStatus.OK);
-    }
+        @GetMapping("/users/{userId}/followers/list")
+        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
+            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
+        }
 
 
     ////////////////////US0004////////////////////
@@ -51,7 +52,11 @@ public class MeliController {
 
     ////////////////////US0005////////////////////
     //Nico - Nico
-
+    @PostMapping("/products/post")
+    public ResponseEntity<?> postProduct(@RequestBody PostDTO post){
+        service.createPost(post);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
     ////////////////////US0006////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
