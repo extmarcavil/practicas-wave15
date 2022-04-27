@@ -1,10 +1,7 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotSellerException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
@@ -12,6 +9,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserReposito
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -58,13 +56,21 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public FollowersListDTO whoFollowsMe(Long id) {
+    public FollowersListDTO whoFollowsMe(Long id, String order) {
+        if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
+            throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
+        }
         User user = this.findById(id);
         List<UserDTO> followers = this.followRepository
                 .whoFollows(id)
                 .stream()
                 .map(f -> mapper.map(f.getFollower(), UserDTO.class))
+                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
                 .collect(Collectors.toList());
+
+        if (order!= null && order.equals("name_desc")){
+            Collections.reverse(followers);
+        }
 
         FollowersListDTO dto = new FollowersListDTO();
         dto.setUserId(user.getUserId());
@@ -87,13 +93,21 @@ public class UserServiceImpl implements  UserService {
         return dto;
     }
 
-    public FollowedListDTO findAllFollowedByUserId(Long userId) {
+    public FollowedListDTO findAllFollowedByUserId(Long userId, String order) {
+        if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
+            throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
+        }
         List<UserDTO> followed = followRepository
                 .findFollowedByUserId(userId)
                 .stream()
                 .map(u -> mapper.map(u, UserDTO.class))
+                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
                 .collect(Collectors.toList());
         User userFollowing = findById(userId);
+
+        if (order!= null && order.equals("name_desc")){
+            Collections.reverse(followed);
+        }
 
         if(followed.isEmpty()){
             throw new NotFollowedException("The user don't follow anyone");

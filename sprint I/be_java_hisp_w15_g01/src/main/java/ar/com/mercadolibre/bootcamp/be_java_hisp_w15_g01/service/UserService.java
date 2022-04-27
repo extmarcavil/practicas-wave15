@@ -11,10 +11,10 @@ public interface UserService {
     ResponseDTO follow(Long userId, long userIdToFollow);
     User findById(Long id);
 
-    FollowersListDTO whoFollowsMe(Long id);
+    FollowersListDTO whoFollowsMe(Long id, String order);
     FollowersCountDTO wowManyFollowsMe(Long userId);
 
-    FollowedListDTO findAllFollowedByUserId(Long userId);
+    FollowedListDTO findAllFollowedByUserId(Long userId, String order);
 
     ResponseDTO unFollow(Long userId, long userIdToUnfollow);
 

@@ -34,18 +34,18 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> whoFollowsMe(@PathVariable Long userId) {
+    public ResponseEntity<FollowersListDTO> whoFollowsMe(@PathVariable Long userId, @RequestParam(required=false) String order) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.whoFollowsMe(userId));
+                .body(userService.whoFollowsMe(userId, order));
 
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@PathVariable Long userId){
+    public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@PathVariable Long userId , @RequestParam(required = false) String order){
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.findAllFollowedByUserId(userId));
+                .body(userService.findAllFollowedByUserId(userId, order));
     }
 
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")

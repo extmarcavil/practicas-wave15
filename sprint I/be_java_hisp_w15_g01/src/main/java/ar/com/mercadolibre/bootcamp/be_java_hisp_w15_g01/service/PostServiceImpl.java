@@ -68,8 +68,8 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostListDTO getPostsByFollowedUsers(Long userId, String order) {
 
-        if(!order.equals("date_asc") && !order.equals("date_desc")) {
-            throw new InvalidArgumentException();
+        if(order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
+            throw new InvalidArgumentException("Invalid sorting Parameter. Must be order_desc or order_asc");
         }
 
         List<User> followedUsers = followRepository.findFollowedByUserId(userId);
@@ -86,7 +86,7 @@ public class PostServiceImpl implements PostService {
                 .sorted(Comparator.comparing(PostDTO::getDate))
                 .collect(Collectors.toList());
 
-        if(order.equals("date_desc")) {
+        if(order != null && order.equals("date_desc")) {
             Collections.reverse(sortedAscPostList);
         }
 
