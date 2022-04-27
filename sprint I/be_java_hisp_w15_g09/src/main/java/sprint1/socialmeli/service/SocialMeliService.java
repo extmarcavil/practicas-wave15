@@ -23,14 +23,8 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void follow(Integer userID, Integer userIdToFollow) {
-
-        if( this.repository.existUser(userID) == false ){
-            throw new UserNotFound("Usuario seguidor con id: "+ userID + " no fue encontrado");
-        }
-
-        if (this.repository.existUser(userIdToFollow) == false){
-            throw new UserNotFound("Usuario a seguir con id: "+ userIdToFollow + " no fue encontrado");
-        }
+        existUser(userID, "Usuario seguidor con id:");
+        existUser(userIdToFollow, "Usuario a seguir con id");
 
         User followerUser = this.repository.findUserById(userID);
         User followedUser = this.repository.findUserById(userIdToFollow);
@@ -40,13 +34,8 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void unfollow(int userID, int userIdToUnfollow) {
-        if( this.repository.existUser(userID) == false ){
-            throw new UserNotFound("Usuario seguidor con id: "+ userID + " no fue encontrado");
-        }
-
-        if (this.repository.existUser(userIdToUnfollow) == false){
-            throw new UserNotFound("Usuario a seguir con id: "+ userIdToUnfollow + " no fue encontrado");
-        }
+        existUser(userID, "Usuario seguidor con id:");
+        existUser(userIdToUnfollow, "Usuario seguido con id:");
 
         User followerUser = this.repository.findUserById(userID);
         User followedUser = this.repository.findUserById(userIdToUnfollow);
@@ -55,13 +44,15 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public ResponseFollowersCountDTO countFollowers(Integer userID) { // faltaría verificar si no existe el usuario
+    public ResponseFollowersCountDTO countFollowers(Integer userID) {
+        existUser(userID, "Usuario con id:");
         User user1 = repository.findUserById(userID);
         return new ResponseFollowersCountDTO(user1.getId(), user1.getName(), user1.getListOfFollowers().size());
     }
 
     @Override
-    public ResponseFollowersListDTO listFollowers(Integer userId) { // faltaría verificar si no existe el usuario
+    public ResponseFollowersListDTO listFollowers(Integer userId) {
+        existUser(userId, "Usuario con id:");
         User user = repository.findUserById(userId);
         return new ResponseFollowersListDTO(user.getId(), user.getName(), user.getListOfFollowers()
                 .stream()
@@ -70,7 +61,8 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public ResponseFollowedListDTO listFollowed(Integer userId) { // faltaría verificar si no existe el usuario
+    public ResponseFollowedListDTO listFollowed(Integer userId) {
+        existUser(userId, "Usuario con id:");
         User user = repository.findUserById(userId);
         return new ResponseFollowedListDTO(user.getId(), user.getName(), user.getListOfFollowed()
                 .stream()
@@ -126,5 +118,11 @@ public class SocialMeliService implements ISocialMeliService {
                         .sorted(Comparator.comparing(User::getName))
                         .map(ud -> new UserDTO(ud.getId(), ud.getName()))
                         .collect(Collectors.toList()));
+    }
+
+    private void existUser(Integer userId, String msg) {
+        if( !this.repository.existUser(userId)){
+            throw new UserNotFound(msg + " "+ userId + " no fue encontrado");
+        }
     }
 }
