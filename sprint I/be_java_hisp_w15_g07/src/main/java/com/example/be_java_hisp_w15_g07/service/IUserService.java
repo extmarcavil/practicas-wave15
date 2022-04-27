@@ -12,6 +12,8 @@ public interface IUserService {
 
     void followUser(Integer userId, Integer userToFollowId);
 
+    void unfollowUser(Integer userId, Integer userToUnfollowId);
+
     FollowersDTO getFollowersList(Integer userId);
 
 }
