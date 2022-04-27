@@ -82,8 +82,17 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public void unfollow(int userId, int userToUnfollow) {
+    public boolean unFollow(int userId, int userIdToUnFollow) {
+        User user = getUserById(userId);
+        User userToUnFollow = getUserById(userIdToUnFollow);
 
+        if (!userToUnFollow.isSeller())
+            return false;
+
+        user.getFollowList().removeIf(follow ->  follow.getUserToFollow() == userIdToUnFollow);
+        userToUnFollow.getFollowerList().removeIf(follow -> follow.getUserToFollow() == userId);
+        return true;
     }
+
 
 }
