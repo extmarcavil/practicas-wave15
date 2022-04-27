@@ -13,6 +13,7 @@ public class FollowsController {
     private IFollowsService userService;
 
     public FollowsController(IFollowsService userService) {
+
         this.userService = userService;
     }
 
@@ -29,13 +30,13 @@ public class FollowsController {
     }
 
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId) {
-        return new ResponseEntity<>(userService.getListFollowers(userId), HttpStatus.OK);
+    public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId,@RequestParam(required = false) String order) {
+        return new ResponseEntity<>(userService.getListFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<ResListSellersDTO> getListFollowed(@PathVariable int userId) {
-        return new ResponseEntity<>(userService.getListSellers(userId), HttpStatus.OK);
+    public ResponseEntity<ResListSellersDTO> getListFollowed(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return new ResponseEntity<>(userService.getListSellers(userId, order), HttpStatus.OK);
     }
 
 }

@@ -9,7 +9,7 @@ import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
 public interface IFollowsService {
     ResFollowPostDTO follow(int userId, int userToFollowId);
 
-    ResListFollowersDTO getListFollowers(int userId);
+    ResListFollowersDTO getListFollowers(int userId, String order);
 
     /**
      *
@@ -24,6 +24,8 @@ public interface IFollowsService {
      * @return DTO de la lista de sellers
      */
 
-    ResListSellersDTO getListSellers(int userId);
+    ResListSellersDTO getListSellers(int userId, String order);
+
+
 
 }

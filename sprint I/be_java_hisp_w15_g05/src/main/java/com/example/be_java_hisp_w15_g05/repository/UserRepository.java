@@ -14,8 +14,9 @@ public class UserRepository implements IUserRepository {
 
     public UserRepository() {
         User galperin = new User(1, "Marcos Galperin", true);
+        User antonio = new User(2, "Antonio", true);
         User juan = new User(10, "Juan", false);
-        User pedro = new User(11, "Pedro", false);
+        User pedro = new User(11, "APedro", false);
         User valentina = new User(12, "Valentina", false);
 
         galperin.agregarSeguidor(juan);
@@ -24,7 +25,11 @@ public class UserRepository implements IUserRepository {
         galperin.agregarSeguidor(pedro);
         pedro.seguir(galperin);
 
+        antonio.agregarSeguidor(juan);
+        juan.seguir(antonio);
+
         users.add(galperin);
+        users.add(antonio);
         users.add(juan);
         users.add(pedro);
         users.add(valentina);

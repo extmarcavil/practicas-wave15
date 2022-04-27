@@ -7,6 +7,7 @@ import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -37,10 +38,16 @@ public class FollowsService implements IFollowsService {
     }
 
     @Override
-    public ResListFollowersDTO getListFollowers(int userId) {
+    public ResListFollowersDTO getListFollowers(int userId, String order) {
         User user = userRepository.followersList(userId)
                 .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
         List<UserDTO> followers = getListUserDTO(user.getSeguidores());
+        if(order!=null && order.equals("name_desc")){
+            followers.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        }else{
+            followers.sort(Comparator.comparing(UserDTO::getUserName));
+        }
+
         return new ResListFollowersDTO(user.getUserId(), user.getName(), followers);
 
     }
@@ -55,11 +62,17 @@ public class FollowsService implements IFollowsService {
     }
 
     @Override
-    public ResListSellersDTO getListSellers(int userId) {
+    public ResListSellersDTO getListSellers(int userId, String order) {
         User user = userRepository.sellersList(userId)
                 .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
-
         List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+
+       if( order!=null && order.equals("name_desc")){
+            followed.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        }else{
+            followed.sort(Comparator.comparing(UserDTO::getUserName));
+        }
+
         return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
     }
 
