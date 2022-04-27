@@ -90,8 +90,8 @@ public class PostService implements IPostService{
             });
         });
 
-        if(order.equals("name_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("name_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
+        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
+        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
 
         UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
