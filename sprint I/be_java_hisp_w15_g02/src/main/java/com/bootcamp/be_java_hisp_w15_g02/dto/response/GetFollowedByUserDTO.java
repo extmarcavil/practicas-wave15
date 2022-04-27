@@ -13,6 +13,9 @@ public class GetFollowedByUserDTO {
     private String user_name;
     private List<GetFollowersDTO> followed;
 
+    public GetFollowedByUserDTO() {
+    }
+
     public GetFollowedByUserDTO(int user_id, String user_name, List<GetFollowersDTO> followers) {
         this.user_id = user_id;
         this.user_name = user_name;
