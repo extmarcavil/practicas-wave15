@@ -31,11 +31,6 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public User getUser() {
-        return null;
-    }
-
-    @Override
     public ResponseEntity<SuccessDTO> follow(Integer userId, Integer userToFollowId) {
         User user = userRepository.getUser(userId);
         User userToFollow = userRepository.getUser(userToFollowId);
@@ -118,9 +113,6 @@ public class UserServiceImpl implements IUserService {
                     .collect(Collectors.toList());
 
         }
-
-        if(order == null)
-            order = "";
 
         if(order.equals("name_asc"))
             followed.sort(Comparator.comparing(UserDTO::getUser_name));
