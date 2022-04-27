@@ -1,6 +1,9 @@
 package com.sprint1.be_java_hisp_w15_g03.controller;
 
 import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.PublicationWithPromoDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.PublicationPCountDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.PublicationPListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerPListDTO;
 import com.sprint1.be_java_hisp_w15_g03.service.IProductService;
 import org.springframework.http.HttpStatus;
@@ -26,8 +29,25 @@ public class ProductController {
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<SellerPListDTO> getLastPublications(@PathVariable int userId,
                                                               @RequestParam(required = false) String order) {
-
         return new ResponseEntity<>(productService.getLastPublication(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("/promo-post")
+    public ResponseEntity<?> savePublicacionWithProductInDiscount(@RequestBody PublicationWithPromoDTO publication){
+        productService.savePublicationWithPromo(publication);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<PublicationPCountDTO> getPublicationsWithPromoCount(
+            @RequestParam(name = "user_id") Integer sellerId){
+        return new ResponseEntity<>(productService.getPublicationsWithPromo(sellerId), HttpStatus.OK);
+    }
+
+    @GetMapping("promo-post/list")
+    public ResponseEntity<PublicationPListDTO> getPublicationsWithPromoList(
+            @RequestParam(name = "user_id") Integer sellerId){
+        return new ResponseEntity<>(productService.getPublicationsWithPromoList(sellerId), HttpStatus.OK);
     }
 
 }

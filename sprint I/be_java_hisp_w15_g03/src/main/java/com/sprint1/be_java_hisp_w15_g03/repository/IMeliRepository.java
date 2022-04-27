@@ -18,7 +18,6 @@ public interface IMeliRepository {
     Boolean following(Integer userId, Integer sellerToUnfollow);
     void savePublication(Integer userId, Publication p);
     List<Publication> getLastPublications(int userId);
-
     void addProduct(Product product);
     Product getProduct(int productId);
 }

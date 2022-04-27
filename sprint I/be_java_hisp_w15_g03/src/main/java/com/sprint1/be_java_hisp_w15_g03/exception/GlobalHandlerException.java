@@ -16,9 +16,9 @@ public class GlobalHandlerException {
     }
 
     @ExceptionHandler(RelationConflictException.class)
-    ResponseEntity<ErrorDTO> handlerExceptionRelationNotFound(RelationConflictException relationNotFound){
+    ResponseEntity<ErrorDTO> handlerExceptionRelationConflict(RelationConflictException relationNotFound){
         ErrorDTO errorDTO = new ErrorDTO("Fallo en ralacion esperada", relationNotFound.getMessage());
-        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);
     }
 
     @ExceptionHandler(CategoryNotFoundException.class)
@@ -28,7 +28,7 @@ public class GlobalHandlerException {
     }
 
     @ExceptionHandler(OrderInvalidException.class)
-    ResponseEntity<ErrorDTO> handlerExceptionRelationNotFound(OrderInvalidException orderInvalidException){
+    ResponseEntity<ErrorDTO> handlerExceptionRelationInvalid(OrderInvalidException orderInvalidException){
         ErrorDTO errorDTO = new ErrorDTO("Error en metodo de orden", orderInvalidException.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
