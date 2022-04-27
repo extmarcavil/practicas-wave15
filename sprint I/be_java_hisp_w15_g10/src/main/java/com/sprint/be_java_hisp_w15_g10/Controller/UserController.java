@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getUserFollowers(@PathVariable int userId, @RequestParam String order){
+    public ResponseEntity<FollowersDTO> getUserFollowers(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
 
         return new ResponseEntity<FollowersDTO>(userService.getFollowers(userId, order), HttpStatus.OK);
     }
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId, @RequestParam(value = "order", required=false, defaultValue = "") String order) {
+    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) {
         return new ResponseEntity<>(userService.getVendorsFollow(userId, order), HttpStatus.OK);
     }
 

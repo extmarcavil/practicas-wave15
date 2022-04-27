@@ -24,15 +24,15 @@ public class UserRepository {
         usuarios.add(user2);
         usuarios.add(user3);
 
-        user1.agregarSeguidor(user3);
-
-
-        user1.agregarSeguidor(user2);
-
-        user1.seguirUsuario(user3);
-        user3.seguirUsuario(user1);
-
-        user3.agregarPost(postRepository.getAll().get(0));
+//        user1.agregarSeguidor(user3);
+//
+//
+//        user1.agregarSeguidor(user2);
+//
+//        user1.seguirUsuario(user3);
+//        user3.seguirUsuario(user1);
+//
+//        user3.agregarPost(postRepository.getAll().get(0));
     }
 
     public Optional<User> getById(int id) {
