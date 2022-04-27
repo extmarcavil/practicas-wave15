@@ -18,4 +18,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> handlerNotFoundException(AlreadyFollowing e){
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
     }
+
+    @ExceptionHandler(NotFollowException.class)
+    public ResponseEntity<ErrorDTO> handlerNotFoundException(NotFollowException e){
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
+    }
 }
