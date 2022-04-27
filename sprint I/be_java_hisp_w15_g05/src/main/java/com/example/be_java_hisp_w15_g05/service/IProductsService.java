@@ -9,5 +9,5 @@ import java.util.List;
 public interface IProductsService {
 
     ResCreatePostDTO createPost(PostDTO postDTO);
-    ResPostListDTO getPostFollowed(int id);
+    ResPostListDTO getPostFollowed(int id, String order);
 }

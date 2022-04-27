@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.service;
 
-import com.example.be_java_hisp_w15_g05.dto.PostDTO;
-import com.example.be_java_hisp_w15_g05.dto.PostIdDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResCreatePostDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResPostListDTO;
+import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
@@ -48,7 +45,7 @@ public class ProductsService implements IProductsService {
         return new ResCreatePostDTO("La publicación se ha creado con éxito");
     }
 
-    public ResPostListDTO getPostFollowed(int id){
+    public ResPostListDTO getPostFollowed(int id, String order){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
 
@@ -57,7 +54,14 @@ public class ProductsService implements IProductsService {
         for( User usuario : user.getSeguidos()){
             listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
         }
-        listadoPosteos.sort(Comparator.comparing(Post::getDate));
+
+        if( order!=null && order.equals("date_desc")){
+            listadoPosteos.sort(Comparator.comparing(Post::getDate));
+        }else{
+            listadoPosteos.sort(Comparator.comparing(Post::getDate).reversed());
+        }
+
+
 
         List<PostIdDTO> lista = modelMapper.map(listadoPosteos,new TypeToken<List<PostIdDTO>>() {}.getType());
 

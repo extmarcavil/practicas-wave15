@@ -27,7 +27,11 @@ public class ProductsController {
     }
 
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<ResPostListDTO> createPost(@PathVariable int userId) {
-        return new ResponseEntity<>(productsService.getPostFollowed(userId), HttpStatus.OK);
+    public ResponseEntity<ResPostListDTO> queryPost(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return new ResponseEntity<>(productsService.getPostFollowed(userId, order), HttpStatus.OK);
+
     }
+
+
+
 }
