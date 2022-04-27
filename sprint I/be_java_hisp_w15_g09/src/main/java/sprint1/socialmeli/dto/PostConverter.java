@@ -15,7 +15,6 @@ public class PostConverter extends Converter<PostResponseDTO,Post> {
     }
 
     private static Post convertToEntity(PostResponseDTO dto) {
-        return new Post(dto);
+        throw new RuntimeException("Conversion no implementada");
     }
-
 }

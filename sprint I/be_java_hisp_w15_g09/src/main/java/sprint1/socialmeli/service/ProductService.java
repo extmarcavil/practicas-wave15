@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sprint1.socialmeli.dto.PostConverter;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.PostResponseDTO;
+import sprint1.socialmeli.dto.ResponsePostListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -26,19 +27,18 @@ public class ProductService implements IProductService {
     private final PostConverter converter;
 
     @Override
-    public PostResponseDTO save(PostRequestDTO postDTO) throws InvalidPostException {
+    public Integer save(PostRequestDTO postDTO) throws InvalidPostException {
         Post newPost = new Post(postDTO);
-        this.postRepository.save(newPost);
-        return new PostResponseDTO(newPost);
+        return postRepository.save(newPost);
     }
 
     @Override
-    public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID, String order) {
+    public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         String sortOrder = setDefaultOrder(order);
         validateOrder(sortOrder);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
-        return sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder);
+        return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
     }
 
     private ArrayList<Post> getPostsOfLast2Week(List<User> listFollowed) {
@@ -51,8 +51,7 @@ public class ProductService implements IProductService {
 
     private List<User> getFollowedListOfAnUser(int userFollowerID) {
         User userFollower = getUserFromRepositoryById(userFollowerID);
-        List<User> listFollowed = userFollower.getListOfFollowed();
-        return listFollowed;
+        return userFollower.getListOfFollowed();
     }
 
     private User getUserFromRepositoryById(int userID) {
@@ -74,7 +73,6 @@ public class ProductService implements IProductService {
         }
         return sortedPosts;
     }
-
 
     private List<Post> getUserPostOfLast2Week(int followedIDToSearch) {
         return postRepository

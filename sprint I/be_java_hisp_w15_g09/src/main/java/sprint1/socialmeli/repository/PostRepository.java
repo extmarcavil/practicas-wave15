@@ -1,28 +1,35 @@
 package sprint1.socialmeli.repository;
 
+import lombok.Getter;
 import org.springframework.stereotype.Repository;
 import sprint1.socialmeli.model.Post;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
+@Getter
 @Repository
 public class PostRepository implements IPostRepository {
-    private List<Post> postList;
+    private final Map<Integer, Post> postList;
+    private Integer postId;
 
     public PostRepository() {
-        this.postList = new ArrayList<>();
+        this.postList = new HashMap<>();
+        postId = 0;
     }
 
     @Override
-    public void save(Post post) {
-        this.postList.add(post);
+    public Integer save(Post post) {
+        this.postList.put(++postId, post);
+        post.setPostId(postId);
+        return postId;
     }
 
     @Override
     public List<Post> getListOfPostOfUser(int followedIDToSearch) {
-        return postList
+        return postList.values()
                 .stream()
                 .filter((Post p) -> p.hasUserID(followedIDToSearch))
                 .collect(Collectors.toList());

@@ -1,10 +1,10 @@
 package sprint1.socialmeli.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PostResponseDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
@@ -14,19 +14,13 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @AllArgsConstructor
 public class Post {
+    private Integer postId;
     private Integer userId;
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
     private Product detail;
     private Integer category;
     private Double price;
-
-    public Post(PostResponseDTO dto) {
-        userId = dto.getUserId();
-        date = dto.getDate();
-        detail = dto.getDetail();
-        category = dto.getCategory();
-        price = dto.getPrice();
-    }
 
     public Post(PostRequestDTO post) {
         userId = post.getUserId();
