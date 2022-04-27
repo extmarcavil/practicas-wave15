@@ -14,4 +14,7 @@ public interface IUserService {
 
     FollowersDTO getFollowersList(Integer userId);
 
+    FollowersDTO getFollowersList(Integer userId, String order);
+
+    FollowedDTO getFollowedList(Integer userId, String order);
 }

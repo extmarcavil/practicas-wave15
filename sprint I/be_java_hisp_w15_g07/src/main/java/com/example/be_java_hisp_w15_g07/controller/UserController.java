@@ -42,13 +42,24 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable Integer userId){
-        return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
+    public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable Integer userId,
+                                                         @RequestParam(defaultValue = "") String order){
+        if(order.isBlank()){
+            return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>(userService.getFollowersList(userId, order), HttpStatus.OK);
+        }
     }
-
+    
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<FollowedDTO> getFollowedList(@PathVariable Integer userId){
-        return new ResponseEntity<>(userService.getFollowedList(userId), HttpStatus.OK);
+    public ResponseEntity<FollowedDTO> getFollowedList(@PathVariable Integer userId,
+                                                       @RequestParam(defaultValue = "") String order){
+        if(order.isBlank()){
+            return new ResponseEntity<>(userService.getFollowedList(userId), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(userService.getFollowedList(userId, order), HttpStatus.OK);
+        }
     }
 
 }

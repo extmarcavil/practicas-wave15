@@ -8,11 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository{
@@ -101,6 +98,30 @@ public class UserRepository implements IUserRepository{
     public void newPost(Integer userId, Post unPost){
         User user = this.findById(userId);
         user.newPost(unPost);
+    }
+
+    @Override
+    public List<User> findFollowersOrderByNameAsc(Integer userId) {
+        User u = findById(userId);
+        return u.getFollowers().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findFollowersOrderByNameDesc(Integer userId) {
+        User u = findById(userId);
+        return u.getFollowers().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findFollowedOrderByNameAsc(Integer userId) {
+        User u = findById(userId);
+        return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<User> findFollowedOrderByNameDesc(Integer userId) {
+        User u = findById(userId);
+        return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
     }
 
 }
