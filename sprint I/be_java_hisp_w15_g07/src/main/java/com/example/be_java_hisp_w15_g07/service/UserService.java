@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -36,8 +37,6 @@ public class UserService implements IUserService{
         return followers;
     }
 
-
-
     @Override
     public FollowedDTO getFollowedList(Integer userId) {
         User user = userRepository.findById(userId);
@@ -60,16 +59,30 @@ public class UserService implements IUserService{
         User user = userRepository.findById(userId);
         User userToFollow = userRepository.findById(userToFollowId);
         if(userToFollow.getPosts().isEmpty()){
-            throw new BadRequestException("No se puede seguir un usuario que no es vendedor");
+            throw new BadRequestException("No se puede seguir un usuario que no es vendedor.");
         }
         if(userId.equals(userToFollowId)){
-            throw new BadRequestException("No se puede seguir a si mismo");
+            throw new BadRequestException("No se puede seguir a si mismo.");
         }
         if(!user.addUserToFollow(userToFollow)){
             throw new BadRequestException("Ya estas siguiendo a este usuario.");
         }
         if(!userToFollow.addFollower(user)){
             throw new BadRequestException("Ya estas seguido por este usuario.");
+        }
+    }
+
+    @Override
+    public void unfollowUser(Integer userId, Integer userToUnfollowId) {
+        User user = userRepository.findById(userId);
+        User userToUnfollow = userRepository.findById(userToUnfollowId);
+
+        if(userId.equals(userToUnfollowId)){
+            throw new BadRequestException("No se puede dejar de seguir a si mismo.");
+        }
+        boolean unfollow = user.getFollowed().removeIf(u -> u.getUserId().equals(userToUnfollowId)) && userToUnfollow.getFollowers().removeIf(u -> u.getUserId().equals(userId));;
+        if (!unfollow){
+            throw new BadRequestException("Este usuario no sigue a este vendedor.");
         }
     }
 }

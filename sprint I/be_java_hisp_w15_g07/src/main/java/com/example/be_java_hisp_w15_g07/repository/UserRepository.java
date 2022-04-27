@@ -91,7 +91,7 @@ public class UserRepository implements IUserRepository{
         if(database.containsKey(id)){
             return database.get(id);
         }
-        throw new UserNotFoundException("Usuario con id: " + id + " no encontrado");
+        throw new UserNotFoundException("Usuario con id " + id + " no encontrado.");
     }
 
     public User getFollowersList(Integer userId) {
