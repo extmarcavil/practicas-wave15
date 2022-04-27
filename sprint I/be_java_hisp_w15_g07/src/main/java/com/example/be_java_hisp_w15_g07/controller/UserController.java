@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g07.controller;
 
+import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.service.IUserService;
@@ -44,4 +45,10 @@ public class UserController {
     public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable Integer userId){
         return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
     }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowedDTO> getFollowedList(@PathVariable Integer userId){
+        return new ResponseEntity<>(userService.getFollowedList(userId), HttpStatus.OK);
+    }
+
 }
