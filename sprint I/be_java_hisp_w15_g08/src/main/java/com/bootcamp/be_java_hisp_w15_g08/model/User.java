@@ -16,7 +16,7 @@ import java.util.Map;
 @AllArgsConstructor
 public class User {
 
-    private int userID;
+    private Integer userID;
     private String name;
     private List<User> following;// Esta lista guarda los usurios a los que un usuario sigue.
     private List<User> followers;// Esta lista guarda los usuarios que siguen a el usuario creado.

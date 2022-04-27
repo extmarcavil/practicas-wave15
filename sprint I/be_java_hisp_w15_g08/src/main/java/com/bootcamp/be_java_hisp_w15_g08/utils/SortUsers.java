@@ -10,9 +10,9 @@ public class SortUsers {
     public static List<UserDTO> order (List<UserDTO> list, String order){
         if(order.equalsIgnoreCase("name_asc")){
             // listDto.sort(Comparator.comparing(post-> post.getUser_name()));
-             list.sort(Comparator.comparing(UserDTO::getUser_name));
+             list.sort(Comparator.comparing(UserDTO::getName));
         } else if (order.equalsIgnoreCase("name_desc")){
-            list.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+            list.sort(Comparator.comparing(UserDTO::getName).reversed());
         }
         return list;
     }

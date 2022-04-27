@@ -5,7 +5,6 @@ import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
-import com.bootcamp.be_java_hisp_w15_g08.utils.SortUsers;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +36,14 @@ public class UserService implements IUserService{
     @Override
     public FollowersListDTO getFollowersList(Integer idUser/*,String order*/){
         User user =repository.findUser(idUser);
+        user.getFollowers().forEach(user1 -> System.out.println(user1.getName()));
         List<UserDTO> listDto = user.getFollowers()
                 .stream()
                 .map(user1 -> mapper.map(user1,UserDTO.class))
                 .collect(toList());
+
+        listDto.forEach(user1 -> System.out.println(user1.getName()));
+
 //        if(order!= null){
 //            listDto = SortUsers.order(listDto,order);
 //        }
