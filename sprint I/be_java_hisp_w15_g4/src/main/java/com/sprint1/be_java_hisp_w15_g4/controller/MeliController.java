@@ -27,7 +27,6 @@ public class MeliController {
     }
 
 
-
     ////////////////////US0002////////////////////
     //Lucas - Luciano
     @GetMapping("/users/{userId}/followers/count")
@@ -35,11 +34,11 @@ public class MeliController {
         return new ResponseEntity<>(service.countFollowers(userId),HttpStatus.OK);
     }
 
-    ////////////////////US0003////////////////////
+    ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
         @GetMapping("/users/{userId}/followers/list")
         public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
-            return new ResponseEntity<>(service.listFollowers(userId),HttpStatus.OK);
+            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
         }
 
 

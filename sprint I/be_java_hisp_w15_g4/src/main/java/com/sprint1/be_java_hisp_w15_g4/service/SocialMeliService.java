@@ -47,13 +47,17 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public FollowerListDTO listFollowers(int userID) {
+    public FollowerListDTO listFollowers(int userID,String order) {
         User user = repo.findUser(userID);
         if (user == null)
             throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
-        return new FollowerListDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().stream()
+        FollowerListDTO retorno= new FollowerListDTO(user.getUser_id(),user.getUser_name(),
+                user.getFollowers().stream()
                 .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
-                .collect(Collectors.toList()));
+                .collect(Collectors.toList())
+        );
+        orderByName(order, retorno.getFollowerList());
+        return retorno;
     }
 
     @Override
