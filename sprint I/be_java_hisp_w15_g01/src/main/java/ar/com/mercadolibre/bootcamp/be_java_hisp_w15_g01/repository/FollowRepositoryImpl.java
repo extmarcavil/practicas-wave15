@@ -49,7 +49,7 @@ public class FollowRepositoryImpl implements FollowRepository {
     @Override
     public void unFollow(User follower, User following) {
         Follow follow = follows.stream()
-                .filter(u -> u.getFollower().getUserId() == follower.getUserId() && u.getFollowing().getUserId() == following.getUserId())
+                .filter(u -> u.getFollower().getUserId().equals(follower.getUserId()) && u.getFollowing().getUserId().equals(following.getUserId()))
                 .findAny()
                 .orElseThrow(()-> new NotFollowedException("The user don´t follow this seller"));
         follows.remove(follow);
