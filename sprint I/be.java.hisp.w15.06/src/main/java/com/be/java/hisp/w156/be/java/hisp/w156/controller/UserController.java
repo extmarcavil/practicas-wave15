@@ -3,13 +3,12 @@ package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserCountFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserFollowedDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/users")
@@ -23,8 +22,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public void follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
-        userService.follow(userId,userIdToFollow);
+    public ResponseEntity<SuccessDTO> follow(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
+        return userService.follow(userId, userIdToFollow);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")

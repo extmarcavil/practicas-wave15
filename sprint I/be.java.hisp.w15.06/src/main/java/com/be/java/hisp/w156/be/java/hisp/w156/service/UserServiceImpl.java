@@ -4,9 +4,15 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserCountFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserFollowedDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.TheUserWasNotFoundException;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserAlreadyFollowsTheUserException;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserCannotFollowHimselfException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -30,24 +36,56 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public void follow(Integer userId, Integer userToFollow) {
-        userRepository.follow(userId,userToFollow);
+    public ResponseEntity<SuccessDTO> follow(Integer userId, Integer userToFollowId) {
+        User user = userRepository.getUser(userId);
+        User userToFollow = userRepository.getUser(userToFollowId);
+
+        if(user == userToFollow)
+            throw new UserCannotFollowHimselfException();
+
+        List<User> followed = user.getFollowed();
+
+        if(followed.contains(userToFollow))
+            throw new UserAlreadyFollowsTheUserException(userId, userToFollowId);
+
+        followed.add(userToFollow);
+        user.setFollowed(followed);
+
+        List<User> followers = userToFollow.getFollowers();
+        followers.add(user);
+        userToFollow.setFollowers(followers);
+
+        String message = String.format("The id user: %s had follow user %s", userId, userToFollowId);
+        return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.OK);
     }
 
     @Override
-    public void unfollow(Integer userId, Integer userToUnfollow) {
-        userRepository.unfollow(userId,userToUnfollow);
+    public ResponseEntity<SuccessDTO> unfollow(Integer userId, Integer userToUnfollowId) {
+        User user = userRepository.getUser(userId);
+        User userToUnfollow = userRepository.getUser(userToUnfollowId);
+
+        List<User> followed = user.getFollowed();
+        if(!followed.contains(userToUnfollow))
+            throw new TheUserWasNotFoundException(userId, userToUnfollowId);
+
+        followed.remove(userToUnfollow);
+        user.setFollowed(followed);
+
+        List<User> followers = userToUnfollow.getFollowers();
+        followers.remove(user);
+        userToUnfollow.setFollowers(followers);
+
+        String message = String.format("The id user: %s had unfollow user %s", userId, userToUnfollow);
+        return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.OK);
     }
 
     @Override
     public UserCountFollowersDTO getCountFollowers(Integer id) {
         User userSeller = this.userRepository.getUser(id);
 
-        UserCountFollowersDTO userCountFollowersDTO = new UserCountFollowersDTO(userSeller.getId(),
+        return new UserCountFollowersDTO(userSeller.getId(),
                 userSeller.getName(),
                 userSeller.getFollowers().size());
-
-        return userCountFollowersDTO;
     }
 
     @Override
@@ -66,9 +104,7 @@ public class UserServiceImpl implements IUserService {
         else
             followers.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
 
-        UserFollowersDTO userFollowersDTO = new UserFollowersDTO(userSeller.getId(), userSeller.getName(), followers);
-
-        return userFollowersDTO;
+        return new UserFollowersDTO(userSeller.getId(), userSeller.getName(), followers);
 
     }
 
@@ -91,9 +127,7 @@ public class UserServiceImpl implements IUserService {
         else if (order.equals("name_desc"))
             followed.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
 
-        UserFollowedDTO userFollowedDTO = new UserFollowedDTO(user.getId(), user.getName(), followed);
-
-        return userFollowedDTO;
+        return new UserFollowedDTO(user.getId(), user.getName(), followed);
     }
 
 }

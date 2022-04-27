@@ -9,7 +9,7 @@ import java.time.LocalDate;
 
 @AllArgsConstructor
 @Getter
-public class ResponsePostDto {
+public class ResponsePostDTO {
 
     private Integer post_id;
     private String date;
@@ -17,8 +17,8 @@ public class ResponsePostDto {
     private String category;
     private Double price;
 
-    public static ResponsePostDto from(Post post) {
+    public static ResponsePostDTO from(Post post) {
         String date = LocalDate.from(post.getDate()).toString();
-        return new ResponsePostDto(post.getId(), date, post.getDetail(), post.getCategory(), post.getPrice());
+        return new ResponsePostDTO(post.getId(), date, post.getDetail(), post.getCategory(), post.getPrice());
     }
 }
