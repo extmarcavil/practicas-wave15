@@ -13,7 +13,6 @@ public class UserDTO {
     private String userName;
 
     public UserDTO(User entity) {
-        this.userId = entity.getId();
-        this.userName = entity.getName();
+        entity.mapToDTO(this);
     }
 }

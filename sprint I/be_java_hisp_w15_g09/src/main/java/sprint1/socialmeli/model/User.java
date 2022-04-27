@@ -26,7 +26,13 @@ public class User {
     }
 
     public User(UserDTO dto) {
+        this.name = dto.getUserName();
         this.id = dto.getUserId();
+    }
+
+    public void mapToDTO(UserDTO userDTO) {
+        userDTO.setUserId(this.id);
+        userDTO.setUserName(this.name);
     }
 
     public void follow(User followedUser) {
@@ -55,4 +61,6 @@ public class User {
     private void addTolistOfFollowers(User user) {
         this.listOfFollowers.add(user);
     }
+
+
 }

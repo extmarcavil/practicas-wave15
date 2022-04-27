@@ -1,21 +1,20 @@
 package sprint1.socialmeli.service;
 
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.ResponseFollowedListDTO;
-import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
-import sprint1.socialmeli.dto.ResponseFollowersListDTO;
-import sprint1.socialmeli.dto.UserDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class SocialMeliService implements ISocialMeliService {
 
     ISocialMeliRepository repository;
+    UserConverter userConverter;
 
     public SocialMeliService(ISocialMeliRepository repository) {
         this.repository = repository;
@@ -39,7 +38,6 @@ public class SocialMeliService implements ISocialMeliService {
 
         User followerUser = this.repository.findUserById(userID);
         User followedUser = this.repository.findUserById(userIdToUnfollow);
-        // falta validar si pueden efectivamente hacer el unfollow en el usuario
         followerUser.unfollow(followedUser);
     }
 
@@ -54,20 +52,14 @@ public class SocialMeliService implements ISocialMeliService {
     public ResponseFollowersListDTO listFollowers(Integer userId) {
         existUser(userId, "Usuario con id:");
         User user = repository.findUserById(userId);
-        return new ResponseFollowersListDTO(user.getId(), user.getName(), user.getListOfFollowers()
-                .stream()
-                .map(ud -> new UserDTO(ud.getId(), ud.getName()))
-                .collect(Collectors.toList()));
+        return new ResponseFollowersListDTO(user.getId(), user.getName(), userConverter.createFromEntities(user.getListOfFollowers()) );
     }
 
     @Override
     public ResponseFollowedListDTO listFollowed(Integer userId) {
         existUser(userId, "Usuario con id:");
         User user = repository.findUserById(userId);
-        return new ResponseFollowedListDTO(user.getId(), user.getName(), user.getListOfFollowed()
-                .stream()
-                .map(ud -> new UserDTO(ud.getId(), ud.getName()))
-                .collect(Collectors.toList()));
+        return new ResponseFollowedListDTO(user.getId(), user.getName(), userConverter.createFromEntities(user.getListOfFollowed()) );
     }
 
     @Override
@@ -80,11 +72,7 @@ public class SocialMeliService implements ISocialMeliService {
         if (order.equals("name_desc")) {
             return new ResponseFollowersListDTO(user.getId(),
                     user.getName(),
-                    user.getListOfFollowers()
-                            .stream()
-                            .sorted(Comparator.comparing(User::getName).reversed())
-                            .map(ud -> new UserDTO(ud.getId(), ud.getName()))
-                            .collect(Collectors.toList()));
+                    getSortedListByName(user.getListOfFollowers(), Comparator.comparing(User::getName).reversed()));
         }
         return new ResponseFollowersListDTO(user.getId(),
                                             user.getName(),
@@ -93,6 +81,14 @@ public class SocialMeliService implements ISocialMeliService {
                                                     .sorted(Comparator.comparing(User::getName))
                                                     .map(ud -> new UserDTO(ud.getId(), ud.getName()))
                                                     .collect(Collectors.toList()));
+    }
+
+    private List<UserDTO> getSortedListByName(List<User> listOfFollowers, Comparator<User> reversed) {
+        return listOfFollowers
+                .stream()
+                .sorted(reversed)
+                .map(ud -> new UserDTO(ud.getId(), ud.getName()))
+                .collect(Collectors.toList());
     }
 
     @Override

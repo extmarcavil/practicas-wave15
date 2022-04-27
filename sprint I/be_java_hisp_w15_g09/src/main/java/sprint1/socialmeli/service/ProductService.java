@@ -14,6 +14,7 @@ import sprint1.socialmeli.repository.ISocialMeliRepository;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -55,6 +56,7 @@ public class ProductService implements IProductService {
                             .filter(x->x.getDate().isAfter( LocalDate.now().minusDays(14) ))
                             .collect(Collectors.toList()));
         }
+        listOfPost.sort(Comparator.comparing(Post::getDate).reversed());
         return this.converter.createFromEntities(listOfPost);
     }
 }
