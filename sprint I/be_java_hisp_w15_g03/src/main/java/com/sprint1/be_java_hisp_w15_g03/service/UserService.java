@@ -5,8 +5,8 @@ import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
 import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
-import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFound;
-import com.sprint1.be_java_hisp_w15_g03.exception.RelationNotFound;
+import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
+import com.sprint1.be_java_hisp_w15_g03.exception.RelationNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
@@ -34,11 +34,11 @@ public class UserService implements IUserService {
             if(!userRepository.following(userId, sellerToFollow)){
                 userRepository.followSeller(userId, sellerToFollow);
             } else {
-                throw new RelationNotFound("El usuario: " + userId + " ya sigue al vendedor: " + sellerToFollow);
+                throw new RelationNotFoundException("El usuario: " + userId + " ya sigue al vendedor: " + sellerToFollow);
             }
 
         } else {
-            throw new PersonNotFound("El vendedor o el usuario no existen");
+            throw new PersonNotFoundException("El vendedor o el usuario no existen");
         }
     }
 
@@ -50,7 +50,7 @@ public class UserService implements IUserService {
             sellerCountDTO.setFollowersCount(seller.getFollowers().size());
             return sellerCountDTO;
         } else {
-            throw new PersonNotFound("El vendedor con el id: " + sellerId + " no existe");
+            throw new PersonNotFoundException("El vendedor con el id: " + sellerId + " no existe");
         }
     }
 
@@ -69,7 +69,7 @@ public class UserService implements IUserService {
             sellerFListDTO.setUserName(seller.getUserName());
             return sellerFListDTO;
         } else {
-            throw new PersonNotFound("El vendedor con el id: " + sellerId + " no existe");
+            throw new PersonNotFoundException("El vendedor con el id: " + sellerId + " no existe");
         }
     }
 
@@ -88,7 +88,7 @@ public class UserService implements IUserService {
             userListDTO.setUserName(user.getUserName());
             return userListDTO;
         } else {
-            throw new PersonNotFound("El usuario con el id: " + userId + " no existe");
+            throw new PersonNotFoundException("El usuario con el id: " + userId + " no existe");
         }
     }
 
@@ -98,10 +98,10 @@ public class UserService implements IUserService {
             if(userRepository.following(userId, sellerToUnfollow)){
                 userRepository.unFollowSeller(userId, sellerToUnfollow);
             } else {
-                throw new RelationNotFound("El usuario: " + userId + " no sigue al vendedor: " + sellerToUnfollow);
+                throw new RelationNotFoundException("El usuario: " + userId + " no sigue al vendedor: " + sellerToUnfollow);
             }
         } else {
-            throw new PersonNotFound("El vendedor o el usuario no existen");
+            throw new PersonNotFoundException("El vendedor o el usuario no existen");
         }
     }
 

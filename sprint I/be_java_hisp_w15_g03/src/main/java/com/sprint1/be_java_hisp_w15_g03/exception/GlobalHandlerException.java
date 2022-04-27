@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalHandlerException {
 
-    @ExceptionHandler(PersonNotFound.class)
-    ResponseEntity<ErrorDTO> handlerExceptionPersonNotFound(PersonNotFound personNotFound){
+    @ExceptionHandler(PersonNotFoundException.class)
+    ResponseEntity<ErrorDTO> handlerExceptionPersonNotFound(PersonNotFoundException personNotFound){
         ErrorDTO errorDTO = new ErrorDTO("Entidad no encontrada", personNotFound.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(RelationNotFound.class)
-    ResponseEntity<ErrorDTO> handlerExceptionRelationNotFound(RelationNotFound relationNotFound){
+    @ExceptionHandler(RelationNotFoundException.class)
+    ResponseEntity<ErrorDTO> handlerExceptionRelationNotFound(RelationNotFoundException relationNotFound){
         ErrorDTO errorDTO = new ErrorDTO("Fallo en ralacion esperada", relationNotFound.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    ResponseEntity<ErrorDTO> handlerExceptionCategoryNotFound(CategoryNotFoundException categoryNotFound){
+        ErrorDTO errorDTO = new ErrorDTO("Fallo en categoria esperada", categoryNotFound.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
 
@@ -26,5 +32,12 @@ public class GlobalHandlerException {
         ErrorDTO errorDTO = new ErrorDTO("Error en metodo de orden", orderInvalidException.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ProductDuplicatedException.class)
+    ResponseEntity<ErrorDTO> handlerExceptionProductDuplicated(ProductDuplicatedException productDuplicatedException){
+        ErrorDTO errorDTO = new ErrorDTO("Error en parametros de entrada", productDuplicatedException.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);
+    }
+
 
 }

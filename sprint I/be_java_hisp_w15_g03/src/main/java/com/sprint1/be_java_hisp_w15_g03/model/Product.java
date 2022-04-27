@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Objects;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -28,5 +30,18 @@ public class Product {
                 ", color='" + color + '\'' +
                 ", notes='" + notes + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Product product = (Product) o;
+        return Objects.equals(productId, product.productId) && Objects.equals(productName, product.productName) && Objects.equals(type, product.type) && Objects.equals(brand, product.brand) && Objects.equals(color, product.color) && Objects.equals(notes, product.notes);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(productId, productName, type, brand, color, notes);
     }
 }
