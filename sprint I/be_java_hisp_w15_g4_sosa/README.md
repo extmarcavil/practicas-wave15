@@ -18,3 +18,7 @@ El objetivo de este sprint es aplicar los contenidos dados hasta el momento dura
 7. Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor. 
 8. Alfabético Ascendente y Descendente
 9. Fecha Ascendente y Descendente
+10. Llevar a cabo la publicación de un nuevo producto en promoción.
+11. Obtener la cantidad de productos en promoción de un determinado vendedor
+12. Obtener un listado de todos los productos en promoción de un determinado vendedor
+13. Obtener un listado de todos los productos en promocion
