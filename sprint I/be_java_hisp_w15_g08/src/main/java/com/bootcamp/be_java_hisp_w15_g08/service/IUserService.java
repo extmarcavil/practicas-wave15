@@ -13,5 +13,5 @@ public interface IUserService {
     void  followUser(Integer idFollowed, Integer idFollower);
     void unFollowUser(Integer idFollowed, Integer idFollower);
     FollowersListDTO getFollowedList(Integer userId,String order);
-    PostListDTO getSellersLastsPosts(Integer userId);
+    PostListDTO getSellersLastsPosts(Integer userId, String order);
 }

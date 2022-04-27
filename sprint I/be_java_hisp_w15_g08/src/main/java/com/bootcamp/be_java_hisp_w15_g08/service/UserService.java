@@ -75,7 +75,7 @@ public class UserService implements IUserService{
     }
 
     @Override
-    public PostListDTO getSellersLastsPosts(Integer userId){
+    public PostListDTO getSellersLastsPosts(Integer userId, String order){
         User user =repository.findUser(userId);
         List<User> followedUsers = user.getFollowing();
         List<Post> posts1 = new ArrayList<>();
@@ -83,17 +83,20 @@ public class UserService implements IUserService{
             List<Post> postsFlitrado = user2.getPosts()
                     .values()
                     .stream()
-                    //.filter(post -> DAYS.between(LocalDate.now(), post.getDate()) < 14)
+                    .filter(post -> DAYS.between(post.getDate(),LocalDate.now()) < 14)
                     .collect(Collectors.toList());
             posts1.addAll(postsFlitrado);
         });
-        System.out.println(posts1.size());
-        //List<Post> posts =  followedUsers.stream().map(user2 ->  user2.getPosts().values().collect(toList()));
+
         PostListDTO postListDTO = new PostListDTO();
         postListDTO.setUser_id(userId);
+
         List<PostNotUserIdDTO> postNotUserIdDTOS = posts1.stream()
                 .map(post -> mapper.map(post,PostNotUserIdDTO.class))
                 .collect(toList());
+        if(order!= null){
+            postNotUserIdDTOS = SortUsers.orderDate(postNotUserIdDTOS,order);
+        }
         postListDTO.setPosts(postNotUserIdDTOS);
         return postListDTO;
     }
