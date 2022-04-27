@@ -1,6 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.repository;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.PostPromoListDTO;
+import com.sprint1.be_java_hisp_w15_g4.model.PostPromo;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import lombok.Getter;
 import lombok.Setter;
@@ -32,6 +34,9 @@ public class UserRepository implements IUserRepository {
     @Override
     public User findUser(int id) {
         return users.stream().filter(u -> u.getUser_id() == id).findFirst().orElse(null);
+    }
+    public List<PostPromo> getAllPromos(){
+        return users.stream().flatMap(v -> v.getPromos().stream()).collect(Collectors.toList());
     }
 
 }

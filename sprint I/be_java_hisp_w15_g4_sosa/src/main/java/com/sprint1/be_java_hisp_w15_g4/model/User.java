@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.model;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.response.PostPromoCountDTO;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,6 +16,7 @@ public class User {
     private List<User> followers;
     private List<User> following;
     private List<Post> posts;
+    private List<PostPromo> promos;
 
     public User(int user_id, String user_name) {
         this.user_id = user_id;
@@ -22,6 +24,7 @@ public class User {
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.posts = new ArrayList<>();
+        this.promos = new ArrayList<>();
     }
 
     public void addFollower(User user) {
@@ -41,5 +44,9 @@ public class User {
     public void addPost(Post post) {
         posts.add(post);
     }
+    public void addPromo(PostPromo promo) {
+        promos.add(promo);
+    }
+
 
 }

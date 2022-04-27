@@ -1,10 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,9 +65,36 @@ public class MeliController {
     ////////////////////US0007////////////////////
     //Yamil - Nacho
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+    public ResponseEntity<?> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    ////////////////////US00010////////////////////
+    //Yamil Individual
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> postProduct(@RequestBody PostPromoDTO promo){
+        service.createPromo(promo);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+    ////////////////////US00011////////////////////
+    //Yamil Individual
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<PostPromoCountDTO> cantidadDeProductosPromo(@RequestParam int user_id) {
+        return new ResponseEntity<>(service.cantidadDeProductosPromo(user_id), HttpStatus.OK);
+    }
+    ////////////////////US00012////////////////////
+    //Yamil Bonus Individual
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PostPromoListDTO> getAllPromosSeller(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.getAllPromosSeller(user_id));
+    }
+    ////////////////////US00013////////////////////
+    //Yamil Individual
+    @GetMapping("/products/promo-post")
+    public ResponseEntity<PostPromoListDTO> getAllPromos(){
+        return new ResponseEntity<>(service.listPromos(),HttpStatus.OK);
+    }
+
 
 }
