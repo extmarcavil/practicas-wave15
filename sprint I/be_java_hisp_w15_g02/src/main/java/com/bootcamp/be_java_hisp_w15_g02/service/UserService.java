@@ -38,9 +38,17 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public GetFollowedByUserDTO getFollowedByUser(int userId) {
+    public GetFollowedByUserDTO getFollowedByUser(int userId, String order) {
         User user = userRepository.getUserById(userId);
         List<GetFollowersDTO> listFollowed = mapFollowDTO(user.getFollowList());
+        if (order != null) {
+            if (order.equals("name_asc"))
+                listFollowed.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+            else if (order.equals("name_desc"))
+                listFollowed.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+            else
+                throw new OrderNotFoundException("Orden no encontrado");
+        }
         GetFollowedByUserDTO responseFollowedUser = new GetFollowedByUserDTO(user.getUserId(), user.getUserName(), (List) listFollowed);
         return responseFollowedUser;
     }

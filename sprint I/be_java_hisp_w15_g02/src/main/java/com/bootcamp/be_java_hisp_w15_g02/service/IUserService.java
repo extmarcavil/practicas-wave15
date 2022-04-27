@@ -9,7 +9,7 @@ public interface IUserService {
     void follow(int userId, int userIdToFollow);
     GetFollowersCountDTO getFollowersCount(int userId);
     GetFollowersBySellerDTO getFollowersBySeller(int userId, String order);
-    GetFollowedByUserDTO getFollowedByUser(int userId);
+    GetFollowedByUserDTO getFollowedByUser(int userId, String order);
 
 }
 
