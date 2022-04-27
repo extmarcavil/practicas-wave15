@@ -18,4 +18,19 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> UserNotSellerException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(UserNotFollowingException.class)
+    public ResponseEntity<?> UserNotFollowingException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidDateException.class)
+    public ResponseEntity<?> InvalidDateException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidPriceException.class)
+    public ResponseEntity<?> InvalidPriceException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }
