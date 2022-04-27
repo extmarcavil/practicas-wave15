@@ -25,4 +25,6 @@ public interface IUserRepository {
 
     List<Post> getPostsLastTwoWeekById(Integer id);
 
+    boolean existsById(Integer id);
+
 }
