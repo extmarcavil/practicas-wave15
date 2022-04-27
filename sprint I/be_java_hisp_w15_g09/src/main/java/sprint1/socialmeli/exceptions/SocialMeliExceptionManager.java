@@ -24,4 +24,9 @@ public class SocialMeliExceptionManager {
     public ResponseEntity<?> invalidFolllower(Exception e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidParamsException.class)
+    public ResponseEntity<?> invalidParams(Exception e){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

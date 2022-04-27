@@ -3,6 +3,7 @@ package sprint1.socialmeli.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.PostResponseDTO;
@@ -81,7 +82,11 @@ public class ProductController {
     //    ]
     //}
     @GetMapping("/followed/{followerUserID}/list")
-    public ResponseEntity<List<PostResponseDTO>> get2WeeksProductsOfFollowed(@PathVariable int followerUserID){
-        return new ResponseEntity<>(productService.get2WeeksProductsOfFollowed(followerUserID), HttpStatus.OK);
+    public ResponseEntity<List<PostResponseDTO>> get2WeeksProductsOfFollowed(@PathVariable int followerUserID, @RequestParam @Nullable String order){
+        List<PostResponseDTO> posts = productService.get2WeeksProductsOfFollowed(followerUserID);
+        if (order == null) {
+            return new ResponseEntity<>(posts, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(productService.sort2WeeksOfPosts(posts, order), HttpStatus.OK);
     }
 }

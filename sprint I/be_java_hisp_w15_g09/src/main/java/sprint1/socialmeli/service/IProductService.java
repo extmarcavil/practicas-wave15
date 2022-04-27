@@ -8,4 +8,5 @@ import java.util.List;
 public interface IProductService {
     PostResponseDTO save(PostRequestDTO post);
     List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID);
+    List<PostResponseDTO> sort2WeeksOfPosts(List<PostResponseDTO> posts, String order);
 }
