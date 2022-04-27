@@ -8,9 +8,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 
 @ControllerAdvice
 public class GlobalHandlerException {
-    @ExceptionHandler({InvalidUrlException.class})
+    @ExceptionHandler(InvalidUrlException.class)
     public ResponseEntity<ExceptionDTO> handleException(InvalidUrlException exception){
         ExceptionDTO error = new ExceptionDTO("Error", exception.getMessage());
-        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
 }

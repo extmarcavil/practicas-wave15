@@ -1,9 +1,6 @@
 package com.example.linktracker.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -15,10 +12,19 @@ import java.util.regex.Pattern;
 public class Link {
     private int id;
     private String url;
+    private int metrics;
+    private String password;
     private boolean active;
 
+    public Link(int id, String url, String password) {
+        this.id = id;
+        this.url = url;
+        this.password = password;
+        this.metrics = 0;
+        this.active = true;
+    }
+
     public static boolean validateUrl(String url){
-        System.out.println(url);
         final String URL_REGEX = "^((((https?|ftps?|gopher|telnet|nntp)://)|(mailto:|news:))" +
                 "(%[0-9A-Fa-f]{2}|[-()_.!~*';/?:@&=+$,A-Za-z0-9])+)([).!';/?:,][[:blank:]])?$";
         final Pattern URL_PATTERN = Pattern.compile(URL_REGEX);
