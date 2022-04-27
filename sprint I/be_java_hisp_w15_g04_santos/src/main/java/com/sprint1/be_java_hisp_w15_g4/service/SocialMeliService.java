@@ -190,6 +190,18 @@ public class SocialMeliService implements ISocialMeliService {
         promoPostCountDTO.setPromo_products_count(promoPostQuantity);
 
         return promoPostCountDTO;
+    }
+
+    @Override
+    public PromoPostListDTO getPromoPostListByUser(int user_id) {
+        User user = getUser(user_id);
+
+        List<PostPromoDTO> posts = user.getPosts().stream()
+                .filter(Post::isHas_promo)
+                .map(p -> mapper.map(p, PostPromoDTO.class))
+                .collect(Collectors.toList());
+
+        return new PromoPostListDTO(user_id, posts);
 
     }
 }

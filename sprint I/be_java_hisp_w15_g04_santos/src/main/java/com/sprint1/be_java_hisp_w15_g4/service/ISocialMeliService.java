@@ -14,4 +14,5 @@ public interface ISocialMeliService {
     void unfollow(int userID, int userIDToUnfollow); //Req 07
     void getPromoPosts(PostPromoDTO postPromoDTO);
     PromoPostCountDTO getPromoPostBySeller(int user_id);
+    PromoPostListDTO getPromoPostListByUser(int user_id);
 }

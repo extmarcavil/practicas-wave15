@@ -8,7 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 
 @RestController
 public class MeliController {
@@ -81,6 +80,12 @@ public class MeliController {
     @GetMapping("/products/promo-post/count")
     public ResponseEntity<PromoPostCountDTO> getPromoPostBySeller(@RequestParam int user_id) {
         return ResponseEntity.status(HttpStatus.OK).body(service.getPromoPostBySeller(user_id));
+    }
+
+    // US 0012
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PromoPostListDTO> getPromoPostListByUser(@RequestParam int user_id) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.getPromoPostListByUser(user_id));
     }
 
 }
