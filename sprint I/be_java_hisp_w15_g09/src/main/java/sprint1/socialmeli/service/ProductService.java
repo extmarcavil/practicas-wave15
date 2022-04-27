@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import sprint1.socialmeli.dto.PostConverter;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.PostResponseDTO;
+import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
 import sprint1.socialmeli.model.User;
@@ -42,7 +43,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID) {
+    public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         User userFollower = userRepository.findUserById(userFollowerID);
         List<User> listFollowed = userFollower.getListOfFollowed();
 
@@ -56,7 +57,21 @@ public class ProductService implements IProductService {
                             .filter(x->x.getDate().isAfter( LocalDate.now().minusDays(14) ))
                             .collect(Collectors.toList()));
         }
-        listOfPost.sort(Comparator.comparing(Post::getDate).reversed());
-        return this.converter.createFromEntities(listOfPost);
+        return sortPosts(this.converter.createFromEntities(listOfPost), (order == null) ? "date_desc" : order);
+    }
+
+    public List<PostResponseDTO> sortPosts(List<PostResponseDTO> posts, String order) {
+        if (!(order.equals("date_asc") || order.equals("date_desc"))) {
+            throw new InvalidParamsException("Los parámetros ingresados son incorrectos. Este endpoint admite solo:\n" +
+                    "order=date_asc\n" +
+                    "order=date_desc");
+        }
+        List<PostResponseDTO> sortedPosts = posts.stream()
+                                                .sorted(Comparator.comparing(PostResponseDTO::getDate))
+                                                .collect(Collectors.toList());
+        if (order.equals("date_desc")) {
+            sortedPosts.sort(Comparator.comparing(PostResponseDTO::getDate).reversed());
+        }
+        return sortedPosts;
     }
 }
