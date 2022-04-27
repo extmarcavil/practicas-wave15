@@ -8,7 +8,7 @@ import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 
 import java.util.Comparator;
-import java.util.stream.Collectors;
+import java.util.List;
 
 @Service
 public class SocialMeliService implements ISocialMeliService {
@@ -53,16 +53,25 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public ResponseFollowersListDTO listFollowers(Integer userId) {
+    public ResponseFollowersListDTO listFollowers(Integer userId, String order) {
         existUser(userId, "Usuario con id:");
         User user = getUserFromRepositoryById(userId);
+
+        if (order !=  null) {
+            checkOrderParam(order);
+            sortListOfUsers(user.getListOfFollowers(), order);
+        }
         return new ResponseFollowersListDTO( user, userConverter.createFromEntities(user.getListOfFollowers()));
     }
 
     @Override
-    public ResponseFollowedListDTO listFollowed(Integer userId) {
+    public ResponseFollowedListDTO listFollowed(Integer userId, String order) {
         existUser(userId, "Usuario con id:");
         User user = getUserFromRepositoryById(userId);
+        if (order !=  null) {
+            checkOrderParam(order);
+            sortListOfUsers(user.getListOfFollowed(), order);
+        }
         return new ResponseFollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
     }
 
@@ -74,44 +83,12 @@ public class SocialMeliService implements ISocialMeliService {
         }
     }
 
-    @Override
-    public ResponseFollowersListDTO sortedListFollowers(Integer userId, String order) {
-        checkOrderParam(order);
+    private void sortListOfUsers(List<User> users, String order) {
 
-        User user = getUserFromRepositoryById(userId);
-        ResponseFollowersListDTO followersList = new ResponseFollowersListDTO(
-                user.getId(),
-                user.getName(),
-                user.getListOfFollowers()
-                        .stream()
-                        .sorted(Comparator.comparing(User::getName))
-                        .map(ud -> new UserDTO(ud.getId(), ud.getName()))
-                        .collect(Collectors.toList()));
-
+        users.sort(Comparator.comparing(User::getName));
         if (order.equals("name_desc")) {
-            followersList.getFollowers().sort(Comparator.comparing(UserDTO::getUserName).reversed());
+            users.sort(Comparator.comparing(User::getName).reversed());
         }
-        return followersList;
-    }
-
-    @Override
-    public ResponseFollowedListDTO sortedListFollowed(Integer userId, String order) {
-        checkOrderParam(order);
-
-        User user = getUserFromRepositoryById(userId);
-        ResponseFollowedListDTO followedList = new ResponseFollowedListDTO(
-                user.getId(),
-                user.getName(),
-                user.getListOfFollowed()
-                        .stream()
-                        .sorted(Comparator.comparing(User::getName))
-                        .map(ud -> new UserDTO(ud.getId(), ud.getName()))
-                        .collect(Collectors.toList()));
-
-        if (order.equals("name_desc")) {
-            followedList.getFollowed().sort(Comparator.comparing(UserDTO::getUserName).reversed());
-        }
-        return followedList;
     }
 
     private void existUser(Integer userId, String msg) {

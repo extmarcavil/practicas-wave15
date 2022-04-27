@@ -10,11 +10,7 @@ public interface ISocialMeliService {
 
     public ResponseFollowersCountDTO countFollowers(Integer userID);
 
-    public ResponseFollowersListDTO listFollowers(Integer userId);
+    public ResponseFollowersListDTO listFollowers(Integer userId, String order);
 
-    public ResponseFollowedListDTO listFollowed(Integer userId);
-
-    public ResponseFollowersListDTO sortedListFollowers(Integer userId, String order);
-
-    public ResponseFollowedListDTO sortedListFollowed(Integer userId, String order);
+    public ResponseFollowedListDTO listFollowed(Integer userId, String order);
 }

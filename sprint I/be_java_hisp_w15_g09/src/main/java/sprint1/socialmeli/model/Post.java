@@ -21,21 +21,20 @@ public class Post {
     private Double price;
 
     public Post(PostResponseDTO dto) {
-        this.userId = dto.getUserId();
-        this.date = dto.getDate();
-        this.detail = dto.getDetail();
-        this.category = dto.getCategory();
-        this.price = dto.getPrice();
-        //this.isAValidPost();
+        userId = dto.getUserId();
+        date = dto.getDate();
+        detail = dto.getDetail();
+        category = dto.getCategory();
+        price = dto.getPrice();
     }
 
     public Post(PostRequestDTO post) {
-        this.userId = post.getUserId();
-        this.date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-        this.detail = post.getDetail();
-        this.category = post.getCategory();
-        this.price = post.getPrice();
-        this.isAValidPost();
+        userId = post.getUserId();
+        date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        detail = post.getDetail();
+        category = post.getCategory();
+        price = post.getPrice();
+        isAValidPost();
     }
 
     public boolean hasUserID(int IDToMatch) {
@@ -43,7 +42,6 @@ public class Post {
     }
 
     private void isAValidPost(){
-        // Validar y si no pasa, tirar BAD_REQUEST
         if (    this.userId == null     ||
                 this.date == null       ||
                 this.detail== null      ||

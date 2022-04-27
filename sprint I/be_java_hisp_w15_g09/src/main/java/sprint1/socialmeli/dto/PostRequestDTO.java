@@ -22,15 +22,4 @@ public class PostRequestDTO {
         this.category = category;
         this.price = price;
     }
-
-//    @Override
-//    public String toString() {
-//        return "PostRequestDTO{" +
-//                "userId=" + userId +
-//                ", date=" + date +
-//                ", detail=" + detail +
-//                ", category=" + category +
-//                ", price=" + price +
-//                '}';
-//    }
 }
