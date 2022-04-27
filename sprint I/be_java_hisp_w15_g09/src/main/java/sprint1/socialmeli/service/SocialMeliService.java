@@ -16,8 +16,9 @@ public class SocialMeliService implements ISocialMeliService {
     ISocialMeliRepository repository;
     UserConverter userConverter;
 
-    public SocialMeliService(ISocialMeliRepository repository) {
+    public SocialMeliService(ISocialMeliRepository repository, UserConverter converter) {
         this.repository = repository;
+        this.userConverter = converter;
     }
 
     @Override
@@ -27,7 +28,6 @@ public class SocialMeliService implements ISocialMeliService {
 
         User followerUser = getUserFromRepositoryById(userID);
         User followedUser = getUserFromRepositoryById(userIdToFollow);
-        // falta validar si pueden efectivamente hacer el follow en el usuario
         followerUser.follow(followedUser);
     }
 
