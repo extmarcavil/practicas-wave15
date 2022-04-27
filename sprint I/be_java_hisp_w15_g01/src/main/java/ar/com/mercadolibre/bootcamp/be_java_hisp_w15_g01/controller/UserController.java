@@ -36,5 +36,15 @@ public class UserController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.whoFollowsMe(userId));
+
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<FollowersListDTO> AllFollowedByUserId(@PathVariable Long userId){
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.findAllFollowedByUserId(userId));
+
+
     }
 }

@@ -8,6 +8,10 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 public interface UserService {
     ResponseDTO follow(Long userId, long userIdToFollow);
     User findById(Long id);
+
     FollowersListDTO whoFollowsMe(Long id);
     FollowersCountDTO wowManyFollowsMe(Long userId);
+
+    FollowersListDTO findAllFollowedByUserId(Long userId);
+
 }

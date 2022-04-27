@@ -25,11 +25,23 @@ public class FollowRepositoryImpl implements FollowRepository {
         return follow;
     }
 
+
     @Override
     public List<Follow> whoFollows(Long id) {
         return follows
                 .stream()
                 .filter(f -> f.getFollowing().getUserId().equals(id))
                 .collect(Collectors.toList());
+
+    }
+
+    @Override
+    public List<User> findFollowedByUserId(Long id) {
+       List<User> followed = follows.stream()
+               .filter(x->x.getFollower().getUserId().equals(id))
+               .map(a->a.getFollowing())
+               .collect(Collectors.toList());
+
+       return followed;
     }
 }

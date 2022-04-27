@@ -7,5 +7,8 @@ import java.util.List;
 
 public interface FollowRepository {
     Follow save(User follower, User following);
+
     List<Follow> whoFollows(Long id);
+
+    List<User> findFollowedByUserId(Long id);
 }

@@ -4,9 +4,9 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
@@ -81,5 +81,23 @@ public class UserServiceImpl implements  UserService {
         dto.setUserName(user.getUserName());
         dto.setFollowersCount(followersCount);
         return dto;
+    }
+
+    public FollowersListDTO findAllFollowedByUserId(Long userId) {
+        List<UserDTO> followed = followRepository
+                .findFollowedByUserId(userId)
+                .stream()
+                .map(u -> mapper.map(u, UserDTO.class))
+                .collect(Collectors.toList());
+        User userFollowing = findById(userId);
+
+        if(followed.isEmpty()){
+            throw new NotFollowedException();
+        }
+        FollowersListDTO userDto = new FollowersListDTO();
+        userDto.setUserName(userFollowing.getUserName());
+        userDto.setUserId(userId);
+        userDto.setUsers(followed);
+        return userDto;
     }
 }

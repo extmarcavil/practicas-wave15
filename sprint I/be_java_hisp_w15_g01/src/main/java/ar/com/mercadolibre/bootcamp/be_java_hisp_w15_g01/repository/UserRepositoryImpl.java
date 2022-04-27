@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,6 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     private List<User> users;
-
     private UserRepositoryImpl() {
         this.users = new ArrayList<>();
 
@@ -36,4 +36,6 @@ public class UserRepositoryImpl implements UserRepository {
                 .filter(u -> u.getUserId().equals(id))
                 .findFirst();
     }
+
+
 }
