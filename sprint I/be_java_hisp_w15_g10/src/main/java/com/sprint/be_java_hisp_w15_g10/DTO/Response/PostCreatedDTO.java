@@ -7,8 +7,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserWithFollowersCountDTO {
-    private int user_id;
-    private String user_name;
-    private int followers_count;
+public class PostCreatedDTO {
+    private String message;
 }

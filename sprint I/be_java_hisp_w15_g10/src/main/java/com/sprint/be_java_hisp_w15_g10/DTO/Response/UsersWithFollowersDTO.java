@@ -1,9 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.DTO.Response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,6 +8,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class UsersWithFollowersDTO {
     private int user_id;
     private String user_name;

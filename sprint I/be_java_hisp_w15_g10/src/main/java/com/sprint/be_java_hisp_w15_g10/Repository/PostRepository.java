@@ -20,8 +20,8 @@ public class PostRepository {
         this.categoryRepository = categoryRepository;
         this.productRepository = productRepository;
 
-        List<Product> productList = productRepository.getAllProducts();
-        List<Category> categoryList = categoryRepository.getAllCategories();
+        List<Product> productList = productRepository.getAll();
+        List<Category> categoryList = categoryRepository.getAll();
 
         Post post1 = new Post(productList.get(0), LocalDate.now(), categoryList.get(0), 1.09, false, 0);
         Post post2 = new Post(productList.get(1), LocalDate.now(), categoryList.get(1), 2.10, true, 0.5);
@@ -34,5 +34,13 @@ public class PostRepository {
         postList.add(post3);
         postList.add(post4);
         postList.add(post5);
+    }
+
+    public List<Post> getAll(){
+        return postList;
+    }
+
+    public void add(Post post){
+        postList.add(post);
     }
 }

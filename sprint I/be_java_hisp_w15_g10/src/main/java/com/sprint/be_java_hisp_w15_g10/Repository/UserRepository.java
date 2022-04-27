@@ -10,8 +10,10 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
     private List<User> usuarios;
+    private PostRepository postRepository;
 
-    public UserRepository(){
+    public UserRepository(PostRepository postRepository){
+        this.postRepository = postRepository;
         usuarios = new ArrayList<User>();
 
         User user1 = new User(1, "Alejandro");
@@ -31,9 +33,18 @@ public class UserRepository {
 
     }
 
-    public Optional<User> getUserById(int userID){
+    public Optional<User> getById(int id){
         return usuarios.stream()
-                .filter(user -> user.getUser_id()==userID)
+                .filter(user -> user.getUser_id()==id)
                 .findFirst();
     }
+
+    public List<User> getAll(){
+        return usuarios;
+    }
+
+    public void add(User user){
+        usuarios.add(user);
+    }
+
 }
