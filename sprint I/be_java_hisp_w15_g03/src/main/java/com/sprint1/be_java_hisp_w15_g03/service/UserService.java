@@ -9,7 +9,7 @@ import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFound;
 import com.sprint1.be_java_hisp_w15_g03.exception.RelationNotFound;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
-import com.sprint1.be_java_hisp_w15_g03.repository.IUserRepository;
+import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -20,10 +20,10 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements IUserService {
 
-    private final IUserRepository userRepository;
+    private final IMeliRepository userRepository;
     private final ModelMapper mapper;
 
-    public UserService(IUserRepository userRepository) {
+    public UserService(IMeliRepository userRepository) {
         this.userRepository = userRepository;
         this.mapper = new ModelMapper();
     }

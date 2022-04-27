@@ -17,14 +17,11 @@ public class Seller extends Person{
     private List<User> followers;
     private List<Publication> publications;
 
-    public Seller(Integer userId, String userName, List<Publication> publications) {
-        super(userId, userName);
-        this.publications = publications;
-    }
 
     public Seller(Integer id, String name){
         super(id, name);
         followers = new ArrayList<>();
+        publications = new ArrayList<>();
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g03.repository;
 
+import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import org.springframework.stereotype.Repository;
@@ -8,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 
 @Repository
-public class UserRepository implements IUserRepository {
+public class MeliRepository implements IMeliRepository {
 
     private final static HashMap<Integer, User> users;
     private final static HashMap<Integer, Seller> sellers;
-
+    private static int cantPublicacion;
     static {
         users = new HashMap<>();
         users.put(1, new User(1, "Pepe"));
@@ -72,5 +73,13 @@ public class UserRepository implements IUserRepository {
 
         List<User> userList = seller.getFollowers();
         userList.remove(user);
+    }
+
+    public void savePublication(Integer userId, Publication p) {
+        cantPublicacion+=1;
+        p.setPostId(cantPublicacion);
+        sellers.get(userId).getPublications().add(p);
+        System.out.println(sellers.get(userId));
+
     }
 }
