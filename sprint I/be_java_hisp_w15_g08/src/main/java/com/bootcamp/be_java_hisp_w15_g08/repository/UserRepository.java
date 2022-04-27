@@ -55,5 +55,4 @@ public class UserRepository implements IUserRepository {
         followed.removeFollower(follower);
         follower.removeFollowed(followed);
     }
-
 }

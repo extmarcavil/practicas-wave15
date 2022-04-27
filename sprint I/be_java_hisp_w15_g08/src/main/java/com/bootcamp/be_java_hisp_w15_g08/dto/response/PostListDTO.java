@@ -7,12 +7,11 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FollowersListDTO {
+public class PostListDTO {
     private Integer user_id;
-    private String user_name;
-    private List<UserDTO> followers;
+    private List<PostNotUserIdDTO> posts;
 }
