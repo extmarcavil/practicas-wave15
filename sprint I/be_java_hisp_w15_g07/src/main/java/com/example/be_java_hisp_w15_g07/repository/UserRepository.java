@@ -97,4 +97,9 @@ public class UserRepository implements IUserRepository{
     public User getFollowersList(Integer userId) {
         return this.findById(userId);
     }
+
+    public void newPost(Integer userId, Post unPost){
+        User user = this.findById(userId);
+        user.newPost(unPost);
+    }
 }
