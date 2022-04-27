@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.service;
 
-import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.UserDTO;
+import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -14,10 +11,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements IUserService {
+public class FollowsService implements IFollowsService {
+
     private IUserRepository userRepository;
 
-    public UserService(IUserRepository userRepository) {
+    public FollowsService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
 

@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g05.repository;
 
+import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -9,6 +10,7 @@ import java.util.Optional;
 @Repository
 public class UserRepository implements IUserRepository {
     ArrayList<User> users = new ArrayList<>();
+    ArrayList<Post> posts = new ArrayList<>();
 
     public UserRepository() {
         User galperin = new User(1, "Marcos Galperin", true);
@@ -54,4 +56,12 @@ public class UserRepository implements IUserRepository {
     public Optional<User> followersList(int id) {
         return findById(id);
     }
+
+    @Override
+    public void createPost(User user, Post post) {
+        posts.add(post);
+        user.setSeller(true);
+    }
+
+
 }

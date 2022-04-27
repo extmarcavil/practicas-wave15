@@ -1,22 +1,16 @@
 package com.example.be_java_hisp_w15_g05.controller;
 
-import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
-import com.example.be_java_hisp_w15_g05.service.IUserService;
-import lombok.Getter;
+import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.service.IFollowsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-public class UserController {
-    private IUserService userService;
+public class FollowsController {
+    private IFollowsService userService;
 
-    public UserController(IUserService userService) {
+    public FollowsController(IFollowsService userService) {
         this.userService = userService;
     }
 
@@ -36,4 +30,5 @@ public class UserController {
     public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId) {
         return new ResponseEntity<>(userService.getListFollowers(userId), HttpStatus.OK);
     }
+
 }
