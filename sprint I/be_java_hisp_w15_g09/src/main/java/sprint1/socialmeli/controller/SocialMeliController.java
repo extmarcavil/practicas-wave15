@@ -107,67 +107,6 @@ public class SocialMeliController {
         return ResponseEntity.ok(this.service.sortedListFollowed(userId, order));
     }
 
-    //US 0005: Dar de alta una nueva publicación
-    //POST products/post
-    //PAYLOAD:
-    //{
-    //    "user_id": 1235,
-    //    "date": "29-04-2021",
-    //    "detail": {
-    //        "product_id": 1,
-    //        "product_name": "Silla Gamer",
-    //        "type": "Gamer",
-    //        "brand": "Racer",
-    //        "color": "Red & Black",
-    //        "notes": "Special Edition"
-    //    },
-    //    "category": 100,
-    //    "price": 1500.50
-    //}
-    //RESPONSE
-    //Status Code 200 (todo OK)
-    //Status Code 400 (Bad Request)
-
-    // US 0006: Obtener un listado de las publicaciones realizadas por los vendedores que un
-    // usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por
-    // fecha, publicaciones más recientes primero).
-
-    //GET products/followed/{userId}/list
-    //Ejemplo: /products/followed/4698/list
-    //RESPONSE:
-    //{
-    //    "user_id": 4698,
-    //    "posts": [ {
-    //            "post_id": 32,
-    //            "date": "01-05-2021",
-    //            "detail": {
-    //                "product_id": 62,
-    //                "product_name": "Headset RGB Inalámbrico",
-    //                "type": "Gamer",
-    //                "brand": "Razer",
-    //                "color": "Green with RGB",
-    //                "notes": "Sin Batería"
-    //            },
-    //            "category": 120,
-    //            "price": 2800.69
-    //        },
-    //        {
-    //            "post_id": 18,
-    //            "date": "29-04-2021",
-    //            "detail": {
-    //                "product_id": 1,
-    //                "productName": "Silla Gamer",
-    //                "type": "Gamer",
-    //                "brand": "Racer",
-    //                "color": "Red & Black",
-    //                "notes": "Special Edition"
-    //            },
-    //            "category": 100,
-    //            "price": 15000.50
-    //        }
-    //    ]
-    //}
-
     //US 0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
     //POST users/{userId}/unfollow/{userIdToUnfollow}
     //Ejemplo: /users/1569/unfollow/1235
@@ -177,7 +116,6 @@ public class SocialMeliController {
         service.unfollow(userID,userIdToUnfollow);
         return new ResponseEntity<>("El usuario: "+ userID + " dejo de seguir a "+ userIdToUnfollow ,HttpStatus.OK);
     }
-
 
     //US 0008: Ordenamiento alfabético ascendente y descendente
     //GET

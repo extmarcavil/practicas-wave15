@@ -3,6 +3,7 @@ package sprint1.socialmeli.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import sprint1.socialmeli.model.User;
 
 @Getter
 @Setter
@@ -10,4 +11,9 @@ import lombok.Setter;
 public class UserDTO {
     private Integer userId;
     private String userName;
+
+    public UserDTO(User entity) {
+        this.userId = entity.getId();
+        this.userName = entity.getName();
+    }
 }

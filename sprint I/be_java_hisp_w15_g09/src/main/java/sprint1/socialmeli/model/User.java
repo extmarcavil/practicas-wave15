@@ -2,6 +2,7 @@ package sprint1.socialmeli.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import sprint1.socialmeli.dto.UserDTO;
 import sprint1.socialmeli.exceptions.InvalidFolllower;
 
 import java.util.ArrayList;
@@ -22,6 +23,10 @@ public class User {
         this.id = id;
         this.listOfFollowed = new ArrayList<>();
         this.listOfFollowers = new ArrayList<>();
+    }
+
+    public User(UserDTO dto) {
+        this.id = dto.getUserId();
     }
 
     public void follow(User followedUser) {
