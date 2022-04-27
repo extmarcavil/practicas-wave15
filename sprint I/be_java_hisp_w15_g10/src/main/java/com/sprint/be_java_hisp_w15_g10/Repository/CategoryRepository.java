@@ -1,14 +1,15 @@
 package com.sprint.be_java_hisp_w15_g10.Repository;
 
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
-import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class CategoryRepository {
+
     private List<Category> categoryList;
 
     public CategoryRepository(){
@@ -22,8 +23,18 @@ public class CategoryRepository {
         categoryList.add(category3);
     }
 
-    public List<Category> getAllCategories(){
+    public List<Category> getAll(){
         return categoryList;
+    }
+
+    public Optional<Category> getById(int id){
+        return categoryList.stream()
+                .filter(user -> user.getCategory_id()==id)
+                .findFirst();
+    }
+
+    public void add(Category category){
+        categoryList.add(category);
     }
 
 }

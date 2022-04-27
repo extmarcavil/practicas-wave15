@@ -1,8 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.Model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class User {
     private int user_id;
     private String user_name;
@@ -25,11 +25,13 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public void seguirUsuario(User user){
-        followed.add(user);
-    }
+    public void seguirUsuario(User user){ followed.add(user); }
 
-    public void agregarSeguidor(User user){
-        followers.add(user);
-    }
+    public void agregarSeguidor(User user){ followers.add(user); }
+
+    public void agregarPost(Post post){ posts.add(post); }
+
+    public void dejarDeSeguir(User user){ followed.remove(user); }
+
+    public void eliminarSeguidor(User user){ followers.remove(user); }
 }

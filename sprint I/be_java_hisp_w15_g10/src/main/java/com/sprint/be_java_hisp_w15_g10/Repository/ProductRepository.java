@@ -1,11 +1,11 @@
 package com.sprint.be_java_hisp_w15_g10.Repository;
 
 import com.sprint.be_java_hisp_w15_g10.Model.Product;
-import lombok.Getter;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class ProductRepository {
@@ -26,8 +26,18 @@ public class ProductRepository {
         productList.add(product5);
     };
 
-    public List<Product> getAllProducts(){
+    public List<Product> getAll(){
         return productList;
+    }
+
+    public Optional<Product> getById(int id){
+        return productList.stream()
+                .filter(user -> user.getProduct_id()==id)
+                .findFirst();
+    }
+
+    public void add(Product product){
+        productList.add(product);
     }
 
 }
