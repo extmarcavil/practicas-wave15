@@ -19,7 +19,6 @@ import java.util.List;
 public class UserService implements IUserService {
     private IUserRepository userRepository;
 
-
     public UserService(IUserRepository userRepository) {
         this.userRepository = userRepository;
     }
@@ -39,22 +38,6 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public GetFollowersBySellerDTO getFollowersBySeller(int userId) {
-        var result = new GetFollowersBySellerDTO();
-        var user = userRepository.getUserById(userId);
-        var listFollowers = new ArrayList<GetFollowersDTO>();
-
-        if (user.isSeller()) {
-            listFollowers = (ArrayList<GetFollowersDTO>) mapFollowDTO(user.getFollowerList());
-            result.setUser_id(user.getUserId());
-            result.setUser_name(user.getUserName());
-            result.setFollowers((List) listFollowers);
-        }
-
-        return result;
-    }
-
-    @Override
     public GetFollowedByUserDTO getFollowedByUser(int userId) {
         User user = userRepository.getUserById(userId);
         List<GetFollowersDTO> listFollowed = mapFollowDTO(user.getFollowList());
@@ -63,22 +46,28 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public GetFollowersBySellerDTO getFollowersBySellerOrder(int userId, String order) {
+    public GetFollowersBySellerDTO getFollowersBySeller(int userId, String order) {
         var result = new GetFollowersBySellerDTO();
         var user = userRepository.getUserById(userId);
         var listFollowers = new ArrayList<GetFollowersDTO>();
 
         if (user.isSeller()) {
             listFollowers = (ArrayList<GetFollowersDTO>) mapFollowDTO(user.getFollowerList());
-            if (order.equals("name_asc"))
-                listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUser_name));
-            else if (order.equals("name_desc"))
-                listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUser_name, Comparator.reverseOrder()));
-            else
-                throw new OrderNotFoundException("Orden no encontrado");
-            result.setUser_id(user.getUserId());
-            result.setUser_name(user.getUserName());
+
+            if (order != null) {
+
+                if (order.equals("name_asc"))
+                    listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+                else if (order.equals("name_desc"))
+                    listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+                else
+                    throw new OrderNotFoundException("Orden no encontrado");
+            }
+            result.setUserId(user.getUserId());
+            result.setUserName(user.getUserName());
             result.setFollowers((List) listFollowers);
+        } else {
+            throw new NotSellerException("Este usuario no es vendedor");
         }
 
         return result;
@@ -90,8 +79,8 @@ public class UserService implements IUserService {
         if (listFollows != null) {
             listFollows.forEach(item -> {
                 var newDto = new GetFollowersDTO();
-                newDto.setUser_id(item.getUserToFollow());
-                newDto.setUser_name(userRepository.getUserById(item.getUserToFollow()).getUserName());
+                newDto.setUserId(item.getUserToFollow());
+                newDto.setUserName(userRepository.getUserById(item.getUserToFollow()).getUserName());
                 followsDto.add(newDto);
             });
         }

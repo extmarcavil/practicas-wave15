@@ -32,14 +32,14 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable int userId){
-        return new ResponseEntity<>(userService.getFollowersBySeller(userId), HttpStatus.OK);
+    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable int userId, @RequestParam(required = false) String order){
+        return new ResponseEntity<>(userService.getFollowersBySeller(userId, order), HttpStatus.OK);
     }
 
-    @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable int userId, @RequestParam String order){
-        return new ResponseEntity<>( (GetFollowersBySellerDTO) userService.getFollowersBySellerOrder(userId, order), HttpStatus.OK);
-    }
+    /*@GetMapping("/{userId}/followers/list")
+    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySellerOrder(@PathVariable int userId, @RequestParam String order){
+        return new ResponseEntity<>( userService.getFollowersBySellerOrder(userId, order), HttpStatus.OK);
+    }*/
 
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<GetFollowedByUserDTO> getFollowersByUser(@PathVariable int userId){

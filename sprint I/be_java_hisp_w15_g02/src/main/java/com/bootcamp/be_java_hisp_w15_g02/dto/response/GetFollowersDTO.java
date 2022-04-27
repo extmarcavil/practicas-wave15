@@ -7,8 +7,8 @@ import lombok.Setter;
 @Setter
 public class GetFollowersDTO {
 
-    private int user_id;
-    private String user_name;
+    private int userId;
+    private String userName;
 
     public GetFollowersDTO() {
     }

@@ -7,4 +7,5 @@ public interface IPostRepository {
     void createPost(Post newPost);
     Post findPostById(int postId);
     List<Post> postsByUser(int userId);
+    List<Post> all();
 }
