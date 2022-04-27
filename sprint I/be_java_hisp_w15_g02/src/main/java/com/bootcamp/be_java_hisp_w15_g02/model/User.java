@@ -64,4 +64,14 @@ public class User {
     public void setSeller(boolean seller) {
         isSeller = seller;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", followList=" + followList +
+                ", isSeller=" + isSeller +
+                '}';
+    }
 }

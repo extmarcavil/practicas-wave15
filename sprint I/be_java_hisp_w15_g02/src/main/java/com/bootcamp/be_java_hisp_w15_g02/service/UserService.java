@@ -27,6 +27,13 @@ public class UserService implements IUserService {
         if (!userRepository.follow(userId, userIdToFollow))
             throw new NotSellerException("Error en seguir usuario");
     }
+
+    @Override
+    public void unFollow(int userId, int userIdToFollow) {
+        if (!userRepository.unFollow(userId, userIdToFollow))
+            throw new NotSellerException("Error en dejar de seguir usuario");
+    }
+
     public GetFollowersCountDTO getFollowersCount(int userId) {
         User user = userRepository.getUserById(userId);
         GetFollowersCountDTO response = new GetFollowersCountDTO(user.getUserId(),

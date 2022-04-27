@@ -9,6 +9,6 @@ public interface IUserRepository {
     List<User> getListUser();
     User getUserById(int userId);
     boolean follow(int userId, int userToFollow);
-    void unfollow(int userId, int userToUnfollow);
+    boolean unFollow(int userId, int userIdToUnFollow);
 
 }
