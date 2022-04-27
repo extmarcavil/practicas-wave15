@@ -21,23 +21,14 @@ public class BlogController {
     }
 
     @GetMapping("/blog/{id}/{titulo}/{nombre}/{fecha}")
-    public ResponseEntity<String> entrada (@PathVariable Integer id, @PathVariable String titulo, @PathVariable String nombre, @PathVariable String fecha){
-        EntradaBlogDTO entradaBlog = service.makeEntrada(id,titulo,nombre,fecha);
-        if(entradaBlog.getId() == null) {
-            return new ResponseEntity<>("El id ingresado ya existe, intenta con otro id", HttpStatus.BAD_REQUEST);
-        }else {
-            return new ResponseEntity<>("Ingreso realizado con exito", HttpStatus.ACCEPTED);
-        }
+    public ResponseEntity<EntradaBlogDTO> entrada (@PathVariable Integer id, @PathVariable String titulo, @PathVariable String nombre, @PathVariable String fecha){
+            return new ResponseEntity<>(service.makeEntrada(id,titulo,nombre,fecha), HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/blog/{id}")
-    public ResponseEntity<String> findById (@PathVariable Integer id){
-        EntradaBlogDTO entradaBlog = service.findById(id);
-        if(entradaBlog.getAuthorName().equals("")) {
-            return new ResponseEntity<>("El id ingresado no existe", HttpStatus.BAD_REQUEST);
-        }else {
-            return new ResponseEntity<>(entradaBlog.toString(), HttpStatus.ACCEPTED);
-        }
+    public ResponseEntity<EntradaBlogDTO> findById (@PathVariable Integer id){
+            return new ResponseEntity<>(service.findById(id), HttpStatus.ACCEPTED);
+
     }
 
     @GetMapping("/blogs")

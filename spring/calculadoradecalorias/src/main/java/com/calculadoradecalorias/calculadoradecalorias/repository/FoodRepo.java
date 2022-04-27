@@ -14,10 +14,10 @@ import java.util.Optional;
 public class FoodRepo implements IFoodRepo {
 
     IIngredientsRepository repository;
-
     List<Food> database;
 
-    public FoodRepo() {
+    public FoodRepo(IIngredientsRepository repository) {
+        this.repository = repository;
         database = new ArrayList<>();
         loadFood();
     }
@@ -38,27 +38,25 @@ public class FoodRepo implements IFoodRepo {
     }
 
     private void loadFood() {
-        List<Ingredient> ingredientsFood1 = new ArrayList<>();
-
-        ingredientsFood1.add(new Ingredient("Ajo",40));
-        ingredientsFood1.add(new Ingredient("Arroz",120));
-        ingredientsFood1.add(new Ingredient("Aji",400));
-
+        List<Ingredient> ingredientsFood1 = Arrays
+                .asList(repository.findByName("Congrio").orElse(null),
+                        repository.findByName("Langosta").orElse(null),
+                        repository.findByName("Lubina").orElse(null),
+                        repository.findByName("Yuca").orElse(null)
+                );
         Food food1 = new Food("Plato1",500,ingredientsFood1);
         database.add(food1);
 
-        /*TODO necesito cargar los ingredientes desde la base de datos para agregarlos al plato.
-         */
         //--------------------------------------
 
-//        List<Ingredient> ingredientsFood2 = Arrays
-//                .asList(repository.findByName("Endibia").orElse(null),
-//                        repository.findByName("Espinaca").orElse(null),
-//                        repository.findByName("Hinojo").orElse(null),
-//                        repository.findByName("Cebolla").orElse(null)
-//                );
-//        Food food2 = new Food("Plato2",1000,ingredientsFood2);
-//        database.add(food2);
+        List<Ingredient> ingredientsFood2 = Arrays
+                .asList(repository.findByName("Endibia").orElse(null),
+                        repository.findByName("Espinaca").orElse(null),
+                        repository.findByName("Hinojo").orElse(null),
+                        repository.findByName("Cebolla").orElse(null)
+                );
+        Food food2 = new Food("Plato2",1000,ingredientsFood2);
+        database.add(food2);
     }
 
 

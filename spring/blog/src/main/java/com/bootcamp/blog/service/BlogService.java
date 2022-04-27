@@ -2,6 +2,7 @@ package com.bootcamp.blog.service;
 
 import com.bootcamp.blog.dto.EntradaBlogDTO;
 import com.bootcamp.blog.exception.ExistingBlockEntranceException;
+import com.bootcamp.blog.exception.NoFoudBlogException;
 import com.bootcamp.blog.model.EntradaBlog;
 import com.bootcamp.blog.repository.IBlogRepository;
 import lombok.Getter;
@@ -32,25 +33,24 @@ public class BlogService implements IBlogService{
     @Override
     public EntradaBlogDTO makeEntrada(Integer id, String name, String autor, String date) {
         EntradaBlog entradaBlog;
-        try {
-            if (!existingEntrada(id)) {
-                entradaBlog = new EntradaBlog(id,name,autor,date);
-                blogRepository.addOneBlog(entradaBlog);
-            }else{
-                throw new ExistingBlockEntranceException("El id ingresado ya existe");
-            }
-        } catch (ExistingBlockEntranceException e){
-            entradaBlog = new EntradaBlog();
-            System.out.println("La entrada con id " + id + " ya existe y pertenece a " + blogRepository
-                    .findEntradaBlogById(id).toString());
-            e.printStackTrace();
+
+        if (!existingEntrada(id)) {
+            entradaBlog = new EntradaBlog(id,name,autor,date);
+            blogRepository.addOneBlog(entradaBlog);
+        }else{
+            throw new ExistingBlockEntranceException("El id ingresado ya existe");
         }
         return mapper.map(entradaBlog,EntradaBlogDTO.class);
     }
 
     @Override
     public EntradaBlogDTO findById(Integer id){
-        return mapper.map(blogRepository.findEntradaBlogById(id).stream().findFirst().orElse(null),EntradaBlogDTO.class);
+        return mapper.map(blogRepository
+                .findEntradaBlogById(id)
+                .stream()
+                .findFirst()
+                .orElseThrow(() ->new NoFoudBlogException("El blog con id " + id + " no se encontro"))
+                ,EntradaBlogDTO.class);
     }
 
     @Override

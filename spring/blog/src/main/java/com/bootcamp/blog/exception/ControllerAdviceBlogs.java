@@ -17,4 +17,15 @@ public class ControllerAdviceBlogs {
         errorDTO.setDescripcion(e.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(NoFoudBlogException.class)
+    public ResponseEntity<ErrorDTO> NotFoudBlog (NoFoudBlogException e){
+        ErrorDTO errorDTO = new ErrorDTO();
+        errorDTO.setName("id no existente");
+        errorDTO.setDescripcion(e.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+
+
 }

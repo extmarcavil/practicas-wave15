@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -24,7 +25,7 @@ public class CharacterRepositoryImpl implements ICharacterRepository {
 
     @Override
     public List<CharacterDTO> findAllByNameContains ( String query ) {
-        return database.stream().filter(characterDTO -> characterDTO.getName().contains(query)).collect(Collectors.toList());
+        //return database.stream().filter(characterDTO -> characterDTO.getName().contains(query)).collect(Collectors.toList());
 //        List<CharacterDTO> listaNombre = new ArrayList<>();
 //        for (CharacterDTO c: database) {
 //            String [] nombre = c.getName().split(" ");
@@ -36,6 +37,10 @@ public class CharacterRepositoryImpl implements ICharacterRepository {
 //            }
 //        }
 //        return listaNombre;
+        return database.stream().filter(c -> {
+            String [] nombre = c.getName().split(" ");
+            return Arrays.stream(nombre).anyMatch(n -> n.equals(query));
+        }).collect(Collectors.toList());
     }
 
     private List<CharacterDTO> loadDataBase () {

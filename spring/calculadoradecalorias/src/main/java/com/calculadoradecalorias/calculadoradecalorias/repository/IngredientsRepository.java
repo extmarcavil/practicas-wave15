@@ -30,7 +30,10 @@ public class IngredientsRepository implements IIngredientsRepository{
 
     @Override
     public Optional<Ingredient> findByName(String name) {
-        return database.stream().filter(i -> i.getName().equals(name)).findFirst();
+        return database
+                .stream()
+                .filter(i -> i.getName().equals(name))
+                .findFirst();
     }
 
     private List<Ingredient> loadDataBase () {

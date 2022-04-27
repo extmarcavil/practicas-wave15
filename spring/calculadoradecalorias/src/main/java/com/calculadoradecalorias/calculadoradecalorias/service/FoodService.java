@@ -2,12 +2,11 @@ package com.calculadoradecalorias.calculadoradecalorias.service;
 
 import com.calculadoradecalorias.calculadoradecalorias.dto.FoodDTO;
 import com.calculadoradecalorias.calculadoradecalorias.dto.IngredientDTO;
-import com.calculadoradecalorias.calculadoradecalorias.model.Ingredient;
+import com.calculadoradecalorias.calculadoradecalorias.exception.NotFoudFood;
+import com.calculadoradecalorias.calculadoradecalorias.exception.NotFoudIngrediente;
 import com.calculadoradecalorias.calculadoradecalorias.repository.IFoodRepo;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,22 +14,24 @@ import java.util.stream.Collectors;
 @Service
 public class FoodService implements IFoodService{
 
-    @Autowired
     IFoodRepo repoFood;
+    ModelMapper mapper;
 
-    ModelMapper mapper = new ModelMapper();
-
-//    public FoodService(IFoodRepo repoFood) {
-//        this.repoFood = repoFood;
-//    }
+    public FoodService(IFoodRepo repoFood) {
+        this.repoFood = repoFood;
+        mapper = new ModelMapper();
+    }
 
     @Override
     public FoodDTO findFood(String name) {
-        return mapper.map(repoFood.findByName(name).orElse(null),FoodDTO.class);
+        return mapper
+                .map(repoFood.findByName(name)
+                .orElseThrow(()-> new NotFoudFood("El palto " + name + " no se encuentra en la base de datos"))
+                        ,FoodDTO.class);
     }
 
+
     /**
-     *
      * @param name nombre del plato de comida
      * @param peso peso del plato de comida
      * @return se toma como base calorias iniciales 100 g luego se hace el calculo dependiendo del peso
@@ -61,6 +62,8 @@ public class FoodService implements IFoodService{
         return mapper.map(findFood(name)
                 .getIngredients()
                 .stream()
-                .max(Comparator.comparing(Ingredient::getCalories)).orElse(null),IngredientDTO.class);
+                .max(Comparator.comparing(IngredientDTO::getCalories))
+                .orElseThrow(()-> new NotFoudIngrediente("El ingrediente no se encontro en la base de datos"))
+                ,IngredientDTO.class);
     }
 }

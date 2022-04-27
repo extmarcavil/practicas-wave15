@@ -1,5 +1,6 @@
 package com.calculadoradecalorias.calculadoradecalorias.controller;
 
+import com.calculadoradecalorias.calculadoradecalorias.dto.FoodDTO;
 import com.calculadoradecalorias.calculadoradecalorias.dto.IngredientDTO;
 import com.calculadoradecalorias.calculadoradecalorias.model.Ingredient;
 import com.calculadoradecalorias.calculadoradecalorias.repository.IIngredientsRepository;
@@ -18,41 +19,14 @@ public class CalcController {
 
     IFoodService service ;
 
-    @Autowired
-    IIngredientsRepository repository;
-
     public CalcController(IFoodService service) {
         this.service = service;
     }
 
     @GetMapping("/calories/{name}/{weight}")
-    public ResponseEntity<String> getAllData(@PathVariable String name, @PathVariable double weight ){
-
-        double totalCalories = service.totalCaloriesFood(name,weight);
-        List<IngredientDTO> ingredients = service.listIngredients(name);
-        IngredientDTO mostCalorieIngredient = service.mostCaolires(name);
-
-        return new ResponseEntity<>("Total calories" + totalCalories
-                +" List ingredisntes" + ingredients.toString()
-                + " ingrediente con mas calorias" + mostCalorieIngredient
+    public ResponseEntity<FoodDTO> getAllData(@PathVariable String name, @PathVariable double weight ){
+        return new ResponseEntity<>(new FoodDTO(service.totalCaloriesFood(name,weight),service.listIngredients(name),service.mostCaolires(name))
                 , HttpStatus.ACCEPTED);
     }
-
-    @GetMapping("/calories")
-    public ResponseEntity<List<Ingredient>> getAllIngredientes(){
-        return  new ResponseEntity<>(repository.returnDataBase(),HttpStatus.ACCEPTED);
-    }
-
-    @GetMapping("/calories/{namee}")
-    public ResponseEntity<Ingredient> getoneIngredientes(@PathVariable String namee){
-        return  new ResponseEntity<>(repository.findByName(namee).get(),HttpStatus.ACCEPTED);
-    }
-
-
-
-
-
-
-
 
     }
