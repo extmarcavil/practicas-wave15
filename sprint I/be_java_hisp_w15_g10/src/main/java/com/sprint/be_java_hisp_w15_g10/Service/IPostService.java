@@ -11,6 +11,6 @@ import java.util.List;
 public interface IPostService {
     PostCreatedDTO createPost(PostCreateDTO postCreateDTO);
     List<ProductResponseDTO> getAllProducts();
-    UserPostResponseDTO getAllPostsByFollowerId(int userId);
+    UserPostResponseDTO getAllPostsByFollowerId(int userId, String order);
     List<PostResponseDTO> getAllPosts();
 }

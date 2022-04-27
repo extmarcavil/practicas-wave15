@@ -35,13 +35,14 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostResponseDTO> getAllPostsByFollowerId(@PathVariable int userId){
-        return new ResponseEntity<UserPostResponseDTO>(postService.getAllPostsByFollowerId(userId), HttpStatus.OK);
+    public ResponseEntity<UserPostResponseDTO> getAllPostsByFollowerId(@PathVariable int userId, @RequestParam(value = "order", required=false, defaultValue = "") String order){
+        return new ResponseEntity<UserPostResponseDTO>(postService.getAllPostsByFollowerId(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/list")
     public ResponseEntity<List<PostResponseDTO>> getAllPosts(){
         return new ResponseEntity<List<PostResponseDTO>>(postService.getAllPosts(), HttpStatus.OK);
     }
+
 
 }

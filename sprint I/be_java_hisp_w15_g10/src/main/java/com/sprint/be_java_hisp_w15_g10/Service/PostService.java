@@ -77,7 +77,7 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public UserPostResponseDTO getAllPostsByFollowerId(int userId){
+    public UserPostResponseDTO getAllPostsByFollowerId(int userId, String order){
         User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
         List<User> followed = user.getFollowed();
@@ -89,6 +89,9 @@ public class PostService implements IPostService{
                 if(dias <= 15) posts.add(post);
             });
         });
+
+        if(order.equals("name_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
+        else if(order.equals("name_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
 
         UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
