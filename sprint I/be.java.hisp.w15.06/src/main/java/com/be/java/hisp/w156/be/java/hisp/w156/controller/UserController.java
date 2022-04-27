@@ -40,13 +40,13 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<UserFollowersDTO> getFollowers(@PathVariable Integer userId, @RequestParam(required=false) String order){
+    public ResponseEntity<UserFollowersDTO> getFollowers(@PathVariable Integer userId, @RequestParam(required=false, defaultValue = "") String order){
         UserFollowersDTO userFollowersDTO = userService.getFollowers(userId, order);
         return new ResponseEntity<>(userFollowersDTO, HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<UserFollowedDTO> getFollowed(@PathVariable Integer userId, @RequestParam(required=false) String order){
+    public ResponseEntity<UserFollowedDTO> getFollowed(@PathVariable Integer userId, @RequestParam(required=false, defaultValue = "") String order){
         UserFollowedDTO userFollowedDTO = userService.getFollowed(userId, order);
         return new ResponseEntity<>(userFollowedDTO, HttpStatus.OK);
     }

@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class RequestPostDTO {
 
     @NotNull
-    private Integer userId;
+    private Integer user_id;
 
     @JsonDeserialize(using = JsonAdapterDeserializer.class)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern="dd-MM-yyyy", timezone="America/Buenos_Aires")

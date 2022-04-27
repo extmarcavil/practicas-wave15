@@ -23,6 +23,6 @@ public class Post {
 
     public static Post from(RequestPostDTO post) {
         LocalDate date = LocalDate.parse(post.getDate(), formatter);
-        return new Post(post.getUserId(), date, post.getDetail(), post.getCategory(), post.getPrice());
+        return new Post(post.getUser_id(), date, post.getDetail(), post.getCategory(), post.getPrice());
     }
 }

@@ -35,13 +35,13 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<SuccessDTO> savePost(RequestPostDTO requestPostDto) {
-        if (useRepository.existsById(requestPostDto.getUserId())) {
+        if (useRepository.existsById(requestPostDto.getUser_id())) {
             Post postToSaved = Post.from(requestPostDto);
             postRepository.save(postToSaved);
-            String message = String.format("Post with ID: %s was saved successfully", requestPostDto.getUserId());
+            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getId());
             return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
         }
-        throw new UserNotFoundException("Usuario " + requestPostDto.getUserId() + " no encontrado");
+        throw new UserNotFoundException("Usuario " + requestPostDto.getUser_id() + " no encontrado");
     }
 
     @Override

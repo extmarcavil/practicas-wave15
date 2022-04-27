@@ -61,12 +61,9 @@ public class UserServiceImpl implements IUserService {
 
         }
 
-        if(order == null)
-            order = "";
-
         if(order.equals("name_asc"))
             followers.sort(Comparator.comparing(UserDTO::getUser_name));
-        else if (order.equals("name_desc"))
+        else
             followers.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
 
         UserFollowersDTO userFollowersDTO = new UserFollowersDTO(userSeller.getId(), userSeller.getName(), followers);
