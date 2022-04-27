@@ -6,6 +6,7 @@ import com.bootcamp.be_java_hisp_w15_g02.model.Product;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,7 @@ public class PostRepository implements  IPostRepository {
     private List<Post> listPost;
 
     public PostRepository() {
+        listPost = new ArrayList<>();
         init();
     }
 
@@ -36,6 +38,11 @@ public class PostRepository implements  IPostRepository {
             return filter;
         else
             throw  new PostNotFoundException();
+    }
+
+    @Override
+    public List<Post> all() {
+        return listPost;
     }
 
     private void init(){
