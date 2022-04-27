@@ -12,4 +12,8 @@ import lombok.Setter;
 public class User {
     private Long userId;
     private String userName;
+    
+    public Boolean equals(User anUser) {
+    	        return this.userId.equals(anUser.getUserId());
+    }
 }

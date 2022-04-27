@@ -3,7 +3,6 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserService;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -27,6 +26,11 @@ public class PostRepositoryImpl implements PostRepository {
         post.setPrice(price);
 
         return posts.add(post);
+    }
+    
+    @Override
+    public boolean isseller(User user) {
+        return this.posts.stream().anyMatch(p -> p.getUser().equals(user));
     }
 
 }
