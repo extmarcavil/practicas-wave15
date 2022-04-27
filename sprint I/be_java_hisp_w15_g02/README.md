@@ -54,13 +54,18 @@ If you want to run the project just download the folder and run the project with
 
 ## Class Modeling
 
-   <p align="center"> <img src="images/classModel.jpg" width="1000"/></p>
+   <p align="center"><img src="images/classModel.jpg" width="1000"/></p>
+
+## Post Service
+
+<p>Create a new post</p>
+<p>Get a post list by a followed</p>
 
 ## Authors ✒️
 
 <p align="left">
     <h3 align="left"> Santiago Pinzón D </h3>
-    <h3 align="left"> Edwin Gonzales </h3>
+    <h3 align="left"> Edwin Gonzalez </h3>
     <h3 align="left"> Gerson Jair Sanchez </h3>
     <h3 align="left"> Josue Alexander Nunez </h3>
     <h3 align="left"> Jose Alejandro Villamizar </h3>
