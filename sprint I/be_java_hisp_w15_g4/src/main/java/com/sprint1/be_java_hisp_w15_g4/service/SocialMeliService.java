@@ -2,7 +2,6 @@ package com.sprint1.be_java_hisp_w15_g4.service;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
@@ -11,7 +10,6 @@ import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
-import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
 import org.modelmapper.ModelMapper;
@@ -33,27 +31,30 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void follow(int userID, int userIDToFollow) {
-        User seguidor = repo.findUser(userID);
-        User seguido = repo.findUser(userIDToFollow);
-        if (seguido == null || seguidor == null)
-            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+        User seguidor = getUser(userID);
+        User seguido = getUser(userIDToFollow);
+
         seguido.addFollower(seguidor);
         seguidor.addFollowing(seguido);
     }
 
     @Override
     public FollowerCountDTO countFollowers(int userID) {
+        User user = getUser(userID);
+        return new FollowerCountDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().size());
+    }
+
+    private User getUser(int userID) {
         User user = repo.findUser(userID);
         if (user == null)
-            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
-        return new FollowerCountDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().size());
+            throw new IDNotFoundException(userID);
+        return user;
     }
 
     @Override
     public FollowerListDTO listFollowers(int userID,String order) {
-        User user = repo.findUser(userID);
-        if (user == null)
-            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+        User user = getUser(userID);
+
         FollowerListDTO retorno= new FollowerListDTO(user.getUser_id(),user.getUser_name(),
                 user.getFollowers().stream()
                 .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
@@ -68,10 +69,7 @@ public class SocialMeliService implements ISocialMeliService {
         FollowingListDTO followingsDTO = new FollowingListDTO();
         List<UserDTO> userDTO = new ArrayList<>();
 
-        User user = repo.findUser(userID);
-
-        if (user == null)
-            throw new IDNotFoundException("No se encontró el ID del usuario solicitado.");
+        User user = getUser(userID);
 
         followingsDTO.setUser_id(user.getUser_id());
         followingsDTO.setUser_name(user.getUser_name());
@@ -101,9 +99,7 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void createPost(PostDTO post) {
-        User user = repo.findUser(post.getUser_id());
-        if (user == null)
-            throw new IDNotFoundException("No se encontró el ID del usuario solicitado.");
+        User user = getUser(post.getUser_id());
         Post postToAdd = new Post();
         postToAdd.setCategory(post.getCategory());
         postToAdd.setDate(post.getDate());
@@ -148,11 +144,8 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void unfollow(int userID, int userIDToUnfollow) {
-        User user = repo.findUser(userID);
-        User userToUnfollow = repo.findUser(userIDToUnfollow);
-
-        if (userToUnfollow == null || user == null)
-            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+        User user = getUser(userID);
+        User userToUnfollow = getUser(userIDToUnfollow);
 
         user.removeFollowing(userToUnfollow);
     }
