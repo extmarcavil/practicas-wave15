@@ -167,8 +167,7 @@ public class SocialMeliService implements ISocialMeliService {
         nuevaPromo.setDate(promo.getDate());
         nuevaPromo.setDetail(productDTOToproduct(promo.getDetail()));
         nuevaPromo.setUser_id(promo.getUser_id());
-        double precioConDescuento = promo.getPrice() - (promo.getPrice() * promo.getDiscount());
-        nuevaPromo.setPrice(precioConDescuento);
+        nuevaPromo.setPrice(promo.getPrice());
         nuevaPromo.setHas_promo(true);
         nuevaPromo.setDiscount(promo.getDiscount());
         user.addPromo(nuevaPromo);
@@ -187,13 +186,13 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public PostPromoCountDTO cantidadDeProductosPromo(int userId) {
-        User user = repo.findUser(userId);
+        User user = getUser(userId);
         return new PostPromoCountDTO(user.getUser_id(), user.getUser_name(), user.getPromos().size());
     }
 
     @Override
     public PostPromoListDTO getAllPromosSeller(int userId) {
-        User user = repo.findUser(userId);
+        User user = getUser(userId);
         List<PostPromo> promos = user.getPromos();
 
         List<PostPromoDTO> lastPostsDTO = promos.stream()
