@@ -10,6 +10,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -18,29 +19,41 @@ public class UserRepositoryImpl implements IUserRepository {
 
     private List<User> users;
 
+    public UserRepositoryImpl() {
+        initData();
+    }
+
     @Override
     public void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
         List<Post> posts = List.of(
                 new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
                 new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50));
-        List<Post> posts2 = List.of(new Post(1, LocalDate.of(2022, 4, 10), product, "150", 100.50));
+        List<Post> posts2 = List.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50));
+
+        User user1 = new User(1, "Pepe", null, new ArrayList<User>(), new ArrayList<User>());
+        User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
+        User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>());
+        User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>());
+
+        user1.getFollowed().add(user3);
+        user2.getFollowed().add(user3);
+        user3.getFollowers().add(user1);
+        user3.getFollowers().add(user2);
 
         users = Stream.of(
-                new User(1, "Pepe", null, new ArrayList<User>(), new ArrayList<User>()),
-                new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>()),
-                new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>()),
-                new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>())
+                user1,
+                user2,
+                user3,
+                user4
         ).collect(Collectors.toList());
     }
 
-    public UserRepositoryImpl() {
-        initData();
-    }
-
     @Override
-    public User getUser() {
-        return null;
+    public User getUser(Integer id) {
+        return this.users.stream()
+                .filter(x -> x.getId() == id)
+                .findFirst().orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado"));
     }
 
     @Override
@@ -98,7 +111,11 @@ public class UserRepositoryImpl implements IUserRepository {
 
     @Override
     public Integer getCountFollow(Integer id) {
-        return null;
+        User user = this.users.stream()
+                .filter(x -> x.getId() == id)
+                .findFirst().orElse(null);
+
+        return user.getFollowers().size();
     }
 
     @Override
@@ -119,5 +136,10 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public List<Post> getPostsLastTwoWeekById(Integer id) {
         return null;
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return users.stream().anyMatch(user -> user.getId().equals(id));
     }
 }

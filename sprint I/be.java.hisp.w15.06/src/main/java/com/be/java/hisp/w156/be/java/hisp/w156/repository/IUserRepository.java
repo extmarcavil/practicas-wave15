@@ -9,7 +9,7 @@ public interface IUserRepository {
 
     void initData();
 
-    User getUser();
+    User getUser(Integer id);
 
     void follow(Integer userId, Integer userIdToFollow);
 
@@ -24,5 +24,7 @@ public interface IUserRepository {
     void savePost(Post post);
 
     List<Post> getPostsLastTwoWeekById(Integer id);
+
+    boolean existsById(Integer id);
 
 }

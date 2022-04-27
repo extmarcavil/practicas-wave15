@@ -7,7 +7,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class UserDTO {
+public class UserCountFollowersDTO {
+
     private Integer user_id;
     private String user_name;
+    private Integer followers_count;
 }
