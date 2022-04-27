@@ -63,5 +63,8 @@ public class UserRepository implements IUserRepository {
         user.setSeller(true);
     }
 
+    public Optional<User> sellersList(int id) {
+        return findById(id);
+    }
 
 }

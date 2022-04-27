@@ -1,6 +1,9 @@
 package com.example.be_java_hisp_w15_g05.service;
 
-import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
 
 
 public interface IFollowsService {
@@ -15,5 +18,12 @@ public interface IFollowsService {
      */
     ResCountFollowersDTO countFollowers(int userId);
 
+    /**
+     *
+     * @param userId id del usuario
+     * @return DTO de la lista de sellers
+     */
+
+    ResListSellersDTO getListSellers(int userId);
 
 }

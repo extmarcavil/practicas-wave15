@@ -54,6 +54,15 @@ public class FollowsService implements IFollowsService {
         return new ResCountFollowersDTO(userId, user.getName(), cantFollowers);
     }
 
+    @Override
+    public ResListSellersDTO getListSellers(int userId) {
+        User user = userRepository.sellersList(userId)
+                .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
+
+        List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+        return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
+    }
+
     private List<UserDTO> getListUserDTO(List<User> users) {
         return users.stream().map(u -> new UserDTO(u.getUserId(), u.getName())).collect(Collectors.toList());
     }

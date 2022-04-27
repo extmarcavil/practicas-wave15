@@ -22,5 +22,14 @@ public interface IUserRepository {
 
     Optional<User> followersList(int id);
 
+
     void createPost(User user, Post post);
+
+    /**
+     *
+     * @param id del usuario
+     * @return devuelve una lista de vendedores
+     */
+    Optional<User> sellersList(int id);
+
 }
