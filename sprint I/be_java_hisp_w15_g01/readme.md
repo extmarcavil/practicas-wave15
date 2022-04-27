@@ -1,4 +1,4 @@
-# Project: Sprint I
+# Project: Sprint 1
 # Introduccion
 versión Beta de la API “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
 
@@ -138,8 +138,6 @@ Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado v
 >```
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
-# 📁 Collection: Bonus 
-
 
 ## End-point: US 10 - New Promo Post
 Llevar a cabo la publicación de un nuevo producto en promoción
@@ -176,22 +174,6 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 ### Method: GET
 >```
 >{{url}}/products/promo-post/count?user_id={{seller_id}}
->```
-### Query Params
-
-|Param|value|
-|---|---|
-|user_id|{{seller_id}}|
-
-
-
-⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
-
-## End-point: US 12 - Seller's Promo Post
-Obtener un listado de todos los productos en promoción de un determinado vendedor
-### Method: GET
->```
->{{url}}/products/promo-post/list?user_id={{seller_id}}
 >```
 ### Query Params
 
