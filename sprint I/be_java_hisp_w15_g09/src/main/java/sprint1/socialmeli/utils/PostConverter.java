@@ -1,6 +1,7 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.utils;
 
 import org.springframework.stereotype.Component;
+import sprint1.socialmeli.dto.PostResponseDTO;
 import sprint1.socialmeli.model.Post;
 
 @Component

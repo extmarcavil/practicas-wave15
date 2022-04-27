@@ -1,9 +1,14 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.utils;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+/**
+ * Patrón de diseño converter aplicado, información obtenida de https://java-design-patterns.com/patterns/converter/
+ */
+
 
 public class Converter<T, U> {
 
