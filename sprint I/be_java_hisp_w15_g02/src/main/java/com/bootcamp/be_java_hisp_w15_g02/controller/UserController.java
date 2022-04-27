@@ -23,7 +23,7 @@ public class UserController {
     @PostMapping("{userId}/follow/{userIdToFollow}")
     public ResponseEntity<?> follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
         userService.follow(userId, userIdToFollow);
-        return ResponseEntity.ok("Seguidor añadido");
+        return ResponseEntity.ok("Seguidor anadido");
     }
 
     @GetMapping("/{userId}/followers/count")

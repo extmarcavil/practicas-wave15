@@ -13,7 +13,6 @@ If you want to run the project just download the folder and run the project with
 - lombok
 - spring-boot-devtools
 - spring-boot-starter-web
-- modelmapper
 
 
 ### Requeriments 📌
