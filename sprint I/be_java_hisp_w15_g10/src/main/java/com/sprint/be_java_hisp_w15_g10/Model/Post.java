@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class Post {
     private int post_id;
     private Product detail;
-    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
     private Category category;
     private double price;
