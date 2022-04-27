@@ -20,7 +20,7 @@ public class SocialMeliExceptionManager {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 
-    @ExceptionHandler(InvalidFolllower.class)
+    @ExceptionHandler(InvalidFollower.class)
     public ResponseEntity<?> invalidFolllower(Exception e){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
