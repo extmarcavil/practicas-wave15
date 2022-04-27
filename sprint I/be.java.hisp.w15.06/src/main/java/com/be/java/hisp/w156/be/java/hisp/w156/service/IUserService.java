@@ -11,8 +11,6 @@ import java.util.List;
 
 public interface IUserService {
 
-    User getUser();
-
     ResponseEntity<SuccessDTO> follow(Integer userToFollow, Integer userId);
 
     ResponseEntity<SuccessDTO> unfollow(Integer userToFollow, Integer userId);
