@@ -27,19 +27,52 @@ public class UserController {
         this.userService = userService;
     }
     
+    /**
+     * Count the user followers
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see FollowersCountDTO
+     * @author Jeronimo Martin Graff
+     * @author Facundo Chavez del Pino
+     */
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> redirect(@PathVariable String userId){
+    public ResponseEntity<FollowersCountDTO> countFollowers(@PathVariable String userId){
+
         FollowersCountDTO followers = userService.followersCount(Integer.parseInt(userId));
         return new ResponseEntity<>(followers, HttpStatus.OK);
     }
 
 
+    /**
+     * Follow a user
+     *
+     * @param userId Integer
+     * @param userIdToFollow Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Tomas Ravelli
+     */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
+    public ResponseEntity followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
         userService.followUser(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * get followers list optionally ordered by user
+     *
+     * @param userId Integer
+     * @param order String
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see FollowersDTO
+     * @author Wendy Sclerandi
+     * @author Sebastian Muchut
+     * modified by: Tomas Ravelli & Jeronimo Martin Graff
+     */
+    //Tomas
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable Integer userId,
                                                          @RequestParam(defaultValue = "") String order){
@@ -50,7 +83,19 @@ public class UserController {
             return new ResponseEntity<>(userService.getFollowersList(userId, order), HttpStatus.OK);
         }
     }
-    
+
+    /**
+     * get followed list optionally ordered by user
+     *
+     * @param userId Integer
+     * @param order String
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see FollowedDTO
+     * @author Facundo Chavez del Pino
+     * @author Mauricio Gomez
+     * modified by Tomas Ravelli & Jeronimo Martin Graff
+     */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedDTO> getFollowedList(@PathVariable Integer userId,
                                                        @RequestParam(defaultValue = "") String order){
@@ -61,8 +106,17 @@ public class UserController {
         }
     }
 
+    /**
+     * unfollow user
+     *
+     * @param userId Integer
+     * @param userIdToUnfollow Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Facundo Chaves del Pino
+     */
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
+    public ResponseEntity unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
         userService.unfollowUser(userId, userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }

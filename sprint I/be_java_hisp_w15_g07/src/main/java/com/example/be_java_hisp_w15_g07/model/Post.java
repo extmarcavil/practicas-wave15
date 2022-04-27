@@ -8,13 +8,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-/**
- *   post
- *
- */ /**
- *  post
- *
- */
+
 @Getter
 @Setter
 @AllArgsConstructor

@@ -20,6 +20,10 @@ public class UserRepository implements IUserRepository{
         initDatabase();
     }
 
+    /**
+     * init database
+     *
+     */
     private void initDatabase(){
         // Create user.
         User user1 = new User(1, "User 1");
@@ -83,6 +87,13 @@ public class UserRepository implements IUserRepository{
         */
     }
 
+    /**
+     * find user by id
+     *
+     * @param id Integer
+     * @return {@link User}
+     * @see User
+     */
     @Override
     public User findById(Integer id) {
         if(database.containsKey(id)){
@@ -91,33 +102,68 @@ public class UserRepository implements IUserRepository{
         throw new UserNotFoundException("Usuario con id " + id + " no encontrado.");
     }
 
-    public User getFollowersList(Integer userId) {
-        return this.findById(userId);
-    }
-
+    /**
+     * store new post into an user
+     *
+     * @param userId Integer
+     * @param unPost Post
+     */
+    @Override
     public void newPost(Integer userId, Post unPost){
         User user = this.findById(userId);
         user.newPost(unPost);
     }
 
+    /**
+     * find followers by user ordered by name ascendant
+     *
+     * @param userId Integer
+     * @return {@link List}
+     * @see List
+     * @see User
+     */
     @Override
     public List<User> findFollowersOrderByNameAsc(Integer userId) {
         User u = findById(userId);
         return u.getFollowers().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
     }
 
+    /**
+     * find followers by user ordered by name descendant
+     *
+     * @param userId Integer
+     * @return {@link List}
+     * @see List
+     * @see User
+     */
     @Override
     public List<User> findFollowersOrderByNameDesc(Integer userId) {
         User u = findById(userId);
         return u.getFollowers().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
     }
 
+    /**
+     * find followed by user ordered by name ascendant
+     *
+     * @param userId Integer
+     * @return {@link List}
+     * @see List
+     * @see User
+     */
     @Override
     public List<User> findFollowedOrderByNameAsc(Integer userId) {
         User u = findById(userId);
         return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName)).collect(Collectors.toList());
     }
 
+    /**
+     * find followed by user ordered by name descendant
+     *
+     * @param userId Integer
+     * @return {@link List}
+     * @see List
+     * @see User
+     */
     @Override
     public List<User> findFollowedOrderByNameDesc(Integer userId) {
         User u = findById(userId);

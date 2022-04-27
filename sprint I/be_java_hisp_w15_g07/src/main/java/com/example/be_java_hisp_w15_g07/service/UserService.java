@@ -11,9 +11,7 @@ import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,9 +25,16 @@ public class UserService implements IUserService{
         modelMapper = new ModelMapper();
     }
 
+    /**
+     * get followers list
+     *
+     * @param userId Integer
+     * @return {@link FollowersDTO}
+     * @see FollowersDTO
+     */
     @Override
     public FollowersDTO getFollowersList(Integer userId) {
-        User user = userRepository.getFollowersList(userId);
+        User user = userRepository.findById(userId);
         FollowersDTO followers = modelMapper.map(user, FollowersDTO.class);
         List<UserFollowersDTO> userFollowers = user.getFollowers().stream()
                 .map(v -> modelMapper.map(userRepository.findById(v.getUserId()), UserFollowersDTO.class))
@@ -38,6 +43,17 @@ public class UserService implements IUserService{
         return followers;
     }
 
+
+    /**
+     * get followers list
+     *
+     * @param userId Integer
+     * @param order String
+     * @return {@link FollowersDTO}
+     * @see FollowersDTO
+     * @author Tomas Ravelli
+     * @author Jeronimo Graff
+     */
     @Override
     public FollowersDTO getFollowersList(Integer userId, String order) {
         List<User> followers;
@@ -63,6 +79,17 @@ public class UserService implements IUserService{
         return followersDTO;
     }
 
+
+    /**
+     * get followed list ordered by user name
+     *
+     * @param userId Integer
+     * @param order String
+     * @return {@link FollowedDTO}
+     * @see FollowedDTO
+     * @author Tomas Ravelli
+     * @author Jeronimo Graff
+     */
     @Override
     public FollowedDTO getFollowedList(Integer userId, String order) {
         List<User> followed;
@@ -89,6 +116,13 @@ public class UserService implements IUserService{
     }
 
 
+    /**
+     * get followed list
+     *
+     * @param userId Integer
+     * @return {@link FollowedDTO}
+     * @see FollowedDTO
+     */
     @Override
     public FollowedDTO getFollowedList(Integer userId) {
         User user = userRepository.findById(userId);
@@ -101,12 +135,28 @@ public class UserService implements IUserService{
     }
 
 
+    /**
+     * followers count by user
+     *
+     * @param idUser Integer
+     * @return {@link FollowersCountDTO}
+     * @see FollowersCountDTO
+     */
     public FollowersCountDTO followersCount(Integer idUser){
         User user = userRepository.findById(idUser);
         FollowersCountDTO followers = new FollowersCountDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
         return  followers;
     }
 
+
+    /**
+     * follow user
+     *
+     * @param userId Integer
+     * @param userToFollowId Integer
+     * @author Tomas Ravelli
+     * @author Mauricio Gomez
+     */
     @Override
     public void followUser(Integer userId, Integer userToFollowId) {
         User user = userRepository.findById(userId);
@@ -125,6 +175,13 @@ public class UserService implements IUserService{
         }
     }
 
+
+    /**
+     * unfollow user
+     *
+     * @param userId Integer
+     * @param userToUnfollowId Integer
+     */
     @Override
     public void unfollowUser(Integer userId, Integer userToUnfollowId) {
         User user = userRepository.findById(userId);

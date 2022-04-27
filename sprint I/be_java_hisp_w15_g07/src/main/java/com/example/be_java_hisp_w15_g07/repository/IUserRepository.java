@@ -9,8 +9,6 @@ public interface IUserRepository {
 
     User findById(Integer id);
 
-    User getFollowersList(Integer userId);
-
     void newPost(Integer userId, Post unPost);
 
     List<User> findFollowersOrderByNameAsc(Integer userId);

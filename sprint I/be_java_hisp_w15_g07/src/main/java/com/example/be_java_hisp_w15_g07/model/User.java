@@ -2,7 +2,6 @@ package com.example.be_java_hisp_w15_g07.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 import java.util.*;
 
@@ -23,14 +22,33 @@ public class User implements Comparable<User>{
         this.posts = new ArrayList<>();
     }
 
+    /**
+     * add user to follow
+     *
+     * @param user {@link User)
+     * @return {@link Boolean}
+     * @see Boolean
+     */
     public Boolean addUserToFollow(User user) {
         return this.followed.add(user);
     }
 
+    /**
+     * add follower
+     *
+     * @param user {@link User)
+     * @return {@link Boolean}
+     * @see Boolean
+     */
     public Boolean addFollower(User user){
         return this.followers.add(user);
     }
 
+    /**
+     * add new post
+     *
+     * @param post {@link Post)
+     */
     public void newPost(Post post){
         post.setPostId(this.posts.size()+1);
         this.posts.add(post);

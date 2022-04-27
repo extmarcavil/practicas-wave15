@@ -32,6 +32,14 @@ public class PostService implements IPostService{
         modelMapper = new ModelMapper();
     }
 
+    /**
+     * get followed posts optionally ordered by date, by user
+     *
+     * @param userId Integer
+     * @param order String
+     * @return {@link UserFollowedPostsDTO}
+     * @see UserFollowedPostsDTO
+     */
     @Override
     public UserFollowedPostsDTO getFollowedPosts(Integer userId, String order) {
         List<Post> listPosts = new ArrayList<>();
@@ -63,9 +71,13 @@ public class PostService implements IPostService{
         return new UserFollowedPostsDTO(userId, listFollowedPosts);
     }
 
+    /**
+     * create new post
+     *
+     * @param postDTO {@link NewPostDTO}
+     */
     public void newPost(NewPostDTO postDTO){
         Post post = modelMapper.map(postDTO, Post.class);
         userRepository.newPost(postDTO.getUserId(), post);
-
     }
 }
