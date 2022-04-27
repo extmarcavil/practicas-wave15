@@ -46,11 +46,10 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order) {
-       List<User> usersFollowed = useRepository.getUser(id).getFollowed();
 
-       List<ResponsePostDto> posts = usersFollowed.stream()
-               .flatMap(user -> user.getPosts().stream())
-               .filter(post -> byLastTwoWeek(post.getDate()))
+        List<ResponsePostDto> posts = useRepository.getUser(id).getFollowed().stream()
+               .flatMap(user -> user.getPosts().stream()
+                       .filter(post -> byLastTwoWeek(post.getDate())))
                .map(ResponsePostDto::from)
                .collect(Collectors.toList());
 
