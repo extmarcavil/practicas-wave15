@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import org.springframework.stereotype.Repository;
@@ -44,4 +45,15 @@ public class FollowRepositoryImpl implements FollowRepository {
 
        return followed;
     }
+
+    @Override
+    public void unFollow(User follower, User following) {
+        Follow follow = follows.stream()
+                .filter(u -> u.getFollower().getUserId() == follower.getUserId() && u.getFollowing().getUserId() == following.getUserId())
+                .findAny()
+                .orElseThrow(()-> new NotFollowedException("The user don´t follow this seller"));
+        follows.remove(follow);
+    }
+
+
 }

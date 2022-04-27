@@ -11,4 +11,6 @@ public interface FollowRepository {
     List<Follow> whoFollows(Long id);
 
     List<User> findFollowedByUserId(Long id);
+
+    void unFollow(User follower, User following);
 }

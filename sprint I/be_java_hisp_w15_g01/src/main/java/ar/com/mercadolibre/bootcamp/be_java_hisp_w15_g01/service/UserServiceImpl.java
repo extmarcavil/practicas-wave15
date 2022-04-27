@@ -32,7 +32,7 @@ public class UserServiceImpl implements  UserService {
     @Override
     public ResponseDTO follow(Long userId, long userIdToFollow) {
         if (userId.equals(userIdToFollow)) {
-            throw new OwnFollowingException();
+            throw new OwnFollowingException("Your cant follow yourself");
         }
         User follower = this.findById(userId);
         User followed = this.findById(userIdToFollow);
@@ -92,12 +92,26 @@ public class UserServiceImpl implements  UserService {
         User userFollowing = findById(userId);
 
         if(followed.isEmpty()){
-            throw new NotFollowedException();
+            throw new NotFollowedException("The user don't follow anyone");
         }
         FollowersListDTO userDto = new FollowersListDTO();
         userDto.setUserName(userFollowing.getUserName());
         userDto.setUserId(userId);
         userDto.setUsers(followed);
         return userDto;
+    }
+
+    @Override
+    public ResponseDTO unFollow(Long userId, long userIdToUnfollow) {
+        if (userId.equals(userIdToUnfollow)) {
+            throw new OwnFollowingException("You can´t unfollow yourself");
+        }
+        User follower = this.findById(userId);
+        User followed = this.findById(userIdToUnfollow);
+        followRepository.unFollow(follower, followed);
+
+        ResponseDTO responseDTO = new ResponseDTO();
+        responseDTO.setMessage("Unfollowed");
+        return responseDTO;
     }
 }
