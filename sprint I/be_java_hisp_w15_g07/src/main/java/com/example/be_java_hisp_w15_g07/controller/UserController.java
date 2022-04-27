@@ -12,6 +12,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 
+/**
+ *  user controller
+ *
+ */
 @RestController
 @RequestMapping("/users")
 public class UserController {
@@ -21,8 +25,7 @@ public class UserController {
     public UserController(IUserService userService){
         this.userService = userService;
     }
-
-
+    
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> redirect(@PathVariable String userId){
         FollowersCountDTO followers = userService.followersCount(Integer.parseInt(userId));
@@ -40,6 +43,5 @@ public class UserController {
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable Integer userId){
         return new ResponseEntity<>(userService.getFollowersList(userId), HttpStatus.OK);
-
     }
 }

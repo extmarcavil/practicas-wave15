@@ -29,7 +29,7 @@ public class UserService implements IUserService{
         User user = userRepository.getFollowersList(userId);
         FollowersDTO followers = modelMapper.map(user, FollowersDTO.class);
         List<UserFollowersDTO> userFollowers = user.getFollowers().stream()
-                .map(v -> modelMapper.map(userRepository.findById(v), UserFollowersDTO.class))
+                .map(v -> modelMapper.map(userRepository.findById(v.getUserId()), UserFollowersDTO.class))
                 .collect(Collectors.toList());
         followers.setFollowers(userFollowers);
         return followers;
@@ -37,7 +37,7 @@ public class UserService implements IUserService{
 
     public FollowersCountDTO followersCount(Integer idUser){
         User user = userRepository.findById(idUser);
-        FollowersCountDTO followers = new FollowersCountDTO(user.getFollowers().size(), user.getUserName(), user.getUserId());
+        FollowersCountDTO followers = new FollowersCountDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
         return  followers;
     }
 
@@ -51,10 +51,10 @@ public class UserService implements IUserService{
         if(userId.equals(userToFollowId)){
             throw new BadRequestException("No se puede seguir a si mismo");
         }
-        if(!user.addUserToFollow(userToFollow.getUserId())){
+        if(!user.addUserToFollow(userToFollow)){
             throw new BadRequestException("Ya estas siguiendo a este usuario.");
         }
-        if(!userToFollow.addFollower(user.getUserId())){
+        if(!userToFollow.addFollower(user)){
             throw new BadRequestException("Ya estas seguido por este usuario.");
         }
     }

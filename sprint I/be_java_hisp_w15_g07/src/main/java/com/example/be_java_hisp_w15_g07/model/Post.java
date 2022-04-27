@@ -7,12 +7,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
+/**
+ *   post
+ *
+ */ /**
+ *  post
+ *
+ */
 @Getter
 @Setter
-@AllArgsConstructor
 public class Post {
     private Integer postId;
-    private Integer user;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate date;
@@ -20,4 +25,10 @@ public class Post {
     private Integer category;
     private Double price;
 
+    public Post(LocalDate date, Product detail, Integer category, Double price) {
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+    }
 }

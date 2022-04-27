@@ -4,20 +4,16 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 @Setter
 @Getter
-@ToString
-public class User {
+public class User implements Comparable<User>{
     private Integer userId;
     private String userName;
-    private Set<Integer> followers;
-    private Set<Integer> followed;
-    private List<Integer> posts;
+    private Set<User> followers;
+    private Set<User> followed;
+    private List<Post> posts;
 
     public User(Integer userId, String userName) {
         this.userId = userId;
@@ -27,11 +23,35 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public Boolean addUserToFollow(Integer userId) {
-        return this.followed.add(userId);
+    public Boolean addUserToFollow(User user) {
+        return this.followed.add(user);
     }
 
-    public Boolean addFollower(Integer userId){
-        return this.followers.add(userId);
+    public Boolean addFollower(User user){
+        return this.followers.add(user);
+    }
+
+    public void newPost(Post post){
+        post.setPostId(this.posts.size()+1);
+        this.posts.add(post);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId.equals(user.getUserId());
+    }
+
+
+    @Override
+    public int compareTo(User user) {
+        return this.getUserId().compareTo(user.getUserId());
+    }
+
+    @Override
+    public String toString() {
+        return this.getUserName();
     }
 }
