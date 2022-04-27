@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
 
 @Service
 public class ProductsService implements IProductsService {
@@ -41,9 +42,8 @@ public class ProductsService implements IProductsService {
     }
 
     private void validateDate(LocalDate date){
-        Period period = Period.between(date, LocalDate.now());
-
-        if(period.getDays() != 0 )
+        long differencesInDays = ChronoUnit.DAYS.between( date , LocalDate.now() );
+        if(differencesInDays >= 1)
             throw new InvalidDateException("La fecha de la publicacion debe ser hoy.");
     }
 
