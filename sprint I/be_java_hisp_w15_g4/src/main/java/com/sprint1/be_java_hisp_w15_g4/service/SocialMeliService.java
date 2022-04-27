@@ -35,7 +35,6 @@ public class SocialMeliService implements ISocialMeliService {
             throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
         seguido.addFollower(seguidor);
         seguidor.addFollowing(seguido);
-
     }
 
     @Override
@@ -87,7 +86,7 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public PostListDTO lastTwoWeeksPosts(int userID) {
+    public PostListDTO lastTwoWeeksPosts(int userID, String order) {
         List<User> vendedoresSeguidos = repo.findUser(userID).getFollowing();
 
         List<Post> posts = vendedoresSeguidos.stream()
@@ -95,7 +94,7 @@ public class SocialMeliService implements ISocialMeliService {
                 .filter(Post :: ultimas2Semanas)
                 .collect(Collectors.toList());
 
-        List<Post> ordenado = orderByDate(posts);
+        List<Post> ordenado = orderByDate(posts, order);
 
         List<PostDTO> lastPostsDTO = ordenado.stream()
                 .map(m -> mapper.map(m, PostDTO.class))
@@ -112,12 +111,21 @@ public class SocialMeliService implements ISocialMeliService {
         }
     }
 
-    private List<Post> orderByDate(List<Post> posts) {
-        return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
+    private List<Post> orderByDate(List<Post> posts, String order) {
+        if (order == null || order.equals("date_asc"))
+            return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
+
+        return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
     }
 
     @Override
     public void unfollow(int userID, int userIDToUnfollow) {
+        User user = repo.findUser(userID);
+        User userToUnfollow = repo.findUser(userIDToUnfollow);
 
+        if (userToUnfollow == null || user == null)
+            throw new IDNotFoundException("No se encontro el ID del usuario solicitado.");
+
+        user.removeFollowing(userToUnfollow);
     }
 }

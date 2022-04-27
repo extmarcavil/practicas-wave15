@@ -21,26 +21,25 @@ public class MeliController {
 
     ////////////////////US0001////////////////////
     @PostMapping("/users/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> followUser(@PathVariable int userId, @PathVariable int userIdToFollow){
+    public ResponseEntity<?> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) {
         service.follow(userId, userIdToFollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
 
-
     ////////////////////US0002////////////////////
     //Lucas - Luciano
     @GetMapping("/users/{userId}/followers/count")
-    public ResponseEntity<FollowerCountDTO> cantidadDeSeguidores(@PathVariable int userId){
-        return new ResponseEntity<>(service.countFollowers(userId),HttpStatus.OK);
+    public ResponseEntity<FollowerCountDTO> cantidadDeSeguidores(@PathVariable int userId) {
+        return new ResponseEntity<>(service.countFollowers(userId), HttpStatus.OK);
     }
 
     ////////////////////US0003////////////////////
     //Lucas - Luciano
-        @GetMapping("/users/{userId}/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
-            return new ResponseEntity<>(service.listFollowers(userId),HttpStatus.OK);
-        }
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return new ResponseEntity<>(service.listFollowers(userId), HttpStatus.OK);
+    }
 
 
     ////////////////////US0004////////////////////
@@ -56,11 +55,16 @@ public class MeliController {
     ////////////////////US0006////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
-    public ResponseEntity<PostListDTO> lastPosts (@PathVariable int userId) {
-        return ResponseEntity.ok(service.lastTwoWeeksPosts(userId));
+    public ResponseEntity<PostListDTO> lastPosts(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return ResponseEntity.ok(service.lastTwoWeeksPosts(userId, order));
     }
 
     ////////////////////US0007////////////////////
     //Yamil - Nacho
+    @GetMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+        service.unfollow(userId, userIdToUnfollow);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 
 }

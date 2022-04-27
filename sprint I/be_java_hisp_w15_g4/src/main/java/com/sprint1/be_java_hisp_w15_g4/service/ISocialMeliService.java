@@ -12,6 +12,6 @@ public interface ISocialMeliService {
     FollowerListDTO listFollowers(int userID); //Req 03: devuelve la lista de usuarios que siguen a un determinado usuario
     FollowingListDTO listFollowing(int userID, String order); //Req 04: devuelve la lista de usuarios a quien sigue un determinado usuario
     void createPost(PostDTO post); //Req 05: le llega una publicaciondto y devuelve un OK
-    PostListDTO lastTwoWeeksPosts(int userID); //Req 06: Devuelve una lista con los post de las últimas dos semanas de los seguidos de un usuario.
+    PostListDTO lastTwoWeeksPosts(int userID, String order); //Req 06: Devuelve una lista con los post de las últimas dos semanas de los seguidos de un usuario.
     void unfollow(int userID, int userIDToUnfollow); //Req 07
 }
