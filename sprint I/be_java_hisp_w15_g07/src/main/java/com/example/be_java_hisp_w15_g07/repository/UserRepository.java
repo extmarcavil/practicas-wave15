@@ -97,4 +97,5 @@ public class UserRepository implements IUserRepository{
     public User getFollowersList(Integer userId) {
         return this.findById(userId);
     }
+
 }

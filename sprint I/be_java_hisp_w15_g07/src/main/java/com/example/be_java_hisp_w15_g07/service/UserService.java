@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g07.service;
 
+import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowersDTO;
@@ -33,6 +34,19 @@ public class UserService implements IUserService{
                 .collect(Collectors.toList());
         followers.setFollowers(userFollowers);
         return followers;
+    }
+
+
+
+    @Override
+    public FollowedDTO getFollowedList(Integer userId) {
+        User user = userRepository.findById(userId);
+        FollowedDTO followed = modelMapper.map(user, FollowedDTO.class);
+        List<UserFollowersDTO> userFollowed = user.getFollowed().stream()
+                .map(v -> modelMapper.map(userRepository.findById(v.getUserId()), UserFollowersDTO.class))
+                .collect(Collectors.toList());
+        followed.setFollowed(userFollowed);
+        return followed;
     }
 
     public FollowersCountDTO followersCount(Integer idUser){
