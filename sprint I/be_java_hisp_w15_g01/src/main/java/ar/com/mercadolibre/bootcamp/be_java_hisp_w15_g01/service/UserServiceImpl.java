@@ -40,8 +40,8 @@ public class UserServiceImpl implements  UserService {
         }
         User follower = this.findById(userId);
         User followed = this.findById(userIdToFollow);
-        if(this.postRepository.isseller(followed)) {
-        	thow new NotSellerException();
+        if(!this.postRepository.isseller(followed)) {
+            throw new NotSellerException();
         }
         this.followRepository.save(follower, followed);
 

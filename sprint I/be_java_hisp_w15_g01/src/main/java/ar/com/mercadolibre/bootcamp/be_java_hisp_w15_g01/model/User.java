@@ -14,6 +14,6 @@ public class User {
     private String userName;
     
     public Boolean equals(User anUser) {
-    	        return this.userId == anUser.getUserId();
+    	        return this.userId.equals(anUser.getUserId());
     }
 }
