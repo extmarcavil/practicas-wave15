@@ -3,12 +3,16 @@ package com.sprint.be_java_hisp_w15_g10.Service;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UnfollowUserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -68,5 +72,22 @@ public class UserService implements IUserService {
 
     }
 
+    @Override
+    public VendedorsFollowedDTO getVendorsFollow(int userId) {
+        User user = userRepository.getById(userId).get();
+        VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
+        List<UserDTO> listUsers = new ArrayList<>();
 
+        user.getFollowers().forEach(u -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUser_id(u.getUser_id());
+            userDTO.setUser_name(u.getUser_name());
+            listUsers.add(userDTO);
+        });
+
+        vendedorsFollowedDTO.setFollowed(listUsers);
+        vendedorsFollowedDTO.setUserId(user.getUser_id());
+        vendedorsFollowedDTO.setUserName(user.getUser_name());
+        return vendedorsFollowedDTO;
+    }
 }
