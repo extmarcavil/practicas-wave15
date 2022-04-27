@@ -11,6 +11,10 @@ import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class UserService implements IUserService {
@@ -70,4 +74,22 @@ public class UserService implements IUserService {
         return new FollowUserDTO("Se ha comenzado a seguir al usuario: "+userToUnfollow.getUser_name());
     }
 
+    @Override
+    public VendedorsFollowedDTO getVendorsFollow(int userId) {
+        User user = userRepository.getById(userId).get();
+        VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
+        List<UserDTO> listUsers = new ArrayList<>();
+
+        user.getFollowers().forEach(u -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUser_id(u.getUser_id());
+            userDTO.setUser_name(u.getUser_name());
+            listUsers.add(userDTO);
+        });
+
+        vendedorsFollowedDTO.setFollowed(listUsers);
+        vendedorsFollowedDTO.setUserId(user.getUser_id());
+        vendedorsFollowedDTO.setUserName(user.getUser_name());
+        return vendedorsFollowedDTO;
+    }
 }

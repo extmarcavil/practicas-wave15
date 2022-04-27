@@ -1,11 +1,9 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
 
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.FollowUserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UnfollowUserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IUserService;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
 import com.sprint.be_java_hisp_w15_g10.Service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +45,11 @@ public class UserController {
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<FollowUserDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow){
         return   new ResponseEntity<FollowUserDTO>(userService.followUser(userId, userIdToFollow),HttpStatus.OK);
+    }
+
+    @GetMapping("/{userId}/followed/list")
+    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId) {
+        return new ResponseEntity<>(userService.getVendorsFollow(userId), HttpStatus.OK);
     }
 
 }
