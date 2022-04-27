@@ -6,6 +6,8 @@ import lombok.Setter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Getter
 @Setter
@@ -42,4 +44,11 @@ public class User {
         posts.add(post);
     }
 
+    public int countPromo() {
+        return getPromoPosts().size();
+    }
+
+    public List<Post> getPromoPosts() {
+        return posts.stream().filter(Post::isHas_promo).collect(Collectors.toList());
+    }
 }

@@ -1,10 +1,8 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +25,6 @@ public class MeliController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-
     ////////////////////US0002////////////////////
     //Lucas - Luciano
     @GetMapping("/users/{userId}/followers/count")
@@ -37,11 +34,10 @@ public class MeliController {
 
     ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
-        @GetMapping("/users/{userId}/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
-            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
-        }
-
+    @GetMapping("/users/{userId}/followers/list")
+    public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order) {
+        return new ResponseEntity<>(service.listFollowers(userId, order), HttpStatus.OK);
+    }
 
     ////////////////////US0004////////////////////
     //Nico - Nico
@@ -53,10 +49,11 @@ public class MeliController {
     ////////////////////US0005////////////////////
     //Nico - Nico
     @PostMapping("/products/post")
-    public ResponseEntity<?> postProduct(@RequestBody PostDTO post){
+    public ResponseEntity<?> postProduct(@RequestBody PostDTO post) {
         service.createPost(post);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     ////////////////////US0006////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
@@ -72,4 +69,25 @@ public class MeliController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    ////////////////////US0010////////////////////
+    //Nacho
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> promoPost(@RequestBody PromoPostDTO post) {
+        service.promoPost(post);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    ////////////////////US0011////////////////////
+    //Nacho
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<PromoCountDTO> promoCount(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.getPromoCount(user_id));
+    }
+
+    ////////////////////US0012////////////////////
+    //Nacho
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PromoListDTO> listPromo(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.getPromoList(user_id));
+    }
 }

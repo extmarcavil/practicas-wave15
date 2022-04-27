@@ -3,10 +3,8 @@ package com.sprint1.be_java_hisp_w15_g4.service;
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
@@ -157,5 +155,34 @@ public class SocialMeliService implements ISocialMeliService {
         }
         user.removeFollowing(userToUnfollow);
         userToUnfollow.removeFollower(user);
+    }
+
+    @Override
+    public void promoPost(PromoPostDTO post) {
+        User user = getUser(post.getUser_id());
+        Post postToAdd = new Post();
+        postToAdd.setCategory(post.getCategory());
+        postToAdd.setDate(post.getDate());
+        postToAdd.setDetail(mapper.map(post.getDetail(), Product.class));
+        postToAdd.setUser_id(post.getUser_id());
+        postToAdd.setPrice(post.getPrice());
+        postToAdd.setHas_promo(post.isHas_promo());
+        postToAdd.setDiscount(post.getDiscount());
+        user.addPost(postToAdd);
+    }
+
+    @Override
+    public PromoCountDTO getPromoCount(int id) {
+        User user = getUser(id);
+        return new PromoCountDTO(id, user.getUser_name(), user.countPromo());
+    }
+
+    @Override
+    public PromoListDTO getPromoList(int id) {
+        User user = getUser(id);
+        return new PromoListDTO(id, user.getUser_name(), user.getPromoPosts()
+                .stream()
+                .map(p -> mapper.map(p, PromoPostDTO.class))
+                .collect(Collectors.toList()));
     }
 }
