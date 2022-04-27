@@ -45,6 +45,12 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(FollowException.class)
+    public ResponseEntity<ErrorDTO> handlerFollowUserException (FollowException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
