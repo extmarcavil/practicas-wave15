@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g07.service;
 
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 
@@ -31,9 +32,8 @@ public class PostService implements IPostService{
         modelMapper = new ModelMapper();
     }
 
-
     @Override
-    public UserFollowedPostsDTO getFollowedPosts(Integer userId) {
+    public UserFollowedPostsDTO getFollowedPosts(Integer userId, String order) {
         List<Post> listPosts = new ArrayList<>();
         for (User user : userRepository.findById(userId).getFollowed()) {
             listPosts.addAll(user.getPosts());
@@ -45,12 +45,20 @@ public class PostService implements IPostService{
                 listPostsOrdered.add(p);
             }
         }
-        listPostsOrdered.stream()
-                .sorted(Comparator.comparing(Post::getDate).reversed())
-                .collect(Collectors.toList());
-        List<PostDTO> listFollowedPosts = listPostsOrdered.stream().
-                map(v -> modelMapper.map(v, PostDTO.class)).
-                collect(Collectors.toList());
+
+        if (order.equals("date_asc")) {
+            listPostsOrdered = listPostsOrdered.stream()
+                        .sorted(Comparator.comparing(Post::getDate).reversed())
+                        .collect(Collectors.toList());
+        }
+        if (order.equals("date_desc")) {
+            listPostsOrdered = listPostsOrdered.stream()
+                        .sorted(Comparator.comparing(Post::getDate))
+                        .collect(Collectors.toList());
+        }
+
+
+        List<PostDTO> listFollowedPosts = listPostsOrdered.stream().map(v -> modelMapper.map(v, PostDTO.class)).collect(Collectors.toList());
 
         return new UserFollowedPostsDTO(userId, listFollowedPosts);
     }

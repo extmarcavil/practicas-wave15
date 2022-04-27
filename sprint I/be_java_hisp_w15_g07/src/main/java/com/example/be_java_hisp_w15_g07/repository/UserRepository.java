@@ -36,7 +36,7 @@ public class UserRepository implements IUserRepository{
         user2.newPost(post);
 
         product = new Product(3, "Aire Acondicionado", "Electrodomesticos", "LG", "Blanco", "");
-        post = new Post(LocalDate.of(2022, Month.MARCH, 17), product, 3, 87000d);
+        post = new Post(LocalDate.of(2022, Month.APRIL, 26), product, 3, 87000d);
         user3.newPost(post);
 
         product = new Product(4, "Pava eléctrica", "Electrodomesticos", "Philip", "Negro", "");
