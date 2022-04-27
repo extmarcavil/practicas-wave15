@@ -14,4 +14,10 @@ public class ControllerAdviceUsers {
         ErrorDTO errorDTO =new ErrorDTO("User not found",e.getMessage()) ;
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorDTO> illegalArgumentException(IllegalArgumentException e){
+        ErrorDTO errorDTO = new ErrorDTO("Ilegal arguemnt",e.getMessage());
+        return new ResponseEntity<>(errorDTO,HttpStatus.BAD_REQUEST);
+    }
 }
