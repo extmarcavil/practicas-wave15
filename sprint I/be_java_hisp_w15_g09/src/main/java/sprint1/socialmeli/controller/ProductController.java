@@ -4,8 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.service.IProductService;
 
 @RestController
@@ -25,4 +24,21 @@ public class ProductController {
     public ResponseEntity<ResponsePostListDTO> get2WeeksProductsOfFollowed(@PathVariable int followerUserID, @RequestParam @Nullable String order){
         return ResponseEntity.ok(productService.get2WeeksProductsOfFollowed(followerUserID, order));
     }
+
+    // US 0010
+    @PostMapping("/promo-post")
+    public ResponseEntity<?> save(@RequestBody PromoPostRequestDTO post) {
+        return ResponseEntity.ok().body("Creado post: " + productService.save(post));
+    }
+
+    // US 0011
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<ResponsePromoPostCountDTO> countPromoPost(@RequestParam Integer user_id){
+        return ResponseEntity.ok(productService.countPromoPost(user_id));
+    }
+
+
+
+
+
 }

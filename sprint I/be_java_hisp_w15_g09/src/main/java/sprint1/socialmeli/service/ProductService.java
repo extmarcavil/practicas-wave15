@@ -2,16 +2,14 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.utils.PostConverter;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PostResponseDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
+import sprint1.socialmeli.utils.PostConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +27,7 @@ public class ProductService implements IProductService {
 
     @Override
     public Integer save(PostRequestDTO postDTO) throws InvalidPostException {
-        Post newPost = new Post(postDTO);
+        Post newPost = Post.createPost(postDTO);
         return postRepository.save(newPost);
     }
 
@@ -41,6 +39,22 @@ public class ProductService implements IProductService {
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
         return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
     }
+
+    @Override
+    public ResponsePromoPostCountDTO countPromoPost(Integer userId) {
+        return new ResponsePromoPostCountDTO(
+                getUserFromRepositoryById(userId),
+                getUserPromoPost(userId).size());
+    }
+
+    private List<Post> getUserPromoPost(Integer userId) {
+        return postRepository
+                .getListOfPostOfUser(userId)
+                .stream()
+                .filter(Post::isAPromoPost)
+                .collect(Collectors.toList());
+    }
+
 
     //----------Private----------//
 

@@ -2,6 +2,7 @@ package sprint1.socialmeli.service;
 
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.ResponsePromoPostCountDTO;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
 public interface IProductService {
@@ -26,4 +27,6 @@ public interface IProductService {
      * @throws UserNotFound si alguno de los usuarios no fue encontrado
      */
     ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order);
+
+    ResponsePromoPostCountDTO countPromoPost(Integer userId);
 }

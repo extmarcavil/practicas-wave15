@@ -1,19 +1,17 @@
 package sprint1.socialmeli.dto;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sprint1.socialmeli.model.Product;
 
 @Getter
 @Setter
-@NoArgsConstructor
-public class PostRequestDTO {
-    private Integer userId;
-    private String date;
-    private Product detail;
-    private Integer category;
-    private Double price;
+public abstract class PostRequestDTO {
+    protected Integer userId;
+    protected String date;
+    protected Product detail;
+    protected Integer category;
+    protected Double price;
 
     public PostRequestDTO(Integer userId, String date, Product detail, Integer category, Double price) {
         this.userId = userId;
@@ -22,4 +20,6 @@ public class PostRequestDTO {
         this.category = category;
         this.price = price;
     }
+
+    public abstract boolean isAPromoPost();
 }

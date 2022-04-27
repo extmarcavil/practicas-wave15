@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import sprint1.socialmeli.dto.PostRequestDTO;
+import sprint1.socialmeli.dto.PromoPostRequestDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
@@ -13,7 +14,7 @@ import java.time.format.DateTimeFormatter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class Post {
+public abstract class Post {
     private Integer postId;
     private Integer userId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
@@ -31,6 +32,13 @@ public class Post {
         isAValidPost();
     }
 
+    public static Post createPost(PostRequestDTO postDTO) {
+        if( postDTO.isAPromoPost())
+            return new PromoPost((PromoPostRequestDTO) postDTO);
+        else
+            return new NormalPost(postDTO);
+    }
+
     public boolean hasUserID(int IDToMatch) {
         return userId.equals(IDToMatch);
     }
@@ -44,4 +52,7 @@ public class Post {
             throw new InvalidPostException("El post contiene campos incompletos.");
         }
     }
+
+    public abstract boolean isAPromoPost();
+
 }
