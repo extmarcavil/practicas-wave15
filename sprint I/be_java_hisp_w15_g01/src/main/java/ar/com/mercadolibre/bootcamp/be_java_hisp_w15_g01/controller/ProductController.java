@@ -1,15 +1,13 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.PostService;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
@@ -28,6 +26,15 @@ public class ProductController {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(service.createPost(postDTO));
+    }
+
+
+
+    @GetMapping("/followed/{userId}/list")
+    public ResponseEntity<PostListDTO> create(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.getPostsByFollowedUsers(userId));
     }
 
 

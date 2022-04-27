@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class PostRepositoryImpl implements PostRepository {
@@ -15,7 +16,7 @@ public class PostRepositoryImpl implements PostRepository {
     List<Post> posts = new ArrayList<>();
 
     @Override
-    public boolean create(User user, LocalDate date, Product detail, Integer category, Float price) {
+    public Post create(User user, LocalDate date, Product detail, Integer category, Float price) {
 
         Post post = new Post();
         post.setPostId(posts.size() +1L);
@@ -25,12 +26,26 @@ public class PostRepositoryImpl implements PostRepository {
         post.setCategory(category);
         post.setPrice(price);
 
-        return posts.add(post);
+        posts.add(post);
+
+        return post;
     }
     
     @Override
     public boolean isseller(User user) {
         return this.posts.stream().anyMatch(p -> p.getUser().equals(user));
+    }
+
+    @Override
+    public List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack) {
+        LocalDate now = LocalDate.now();
+
+        List<Post> postList = posts.stream()
+                .filter( p -> p.getUser().getUserId().equals(user.getUserId()) &&
+                        p.getDate().compareTo(now.minusDays(daysBack)) > 0)
+                .collect(Collectors.toList());
+
+        return postList;
     }
 
 }
