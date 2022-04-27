@@ -1,4 +1,4 @@
-package com.be.java.hisp.w156.be.java.hisp.w156.dto;
+package com.be.java.hisp.w156.be.java.hisp.w156.dto.request;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.adapter.JsonAdapterDeserializer;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Getter
 @Setter
-public class PostDTO {
+public class RequestPostDTO {
 
     @NotNull
     private Integer userId;

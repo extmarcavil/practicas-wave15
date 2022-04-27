@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -29,7 +28,7 @@ public class UserRepositoryImpl implements IUserRepository {
         List<Post> posts = List.of(
                 new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
                 new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50));
-        List<Post> posts2 = List.of(new Post(1, LocalDate.of(2022, 4, 10), product, "150", 100.50));
+        List<Post> posts2 = List.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50));
 
         User user1 = new User(1, "Pepe", null, new ArrayList<User>(), new ArrayList<User>());
         User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
@@ -53,7 +52,7 @@ public class UserRepositoryImpl implements IUserRepository {
     public User getUser(Integer id) {
         return this.users.stream()
                 .filter(x -> x.getId() == id)
-                .findFirst().orElse(null);
+                .findFirst().orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado"));
     }
 
     @Override
@@ -136,5 +135,10 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public List<Post> getPostsLastTwoWeekById(Integer id) {
         return null;
+    }
+
+    @Override
+    public boolean existsById(Integer id) {
+        return users.stream().anyMatch(user -> user.getId().equals(id));
     }
 }
