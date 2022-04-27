@@ -1,18 +1,26 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.PostDTO;
+import com.example.be_java_hisp_w15_g05.dto.PostIdDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResCreatePostDTO;
+import com.example.be_java_hisp_w15_g05.dto.ResPostListDTO;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
+import org.apache.tomcat.jni.Local;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 @Service
 public class ProductsService implements IProductsService {
@@ -40,11 +48,28 @@ public class ProductsService implements IProductsService {
         return new ResCreatePostDTO("La publicación se ha creado con éxito");
     }
 
-    private void validateDate(LocalDate date){
-        Period period = Period.between(date, LocalDate.now());
+    public ResPostListDTO getPostFollowed(int id){
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
 
-        if(period.getDays() != 0 )
-            throw new InvalidDateException("La fecha de la publicacion debe ser hoy.");
+        List<Post> listadoPosteos = new ArrayList<>();
+
+        for( User usuario : user.getSeguidos()){
+            listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
+        }
+        listadoPosteos.sort(Comparator.comparing(Post::getDate));
+
+        List<PostIdDTO> lista = modelMapper.map(listadoPosteos,new TypeToken<List<PostIdDTO>>() {}.getType());
+
+        return new ResPostListDTO(id,lista);
+    }
+
+
+    private void validateDate(LocalDate date){
+        long period = ChronoUnit.DAYS.between( date , LocalDate.now());
+
+        if(period > 1 )
+            throw new InvalidDateException("La fecha de la publicacion debe ser a partir de hoy.");
     }
 
     private void validatePrice (double price){
