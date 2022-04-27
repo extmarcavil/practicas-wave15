@@ -7,6 +7,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
+import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
@@ -31,11 +32,15 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void follow(int userID, int userIDToFollow) {
+
+
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
-
-        seguido.addFollower(seguidor);
-        seguidor.addFollowing(seguido);
+        if (!seguidor.getFollowing().contains(seguido) ){
+            seguido.addFollower(seguidor);
+            seguidor.addFollowing(seguido);
+        }
+        else throw new AlreadyFollowing(userID,userIDToFollow);
     }
 
     @Override
