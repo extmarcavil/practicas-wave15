@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.service;
 
-import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResFollowPostDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.UserDTO;
+import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -54,6 +51,15 @@ public class UserService implements IUserService {
         int cantFollowers = userRepository.cantFollowers(user);
 
         return new ResCountFollowersDTO(userId, user.getName(), cantFollowers);
+    }
+
+    @Override
+    public ResListSellersDTO getListSellers(int userId) {
+        User user = userRepository.sellersList(userId)
+                .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
+
+        List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+        return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
     }
 
     private List<UserDTO> getListUserDTO(List<User> users) {

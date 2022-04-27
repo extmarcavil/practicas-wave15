@@ -54,4 +54,9 @@ public class UserRepository implements IUserRepository {
     public Optional<User> followersList(int id) {
         return findById(id);
     }
+
+    @Override
+    public Optional<User> sellersList(int id) {
+        return findById(id);
+    }
 }

@@ -19,4 +19,11 @@ public interface IUserRepository {
      */
     int cantFollowers(User user);
     Optional<User> followersList(int id);
+
+    /**
+     *
+     * @param id del usuario
+     * @return devuelve una lista de vendedores
+     */
+    Optional<User> sellersList(int id);
 }
