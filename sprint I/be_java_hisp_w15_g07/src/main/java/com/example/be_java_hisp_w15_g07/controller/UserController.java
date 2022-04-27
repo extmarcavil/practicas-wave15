@@ -35,8 +35,7 @@ public class UserController {
 
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> followUser(@PathVariable Integer userId,
-                                     @PathVariable Integer userIdToFollow){
+    public ResponseEntity<?> followUser(@PathVariable Integer userId, @PathVariable Integer userIdToFollow){
         userService.followUser(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -60,6 +59,12 @@ public class UserController {
         } else {
             return new ResponseEntity<>(userService.getFollowedList(userId, order), HttpStatus.OK);
         }
+    }
+
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
+    public ResponseEntity<?> unfollowUser(@PathVariable Integer userId, @PathVariable Integer userIdToUnfollow){
+        userService.unfollowUser(userId, userIdToUnfollow);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

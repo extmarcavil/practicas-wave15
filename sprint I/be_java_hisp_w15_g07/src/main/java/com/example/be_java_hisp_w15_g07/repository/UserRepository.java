@@ -32,7 +32,7 @@ public class UserRepository implements IUserRepository{
         user2.newPost(post);
 
         product = new Product(2, "Computadora", "Electrodomesticos", "Samsung", "Negro", "");
-        post = new Post(LocalDate.of(2022, Month.APRIL, 10), product, 2, 100000d);
+        post = new Post(LocalDate.of(2022, Month.APRIL, 20), product, 2, 100000d);
         user2.newPost(post);
 
         product = new Product(3, "Aire Acondicionado", "Electrodomesticos", "LG", "Blanco", "");
@@ -88,7 +88,7 @@ public class UserRepository implements IUserRepository{
         if(database.containsKey(id)){
             return database.get(id);
         }
-        throw new UserNotFoundException("Usuario con id: " + id + " no encontrado");
+        throw new UserNotFoundException("Usuario con id " + id + " no encontrado.");
     }
 
     public User getFollowersList(Integer userId) {
