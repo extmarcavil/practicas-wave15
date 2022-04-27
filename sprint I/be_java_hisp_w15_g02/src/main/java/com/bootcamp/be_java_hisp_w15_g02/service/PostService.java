@@ -1,7 +1,9 @@
 package com.bootcamp.be_java_hisp_w15_g02.service;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.PostCreateDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.model.Product;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IPostRepository;
@@ -15,6 +17,7 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
@@ -45,12 +48,13 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public GetPostsSellerByUserIdDTO getListPostByFollowIdUser(int idUser){
+    public GetPostsSellerByUserIdDTO getListPostByFollowIdUser(int idUser, String order){
         User user = this.userRepository.getUserById(idUser);
         List<Follow> followList = user.getFollowList();
         GetPostsSellerByUserIdDTO response = new GetPostsSellerByUserIdDTO();
         List<PostsBySellersDTO> posts = new ArrayList<>();
         LocalDate twoWeeksBefore = LocalDate.now().minusWeeks(2);
+
         for (Follow follow: followList) {
             List<Post> sellerPosts = this.postRepository.postsByUser(follow.getUserToFollow());
             for (Post post: sellerPosts) {
@@ -62,6 +66,14 @@ public class PostService implements IPostService{
             response.setPosts(posts);
         }
 
+        if (order != null) {
+            if (order.equals("date_asc"))
+                response.getPosts().sort(Comparator.comparing(PostsBySellersDTO::getDate));
+            else if (order.equals("date_desc"))
+                response.getPosts().sort(Comparator.comparing(PostsBySellersDTO::getDate, Comparator.reverseOrder()));
+            else
+                throw new OrderNotFoundException("Orden no encontrado");
+        }
         return new GetPostsSellerByUserIdDTO(idUser,posts);
     }
 }
