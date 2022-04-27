@@ -25,8 +25,16 @@ public class User {
         seguidores.add(user);
     }
 
+    public void eliminarSeguidor(User user) {
+        seguidores.remove(user);
+    }
+
     public void seguir(User user) {
         seguidos.add(user);
+    }
+
+    public void dejarDeSeguir(User user) {
+        seguidos.remove(user);
     }
 }
 

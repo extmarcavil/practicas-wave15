@@ -13,6 +13,8 @@ public interface IUserRepository {
     Optional<User> findById(int id);
     boolean follow(User usuario, User vendedor);
 
+    boolean unFollow(User usuario, User vendedor);
+
     /**
      *
      * @param id id del usuario

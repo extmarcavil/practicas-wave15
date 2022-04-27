@@ -48,6 +48,16 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public boolean unFollow(User usuario, User vendedor) {
+        if(vendedor.isSeller() && vendedor.getSeguidores().contains(usuario)){
+            vendedor.eliminarSeguidor(usuario);
+            usuario.dejarDeSeguir(vendedor);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public int cantFollowers(User user) {
         return user.getSeguidores().size();
     }

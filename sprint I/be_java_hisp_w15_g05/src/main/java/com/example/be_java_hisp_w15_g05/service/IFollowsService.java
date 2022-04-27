@@ -9,6 +9,8 @@ import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
 public interface IFollowsService {
     ResFollowPostDTO follow(int userId, int userToFollowId);
 
+    ResFollowPostDTO unFollow(int userId, int userToUnfollowId);
+
     ResListFollowersDTO getListFollowers(int userId);
 
     /**

@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.exceptions.UserNotFollowingException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -34,6 +35,24 @@ public class FollowsService implements IFollowsService {
             throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
         }
         return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
+    }
+
+    @Override
+    public ResFollowPostDTO unFollow(int userId, int userToUnfollowId) {
+
+        User follower = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+
+        User toFollow = userRepository.findById(userToUnfollowId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToUnfollowId + " no encontrado."));;
+
+        boolean resultado = userRepository.unFollow(follower, toFollow);
+
+        if(!resultado){
+            throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + userId +
+                    " no sigue actualmente al usuario " + userToUnfollowId + ", o éste último no es un vendedor");
+        }
+        return new ResFollowPostDTO("Usuario " + userToUnfollowId + " dejado de seguir");
     }
 
     @Override
