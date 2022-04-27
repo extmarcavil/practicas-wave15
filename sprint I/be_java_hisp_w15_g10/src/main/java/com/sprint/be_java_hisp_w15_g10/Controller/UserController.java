@@ -1,6 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.FollowUserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UnfollowUserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
@@ -43,10 +44,9 @@ public class UserController {
         return null;
     }
 
-
-    @PostMapping("/users/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable int userId){
-        return   null;
+    @PostMapping("/{userId}/follow/{userIdToFollow}")
+    public ResponseEntity<FollowUserDTO> followUser(@PathVariable int userId, @PathVariable int userIdToFollow){
+        return   new ResponseEntity<FollowUserDTO>(userService.followUser(userId, userIdToFollow),HttpStatus.OK);
     }
 
 }

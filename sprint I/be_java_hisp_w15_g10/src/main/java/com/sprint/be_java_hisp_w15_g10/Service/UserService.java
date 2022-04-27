@@ -1,8 +1,10 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.FollowUserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UnfollowUserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
+import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
@@ -53,20 +55,19 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean seguirUsuario(Integer userId, Integer userIdToFollow) {
-
-        User user1 = userRepository.getById(userId)
+    public FollowUserDTO followUser(int userId, int userIdToUnfollow){
+        User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        User user2 = userRepository.getById(userIdToFollow)
+        User userToUnfollow = userRepository.getById(userIdToUnfollow)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
 
-        if (user1 != null && user2 != null){
-            user1.seguirUsuario(user2);
-            return true;
+        if(user.getFollowed().contains(userToUnfollow)){
+            throw new FollowException("Usted ya sigue a: " +userToUnfollow.getUser_name());
         }
-        return false;
 
+        user.seguirUsuario(userToUnfollow);
+        userToUnfollow.agregarSeguidor(user);
+        return new FollowUserDTO("Se ha comenzado a seguir al usuario: "+userToUnfollow.getUser_name());
     }
-
 
 }
