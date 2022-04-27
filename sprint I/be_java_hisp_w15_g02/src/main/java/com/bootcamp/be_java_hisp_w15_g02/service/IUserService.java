@@ -11,6 +11,7 @@ public interface IUserService {
     GetFollowersBySellerDTO getFollowersBySeller(int userId);
     GetFollowedByUserDTO getFollowedByUser(int userId);
 
-    }
+    Object getFollowersBySellerOrder(int userId, String order);
+}
 
 

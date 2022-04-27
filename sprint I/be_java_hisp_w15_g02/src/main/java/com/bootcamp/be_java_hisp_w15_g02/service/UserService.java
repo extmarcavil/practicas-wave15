@@ -3,6 +3,7 @@ package com.bootcamp.be_java_hisp_w15_g02.service;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowedByUserDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.NotSellerException;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
+import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
@@ -11,6 +12,7 @@ import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -58,6 +60,28 @@ public class UserService implements IUserService {
         List<GetFollowersDTO> listFollowed = mapFollowDTO(user.getFollowList());
         GetFollowedByUserDTO responseFollowedUser = new GetFollowedByUserDTO(user.getUserId(), user.getUserName(), (List) listFollowed);
         return responseFollowedUser;
+    }
+
+    @Override
+    public GetFollowersBySellerDTO getFollowersBySellerOrder(int userId, String order) {
+        var result = new GetFollowersBySellerDTO();
+        var user = userRepository.getUserById(userId);
+        var listFollowers = new ArrayList<GetFollowersDTO>();
+
+        if (user.isSeller()) {
+            listFollowers = (ArrayList<GetFollowersDTO>) mapFollowDTO(user.getFollowerList());
+            if (order.equals("name_asc"))
+                listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUser_name));
+            else if (order.equals("name_desc"))
+                listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUser_name, Comparator.reverseOrder()));
+            else
+                throw new OrderNotFoundException("Orden no encontrado");
+            result.setUser_id(user.getUserId());
+            result.setUser_name(user.getUserName());
+            result.setFollowers((List) listFollowers);
+        }
+
+        return result;
     }
 
     private List<GetFollowersDTO> mapFollowDTO(List<Follow> listFollows){
