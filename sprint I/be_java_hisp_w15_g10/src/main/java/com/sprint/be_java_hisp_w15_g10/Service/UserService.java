@@ -1,9 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.FollowUserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UnfollowUserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowersCountDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
@@ -11,7 +8,6 @@ import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,7 +69,7 @@ public class UserService implements IUserService {
         VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
         List<UserDTO> listUsers = new ArrayList<>();
 
-        user.getFollowers().forEach(u -> {
+        user.getFollowed().forEach(u -> {
             UserDTO userDTO = new UserDTO();
             userDTO.setUser_id(u.getUser_id());
             userDTO.setUser_name(u.getUser_name());
@@ -84,6 +80,28 @@ public class UserService implements IUserService {
         else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
 
         vendedorsFollowedDTO.setFollowed(listUsers);
+        vendedorsFollowedDTO.setUserId(user.getUser_id());
+        vendedorsFollowedDTO.setUserName(user.getUser_name());
+        return vendedorsFollowedDTO;
+    }
+
+    @Override
+    public FollowersDTO getFollowers(int userId, String order) {
+        User user = userRepository.getById(userId).get();
+        FollowersDTO vendedorsFollowedDTO = new FollowersDTO();
+        List<UserDTO> listUsers = new ArrayList<>();
+
+        user.getFollowers().forEach(u -> {
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUser_id(u.getUser_id());
+            userDTO.setUser_name(u.getUser_name());
+            listUsers.add(userDTO);
+        });
+
+        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+        else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
+
+        vendedorsFollowedDTO.setFollowers(listUsers);
         vendedorsFollowedDTO.setUserId(user.getUser_id());
         vendedorsFollowedDTO.setUserName(user.getUser_name());
         return vendedorsFollowedDTO;
