@@ -43,7 +43,7 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID) {
+    public List<PostResponseDTO> get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         User userFollower = userRepository.findUserById(userFollowerID);
         List<User> listFollowed = userFollower.getListOfFollowed();
 
@@ -57,10 +57,10 @@ public class ProductService implements IProductService {
                             .filter(x->x.getDate().isAfter( LocalDate.now().minusDays(14) ))
                             .collect(Collectors.toList()));
         }
-        return this.converter.createFromEntities(listOfPost);
+        return sortPosts(this.converter.createFromEntities(listOfPost), (order == null) ? "date_desc" : order);
     }
 
-    public List<PostResponseDTO> sort2WeeksOfPosts(List<PostResponseDTO> posts, String order) {
+    public List<PostResponseDTO> sortPosts(List<PostResponseDTO> posts, String order) {
         if (!(order.equals("date_asc") || order.equals("date_desc"))) {
             throw new InvalidParamsException("Los parametros ingresados son incorrectos. Este endpoint admite solo:\n" +
                     "order=date_asc\n" +

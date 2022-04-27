@@ -83,10 +83,6 @@ public class ProductController {
     //}
     @GetMapping("/followed/{followerUserID}/list")
     public ResponseEntity<List<PostResponseDTO>> get2WeeksProductsOfFollowed(@PathVariable int followerUserID, @RequestParam @Nullable String order){
-        List<PostResponseDTO> posts = productService.get2WeeksProductsOfFollowed(followerUserID);
-        if (order == null) {
-            return new ResponseEntity<>(posts, HttpStatus.OK);
-        }
-        return new ResponseEntity<>(productService.sort2WeeksOfPosts(posts, order), HttpStatus.OK);
+        return new ResponseEntity<>(productService.get2WeeksProductsOfFollowed(followerUserID, order), HttpStatus.OK);
     }
 }
