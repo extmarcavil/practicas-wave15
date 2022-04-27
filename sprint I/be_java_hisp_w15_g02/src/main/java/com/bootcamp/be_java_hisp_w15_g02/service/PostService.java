@@ -27,11 +27,27 @@ public class PostService implements IPostService{
     private IPostRepository postRepository;
     private IUserRepository userRepository;
 
+    /**
+     * <p>
+     * Constructor del service. Trae la inyección del repositorio post y repositorio usuario.
+     * </p>
+     * @param postRepository Repositorio de Post.
+     * @param userRepository Repositorio de Usuario.
+     */
     public PostService(IPostRepository postRepository, IUserRepository userRepository){
         this.postRepository = postRepository;
         this.userRepository = userRepository;
     }
 
+    /**
+     * Crea un post y lo guarda en la lista de posts.
+     * <p>
+     * El método recibe un PostCreateDTO, luego crea una variable local para obtener la fecha actual.
+     * Luego se convierte el PostCreateDTO en un objeto tipo Post, para guardar en la lista de posts.
+     * <p>
+     * @param newPost La información del post.
+     * @return Retorna un booleano dependiendo de la respuesta del guardado.
+     */
     @Override
     public boolean createPost(PostCreateDTO newPost) {
         var id = 0;
@@ -47,6 +63,17 @@ public class PostService implements IPostService{
         return true;
     }
 
+    /**
+     * Obtiene la lista de posts de los vendedores que sigue un usuario.
+     * <p>
+     * El método recibe el id de un usuario y opcionalmente el orden de los datos. Llama a la lista de seguidos del usuario con
+     * el parametro id, y con esa lista de seguidos, busca sus posts en la lista de posts filtrados dos semanas antes de la
+     * fecha actual.
+     * <p>
+     * @param idUser Id del usuario.
+     * @param order Orden de los datos.
+     * @return Retorna el id del usuario con las publicaciones de los vendedores que sigue.
+     */
     @Override
     public GetPostsSellerByUserIdDTO getListPostByFollowIdUser(int idUser, String order){
         User user = this.userRepository.getUserById(idUser);
