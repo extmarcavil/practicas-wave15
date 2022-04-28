@@ -3,9 +3,9 @@ package sprint1.socialmeli.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import sprint1.socialmeli.dtos.FollowedListDTO;
-import sprint1.socialmeli.dtos.FollowersCountDTO;
-import sprint1.socialmeli.dtos.FollowersListDTO;
+import sprint1.socialmeli.dto.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.service.ISocialMeliService;
 
 @RestController
@@ -25,19 +25,19 @@ public class    SocialMeliController {
 
     // US 0002
     @GetMapping("/users/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> countFollowers(@PathVariable Integer userId){
+    public ResponseEntity<ResponseFollowersCountDTO> countFollowers(@PathVariable Integer userId){
         return ResponseEntity.ok(service.countFollowers(userId));
     }
 
     //US 0003 - US 0008
     @GetMapping("/users/{userId}/followers/list")
-    public ResponseEntity<FollowersListDTO> listFollowers(@PathVariable Integer userId, @RequestParam @Nullable String order){
+    public ResponseEntity<ResponseFollowersListDTO> listFollowers(@PathVariable Integer userId, @RequestParam @Nullable String order){
         return ResponseEntity.ok(service.listFollowers(userId, order));
     }
 
     //US 0004 - US 0008
     @GetMapping("/users/{userId}/followed/list")
-    public ResponseEntity<FollowedListDTO> listFollowed(@PathVariable Integer userId, @RequestParam @Nullable String order){
+    public ResponseEntity<ResponseFollowedListDTO> listFollowed(@PathVariable Integer userId, @RequestParam @Nullable String order){
         return ResponseEntity.ok(service.listFollowed(userId, order));
     }
 

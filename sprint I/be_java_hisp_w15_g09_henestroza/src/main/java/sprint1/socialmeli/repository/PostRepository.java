@@ -4,6 +4,7 @@ import lombok.Getter;
 import org.springframework.stereotype.Repository;
 import sprint1.socialmeli.model.Post;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,5 +34,10 @@ public class PostRepository implements IPostRepository {
                 .stream()
                 .filter((Post p) -> p.hasUserID(followedIDToSearch))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> getAll() {
+        return new ArrayList<>(postList.values());
     }
 }

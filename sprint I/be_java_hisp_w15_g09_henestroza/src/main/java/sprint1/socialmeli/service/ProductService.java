@@ -2,7 +2,7 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dtos.*;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.exceptions.InvalidPromoPostException;
@@ -30,18 +30,18 @@ public class ProductService implements IProductService {
     private final PostConverter converter;
 
     @Override
-    public Integer save(PostDTO postDTO) throws InvalidPostException {
-        Post newPost = new Post(postDTO);
+    public Integer save(PostRequestDTO postRequestDTO) throws InvalidPostException {
+        Post newPost = new Post(postRequestDTO);
         return postRepository.save(newPost);
     }
 
     @Override
-    public PostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
+    public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         String sortOrder = setDefaultOrder(order);
         validateOrder(sortOrder);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
-        return new PostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+        return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
     }
 
     @Override
@@ -65,6 +65,13 @@ public class ProductService implements IProductService {
         return getPromoPostListDTO(user);
     }
 
+    @Override
+    public List<Post> getAll() {
+        return postRepository.getAll().stream()
+                .sorted(Comparator.comparing(Post::getHasPromo).thenComparing(Post::getDate).reversed())
+                .collect(Collectors.toList());
+    }
+
     //----------Private----------//
 
     private User getUser(Integer userId) {
@@ -82,6 +89,7 @@ public class ProductService implements IProductService {
         res.setPromoPosts(new PromoPostResponseConverter().createFromEntities(
                 postRepository.getListOfPostOfUser(user.getId()).stream()
                         .filter(Post::getHasPromo)
+                        .sorted(Comparator.comparing(Post::getDate).reversed())
                         .collect(Collectors.toList())
                 )
         );

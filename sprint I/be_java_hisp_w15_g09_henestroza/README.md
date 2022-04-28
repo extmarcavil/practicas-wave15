@@ -22,8 +22,16 @@ Para poder realizar esto, un analista funcional relevó [una serie de **requerim
 - US00011 (INDIVIDUAL): Obtener la cantidad de productos en promoción de un determinado vendedor.
 - US00012 (INDIVIDUAL OPCIONAL): Para finalizar, desde Mercado Libre dieron a conocer que están abiertos a cualquier nueva funcionalidad o propuesta de mejora para “SocialMeli”. En caso de que esto se lleve a cabo, será necesario, además de desarrollar la funcionalidad, presentar la documentación técnica asociada.
 
+### Mejoras sobre la aplicacion (US0012):
+Se desarrollaron 2 funcionalidades adicionales:
+- Mostrar todos los posts con descuento de un vendedor: Se puede acceder a esta funcionalidad
+mediante el siguiente endpoint -> `{{url}}/products/promo-post/list?user_id={{user_id}}`
+- Mostrar todos los posts que haya en la plataforma, mostrando primero los que tienen descuento, y ordenando por fecha de creacion, desde el mas reciente al mas antiguo.
+Se puede acceder mediante el siguiente endpoint -> `{{url}}/products`
+    
 
-### USUARIOS PARA TESTEAR
+
+### Usuarios para testear:
 En el constructor del repositorio en función cargarUsuarios();
 - ID: 1, NAME: LORENA MACIEL
 - ID: 2, NAME: GONZALO MURIAS
@@ -32,7 +40,7 @@ En el constructor del repositorio en función cargarUsuarios();
 - ID: 5, NAME: ALEJANDRO HENESTROZA
 - ID: 6, NAME: NICOLAS KAZANDJIAN
 
-### COLABORADORES POR REQUERIMIENTOS GRUPALES:
+### Colaboradores por requerimientos grupales:
 - US0001, US0006, US0007: Ramiro Augusto Vera Guzman y Nicolás Leonardo Kazandjian.
 - US0002, US0003, US0004: Lorena Maciel Bitencur y Gonzalo Murias.
 - US0005, US0008, US0009: Alan Leonel Gimenez y Alejandro Ivan Henestroza.

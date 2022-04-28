@@ -1,9 +1,9 @@
 package sprint1.socialmeli.service;
 
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dtos.FollowedListDTO;
-import sprint1.socialmeli.dtos.FollowersCountDTO;
-import sprint1.socialmeli.dtos.FollowersListDTO;
+import sprint1.socialmeli.dto.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;
@@ -39,30 +39,30 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public FollowersCountDTO countFollowers(Integer userID) {
+    public ResponseFollowersCountDTO countFollowers(Integer userID) {
         User user1 = getUserFromRepositoryById(userID);
-        return new FollowersCountDTO(user1);
+        return new ResponseFollowersCountDTO(user1);
     }
 
     @Override
-    public FollowersListDTO listFollowers(Integer userId, String order) {
+    public ResponseFollowersListDTO listFollowers(Integer userId, String order) {
         User user = getUserFromRepositoryById(userId);
 
         if (order !=  null) {
             checkOrderParam(order);
             sortListOfUsers(user.getListOfFollowers(), order);
         }
-        return new FollowersListDTO( user, userConverter.createFromEntities(user.getListOfFollowers()));
+        return new ResponseFollowersListDTO( user, userConverter.createFromEntities(user.getListOfFollowers()));
     }
 
     @Override
-    public FollowedListDTO listFollowed(Integer userId, String order) {
+    public ResponseFollowedListDTO listFollowed(Integer userId, String order) {
         User user = getUserFromRepositoryById(userId);
         if (order !=  null) {
             checkOrderParam(order);
             sortListOfUsers(user.getListOfFollowed(), order);
         }
-        return new FollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
+        return new ResponseFollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
     }
 
     //----------Private----------//

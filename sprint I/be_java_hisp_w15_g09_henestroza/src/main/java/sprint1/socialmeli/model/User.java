@@ -2,7 +2,7 @@ package sprint1.socialmeli.model;
 
 import lombok.Getter;
 import lombok.Setter;
-import sprint1.socialmeli.dtos.UserDTO;
+import sprint1.socialmeli.dto.UserDTO;
 import sprint1.socialmeli.exceptions.InvalidFollower;
 
 import java.util.ArrayList;

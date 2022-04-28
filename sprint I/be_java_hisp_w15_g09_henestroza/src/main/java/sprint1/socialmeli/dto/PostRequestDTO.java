@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dtos;
+package sprint1.socialmeli.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -8,14 +8,14 @@ import sprint1.socialmeli.model.Product;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PostDTO {
+public class PostRequestDTO {
     private Integer userId;
     private String date;
     private Product detail;
     private Integer category;
     private Double price;
 
-    public PostDTO(Integer userId, String date, Product detail, Integer category, Double price) {
+    public PostRequestDTO(Integer userId, String date, Product detail, Integer category, Double price) {
         this.userId = userId;
         this.date = date;
         this.detail = detail;

@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dtos;
+package sprint1.socialmeli.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

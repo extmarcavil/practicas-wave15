@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sprint1.socialmeli.dtos.PostDTO;
+import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
@@ -26,7 +26,7 @@ public class Post {
     private Boolean hasPromo;
     private Double discount;
 
-    public Post(PostDTO post) {
+    public Post(PostRequestDTO post) {
         userId = post.getUserId();
         date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         detail = post.getDetail();

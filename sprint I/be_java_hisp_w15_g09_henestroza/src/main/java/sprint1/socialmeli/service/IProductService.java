@@ -1,11 +1,10 @@
 package sprint1.socialmeli.service;
 
-import sprint1.socialmeli.dtos.PromoPostRequestDTO;
-import sprint1.socialmeli.dtos.PostDTO;
-import sprint1.socialmeli.dtos.PostListDTO;
-import sprint1.socialmeli.dtos.PromoPostCountDTO;
-import sprint1.socialmeli.dtos.PromoPostListDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.exceptions.UserNotFound;
+import sprint1.socialmeli.model.Post;
+
+import java.util.List;
 
 public interface IProductService {
     /**
@@ -15,7 +14,7 @@ public interface IProductService {
      * @param post PostRequestDTO que se quiere guardar.
      * @return PostId el id del post que se creó.
      */
-    Integer save(PostDTO post);
+    Integer save(PostRequestDTO post);
 
     /**
      * Retorna la lista de posteos de todos los seguidos por un usuario, que se hayan publicado al menos en 2 semanas
@@ -28,7 +27,7 @@ public interface IProductService {
      * @return ResponsePostListDTO
      * @throws UserNotFound si alguno de los usuarios no fue encontrado
      */
-    PostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order);
+    ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order);
 
     /**
      * Recibe un DiscountPostRequestDTO e intenta convertirlo a Post. Si esta conversion falla, lanza una excepcion
@@ -38,7 +37,23 @@ public interface IProductService {
      */
     Integer saveWithDiscount(PromoPostRequestDTO post);
 
+    /**
+     * Recibe el ID de un usuario y cuenta la cantidad de Posts con descuento que tiene publicados
+     * @param userId Integer
+     * @return Integer count
+     */
     PromoPostCountDTO getPromoPostCount(Integer userId);
 
+    /**
+     * Recibe el ID de un usuario y devuelve el listado de Posts con descuento
+     * @param userId Integer
+     * @return PromoPostListDTO listado de posts
+     */
     PromoPostListDTO getPromoPosts(Integer userId);
+
+    /**
+     * Devuelve todos los posts de todos los usuarios de la plataforma, ordenados primero por descuento y luego por fecha
+     * @return List<Post> Listado de posts ordenados por descuento y fecha.
+     */
+    List<Post> getAll();
 }

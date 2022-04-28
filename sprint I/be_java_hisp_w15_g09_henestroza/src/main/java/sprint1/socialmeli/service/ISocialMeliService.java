@@ -1,8 +1,8 @@
 package sprint1.socialmeli.service;
 
-import sprint1.socialmeli.dtos.FollowedListDTO;
-import sprint1.socialmeli.dtos.FollowersCountDTO;
-import sprint1.socialmeli.dtos.FollowersListDTO;
+import sprint1.socialmeli.dto.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidFollower;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.UserNotFound;
@@ -36,7 +36,7 @@ public interface ISocialMeliService {
      * @throws UserNotFound en caso de no existir un usuario con dicho ID.
      * @return ResponseFollowersCountDTO
      */
-    public FollowersCountDTO countFollowers(Integer userID);
+    public ResponseFollowersCountDTO countFollowers(Integer userID);
 
     /**
      * Ver la lista de seguidores de un determinado usuario.
@@ -47,7 +47,7 @@ public interface ISocialMeliService {
      * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowersListDTO
      */
-    public FollowersListDTO listFollowers(Integer userId, String order);
+    public ResponseFollowersListDTO listFollowers(Integer userId, String order);
 
     /**
      * Ver la lista de seguidos de un determinado usuario.
@@ -58,5 +58,5 @@ public interface ISocialMeliService {
      * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowedListDTO
      */
-    public FollowedListDTO listFollowed(Integer userId, String order);
+    public ResponseFollowedListDTO listFollowed(Integer userId, String order);
 }

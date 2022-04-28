@@ -1,6 +1,6 @@
 package sprint1.socialmeli.utils;
 
-import sprint1.socialmeli.dtos.PromoPostResponseDTO;
+import sprint1.socialmeli.dto.PromoPostResponseDTO;
 import sprint1.socialmeli.model.Post;
 
 public class PromoPostResponseConverter extends Converter<PromoPostResponseDTO, Post> {
