@@ -23,6 +23,13 @@ public class ProductController {
         this.service = service;
     }
 
+
+    /**
+     * ProductController
+     * Crea una publicacion
+     *
+     * @param postDTO el dto de la publicacion a crear
+     */
     @PostMapping("/post")
     public ResponseEntity<ResponseDTO> create(@RequestBody PostDTO postDTO) {
         log.info("Se recibio peticion de creacion de una publicacion");
@@ -31,8 +38,13 @@ public class ProductController {
                 .body(service.createPost(postDTO));
     }
 
-
-
+    /**
+     * ProductController
+     * Devuelve la lista de usuarios que siguen al parametro userId
+     *
+     * @param userId User a buscar.
+     * @param order orden de los resultados.
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostListDTO> followed(@PathVariable Long userId, @RequestParam(required = false) String order) {
         log.info("Se recibio peticion de obtener todos los posts de las personas que sigue el id " + userId);

@@ -9,7 +9,21 @@ import java.time.LocalDate;
 
 public interface PostService {
 
+    /**
+     * PostService
+     * Crea un post
+     *
+     * @param postDto El post dto a crear
+     * @return un ResponseDTO
+     */
     ResponseDTO createPost(PostDTO postDto);
 
+    /**
+     * PostService
+     * Obtiene todos los posts de usuarios que siguen a userId
+     *
+     * @param userId El id del usuario a buscar
+     * @param order El orden de los resultados
+     */
     PostListDTO getPostsByFollowedUsers(Long userId, String order);
 }

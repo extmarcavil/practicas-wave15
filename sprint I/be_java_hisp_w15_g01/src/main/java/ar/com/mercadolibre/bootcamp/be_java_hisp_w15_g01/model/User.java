@@ -12,7 +12,13 @@ import lombok.Setter;
 public class User {
     private Long userId;
     private String userName;
-    
+
+    /**
+     * User
+     * Dice si dos usuarios son iguales
+     *
+     * @param anUser El otro usario a comparar
+     */
     public Boolean equals(User anUser) {
     	        return this.userId.equals(anUser.getUserId());
     }
