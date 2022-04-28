@@ -25,11 +25,26 @@ public class PostController {
         this.postService = postService;
     }
 
+    /**
+     * returns a List of products for one of the users followed
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Jeronimo Graff
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (@PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order) {
         return new ResponseEntity<>(postService.getFollowedPosts(userId, order), HttpStatus.OK);
     }
 
+    /**
+     * add new user post
+     *
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Jeronimo Graff
+     */
     @PostMapping("/post")
     public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
