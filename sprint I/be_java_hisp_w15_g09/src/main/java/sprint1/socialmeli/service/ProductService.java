@@ -6,7 +6,6 @@ import sprint1.socialmeli.dto.post.request.RequestPostDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePostDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePromoPostCountDTO;
-import sprint1.socialmeli.dto.post.response.ResponsePromoPostListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -14,7 +13,6 @@ import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 import sprint1.socialmeli.utils.PostConverter;
-import sprint1.socialmeli.utils.PromoPostConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +27,6 @@ public class ProductService implements IProductService {
     private final IPostRepository postRepository;
     private final ISocialMeliRepository userRepository;
     private final PostConverter converter;
-    private final PromoPostConverter promoConverter;
 
     @Override
     public Integer save(RequestPostDTO postDTO) throws InvalidPostException {
@@ -54,10 +51,10 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public ResponsePromoPostListDTO getListOfPromoPost(Integer userId) {
-        return new ResponsePromoPostListDTO(
+    public ResponsePostListDTO getListOfPromoPost(Integer userId) {
+        return new ResponsePostListDTO(
                     userId,
-                    this.promoConverter.createFromEntities( getUserPromoPost(userId) ));
+                    this.converter.createFromEntities( getUserPromoPost(userId) ));
     }
 
     private List<Post> getUserPromoPost(Integer userId) {

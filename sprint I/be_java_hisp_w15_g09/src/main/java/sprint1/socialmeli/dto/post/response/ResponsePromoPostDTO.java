@@ -16,4 +16,5 @@ public class ResponsePromoPostDTO extends ResponsePostDTO{
         this.has_promo = true;
         this.discount = post.getDiscount();
     }
+
 }

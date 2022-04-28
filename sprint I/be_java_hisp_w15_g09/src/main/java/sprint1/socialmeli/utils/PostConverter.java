@@ -12,7 +12,7 @@ public class PostConverter extends Converter<ResponsePostDTO,Post> {
     }
 
     private static ResponsePostDTO convertToDto(Post post) {
-        return new ResponsePostDTO(post);
+        return ResponsePostDTO.createPostDTO(post);
     }
 
     private static Post convertToEntity(ResponsePostDTO dto) {

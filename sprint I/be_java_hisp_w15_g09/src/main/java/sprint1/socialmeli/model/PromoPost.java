@@ -1,8 +1,11 @@
 package sprint1.socialmeli.model;
 
+import lombok.Getter;
+import lombok.Setter;
 import sprint1.socialmeli.dto.post.request.RequestPromoPostDTO;
 
-
+@Getter
+@Setter
 public class PromoPost extends Post {
 
     boolean hasPromo;

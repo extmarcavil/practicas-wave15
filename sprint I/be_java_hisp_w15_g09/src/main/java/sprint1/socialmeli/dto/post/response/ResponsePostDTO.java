@@ -3,20 +3,22 @@ package sprint1.socialmeli.dto.post.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import sprint1.socialmeli.model.NormalPost;
 import sprint1.socialmeli.model.Post;
 import sprint1.socialmeli.model.Product;
+import sprint1.socialmeli.model.PromoPost;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-public class ResponsePostDTO {
-    private Integer postId;
+public abstract class ResponsePostDTO {
+    protected Integer postId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
-    private LocalDate date;
-    private Product detail;
-    private Integer category;
-    private Double price;
+    protected LocalDate date;
+    protected Product detail;
+    protected Integer category;
+    protected Double price;
 
     public ResponsePostDTO(Post post) {
         this.postId = post.getPostId();
@@ -24,5 +26,12 @@ public class ResponsePostDTO {
         this.detail = post.getDetail();
         this.category = post.getCategory();
         this.price = post.getPrice();
+    }
+
+    public static ResponsePostDTO createPostDTO(Post post) {
+        if( post.isAPromoPost())
+            return new ResponsePromoPostDTO((PromoPost) post);
+        else
+            return new ResponseNormalPostDTO((NormalPost)post);
     }
 }
