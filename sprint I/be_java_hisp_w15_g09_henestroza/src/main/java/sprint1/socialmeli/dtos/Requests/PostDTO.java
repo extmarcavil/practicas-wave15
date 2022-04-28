@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto.Requests;
+package sprint1.socialmeli.dtos.Requests;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

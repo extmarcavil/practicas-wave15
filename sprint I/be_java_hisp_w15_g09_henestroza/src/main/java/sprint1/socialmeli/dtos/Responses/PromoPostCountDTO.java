@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto.Responses;
+package sprint1.socialmeli.dtos.Responses;
 
 import lombok.Getter;
 import lombok.Setter;

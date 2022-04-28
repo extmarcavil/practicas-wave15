@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import sprint1.socialmeli.dto.Requests.PostDTO;
+import sprint1.socialmeli.dtos.Requests.PostDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;

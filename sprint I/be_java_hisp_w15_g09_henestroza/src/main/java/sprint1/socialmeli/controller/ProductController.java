@@ -4,10 +4,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import sprint1.socialmeli.dto.Requests.PromoPostDTO;
-import sprint1.socialmeli.dto.Requests.PostDTO;
-import sprint1.socialmeli.dto.Responses.PostListDTO;
-import sprint1.socialmeli.dto.Responses.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.Requests.PromoPostRequestDTO;
+import sprint1.socialmeli.dtos.Requests.PostDTO;
+import sprint1.socialmeli.dtos.Responses.PostListDTO;
+import sprint1.socialmeli.dtos.Responses.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.Responses.PromoPostListDTO;
 import sprint1.socialmeli.service.IProductService;
 
 @RestController
@@ -30,7 +31,7 @@ public class ProductController {
 
     // US 0010
     @PostMapping("/promo-post")
-    public ResponseEntity<Integer> save(@RequestBody PromoPostDTO post) {
+    public ResponseEntity<Integer> save(@RequestBody PromoPostRequestDTO post) {
         return ResponseEntity.ok(productService.saveWithDiscount(post));
     }
 
@@ -38,5 +39,11 @@ public class ProductController {
     @GetMapping("/promo-post/count")
     public ResponseEntity<PromoPostCountDTO> getPromoPostsCount(@RequestParam(name = "user_id") Integer userId) {
         return ResponseEntity.ok(productService.getPromoPostCount(userId));
+    }
+
+    // US 0012
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<PromoPostListDTO> getPromoPosts(@RequestParam(name = "user_id") Integer userId) {
+        return ResponseEntity.ok(productService.getPromoPosts(userId));
     }
 }

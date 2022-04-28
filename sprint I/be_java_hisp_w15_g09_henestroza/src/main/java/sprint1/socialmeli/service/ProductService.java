@@ -2,11 +2,9 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.Requests.PromoPostDTO;
-import sprint1.socialmeli.dto.Requests.PostDTO;
-import sprint1.socialmeli.dto.Responses.PostResponseDTO;
-import sprint1.socialmeli.dto.Responses.PostListDTO;
-import sprint1.socialmeli.dto.Responses.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.Requests.PostDTO;
+import sprint1.socialmeli.dtos.Requests.PromoPostRequestDTO;
+import sprint1.socialmeli.dtos.Responses.*;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.exceptions.InvalidPromoPostException;
@@ -17,6 +15,7 @@ import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
 import sprint1.socialmeli.utils.PostConverter;
 import sprint1.socialmeli.utils.PromoPostConverter;
+import sprint1.socialmeli.utils.PromoPostResponseConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class ProductService implements IProductService {
     private final IPostRepository postRepository;
     private final ISocialMeliRepository userRepository;
     private final PostConverter converter;
-    private final PromoPostConverter promoPostConverter;
 
     @Override
     public Integer save(PostDTO postDTO) throws InvalidPostException {
@@ -49,51 +47,74 @@ public class ProductService implements IProductService {
     }
 
     @Override
-    public Integer saveWithDiscount(PromoPostDTO post) {
+    public Integer saveWithDiscount(PromoPostRequestDTO post) {
         if (!post.getHasPromo() || post.getDiscount() <= 0) {
             throw new InvalidPromoPostException("El post que se quiere crear no tiene una promocion.");
         }
-        Post newPost = promoPostConverter.convertFromDto(post);
+        Post newPost = new PromoPostConverter().convertFromDto(post);
         return postRepository.save(newPost);
     }
 
     @Override
     public PromoPostCountDTO getPromoPostCount(Integer userId) {
-        User user = userRepository.findUserById(userId);
-        if (user == null) {
-            throw new UserNotFound("No se encontro al usuario solicitado.");
-        }
-        List<Post> userPosts = postRepository.getListOfPostOfUser(userId);
-
-        return preparePromoPostCountResponse(user, userPosts);
+        User user = getUser(userId);
+        return preparePromoPostCountResponse(getPromoPostListDTO(user));
     }
 
-    private PromoPostCountDTO preparePromoPostCountResponse(User user, List<Post> userPosts) {
-        PromoPostCountDTO res = new PromoPostCountDTO();
-        res.setUserId(user.getId());
-        res.setUserName(user.getName());
-        int promoPostCount = (int) userPosts.stream().filter(Post::getHasPromo).count();
-        res.setPromoProductsCount(promoPostCount);
-        return res;
+    @Override
+    public PromoPostListDTO getPromoPosts(Integer userId) {
+        User user = getUser(userId);
+        return getPromoPostListDTO(user);
     }
 
     //----------Private----------//
 
+    private User getUser(Integer userId) {
+        User user = userRepository.findUserById(userId);
+        if (user == null) {
+            throw new UserNotFound("No se encontro al usuario solicitado.");
+        }
+        return user;
+    }
+
+    private PromoPostListDTO getPromoPostListDTO(User user) {
+        PromoPostListDTO res = new PromoPostListDTO();
+        res.setUserId(user.getId());
+        res.setUserName(user.getName());
+        res.setPromoPosts(new PromoPostResponseConverter().createFromEntities(
+                postRepository.getListOfPostOfUser(user.getId()).stream()
+                        .filter(Post::getHasPromo)
+                        .collect(Collectors.toList())
+                )
+        );
+        return res;
+    }
+
+    private PromoPostCountDTO preparePromoPostCountResponse(PromoPostListDTO promoPostListDTO) {
+        PromoPostCountDTO res = new PromoPostCountDTO();
+        res.setUserId(promoPostListDTO.getUserId());
+        res.setUserName(promoPostListDTO.getUserName());
+        res.setPromoProductsCount(promoPostListDTO.getPromoPosts().size());
+        return res;
+    }
+
     /**
      * Obtiene una lista completa de todos los post de los usuarios seguidos (pasado por Lista), de las últimas dos semanas.
+     *
      * @param listFollowed lista de usuarios seguidos por un usuario determinado.
      * @return listOfPost devuelve la lista de posts concatenada.
      */
     private ArrayList<Post> getPostsOfLast2Week(List<User> listFollowed) {
         ArrayList<Post> listOfPost = new ArrayList<>();
-        for(User eachFollowedUser : listFollowed){
-            listOfPost.addAll( getUserPostOfLast2Week( eachFollowedUser.getId()) );
+        for (User eachFollowedUser : listFollowed) {
+            listOfPost.addAll(getUserPostOfLast2Week(eachFollowedUser.getId()));
         }
         return listOfPost;
     }
 
     /**
      * Obtiene la lista de usuarios seguidos por un usuario con id userFollowerID.
+     *
      * @param userFollowerID identifica al usuario seguidor.
      * @return lista de usuarios seguidos.
      */
@@ -104,6 +125,7 @@ public class ProductService implements IProductService {
 
     /**
      * Retorna el usuario buscado a través de un parámetro de ID recibido.
+     *
      * @param userID identificador del usuario a buscar.
      * @return user retorna el usuario en caso de que lo encuentre.
      */
@@ -113,6 +135,7 @@ public class ProductService implements IProductService {
 
     /**
      * En el caso de ser nulo, define el orden como descendente de una lista a ordenar.
+     *
      * @param order tipo de ordenamiento (date_asc o date_desc).
      * @return el tipo de ordenamiento.
      */
@@ -122,6 +145,7 @@ public class ProductService implements IProductService {
 
     /**
      * Ordena una Lista de DTO POST según el ordenamiento recibido por parámetro order.
+     *
      * @param posts lista de PostDTO a ordenar.
      * @param order tipo de ordenamiento elegido.
      * @return la lista ordenada según el tipo de ordenamiento.
@@ -138,6 +162,7 @@ public class ProductService implements IProductService {
 
     /**
      * Obtiene una lista de posteos de un usuario en particular que hayan sido realizados en las últimas dos semanas.
+     *
      * @param followedIDToSearch identificador de un usuario.
      * @return la lista mencionada.
      */
@@ -151,6 +176,7 @@ public class ProductService implements IProductService {
 
     /**
      * Comprueba que el parámetro order sea correcto.
+     *
      * @param order orden a aplicar. Los parámetros admitidos son date_asc y date_desc.
      * @throws InvalidParamsException en caso de que el tipo de orden ingresado sea incorrecto.
      */

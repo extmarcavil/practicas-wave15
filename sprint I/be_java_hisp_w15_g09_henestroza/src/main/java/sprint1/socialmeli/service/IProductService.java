@@ -1,9 +1,10 @@
 package sprint1.socialmeli.service;
 
-import sprint1.socialmeli.dto.Requests.PromoPostDTO;
-import sprint1.socialmeli.dto.Requests.PostDTO;
-import sprint1.socialmeli.dto.Responses.PostListDTO;
-import sprint1.socialmeli.dto.Responses.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.Requests.PromoPostRequestDTO;
+import sprint1.socialmeli.dtos.Requests.PostDTO;
+import sprint1.socialmeli.dtos.Responses.PostListDTO;
+import sprint1.socialmeli.dtos.Responses.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.Responses.PromoPostListDTO;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
 public interface IProductService {
@@ -35,7 +36,9 @@ public interface IProductService {
      * @param post DiscountPostRequestDTO que se quiere guardar
      * @return PostId el id del post que se creo
      */
-    Integer saveWithDiscount(PromoPostDTO post);
+    Integer saveWithDiscount(PromoPostRequestDTO post);
 
     PromoPostCountDTO getPromoPostCount(Integer userId);
+
+    PromoPostListDTO getPromoPosts(Integer userId);
 }
