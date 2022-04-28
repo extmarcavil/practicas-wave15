@@ -17,9 +17,10 @@ public interface IPostService {
 
 
     //PostsPromoDTO getCountPromoPost(User)
-    List<PostResponseDTO> getAllPromoPosts();
+    UserPostResponseDTO getAllPromoPosts(int userId);
 
     VendorProductsDTO countPromoProductOfVendor(int userId);
+
 
 
 }

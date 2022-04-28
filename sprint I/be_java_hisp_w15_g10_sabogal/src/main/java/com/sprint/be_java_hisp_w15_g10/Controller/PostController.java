@@ -4,10 +4,8 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostPromoDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
-import com.sprint.be_java_hisp_w15_g10.Service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -54,6 +52,13 @@ public class PostController {
     public ResponseEntity<VendorProductsDTO> countPromoProductOfVendor( @RequestParam() int user_id) {
         return new ResponseEntity<VendorProductsDTO>(postService.countPromoProductOfVendor(user_id), HttpStatus.OK);
     }
+
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<UserPostResponseDTO> getAllPromoPosts(@RequestParam() int user_id) {
+        return new ResponseEntity<UserPostResponseDTO>(postService.getAllPromoPosts(user_id), HttpStatus.OK);
+    }
+
+
 
 
 

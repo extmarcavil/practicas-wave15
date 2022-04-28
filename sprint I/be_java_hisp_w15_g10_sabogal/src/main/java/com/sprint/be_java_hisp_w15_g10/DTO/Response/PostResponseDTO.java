@@ -18,4 +18,6 @@ public class PostResponseDTO {
     private ProductResponseDTO detail;
     private int category_id;
     private double price;
+    private boolean has_promo;
+    private double discount;
 }

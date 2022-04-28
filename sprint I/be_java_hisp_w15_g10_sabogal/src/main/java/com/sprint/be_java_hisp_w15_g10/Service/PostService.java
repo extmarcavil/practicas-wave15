@@ -131,11 +131,25 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public List<PostResponseDTO> getAllPromoPosts() {
-        List<Post> posts = postRepository.getAll();
+    public UserPostResponseDTO getAllPromoPosts(int userId) {
+        User user = userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
 
-        List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
-        return responseDTOS;
+        List<Post> posts = new ArrayList<>();
+
+        user.getPosts().forEach(post ->{
+            if(post.isHas_promo()) posts.add(post);
+        });
+/*
+        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
+        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post1.getDate()));
+*/
+        UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
+                posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
+
+        return userPostResponseDTO;
+
+
     }
 
     @Override
@@ -143,7 +157,6 @@ public class PostService implements IPostService{
         User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
         VendorProductsDTO userDTO = modelMapper.map(user, VendorProductsDTO.class);
-        userDTO.setPromo_products_count(user.getPosts().size());
 
         List<Post> posts = new ArrayList<>();
         for (Post p:user.getPosts()){

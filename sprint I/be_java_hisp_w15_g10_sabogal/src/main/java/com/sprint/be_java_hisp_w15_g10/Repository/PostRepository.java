@@ -12,6 +12,7 @@ import java.util.List;
 @Repository
 public class PostRepository {
     private List<Post> postList;
+    private List<Post> postPromoList;
     private CategoryRepository categoryRepository;
     private ProductRepository productRepository;
     private int index;
@@ -43,8 +44,13 @@ public class PostRepository {
         return postList;
     }
     public List<Post> getAllPromo(){
-
-        return postList;
+        postPromoList = new ArrayList<Post>();
+        for (Post p:postList){
+            if(p.isHas_promo()==true){
+                postPromoList.add(p);
+            }
+        }
+        return postPromoList;
     }
 
     public void add(Post post){
