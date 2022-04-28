@@ -1,6 +1,5 @@
 package com.example.calculadoracalorias.repository;
 
-import com.example.calculadoracalorias.dto.DishDTO;
 import com.example.calculadoracalorias.dto.IngredientDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -24,7 +23,9 @@ public class FoodRepository implements IFoodRepository {
 
     @Override
     public IngredientDTO findIngredientByName(String name){
-        Optional optional = ingredients.stream().filter(v -> v.getName().equals(name)).findFirst();
+        Optional<IngredientDTO> optional = ingredients.stream()
+                .filter(v -> v.getName().equals(name))
+                .findFirst();
         IngredientDTO result = null;
         if (optional.isPresent())
             result = optional.get();
