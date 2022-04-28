@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g07.service;
 
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PromoPostsDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.PromoPostsListDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
@@ -72,7 +73,6 @@ public class PostService implements IPostService{
 
     @Override
     public PromoPostsDTO getPromoProducts(Integer userId) {
-        System.out.println("-----> el userId: " + userId);
         User user = userRepository.findById(userId);
         if (user.getPosts().isEmpty()) {
             throw new BadRequestException("This user is not a seller");
@@ -83,6 +83,18 @@ public class PostService implements IPostService{
                 .size();
         PromoPostsDTO response = new PromoPostsDTO(userId, user.getUserName(), count);
         return response;
+    }
+
+    @Override
+    public PromoPostsListDTO getPromoProductsList(Integer userId) {
+        User user = userRepository.findById(userId);
+        if (user.getPosts().isEmpty()) {
+            throw new BadRequestException("This user is not a seller");
+        }
+        List<Post> listOfPromos = user.getPosts().stream()
+                .filter(e -> e.isHasPromo())
+                .collect(Collectors.toList());
+        return new PromoPostsListDTO(userId, user.getUserName(), listOfPromos);
     }
 
     /**
