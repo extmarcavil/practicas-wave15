@@ -39,5 +39,6 @@ public class PromoPostCreateDTO {
     @NotNull
     private Boolean has_promo;
     @NotNull
+    @DecimalMin(value = "0.0", inclusive = false)
     private Double discount;
 }
