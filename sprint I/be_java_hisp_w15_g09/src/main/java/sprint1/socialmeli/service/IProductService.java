@@ -1,6 +1,7 @@
 package sprint1.socialmeli.service;
 
 import sprint1.socialmeli.dto.PostRequestDTO;
+import sprint1.socialmeli.dto.PromoPostRequestDTO;
 import sprint1.socialmeli.dto.ResponsePostListDTO;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
@@ -13,6 +14,8 @@ public interface IProductService {
      * @return PostId el id del post que se creó.
      */
     Integer save(PostRequestDTO post);
+
+    Integer save(PromoPostRequestDTO post);
 
     /**
      * Retorna la lista de posteos de todos los seguidos por un usuario, que se hayan publicado al menos en 2 semanas
