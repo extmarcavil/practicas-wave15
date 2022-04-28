@@ -8,15 +8,17 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@Getter
 @Setter
-@NoArgsConstructor
+@Getter
 @AllArgsConstructor
-public class PostDTO {
+@NoArgsConstructor
+public class PostPromoDTO {
     private int user_id;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate date;
     private ProductDTO detail;
     private int category;
     private double price;
+    private boolean has_promo;
+    private double discount;
 }

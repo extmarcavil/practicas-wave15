@@ -12,12 +12,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Post {
-
-    private int userId;
-    private int postId;
+    private int user_id;
+    private int post_id;
     private LocalDate date;
     private Product detail;
     private int category;
     private double price;
-
+    private boolean has_promo;
+    private double discount;
 }

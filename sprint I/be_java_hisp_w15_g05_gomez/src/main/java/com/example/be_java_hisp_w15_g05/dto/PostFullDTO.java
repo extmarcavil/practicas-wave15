@@ -12,11 +12,13 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostDTO {
-    private int user_id;
+public class PostFullDTO {
+    private int postId;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate date;
     private ProductDTO detail;
     private int category;
     private double price;
+    private boolean has_promo;
+    private double discount;
 }
