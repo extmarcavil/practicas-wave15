@@ -1,11 +1,12 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.ResponsePostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.*;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPromoPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
+import com.be.java.hisp.w156.be.java.hisp.w156.model.PromoPost;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,49 @@ public class ProductServiceImpl implements IProductService {
     private boolean byLastTwoWeek(LocalDate date) {
         long days = ChronoUnit.DAYS.between(date, LocalDate.now());
         return days <= 14;
+    }
+
+    @Override
+    public ResponseEntity<SuccessDTO> savePromoPost(RequestPromoPostDTO requestPromoPostDto) {
+        if (useRepository.existsById(requestPromoPostDto.getUser_id())) {
+            PromoPost promoPostToSaved = PromoPost.from(requestPromoPostDto);
+            User user = useRepository.getUser(requestPromoPostDto.getUser_id());
+            user.getPromoPost().add(promoPostToSaved);
+            String message = String.format("Promo Post with ID: %s was saved successfully", promoPostToSaved.getId());
+            return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
+        }
+        throw new UserNotFoundException(requestPromoPostDto.getUser_id());
+    }
+
+    @Override
+    public ResponseEntity<ListPromoPostDTO> getPromoPostsById(Integer id, String order) {
+        List<ResponsePromoPostDTO> promoPosts = useRepository.getUser(id)
+                                                             .getPromoPost()
+                                                             .stream()
+                                                             .map(ResponsePromoPostDTO::from)
+                                                             .sorted(orderNameProduct(order))
+                                                             .collect(Collectors.toList());
+
+        return new ResponseEntity<>(ListPromoPostDTO.from(id, promoPosts), HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<CantPromoPostDTO> getCantPromoPostsById(Integer id) {
+           String name = useRepository.getUser(id).getName();
+           Integer cantidad = useRepository.getUser(id)
+                                           .getPromoPost()
+                                           .stream()
+                                           .map(ResponsePromoPostDTO::from)
+                                           .collect(Collectors.toList())
+                                           .size();
+
+        return new ResponseEntity<>(CantPromoPostDTO.from(id, name ,cantidad), HttpStatus.OK);
+    }
+
+    private Comparator<? super ResponsePostDTO> orderNameProduct(String order) {
+        if (order.equals("name_asc"))
+            return Comparator.comparing(x -> x.getDetail().getName());
+        else
+            return (x, y) -> -x.getDetail().getName().compareToIgnoreCase(y.getDetail().getName());
     }
 }

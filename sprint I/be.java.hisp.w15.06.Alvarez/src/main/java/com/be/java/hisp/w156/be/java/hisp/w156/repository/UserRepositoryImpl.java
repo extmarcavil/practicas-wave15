@@ -3,6 +3,7 @@ package com.be.java.hisp.w156.be.java.hisp.w156.repository;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
+import com.be.java.hisp.w156.be.java.hisp.w156.model.PromoPost;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -23,30 +24,27 @@ public class UserRepositoryImpl implements IUserRepository {
 
     @Override
     public void initData() {
-        Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
-        List<Post> posts = Stream.of(
-                new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
-                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50)
+        Product product1 = new Product(2, "A - Teclado Gamer", "Gamer", "Dragon", "Blue & Green", "Black Edition");
+        Product product2 = new Product(2, "B - Mouse Gamer", "Gamer", "HP", "Red", "Red Edition");
+
+        List<PromoPost> promoPosts1 = Stream.of(
+                new PromoPost(1, LocalDate.of(2022, 4, 23), product1, "50", 1000.50, true, 100),
+                new PromoPost(2, LocalDate.of(2022, 4, 27), product2, "50", 1000.50, true, 150)
         ).collect(Collectors.toList());
 
-        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50))
-                .collect(Collectors.toList());
+        List<PromoPost> promoPosts2 = Stream.of(
+                new PromoPost(3, LocalDate.of(2022, 4, 14), product1, "50", 500.50, true, 50),
+                new PromoPost(4, LocalDate.of(2022, 4, 17), product2, "50", 500.50, true, 25)
+        ).collect(Collectors.toList());
 
-        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
-        User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
-        User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>());
-        User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>());
+        User user5 = new User(5, "Matute" ,new ArrayList<>(),  new ArrayList<User>(), new ArrayList<User>(), promoPosts1);
+        User user6 = new User(6, "Flor" ,new ArrayList<>(),  new ArrayList<User>(), new ArrayList<User>(), promoPosts2);
 
-        user1.getFollowed().add(user3);
-        user2.getFollowed().add(user3);
-        user3.getFollowers().add(user1);
-        user3.getFollowers().add(user2);
+        user5.getFollowers().add(user6);
 
         users = Stream.of(
-                user1,
-                user2,
-                user3,
-                user4
+                user5,
+                user6
         ).collect(Collectors.toList());
     }
 

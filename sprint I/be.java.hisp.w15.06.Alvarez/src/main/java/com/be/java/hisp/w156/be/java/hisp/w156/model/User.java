@@ -18,5 +18,6 @@ public class User {
     private List<Post> posts;
     private List<User> followers;
     private List<User> followed;
+    private List<PromoPost> promoPost;
 
 }
