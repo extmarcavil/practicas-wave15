@@ -112,7 +112,7 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `category`     | `int`       | **Optional**.  categoria del producto           |
 | `price`        | `double`    | **Required**.  precio del producto              |
 | `has_promo`    | `boolean`   | **Required**.  indica si esta en promocion o no |
-| `dicount`      | `double` | **Required**.  porcentaje de descuento          |
+| `discount`     | `double` | **Required**.  porcentaje de descuento          |
 
 #### getCountPromoPosts
 
