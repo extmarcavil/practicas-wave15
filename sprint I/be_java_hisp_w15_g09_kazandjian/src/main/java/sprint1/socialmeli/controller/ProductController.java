@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import sprint1.socialmeli.dto.PostPromoRequestDTO;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.ResponsePostPromoListDTO;
 import sprint1.socialmeli.service.IProductService;
 
 @RestController
@@ -29,14 +30,13 @@ public class ProductController {
 
     //US 0010
     @PostMapping("/promo-post")
-    public ResponseEntity<?> postPromo(@RequestBody PostRequestDTO post){
-        return ResponseEntity.ok().body("Creado un post con promo: " + productService.save(post));
+    public ResponseEntity<?> postPromo(@RequestBody PostPromoRequestDTO post){
+        return ResponseEntity.ok().body("Creado un post con promo: " + productService.savePromo(post));
     }
-
 
     //US 0011
     @GetMapping("/promo-post/count")
-    public ResponseEntity<ResponsePostListDTO> get2sWeeksProductsOfFollowed(@PathVariable int followerUserID, @RequestParam @Nullable String order){
-        return ResponseEntity.ok(productService.get2WeeksProductsOfFollowed(followerUserID, order));
+    public ResponseEntity<ResponsePostPromoListDTO> getPromoPost(@RequestParam Integer user_id){
+        return ResponseEntity.ok(productService.countPromoPost(user_id));
     }
 }

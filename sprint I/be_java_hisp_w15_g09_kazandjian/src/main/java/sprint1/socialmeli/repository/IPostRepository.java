@@ -7,6 +7,10 @@ import java.util.List;
 
 public interface IPostRepository {
     Integer save(Post post);
-    Integer savePromo(PostPromo postPromo);
+
+    Integer savePromo(Post post);
+
+    Integer promoCount();
+
     List<Post> getListOfPostOfUser(int followedIDToSearch);
 }

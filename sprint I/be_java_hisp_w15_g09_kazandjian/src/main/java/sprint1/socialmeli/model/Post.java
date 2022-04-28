@@ -22,16 +22,27 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    private boolean hasPromo;
+    private Double discount;
 
 
+    public Post(PostPromoRequestDTO post) {
+        userId = post.getUserId();
+        date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        detail = post.getDetail();
+        category = post.getCategory();
+        price = post.getPrice();
+        hasPromo = post.isHasPromo();
+        discount = post.getDiscount();
+        isAValidPost();
+    }
+    
     public Post(PostRequestDTO post) {
         userId = post.getUserId();
         date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         detail = post.getDetail();
         category = post.getCategory();
         price = post.getPrice();
-        boolean hasPromo;
-        Double discount;
         isAValidPost();
     }
 

@@ -3,6 +3,8 @@ package sprint1.socialmeli.service;
 import sprint1.socialmeli.dto.PostPromoRequestDTO;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.ResponsePostPromoListDTO;
+import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
 public interface IProductService {
@@ -15,7 +17,8 @@ public interface IProductService {
      */
     Integer save(PostRequestDTO post);
 
-    Integer savePromo(PostPromoRequestDTO postPromoDTO);
+
+    Integer savePromo(PostPromoRequestDTO postPromoDTO) throws InvalidPostException;
 
     /**
      * Retorna la lista de posteos de todos los seguidos por un usuario, que se hayan publicado al menos en 2 semanas
@@ -29,4 +32,8 @@ public interface IProductService {
      * @throws UserNotFound si alguno de los usuarios no fue encontrado
      */
     ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order);
+
+    ResponsePostPromoListDTO countPromoPost(Integer user_id);
+
+
 }

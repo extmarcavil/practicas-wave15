@@ -2,12 +2,9 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.PostPromoRequestDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.model.PostPromo;
 import sprint1.socialmeli.utils.PostConverter;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PostResponseDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -29,6 +26,7 @@ public class ProductService implements IProductService {
     private final ISocialMeliRepository userRepository;
     private final PostConverter converter;
 
+
     @Override
     public Integer save(PostRequestDTO postDTO) throws InvalidPostException {
         Post newPost = new Post(postDTO);
@@ -37,9 +35,11 @@ public class ProductService implements IProductService {
 
     @Override
     public Integer savePromo(PostPromoRequestDTO postPromoDTO) throws InvalidPostException {
-        PostPromo newPostPromo = new PostPromo(postPromoDTO);
-        return postRepository.savePromo(newPostPromo);
+        Post newPost = new Post(postPromoDTO);
+        postRepository.savePromo(newPost);
+        return postRepository.save(newPost);
     }
+
 
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
@@ -48,6 +48,13 @@ public class ProductService implements IProductService {
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
         return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+    }
+
+    @Override
+    public ResponsePostPromoListDTO countPromoPost(Integer user_id) {
+        User user = getUserFromRepositoryById(user_id);
+
+        return new ResponsePostPromoListDTO(user_id, user.getName(), postRepository.promoCount());
     }
 
     //----------Private----------//

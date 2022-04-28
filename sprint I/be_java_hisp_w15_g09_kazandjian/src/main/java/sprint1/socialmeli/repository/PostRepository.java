@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class PostRepository implements IPostRepository {
 
     private final Map<Integer, Post> postList;
-    private final Map<Integer, PostPromo> postPromoList;
+    private final Map<Integer, Post> postPromoList;
     private Integer postId;
 
     public PostRepository() {
@@ -30,11 +30,22 @@ public class PostRepository implements IPostRepository {
         post.setPostId(postId);
         return postId;
     }
+
     @Override
-    public Integer savePromo(PostPromo post) {
-        this.postPromoList.put(++postId, post);
+    public Integer savePromo(Post post) {
+        this.postPromoList.put(postId, post);
         post.setPostId(postId);
         return postId;
+    }
+
+
+    @Override
+    public Integer promoCount(){
+        int contador=0;
+        for(int i = 0; i< postPromoList.size(); i++){
+            contador ++;
+        }
+        return contador;
     }
 
     @Override
