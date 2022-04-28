@@ -12,7 +12,8 @@ public interface UserService {
     User findById(Long id);
 
     FollowersListDTO whoFollowsMe(Long id, String order);
-    FollowersCountDTO wowManyFollowsMe(Long userId);
+
+    FollowersCountDTO howManyFollowsMe(Long userId);
 
     FollowedListDTO findAllFollowedByUserId(Long userId, String order);
 

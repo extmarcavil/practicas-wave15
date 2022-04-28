@@ -16,7 +16,7 @@ public class PostRepositoryImpl implements PostRepository {
     List<Post> posts = new ArrayList<>();
 
     @Override
-    public Post create(User user, LocalDate date, Product detail, Integer category, Float price) {
+    public Post createPost(User user, LocalDate date, Product detail, Integer category, Float price, Boolean promo, Float discount) {
 
         Post post = new Post();
         post.setPostId(posts.size() +1L);
@@ -26,18 +26,27 @@ public class PostRepositoryImpl implements PostRepository {
         post.setCategory(category);
         post.setPrice(price);
 
+        if(promo != null && discount != null){
+        post.setHasPromo(promo);
+        post.setDiscount(discount);
+        }
+        else{
+            post.setHasPromo(false);
+            post.setDiscount(0F);
+        }
+
         posts.add(post);
 
         return post;
     }
-    
+
     @Override
-    public boolean isseller(User user) {
+    public boolean isSeller(User user) {
         return this.posts.stream().anyMatch(p -> p.getUser().equals(user));
     }
 
     @Override
-    public List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack) {
+    public List<Post> getAllPostsByUserWithinTimeStamp(User user, int daysBack) {
         LocalDate now = LocalDate.now();
 
         List<Post> postList = posts.stream()
@@ -47,5 +56,14 @@ public class PostRepositoryImpl implements PostRepository {
 
         return postList;
     }
+
+    @Override
+    public Integer howManyPromoPostById(Long id) {
+
+        return (int) posts.stream()
+                .filter(p -> p.getUser().getUserId().equals(id) && p.getHasPromo())
+                .count();
+    }
+
 
 }

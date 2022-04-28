@@ -9,9 +9,11 @@ import java.util.List;
 
 public interface PostRepository {
 
-    Post create(User user, LocalDate date, Product detail, Integer category, Float price);
+    Post createPost(User user, LocalDate date, Product detail, Integer category, Float price, Boolean promo, Float discount);
 
-	boolean isseller(User user);
+    Integer howManyPromoPostById(Long id);
 
-    List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack);
+    boolean isSeller(User user);
+
+    List<Post> getAllPostsByUserWithinTimeStamp(User user, int daysBack);
 }

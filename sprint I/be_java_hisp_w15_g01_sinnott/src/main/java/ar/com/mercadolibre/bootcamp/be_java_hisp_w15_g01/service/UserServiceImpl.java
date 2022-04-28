@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,7 +36,7 @@ public class UserServiceImpl implements  UserService {
         }
         User follower = this.findById(userId);
         User followed = this.findById(userIdToFollow);
-        if(!this.postRepository.isseller(followed)) {
+        if(!this.postRepository.isSeller(followed)) {
             throw new NotSellerException();
         }
         this.followRepository.save(follower, followed);
@@ -65,7 +66,7 @@ public class UserServiceImpl implements  UserService {
                 .whoFollows(id)
                 .stream()
                 .map(f -> mapper.map(f.getFollower(), UserDTO.class))
-                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
+                .sorted(Comparator.comparing(UserDTO::getUserName))
                 .collect(Collectors.toList());
 
         if (order!= null && order.equals("name_desc")){
@@ -80,7 +81,7 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public FollowersCountDTO wowManyFollowsMe(Long userId) {
+    public FollowersCountDTO howManyFollowsMe(Long userId) {
         User user = this.findById(userId);
         Integer followersCount = this.followRepository
                 .whoFollows(userId)
@@ -101,7 +102,7 @@ public class UserServiceImpl implements  UserService {
                 .findFollowedByUserId(userId)
                 .stream()
                 .map(u -> mapper.map(u, UserDTO.class))
-                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
+                .sorted(Comparator.comparing(UserDTO::getUserName))
                 .collect(Collectors.toList());
         User userFollowing = findById(userId);
 

@@ -14,4 +14,8 @@ public class Post {
     private Float price;
     private Product detail;
     private User user;
+    private Boolean hasPromo;
+    private Float discount;
 }
+
+

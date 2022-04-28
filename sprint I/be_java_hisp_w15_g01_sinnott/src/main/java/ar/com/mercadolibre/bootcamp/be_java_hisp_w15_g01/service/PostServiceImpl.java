@@ -1,9 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
@@ -11,6 +8,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
+import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -37,9 +35,34 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public ResponseDTO createPost(PostDTO postDto) {
-        User user = userService.findById(postDto.getUserId());
-        ProductDTO detail = postDto.getDetail();
 
+        User user;
+        user = userService.findById(postDto.getUserId());
+        Product product = createProduct(postDto.getDetail());
+        LocalDate date = checkDateValid(postDto.getDate());
+        postRepository.createPost(user, date, product, postDto.getCategory(), postDto.getPrice(), null , null);
+
+        ResponseDTO dto = new ResponseDTO();
+        dto.setMessage("Product Created!");
+
+        return dto;
+    }
+
+    @Override
+    public ResponseDTO createPromoPost(PromoPostDTO promoPostDto) {
+
+        User user = userService.findById(promoPostDto.getUserId());
+        Product product = createProduct(promoPostDto.getDetail());
+        LocalDate date = checkDateValid(promoPostDto.getDate());
+        postRepository.createPost(user, date, product, promoPostDto.getCategory(), promoPostDto.getPrice(), promoPostDto.getHasPromo(), promoPostDto.getDiscount());
+
+        ResponseDTO dto = new ResponseDTO();
+        dto.setMessage("Promo Product Created!");
+
+        return dto;
+    }
+
+    private Product createProduct(ProductDTO detail) {
         Product product = new Product(
                 detail.getProductId(),
                 detail.getProductName(),
@@ -49,27 +72,24 @@ public class PostServiceImpl implements PostService {
                 detail.getNotes()
         );
 
-        LocalDate date;
+        return product;
+    }
 
+    private LocalDate checkDateValid(String date) {
+        LocalDate localDate;
         try {
-            date = LocalDate.parse(postDto.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+            localDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         } catch(DateTimeException e) {
             throw new InvalidDateException();
         }
-
-        Post createdPost = postRepository.create(user, date, product, postDto.getCategory(), postDto.getPrice());
-
-        ResponseDTO dto = new ResponseDTO();
-        dto.setMessage("Product Created!");
-
-        return dto;
+        return localDate;
     }
 
     @Override
     public PostListDTO getPostsByFollowedUsers(Long userId, String order) {
 
         if(order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
-            throw new InvalidArgumentException("Invalid sorting Parameter. Must be order_desc or order_asc");
+            throw new InvalidArgumentException("Invalid sorting Parameter. Must be date_desc or date_asc");
         }
 
         List<User> followedUsers = followRepository.findFollowedByUserId(userId);
@@ -77,7 +97,7 @@ public class PostServiceImpl implements PostService {
         List<PostDTO> internalPostList = new ArrayList<>();
 
         for(User v : followedUsers) {
-            this.postRepository.getAllPostsByUserWithinTimespan(v, 14)
+            this.postRepository.getAllPostsByUserWithinTimeStamp(v, 14)
                     .forEach(p -> internalPostList.add(new PostDTO(p)));
         }
 
@@ -93,5 +113,19 @@ public class PostServiceImpl implements PostService {
         postListDTO.setPosts(sortedAscPostList);
 
         return postListDTO;
+    }
+
+    @Override
+    public PromoPostCountDTO howManyPromoPostById(Long userId) {
+
+        User user = userService.findById(userId);
+
+        PromoPostCountDTO dto = new PromoPostCountDTO();
+        dto.setUserId(user.getUserId());
+        dto.setUserName(user.getUserName());
+        dto.setPromoProductsCount(postRepository.howManyPromoPostById(userId));
+
+        return dto;
+
     }
 }

@@ -27,10 +27,10 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> wowManyFollowsMe(@PathVariable Long userId) {
+    public ResponseEntity<FollowersCountDTO> howManyFollowsMe(@PathVariable Long userId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.wowManyFollowsMe(userId));
+                .body(userService.howManyFollowsMe(userId));
     }
 
     @GetMapping("/{userId}/followers/list")
