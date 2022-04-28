@@ -5,10 +5,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
-import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowingException;
-import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
-import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
-import com.sprint1.be_java_hisp_w15_g4.exception.SameUserIdException;
+import com.sprint1.be_java_hisp_w15_g4.exception.*;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -172,17 +169,20 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private void orderByName(String order, List<UserDTO> userDTO) {
-        if (order == null || order.equals("name_asc")) {
+        if (order == null || order.equals("name_asc"))
             userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
-        } else if (order.equals("name_desc")) {
-            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
-        }
+        else if (order.equals("name_desc"))
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+        else
+            throw new BadOrderArgumentException(order);
     }
 
     private List<Post> orderByDate(List<Post> posts, String order) {
         if (order == null || order.equals("date_desc"))
+            return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else if(order.equals("date_asc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
-
-        return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else
+            throw new BadOrderArgumentException(order);
     }
 }

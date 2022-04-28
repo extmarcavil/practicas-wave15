@@ -30,4 +30,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorDTO(e.getMessage(), HttpStatus.CONFLICT));
     }
 
+    @ExceptionHandler(BadOrderArgumentException.class)
+    public ResponseEntity<ErrorDTO> hanlderBadOrderArgumentException(BadOrderArgumentException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(), HttpStatus.BAD_REQUEST));
+    }
+
 }
