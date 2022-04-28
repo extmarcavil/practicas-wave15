@@ -36,3 +36,24 @@ En el constructor del repositorio en función cargarUsuarios();
 - US0001, US0006, US0007: Ramiro Augusto Vera Guzman y Nicolás Leonardo Kazandjian.
 - US0002, US0003, US0004: Lorena Maciel Bitencur y Gonzalo Murias.
 - US0005, US0008, US0009: Alan Leonel Gimenez y Alejandro Ivan Henestroza.
+
+### REQUERIMIENTO INDIVIDUAL OPCIONAL US0012
+
+- Obtener un listado con los 3 vendedores con más seguidores. Este listado no debe contener vendedores que no tengan seguidores.
+- Method: GET
+- URL: /users/top-users
+- Response:
+[
+ {
+  "user_id": 5,
+  "followers": 8
+ }
+ {
+  "user_id": 3,
+  "followers": 5
+ }
+ {
+  "user_id": 2,
+  "followers": 2
+ }
+]
