@@ -34,12 +34,19 @@ public class FollowsService implements IFollowsService {
         User toFollow = userRepository.findById(userToFollowId)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userToFollowId + " no encontrado."));;
 
-        boolean resultado = userRepository.follow(follower, toFollow);
-
-        if(!resultado){
+        if(follower.getUserId() == toFollow.getUserId()){
+            throw new UserNotFollowingException("El usuario no puede seguirse a si mismo.");
+        }
+        else if (follower.getSeguidos().contains(toFollow)){
+            throw new UserNotFollowingException("El usuario ya sigue al vendedor.");
+        }
+        else if (!userRepository.follow(follower, toFollow)){
             throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
         }
-        return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
+        else {
+            return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
+        }
+
     }
 
     @Override

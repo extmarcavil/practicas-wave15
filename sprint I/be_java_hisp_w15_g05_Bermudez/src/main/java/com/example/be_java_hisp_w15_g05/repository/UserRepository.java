@@ -107,7 +107,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public int cantPromoPosts(User user) {
+    public int qPromoPosts(User user) {
         return (int) user.getPublicaciones().stream().filter(Post::isHasPromo).count();
     }
 

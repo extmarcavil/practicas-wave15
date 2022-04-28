@@ -70,5 +70,5 @@ public interface IUserRepository {
      * @param user: usuario para buscar la cantidad de publicaciones con promocion.
      * @return cantidad de publicaciones con promocion.
      */
-    int cantPromoPosts(User user);
+    int qPromoPosts(User user);
 }

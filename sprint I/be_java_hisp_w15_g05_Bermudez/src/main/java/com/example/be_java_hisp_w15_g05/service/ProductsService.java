@@ -71,23 +71,23 @@ public class ProductsService implements IProductsService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
 
-        List<Post> listadoPosteos = new ArrayList<>();
+        List<Post> listedPosts = new ArrayList<>();
 
-        for( User usuario : user.getSeguidos()){
-            listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
+        for( User u : user.getSeguidos()){
+            listedPosts.addAll(userRepository.getPostsTwoWeeks(u.getUserId()));
         }
 
         if( order!=null && order.equals("date_desc")){
-            listadoPosteos.sort(Comparator.comparing(Post::getDate));
+            listedPosts.sort(Comparator.comparing(Post::getDate));
         }else{
-            listadoPosteos.sort(Comparator.comparing(Post::getDate).reversed());
+            listedPosts.sort(Comparator.comparing(Post::getDate).reversed());
         }
 
 
 
-        List<PostIdDTO> lista = modelMapper.map(listadoPosteos,new TypeToken<List<PostIdDTO>>() {}.getType());
+        List<PostIdDTO> list = modelMapper.map(listedPosts,new TypeToken<List<PostIdDTO>>() {}.getType());
 
-        return new ResPostListDTO(id,lista);
+        return new ResPostListDTO(id,list);
     }
 
     @Override
@@ -96,9 +96,9 @@ public class ProductsService implements IProductsService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
 
-        int cantPromoPost = userRepository.cantPromoPosts(user);
+        int qPromoPost = userRepository.qPromoPosts(user);
 
-        return new ResCountPromoPostDTO(userId,user.getName(),cantPromoPost);
+        return new ResCountPromoPostDTO(userId,user.getName(),qPromoPost);
     }
 
     @Override
