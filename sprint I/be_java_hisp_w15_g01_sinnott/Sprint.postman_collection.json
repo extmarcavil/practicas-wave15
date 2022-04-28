@@ -88,7 +88,7 @@
 								"count"
 							]
 						},
-						"description": "Poder realizar la acción de “Follow” (seguir) a un determinado vendedor"
+						"description": "Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor"
 					},
 					"response": []
 				},
@@ -415,7 +415,7 @@
 								"{{post_id}}"
 							]
 						},
-						"description": "Actualiza la información de un post existente"
+						"description": "Actualizar la información de un post existente"
 					},
 					"response": []
 				},

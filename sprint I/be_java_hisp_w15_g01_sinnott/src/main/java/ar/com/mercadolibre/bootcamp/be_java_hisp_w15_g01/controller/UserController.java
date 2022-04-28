@@ -21,6 +21,10 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * Endpoint US 01
+     * Realizar la acción de “Follow” (seguir) a un determinado vendedor
+     */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<ResponseDTO> follow(@PathVariable Long userId, @PathVariable long userIdToFollow) {
         log.info("following userId: " + userId + " to userId: " + userIdToFollow);
@@ -29,6 +33,10 @@ public class UserController {
                 .body(userService.follow(userId, userIdToFollow));
     }
 
+    /**
+     * Endpoint US 02
+     * Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
+     */
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> howManyFollowsMe(@PathVariable Long userId) {
         log.info("how many follows userId: " + userId);
@@ -37,6 +45,11 @@ public class UserController {
                 .body(userService.howManyFollowsMe(userId));
     }
 
+    /**
+     * Endpoint US 03 y 08
+     * Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?).
+     * Ordenamiento alfabético ascendente y descendente
+     */
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListDTO> whoFollowsMe(@PathVariable Long userId, @RequestParam(required=false) String order) {
         log.info("who follows userId: " + userId);
@@ -46,6 +59,11 @@ public class UserController {
 
     }
 
+    /**
+     * Endpoint US 04 y 08
+     * Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?).
+     * Ordenamiento alfabético ascendente y descendente
+     */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@PathVariable Long userId , @RequestParam(required = false) String order){
         log.info("All Post by users followed by userId: " + userId);
@@ -54,6 +72,10 @@ public class UserController {
                 .body(userService.findAllFollowedByUserId(userId, order));
     }
 
+    /**
+     * Endpoint US 07
+     * Realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
+     */
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<ResponseDTO> unFollow(@PathVariable long userId, @PathVariable long userIdToUnfollow){
         log.info("unfollowing userId: " + userId + " to userId: " + userIdToUnfollow);

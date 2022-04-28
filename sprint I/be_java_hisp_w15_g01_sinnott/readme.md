@@ -32,7 +32,7 @@ Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
 
 ## End-point: US 02 - Count Followers
-Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
+Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
 ### Method: GET
 >```
 >{{url}}/users/{{seller_id}}/followers/count
@@ -188,7 +188,7 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 
 
 ## End-point: US 12 - Update Post
-Actualiza la información de un post existente
+Actualizar la información de un post existente
 ### Method: PUT
 >```
 >{{url}}/products/update/{{post_id}}
