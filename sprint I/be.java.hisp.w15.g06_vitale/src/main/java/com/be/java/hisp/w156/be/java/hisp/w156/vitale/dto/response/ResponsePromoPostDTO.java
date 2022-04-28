@@ -13,4 +13,8 @@ public class ResponsePromoPostDTO extends ResponsePostDTO{
 
     private boolean has_promo;
     private Double discount;
+
+    public String showProductName() {
+        return this.getDetail().getProduct_name();
+    }
 }

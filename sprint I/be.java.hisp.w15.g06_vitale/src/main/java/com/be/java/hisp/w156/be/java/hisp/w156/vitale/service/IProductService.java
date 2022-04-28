@@ -18,5 +18,5 @@ public interface IProductService {
 
     ResponseEntity<PromoPostsCountDTO> getPromoPostsCount(Integer id);
 
-    ResponseEntity<PromoPostsListDTO> getPromoPostsList(Integer id);
+    ResponseEntity<PromoPostsListDTO> getPromoPostsList(Integer id, String order);
 }

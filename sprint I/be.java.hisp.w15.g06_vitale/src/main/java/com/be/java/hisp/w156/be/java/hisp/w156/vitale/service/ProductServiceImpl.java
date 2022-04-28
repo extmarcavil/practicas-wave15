@@ -5,6 +5,7 @@ import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.*;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.Post;
+import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.Product;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.repository.IUserRepository;
 import org.modelmapper.ModelMapper;
@@ -88,7 +89,7 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<PromoPostsListDTO> getPromoPostsList(Integer user_id) {
+    public ResponseEntity<PromoPostsListDTO> getPromoPostsList(Integer user_id, String order) {
 
         User userSeller = this.userRepository.getUser(user_id);
 
@@ -96,6 +97,11 @@ public class ProductServiceImpl implements IProductService {
                 .filter(Post::isHas_promo)
                 .map(promoPost -> modelMapper.map(promoPost, ResponsePromoPostDTO.class))
                 .collect(Collectors.toList());
+
+        if(order.equals("name_asc"))
+            posts.sort(Comparator.comparing(ResponsePromoPostDTO::showProductName));
+        else
+            posts.sort(Comparator.comparing(ResponsePromoPostDTO::showProductName).reversed());
 
         return new ResponseEntity<>(new PromoPostsListDTO(userSeller.getId(), userSeller.getName(), posts), HttpStatus.OK);
 

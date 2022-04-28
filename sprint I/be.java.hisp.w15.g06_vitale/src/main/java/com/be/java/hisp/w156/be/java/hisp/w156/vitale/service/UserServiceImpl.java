@@ -5,9 +5,9 @@ import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.UserDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.UserFollowedDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.UserFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.SuccessDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.TheUserWasNotFoundException;
+import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.UserNotFollowedException;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.UserAlreadyFollowsTheUserException;
-import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.UserCannotFollowHimselfException;
+import com.be.java.hisp.w156.be.java.hisp.w156.vitale.exception.UserCantFollowHimselfException;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
         User userToFollow = userRepository.getUser(userToFollowId);
 
         if(user == userToFollow)
-            throw new UserCannotFollowHimselfException();
+            throw new UserCantFollowHimselfException();
 
         List<User> followed = user.getFollowed();
 
@@ -61,7 +61,7 @@ public class UserServiceImpl implements IUserService {
 
         List<User> followed = user.getFollowed();
         if(!followed.contains(userToUnfollow))
-            throw new TheUserWasNotFoundException(userId, userToUnfollowId);
+            throw new UserNotFollowedException(userId, userToUnfollowId);
 
         followed.remove(userToUnfollow);
         user.setFollowed(followed);
