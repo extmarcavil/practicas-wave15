@@ -1,10 +1,7 @@
 package com.example.be_java_hisp_w15_g07_ravelli.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -13,7 +10,6 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class Post {
     private Integer postId;
 
@@ -22,11 +18,15 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 
-    public Post(LocalDate date, Product detail, Integer category, Double price) {
+    public Post(LocalDate date, Product detail, Integer category, Double price, Boolean hasPromo, Double discount) {
         this.date = date;
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 }
