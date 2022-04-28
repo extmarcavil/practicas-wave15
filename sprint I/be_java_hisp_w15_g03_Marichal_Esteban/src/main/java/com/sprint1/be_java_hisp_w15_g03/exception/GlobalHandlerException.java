@@ -39,5 +39,4 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);
     }
 
-
 }
