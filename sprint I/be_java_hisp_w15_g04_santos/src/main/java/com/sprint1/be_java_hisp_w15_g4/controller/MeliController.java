@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class MeliController {
+
     ISocialMeliService service;
 
     public MeliController(ISocialMeliService service) {
@@ -23,7 +24,6 @@ public class MeliController {
         service.follow(userId, userIdToFollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
 
     ////////////////////US0002////////////////////
     //Lucas - Luciano
@@ -39,7 +39,6 @@ public class MeliController {
         return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
     }
 
-
     ////////////////////US0004////////////////////
     //Nico - Nico
     @GetMapping("/users/{userId}/followed/list")
@@ -54,6 +53,7 @@ public class MeliController {
         service.createPost(post);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
     ////////////////////US0006////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
