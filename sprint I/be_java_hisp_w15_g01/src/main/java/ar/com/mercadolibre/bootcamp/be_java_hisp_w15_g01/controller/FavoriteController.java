@@ -1,16 +1,18 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FavoriteDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.FavoriteService;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserService;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FavoriteDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FavoritesCountDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.FavoriteService;
 
 @RestController
 @RequestMapping("/favorites")
@@ -27,5 +29,13 @@ public class FavoriteController {
                 .status(HttpStatus.OK)
                 .body(favoriteService.create(favoriteDTO));
     }
+    
+    @GetMapping("/{userId}/count")
+    public ResponseEntity<FavoritesCountDTO> getFavorites(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(favoriteService.getFavorites(userId));
+    }
+
 
     }

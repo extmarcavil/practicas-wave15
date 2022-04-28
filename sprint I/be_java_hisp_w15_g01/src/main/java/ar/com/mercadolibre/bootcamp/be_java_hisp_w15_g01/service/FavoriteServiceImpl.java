@@ -3,6 +3,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 import org.springframework.stereotype.Service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FavoriteDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FavoritesCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
@@ -29,6 +30,16 @@ public class FavoriteServiceImpl implements FavoriteService {
         favoriteRepository.save(user, post);
         ResponseDTO dto = new ResponseDTO();
         dto.setMessage("Favorite Created!");
+        return dto;
+    }
+
+    @Override
+    public FavoritesCountDTO getFavorites(Long userId) {
+        User user = userService.findById(userId);
+        FavoritesCountDTO dto = new FavoritesCountDTO();
+        dto.setUserId(userId);
+        dto.setUserName(user.getUserName());
+        dto.setFavoritesCount(favoriteRepository.whoFavorite(user).size());
         return dto;
     }
 }

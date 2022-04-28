@@ -84,3 +84,24 @@ class TestApi(unittest.TestCase):
         r = requests.post(url, json=datos)
         # verificamos que responda 404 not found
         self.assertEquals(r.status_code, 404)
+
+    def test_elUsuarioPuedeConsultarCuantosFavoritosTiene(self):
+        userId=1
+        url = self.host+"/favorites/{userId}/count".format(userId=userId)
+        r = requests.get(url)
+        count=r.json()['favorites_count']
+        urlPost = self.host+"/favorites/add"
+        datos= {
+            "user_id": userId,
+            "product_id": 1
+        }
+        r = requests.post(urlPost, json=datos)
+        # verificamos que responda 200 okey
+        self.assertEquals(r.status_code, 200)
+
+        # consultamos de vuelta para ver si sumó uno:
+        r = requests.get(url)
+        count2=r.json()['favorites_count']
+        self.assertEquals(count+1, count2)
+
+        
