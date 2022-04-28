@@ -403,6 +403,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "US 13 - Seller's All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/post/{{seller_id}}/all",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"post",
+								"{{seller_id}}",
+								"all"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

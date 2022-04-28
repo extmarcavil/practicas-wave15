@@ -89,6 +89,8 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `userId` | `int` | **Required**. id de la persona|
 | `order` | `String` | **Optional**. tipo de orden|
 
+## Desarrollo Individual
+
 #### Post con promo
 
 ```http
@@ -120,6 +122,8 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 |:----------| :------- | :------------------------- |
 | `user_id` | `int` | **Required**. id de la persona |
 
+## Bonus
+
 #### Lista de productos en promocion de un vendedor
 
 ````http 
@@ -129,6 +133,16 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | Parameter | Type     | Description                |
 |:----------| :------- | :------------------------- |
 | `user_id` | `int` | **Required**. id de la persona |
+
+#### Lista de todos los productos de un vendedor
+
+````http 
+  GET /products/post/{userId}/all
+````
+
+| Parameter | Type     | Description                |
+|:----------| :------- | :------------------------- |
+| `userId`  | `int` | **Required**. id de la persona |
 
 ## Authors
 

@@ -42,4 +42,9 @@ public class ProductsController {
     public ResponseEntity<ResPostPromoListDTO> promoPostList(@RequestParam Integer user_id) {
         return new ResponseEntity<>(productsService.getPostPromoList(user_id), HttpStatus.OK);
     }
+
+    @GetMapping("/post/{userId}/all")
+    public ResponseEntity<ResPostPromoListDTO> allPost(@PathVariable int userId) {
+        return new ResponseEntity<>(productsService.getAllPost(userId), HttpStatus.OK);
+    }
 }

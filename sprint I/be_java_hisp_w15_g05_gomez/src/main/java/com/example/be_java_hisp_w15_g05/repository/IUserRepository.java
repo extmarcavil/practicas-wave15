@@ -54,8 +54,13 @@ public interface IUserRepository {
 
     /**
      * @param id del usuario
-     * @return lista de post del usuario solicitado
+     * @return lista de post de las ultimas dos semanas del usuario solicitado
      */
     List<Post> getPostsTwoWeeks(int id);
 
+    /**
+     * @param id del seller.
+     * @return lista completa de post del usuario.
+     */
+    List<Post> getAllPost(int id);
 }

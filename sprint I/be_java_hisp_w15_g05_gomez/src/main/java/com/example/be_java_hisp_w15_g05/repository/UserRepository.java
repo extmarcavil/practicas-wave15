@@ -99,6 +99,13 @@ public class UserRepository implements IUserRepository {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<Post> getAllPost(int id) {
+        return posts.stream()
+                .filter(p -> p.getUser_id() == id)
+                .collect(Collectors.toList());
+    }
+
 
     public Optional<User> sellersList(int id) {
         return findById(id);

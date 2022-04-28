@@ -109,6 +109,20 @@ public class ProductsService implements IProductsService {
         return new ResPostPromoListDTO(id, user.getName(), lista);
     }
 
+    @Override
+    public ResPostPromoListDTO getAllPost(int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
+
+        List<Post> postList = userRepository.getAllPost(id);
+
+        List<PostFullDTO> dtoList = modelMapper.map(postList, new TypeToken<List<PostFullDTO>>() {
+        }.getType());
+
+        
+        return new ResPostPromoListDTO(id, user.getName(), dtoList);
+    }
+
 
     private void validateDate(LocalDate date) {
         long period = ChronoUnit.DAYS.between(date, LocalDate.now());

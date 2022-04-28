@@ -33,4 +33,10 @@ public interface IProductsService {
      * @return DTO con id y nombre del usuario y DTO 'posts'
      */
     ResPostPromoListDTO getPostPromoList(int id);
+
+    /**
+     * @param id del seller
+     * @return DTO con id y nombre del usuario y DTO 'posts'
+     */
+    ResPostPromoListDTO getAllPost(int id);
 }
