@@ -1,10 +1,7 @@
 package com.example.be_java_hisp_w15_g07.service;
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.PromoProductsCountDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.*;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
@@ -106,5 +103,22 @@ public class PostService implements IPostService{
         User user = userRepository.findById(userId);
         int count = (int) user.getPosts().stream().filter(Post::getHasPromo).count();
         return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), count);
+    }
+
+    /**
+     * Get promo products list
+     *
+     * @param userId Integer
+     * @return {@link PromoPostsListDTO}
+     * @see PromoPostsListDTO
+     */
+    @Override
+    public PromoPostsListDTO getPromoProductsList(Integer userId) {
+        User user = userRepository.findById(userId);
+        List<PromoPostDTO> posts = user.getPosts().stream()
+                .filter(Post::getHasPromo)
+                .map(v -> modelMapper.map(v, PromoPostDTO.class))
+                .collect(Collectors.toList());
+        return new PromoPostsListDTO(user.getUserId(), user.getUserName(), posts);
     }
 }

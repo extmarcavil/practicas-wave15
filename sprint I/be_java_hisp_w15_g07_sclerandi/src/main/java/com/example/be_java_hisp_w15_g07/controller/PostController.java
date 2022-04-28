@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g07.controller;
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.PromoPostsListDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
@@ -78,5 +79,10 @@ public class PostController {
     @GetMapping("/promo-post/count")
     public ResponseEntity<PromoProductsCountDTO> getPromoProductsCount(@RequestParam(name="user_id") Integer userId){
         return new ResponseEntity<>(postService.getPromoProductsCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<PromoPostsListDTO> getPromoProductsList(@RequestParam(name="user_id") Integer userId){
+        return new ResponseEntity<>(postService.getPromoProductsList(userId), HttpStatus.OK);
     }
 }
