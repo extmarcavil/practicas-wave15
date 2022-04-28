@@ -15,14 +15,4 @@ public class PostPromoRequestDTO {
     private boolean hasPromo;
     private Double discount;
 
-    public PostPromoRequestDTO(Integer userId, String date, Product detail, Integer category,
-                               Double price, boolean hasPromo, Double discount) {
-        this.userId = userId;
-        this.date = date;
-        this.detail = detail;
-        this.category = category;
-        this.price = price;
-        this.hasPromo = hasPromo;
-        this.discount = discount;
-    }
 }

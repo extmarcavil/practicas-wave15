@@ -3,7 +3,6 @@ package sprint1.socialmeli.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sprint1.socialmeli.dto.*;
-import sprint1.socialmeli.model.PostPromo;
 import sprint1.socialmeli.utils.PostConverter;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
@@ -55,6 +54,13 @@ public class ProductService implements IProductService {
         User user = getUserFromRepositoryById(user_id);
 
         return new ResponsePostPromoListDTO(user_id, user.getName(), postRepository.promoCount());
+    }
+
+    @Override
+    public ResponseProductsDTO promoProducts(Integer user_id) {
+        User user = getUserFromRepositoryById(user_id);
+        return new ResponseProductsDTO(user.getId(), user.getName(), postRepository.getListOfPostPromOfUser(user_id));
+
     }
 
     //----------Private----------//

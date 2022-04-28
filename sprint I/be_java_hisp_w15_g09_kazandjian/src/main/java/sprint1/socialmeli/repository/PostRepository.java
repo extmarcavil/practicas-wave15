@@ -2,8 +2,8 @@ package sprint1.socialmeli.repository;
 
 import lombok.Getter;
 import org.springframework.stereotype.Repository;
+import sprint1.socialmeli.dto.PostPromoResponseDTO;
 import sprint1.socialmeli.model.Post;
-import sprint1.socialmeli.model.PostPromo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -46,6 +46,16 @@ public class PostRepository implements IPostRepository {
             contador ++;
         }
         return contador;
+    }
+
+
+
+    @Override
+    public List<Post> getListOfPostPromOfUser(int followedIDToSearch){
+        return postPromoList.values()
+                .stream()
+                .filter((Post p) -> p.hasUserID(followedIDToSearch))
+                .collect(Collectors.toList());
     }
 
     @Override
