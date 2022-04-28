@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
+@RequestMapping("/products")
 public class ProductsController {
 
     private IProductsService productsService;
@@ -19,27 +20,27 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
-    @PostMapping("/products/post")
+    @PostMapping("/post")
     public ResponseEntity<ResCreatePostDTO> createPost(@RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.OK);
     }
 
-    @GetMapping("/products/followed/{userId}/list")
+    @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ResPostListDTO> getPostFollowed(@PathVariable int userId, @RequestParam(required = false) String order) {
         return new ResponseEntity<>(productsService.getPostFollowed(userId, order), HttpStatus.OK);
     }
 
-    @PostMapping("/products/promo-post")
+    @PostMapping("/promo-post")
     public ResponseEntity<ResCreatePostDTO> createPromoPost(@RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.OK);
     }
 
-    @GetMapping("/products/promo-post/count")
+    @GetMapping("/promo-post/count")
     public ResponseEntity<ResPromoPostsDTO> getCountPromoPosts(@RequestParam int userId) {
         return new ResponseEntity<>(productsService.getCountPromoPosts(userId), HttpStatus.OK);
     }
 
-    @GetMapping("/products/promo-post/list")
+    @GetMapping("/promo-post/list")
     public ResponseEntity<ResListPromoPostDTO> getListPromoPosts(@RequestParam int userId) {
         return new ResponseEntity<>(productsService.getListPromoPosts(userId), HttpStatus.OK);
     }

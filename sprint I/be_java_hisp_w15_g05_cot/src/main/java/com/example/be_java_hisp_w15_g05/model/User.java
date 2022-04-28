@@ -12,8 +12,8 @@ public class User {
     private String name;
     private boolean isSeller;
 
-    private ArrayList<User> seguidos = new ArrayList<>();
-    private ArrayList<User> seguidores = new ArrayList<>();
+    private ArrayList<User> followed = new ArrayList<>();
+    private ArrayList<User> followers = new ArrayList<>();
 
     public User(int userId, String name, boolean isSeller) {
         this.userId = userId;
@@ -22,19 +22,19 @@ public class User {
     }
 
     public void addFollower(User user) {
-        seguidores.add(user);
+        followers.add(user);
     }
 
     public void deleteFollower(User user) {
-        seguidores.remove(user);
+        followers.remove(user);
     }
 
     public void follow(User user) {
-        seguidos.add(user);
+        followed.add(user);
     }
 
     public void unfollow(User user) {
-        seguidos.remove(user);
+        followed.remove(user);
     }
 }
 
