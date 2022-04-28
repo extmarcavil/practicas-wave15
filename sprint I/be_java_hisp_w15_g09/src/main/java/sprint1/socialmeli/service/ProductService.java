@@ -1,12 +1,10 @@
 package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.PromoPostRequestDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.utils.PostConverter;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PostResponseDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -48,6 +46,13 @@ public class ProductService implements IProductService {
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
         return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+    }
+
+    @Override
+    public ResponsePromoPostCountDTO countPromoPostOfUser(int userId) {
+        User user = getUserFromRepositoryById(userId);
+        int contador = postRepository.countPromoPostOfUser(userId);
+        return new ResponsePromoPostCountDTO(user.getId(), user.getName(), contador);
     }
 
     //----------Private----------//

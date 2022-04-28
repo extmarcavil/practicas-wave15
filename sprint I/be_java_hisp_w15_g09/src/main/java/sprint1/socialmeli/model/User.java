@@ -16,13 +16,14 @@ public class User {
     String name;
     List<User> listOfFollowers;
     List<User> listOfFollowed;
-    //...List<>
+    List<Post> listOfPosts;
 
     public User(Integer id, String name) {
         this.name = name;
         this.id = id;
         this.listOfFollowed = new ArrayList<>();
         this.listOfFollowers = new ArrayList<>();
+        this.listOfPosts = new ArrayList<>();
     }
 
     public User(UserDTO dto) {
@@ -37,7 +38,7 @@ public class User {
 
     public void follow(User followedUser) {
         if( followedUser.equals(this))
-            throw new InvalidFollower("El usuario puede seguirse a si mismo");
+            throw new InvalidFollower("El usuario no puede seguirse a si mismo");
         if( this.listOfFollowed.contains(followedUser) )
             throw new InvalidFollower("El usuario no puede seguir a alguien que ya sigue");
         this.listOfFollowed.add(followedUser);
@@ -61,6 +62,5 @@ public class User {
     private void addTolistOfFollowers(User user) {
         this.listOfFollowers.add(user);
     }
-
 
 }

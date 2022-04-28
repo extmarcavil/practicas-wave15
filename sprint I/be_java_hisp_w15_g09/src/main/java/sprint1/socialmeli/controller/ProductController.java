@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PromoPostRequestDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.service.IProductService;
 
 @RestController
@@ -33,5 +31,9 @@ public class ProductController {
         return ResponseEntity.ok().body("Creado post: " + productService.save(PromoPost));
     }
 
-
+    // US 0011
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<ResponsePromoPostCountDTO> countPromoPostOfUser(@RequestParam int user_id){
+        return ResponseEntity.ok(productService.countPromoPostOfUser(user_id));
+    }
 }

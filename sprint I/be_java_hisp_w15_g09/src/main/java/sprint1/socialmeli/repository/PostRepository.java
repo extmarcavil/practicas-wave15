@@ -34,4 +34,14 @@ public class PostRepository implements IPostRepository {
                 .filter((Post p) -> p.hasUserID(followedIDToSearch))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public Integer countPromoPostOfUser(int userId) {
+        return postList.values()
+                .stream()
+                .filter(p -> p.hasUserID(userId) && p.isHasPromo())
+                .collect(Collectors.toList()).size();
+    }
+
+
 }
