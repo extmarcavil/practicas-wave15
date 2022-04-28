@@ -2,9 +2,7 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dtos.Requests.PostDTO;
-import sprint1.socialmeli.dtos.Requests.PromoPostRequestDTO;
-import sprint1.socialmeli.dtos.Responses.*;
+import sprint1.socialmeli.dtos.*;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.exceptions.InvalidPromoPostException;

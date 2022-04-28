@@ -1,10 +1,10 @@
 package sprint1.socialmeli.service;
 
-import sprint1.socialmeli.dtos.Requests.PromoPostRequestDTO;
-import sprint1.socialmeli.dtos.Requests.PostDTO;
-import sprint1.socialmeli.dtos.Responses.PostListDTO;
-import sprint1.socialmeli.dtos.Responses.PromoPostCountDTO;
-import sprint1.socialmeli.dtos.Responses.PromoPostListDTO;
+import sprint1.socialmeli.dtos.PromoPostRequestDTO;
+import sprint1.socialmeli.dtos.PostDTO;
+import sprint1.socialmeli.dtos.PostListDTO;
+import sprint1.socialmeli.dtos.PromoPostCountDTO;
+import sprint1.socialmeli.dtos.PromoPostListDTO;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
 public interface IProductService {

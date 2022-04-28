@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dtos.Responses;
+package sprint1.socialmeli.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,15 +10,16 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-public class FollowedListDTO {
+public class FollowersListDTO {
 
     private Integer userId;
     private String userName;
-    private List<UserDTO> followed;
+    private List<UserDTO> followers;
 
-    public FollowedListDTO(User user, List<UserDTO> listOfDTO) {
+    public FollowersListDTO(User user, List<UserDTO> listOfDTO) {
         this.userId = user.getId();
         this.userName = user.getName();
-        this.followed = listOfDTO;
+        this.followers = listOfDTO;
+
     }
 }
