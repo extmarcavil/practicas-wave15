@@ -1,7 +1,9 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PromoPostCountDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,25 @@ public class PostController {
         return productService.savePost(requestPostDTO);
     }
 
+    @PostMapping("promo-post")
+    public ResponseEntity<SuccessDTO> createPostPromo(@RequestBody RequestPostPromoDTO requestPostPromoDTO) {
+        return productService.savePostPromo(requestPostPromoDTO);
+    }
+
     @GetMapping("followed/{userId}/list")
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(@PathVariable Integer userId,
                                                                    @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsLastTwoWeekById(userId, order);
 
     }
+
+    @GetMapping("promo-post/count")
+    public ResponseEntity<PromoPostCountDTO> getCountPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id) {
+        return productService.getCountPostPromoByUser(user_id);
+
+    }
+
+    ///products/promo-post/count?user_id={userId}
+
 
 }

@@ -1,8 +1,11 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PromoPostCountDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.ResponsePostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserCountFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
@@ -42,6 +45,21 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
+    public ResponseEntity<SuccessDTO> savePostPromo(RequestPostPromoDTO requestPostPromoDto) {
+
+        if (useRepository.existsById(requestPostPromoDto.getUser_id())) {
+            Post postToSaved = Post.fromPromo(requestPostPromoDto);
+            User user = useRepository.getUser(requestPostPromoDto.getUser_id());
+            user.getPosts().add(postToSaved);
+            String message = String.format("Promo-Post from User ID: %s was saved successfully", postToSaved.getId());
+            return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
+        }
+        throw new UserNotFoundException(requestPostPromoDto.getUser_id());
+
+    }
+
+
+    @Override
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order) {
 
         List<ResponsePostDTO> posts = useRepository.getUser(id).getFollowed().stream()
@@ -57,6 +75,25 @@ public class ProductServiceImpl implements IProductService {
 
         return new ResponseEntity<>(RecentlyPostDTO.from(id, posts), HttpStatus.OK);
     }
+
+    @Override
+    public ResponseEntity<PromoPostCountDTO> getCountPostPromoByUser(Integer id) {
+        User user = useRepository.getUser(id);
+        Integer countPostPromo = user.getPosts().stream()
+                .filter(post -> post.isHas_promo())
+                .collect(Collectors.toList()).size();
+
+        PromoPostCountDTO promoPostCountDTO = new PromoPostCountDTO(user.getId(),
+                user.getName(),
+                 countPostPromo);
+
+        return new ResponseEntity<>(promoPostCountDTO, HttpStatus.OK);
+    }
+
+
+
+
+
 
     private boolean byLastTwoWeek(LocalDate date) {
         long days = ChronoUnit.DAYS.between(date, LocalDate.now());

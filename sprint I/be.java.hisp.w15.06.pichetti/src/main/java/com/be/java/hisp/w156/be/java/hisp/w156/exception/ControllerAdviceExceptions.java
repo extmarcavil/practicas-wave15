@@ -14,4 +14,20 @@ public class ControllerAdviceExceptions extends ResponseEntityExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 
+    @ExceptionHandler(value = {UserAlreadyFollowsTheUserException.class})
+    protected ResponseEntity<Object> AlreadyFollowsTheUserException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserCannotFollowHimselfException.class})
+    protected ResponseEntity<Object> CannotFollowHimselfException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = {TheUserWasNotFoundException.class})
+    protected ResponseEntity<Object> TheUserWasNotFoundException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+
 }

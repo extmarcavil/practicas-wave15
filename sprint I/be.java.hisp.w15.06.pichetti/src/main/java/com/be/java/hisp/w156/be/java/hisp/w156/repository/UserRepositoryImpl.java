@@ -25,11 +25,11 @@ public class UserRepositoryImpl implements IUserRepository {
     public void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
         List<Post> posts = Stream.of(
-                new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
-                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50)
+                new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50, false, 0.0),
+                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50,false, 0.0)
         ).collect(Collectors.toList());
 
-        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50))
+        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50,false, 0.0))
                 .collect(Collectors.toList());
 
         User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
