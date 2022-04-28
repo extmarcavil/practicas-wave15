@@ -91,7 +91,6 @@ public class UserService implements IUserService {
         FollowersDTO vendedorsFollowedDTO = new FollowersDTO();
         List<UserDTO> listUsers = new ArrayList<>();
 
-
         user.getFollowers().forEach(u -> {
             UserDTO userDTO = new UserDTO();
             userDTO.setUser_id(u.getUser_id());
