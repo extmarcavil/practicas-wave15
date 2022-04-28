@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g07_ravelli.controller;
 
 
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.service.IPostService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +37,31 @@ public class PostController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    /**
+     * new post with discount
+     *
+     * @param postDTO {@link NewPostDTO}
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Tomas Ravelli
+     */
     @PostMapping("/promo-post")
     public ResponseEntity<?> newPostWithDiscount(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    /**
+     * get count of promo products by user id
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see PromoProductsCountDTO
+     */
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<PromoProductsCountDTO> getPromoProductsCount (@RequestParam(name = "user_id") Integer userId) {
+        return new ResponseEntity<>(postService.getPromoProductsCountByUserId(userId), HttpStatus.OK);
+    }
+
 }

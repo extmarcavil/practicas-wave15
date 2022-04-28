@@ -2,6 +2,7 @@ package com.example.be_java_hisp_w15_g07_ravelli.service;
 
 
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PostDTO;
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.model.Post;
 import com.example.be_java_hisp_w15_g07_ravelli.model.User;
@@ -68,6 +69,20 @@ public class PostService implements IPostService{
         List<PostDTO> listFollowedPosts = listPostsOrdered.stream().map(v -> modelMapper.map(v, PostDTO.class)).collect(Collectors.toList());
 
         return new UserFollowedPostsDTO(userId, listFollowedPosts);
+    }
+
+    /**
+     * get promo products count by user id
+     *
+     * @param userId Integer
+     * @return {@link PromoProductsCountDTO}
+     * @see PromoProductsCountDTO
+     */
+    @Override
+    public PromoProductsCountDTO getPromoProductsCountByUserId(Integer userId) {
+        User user = userRepository.findById(userId);
+        Long promoProductsCount = userRepository.getPromoProductsCount(userId);
+        return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), promoProductsCount);
     }
 
     /**
