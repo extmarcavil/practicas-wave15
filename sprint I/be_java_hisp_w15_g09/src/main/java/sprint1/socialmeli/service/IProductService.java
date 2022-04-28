@@ -13,6 +13,13 @@ public interface IProductService {
      */
     Integer save(PostRequestDTO post);
 
+    /**
+     * Recibe un PromoPostRequestDTO e intenta convertirlo a Post. Si esta conversion falla,
+     * lanza una excepcion del tipo InvalidPostException. Si logra convertir el Post, llama al metodo save de un
+     * IPostRepository.
+     * @param post PromoPostRequestDTO que se quiere guardar.
+     * @return PostId el id del post que se creó.
+     */
     Integer save(PromoPostRequestDTO post);
 
     /**
@@ -28,8 +35,22 @@ public interface IProductService {
      */
     ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order);
 
+    /**
+     * Retorna la cantidad de posteos realiazdos por un usuario.
+     * @param userId indice del usuario
+     * @return ResponsePromoPostCountDTO
+     * @throws UserNotFound si el usuario no es encontradoo
+     */
     ResponsePromoPostCountDTO countPromoPostOfUser(int userId);
 
+
+    /**
+     * Retorna la lista de posteos realizados por un usuario
+     * Este método recibe el identificador de un usuario userId. Al invocar este método se obtendrá la lista de posteos realizados por el mismo (ya sean de productos promo o no).
+     * @param userId indice del usuario seguidor
+     * @return ResponsePostListOfUser
+     * @throws UserNotFound si alguno de los usuarios no fue encontrado
+     */
     ResponsePostListOfUser listPostsOfUser(int userId);
 
 }

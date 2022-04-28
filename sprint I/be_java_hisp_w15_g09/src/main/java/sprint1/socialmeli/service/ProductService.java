@@ -147,6 +147,11 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Obtiene una lista de publicaciones realizadas por un usuario.
+     * @param userId
+     * @return lista de posteos.
+     */
     private List<Post> getPostsOfUser(int userId){
         return postRepository.getListOfPostOfUser(userId);
     }
