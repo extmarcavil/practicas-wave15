@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g08.service;
 
+import com.bootcamp.be_java_hisp_w15_g08.dto.request.DetailDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.PromoPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
@@ -120,7 +121,9 @@ public class UserService implements IUserService{
     @Override
     public PromoListDTO getPromoList(Integer user_id) {
         List <PromoPost> listaPromo= repository.findUser(user_id).getPromoPosts();
+        listaPromo.sort(Comparator.comparing(promoPost -> promoPost.getDetail().getProduct_name()));
         List<ResponsePromoPostDTO> promoPostDTOS=listaPromo.stream().map(promoPost -> mapper.map(promoPost,ResponsePromoPostDTO.class)).collect(toList());
+
         return new PromoListDTO(user_id,repository.findUser(user_id).getName(),promoPostDTOS);
     }
 
