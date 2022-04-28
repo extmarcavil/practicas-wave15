@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * This is the exception handler class
@@ -17,9 +18,10 @@ public class ControllerAdviceClient{
      * @return The response entity containing the exception
      */
     @ExceptionHandler(NotSellerException.class)
-    public ResponseEntity<ErrorDTO> cantFollowHandler() {
+    public ResponseEntity<ErrorDTO> notSellerExceptionHandler(NotSellerException e) {
+        //cantFollow
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("El usuario que intentas seguir no es vendedor");
+        errorDTO.setMessage(e.getLocalizedMessage());
         errorDTO.setStatus(false);
         return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.BAD_REQUEST);
     }

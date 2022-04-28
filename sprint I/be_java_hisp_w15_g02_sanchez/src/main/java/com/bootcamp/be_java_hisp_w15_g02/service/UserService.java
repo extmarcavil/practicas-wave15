@@ -41,7 +41,7 @@ public class UserService implements IUserService {
     @Override
     public void follow(int userId, int userIdToFollow) {
         if (!userRepository.follow(userId, userIdToFollow))
-            throw new NotSellerException("Error en seguir usuario");
+            throw new NotSellerException("El usuario que intentas seguir no es vendedor");
     }
 
     /**

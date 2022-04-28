@@ -66,6 +66,7 @@ public class PostService implements IPostService{
         var modelPost = new Post(
                 id, newPost.getUser_id(), date, Integer.valueOf(newPost.getCategory()), modelProduct, newPost.getPrice(),newPost.isHas_promo(),newPost.getDiscount());
         postRepository.createPost(modelPost);
+        userRepository.getUserById(newPost.getUser_id()).setSeller(true);
         return true;
     }
 
@@ -178,7 +179,7 @@ public class PostService implements IPostService{
         });
         result.setUser_id(whereUser.getUserId());
         result.setUser_name(whereUser.getUserName());
-        result.setPosts((List)listPost);
+        result.setPosts(listPost);
         return result;
     }
 }
