@@ -51,7 +51,7 @@ public class ProductServiceImpl implements IProductService {
                        .filter(post -> byLastTwoWeek(post.getDate())))
                .map(ResponsePostDTO::from)
                .collect(Collectors.toList());
-
+        //Ordenamiento por fecha de forma ascendente y descendente
         if(order.equals("date_asc"))
             posts.sort(Comparator.comparing(ResponsePostDTO::getDate));
         else
@@ -92,7 +92,7 @@ public class ProductServiceImpl implements IProductService {
                 .filter(p ->p.getHas_promo() == true)
                 .map(ResponsePostPromoDTO::from)
                 .collect(Collectors.toList());
-
+        //Ordenamiento por nombre del producto de forma ascendente y descendente
         if(order.equals("name_asc"))
             postsWithPromo.sort(Comparator.comparing(a -> a.getDetail().getName()));
         else
@@ -100,4 +100,5 @@ public class ProductServiceImpl implements IProductService {
 
         return new ResponseEntity<>(RecentlyPostPromoDTO.from(id, userseller.getName(), postsWithPromo), HttpStatus.OK);
     }
+
 }

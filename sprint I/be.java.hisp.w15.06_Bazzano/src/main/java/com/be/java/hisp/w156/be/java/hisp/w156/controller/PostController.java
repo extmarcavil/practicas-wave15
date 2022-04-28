@@ -23,11 +23,13 @@ public class PostController {
         this.productService = productService;
     }
 
+    //Dar de alta una nueva publicación
     @PostMapping("post")
     public ResponseEntity<SuccessDTO> createPost(@RequestBody RequestPostDTO requestPostDTO) {
         return productService.savePost(requestPostDTO);
     }
 
+    //Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas
     @GetMapping("followed/{userId}/list")
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(@PathVariable Integer userId,
                                                                    @RequestParam(required=false, defaultValue = "") String order) {
@@ -35,19 +37,24 @@ public class PostController {
 
     }
 
+    //Llevar a cabo la publicación de un nuevo producto en promoción
     @PostMapping("/promo-post")
     public ResponseEntity<SuccessDTO> createPostPromotion(@RequestBody RequestPostPromoDTO requestPostPromoDTO) {
         return productService.savePostPromo(requestPostPromoDTO);
     }
 
+    //Obtener la cantidad de productos en promoción de un determinado vendedor
     @GetMapping("/promo-post/count")
     public ResponseEntity<PostCountPromoDTO> getCountPromo(@RequestParam Integer user_id){
         PostCountPromoDTO postCountPromoDTO = productService.getCountPromotion(user_id);
         return new ResponseEntity<>(postCountPromoDTO, HttpStatus.OK);
     }
 
+    //Obtener un listado de todos los productos en promoción de un determinado vendedor
     @GetMapping("/promo-post/list")
     public ResponseEntity<RecentlyPostPromoDTO> getPostsPromotion(@RequestParam Integer user_id, @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsPromotion(user_id, order);
     }
+
+    
 }

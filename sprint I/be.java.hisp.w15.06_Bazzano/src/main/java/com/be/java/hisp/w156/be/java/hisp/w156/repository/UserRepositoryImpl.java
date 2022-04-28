@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 public class UserRepositoryImpl implements IUserRepository {
 
     private List<User> users;
-
+    private List<Product> products;
     public UserRepositoryImpl() {
         initData();
     }
@@ -42,11 +42,11 @@ public class UserRepositoryImpl implements IUserRepository {
 
                 .collect(Collectors.toList());
 
-        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
-        User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
-        User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>());
-        User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>());
-        User user5 = new User(5, "Paola", posts3, new ArrayList<User>(), new ArrayList<User>());
+        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
+        User user2 = new User(2, "Moni", posts, new ArrayList<>(), new ArrayList<>());
+        User user3 = new User(3, "Dardo", posts2, new ArrayList<>(), new ArrayList<>());
+        User user4 = new User(4, "Marialena", posts2, new ArrayList<>(), new ArrayList<>());
+        User user5 = new User(5, "Paola", posts3, new ArrayList<>(), new ArrayList<>());
 
         user1.getFollowed().add(user3);
         user2.getFollowed().add(user3);

@@ -93,7 +93,7 @@ public class UserServiceImpl implements IUserService {
                     .collect(Collectors.toList());
 
         }
-
+        //Ordenamiento alfabético ascendente y descendente
         if(order.equals("name_asc"))
             followers.sort(Comparator.comparing(UserDTO::getUser_name));
         else
@@ -113,7 +113,7 @@ public class UserServiceImpl implements IUserService {
                     .collect(Collectors.toList());
 
         }
-
+        //Ordenamiento alfabético ascendente y descendente
         if(order.equals("name_asc"))
             followed.sort(Comparator.comparing(UserDTO::getUser_name));
         else if (order.equals("name_desc"))
