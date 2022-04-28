@@ -21,8 +21,7 @@ public class Post {
     private double discount;
 
     public boolean ultimas2Semanas() {
-        Period periodo = Period.between(date, LocalDate.now());
-        return periodo.getDays() <= 14;
+        return !date.isBefore(LocalDate.now().minusDays(14));
     }
 
     public Post(){

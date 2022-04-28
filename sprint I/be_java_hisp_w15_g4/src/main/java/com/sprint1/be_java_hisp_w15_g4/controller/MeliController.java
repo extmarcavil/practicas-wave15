@@ -85,6 +85,12 @@ public class MeliController {
         return ResponseEntity.ok(service.countPromo(user_id));
     }
 
+    ////////////////////US00012////////////////////
+    // individual luciano Bonus
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PostPromoListDTO> showPromos(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.showPromo(user_id));
+    }
 
 
 }

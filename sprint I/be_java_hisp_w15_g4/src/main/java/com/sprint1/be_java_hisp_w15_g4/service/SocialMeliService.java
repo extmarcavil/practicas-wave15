@@ -6,6 +6,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
+import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentExcepcion;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
@@ -35,17 +36,16 @@ public class SocialMeliService implements ISocialMeliService {
 
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
-        if (!seguidor.getFollowing().contains(seguido) ){
+        if (!seguidor.getFollowing().contains(seguido)) {
             seguido.addFollower(seguidor);
             seguidor.addFollowing(seguido);
-        }
-        else throw new AlreadyFollowing(userID,userIDToFollow);
+        } else throw new AlreadyFollowing(userID, userIDToFollow);
     }
 
     @Override
     public FollowerCountDTO countFollowers(int userID) {
         User user = getUser(userID);
-        return new FollowerCountDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().size());
+        return new FollowerCountDTO(user.getUser_id(), user.getUser_name(), user.getFollowers().size());
     }
 
     private User getUser(int userID) {
@@ -56,13 +56,13 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public FollowerListDTO listFollowers(int userID,String order) {
+    public FollowerListDTO listFollowers(int userID, String order) {
         User user = getUser(userID);
 
-        FollowerListDTO retorno= new FollowerListDTO(user.getUser_id(),user.getUser_name(),
+        FollowerListDTO retorno = new FollowerListDTO(user.getUser_id(), user.getUser_name(),
                 user.getFollowers().stream()
-                .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
-                .collect(Collectors.toList())
+                        .map(user1 -> new UserDTO(user1.getUser_id(), user1.getUser_name()))
+                        .collect(Collectors.toList())
         );
         orderByName(order, retorno.getFollowers());
         return retorno;
@@ -90,7 +90,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followingsDTO;
     }
 
-    public Product productDTOToproduct(ProductDTO productDetail){
+    public Product productDTOToproduct(ProductDTO productDetail) {
         Product producto = new Product();
         producto.setProduct_id(productDetail.getProduct_id());
         producto.setProduct_name(productDetail.getProduct_name());
@@ -119,7 +119,7 @@ public class SocialMeliService implements ISocialMeliService {
 
         List<Post> posts = vendedoresSeguidos.stream()
                 .flatMap(v -> v.getPosts().stream())
-                .filter(Post :: ultimas2Semanas)
+                .filter(Post::ultimas2Semanas)
                 .collect(Collectors.toList());
 
         List<Post> ordenado = orderByDate(posts, order);
@@ -132,25 +132,28 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private void orderByName(String order, List<UserDTO> userDTO) {
-        if (order == null || order.equals("name_asc")) {
+        if (order == null || order.equals("name_asc"))
             userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
-        } else if (order.equals("name_desc")) {
-            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
-        }
+        else if (order.equals("name_desc"))
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+        else
+            throw new BadOrderArgumentExcepcion(order);
     }
 
     private List<Post> orderByDate(List<Post> posts, String order) {
         if (order == null || order.equals("date_desc"))
+            return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else if (order.equals("date_asc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
-
-        return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else
+            throw new BadOrderArgumentExcepcion(order);
     }
 
     @Override
     public void unfollow(int userID, int userIDToUnfollow) {
         User user = getUser(userID);
         User userToUnfollow = getUser(userIDToUnfollow);
-        if(!user.getFollowing().contains(userToUnfollow)){
+        if (!user.getFollowing().contains(userToUnfollow)) {
             throw new NotFollowException(userIDToUnfollow);
         }
         user.removeFollowing(userToUnfollow);
@@ -176,5 +179,25 @@ public class SocialMeliService implements ISocialMeliService {
     public CountPromosDTO countPromo(int user_id) {
         User user = getUser(user_id);
         return new CountPromosDTO(user.getUser_id(), user.getUser_name(), user.contarProductosDescontados());
+    }
+
+    @Override
+    public PostPromoListDTO showPromo(int user_id) {
+        User user = getUser(user_id);
+        List<Post> posts = user.getPosts();
+//        for (Post p:posts){
+//            if (p.isHas_promo()){
+//
+//            }
+//        }
+
+        List<PostPromoDTO> ppdto = posts.stream()
+                .filter(Post::isHas_promo)
+                .map(p -> mapper.map(p, PostPromoDTO.class))
+                .collect(Collectors.toList());
+        PostPromoListDTO dto = new PostPromoListDTO(user.getUser_id(), user.getUser_name(), ppdto);
+
+        return dto;
+
     }
 }
