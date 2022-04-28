@@ -1,11 +1,10 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.PromoPostCreateDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
+import com.sprint.be_java_hisp_w15_g10.Exception.NotAPromoException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
@@ -68,12 +67,42 @@ public class PostService implements IPostService{
     }
 
     @Override
+    public PostCreatedDTO createPromoPost(PromoPostCreateDTO postCreateDTO) {
+        Category category = categoryRepository
+                .getById(postCreateDTO.getCategory_id())
+                .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
+
+        Post post = modelMapper.map(postCreateDTO, Post.class);
+        post.setPost_id(postRepository.nextIndex());
+        post.setCategory(category);
+
+        if(!postCreateDTO.getHas_promo())
+        {
+            throw new NotAPromoException("Post sin promoción Invalido");
+        }
+
+        User user = userRepository.getById(postCreateDTO.getUser_id())
+                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
+
+        Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
+        if(product.isEmpty()){
+            productRepository.add(post.getDetail());
+        }else {
+            post.setDetail(product.get());
+        }
+        postRepository.add(post);
+        user.agregarPost(post);
+        return new PostCreatedDTO("Se ha creado el Post con éxito");
+    }
+
+
+
+    @Override
     public List<ProductResponseDTO> getAllProducts() {
         List<Product> products = productRepository.getAll();
-        List<ProductResponseDTO> productResponseDTOS = products.stream()
+        return products.stream()
                 .map(product ->  modelMapper.map(product, ProductResponseDTO.class))
                 .collect(Collectors.toList());
-        return productResponseDTOS;
     }
 
     @Override
@@ -91,20 +120,33 @@ public class PostService implements IPostService{
         });
 
         if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
+        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post1.getDate()));
 
-        UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
-                posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
+        return new UserPostResponseDTO(userId,
+                posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class))
+                .collect(Collectors.toList()));
+    }
 
-        return userPostResponseDTO;
+    @Override
+    public UserPromoPostResponseDTO getAllPromoPostsBySellerId(int userId, String order) {
+        User user = userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        List<User> followed = user.getFollowed();
+        List<Post> posts = user.getPosts().stream()
+                .filter(Post::isHas_promo)
+                .collect(Collectors.toList());
+
+        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
+        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post1.getDate()));
+
+        return new UserPromoPostResponseDTO(userId,
+                posts.stream().map(post -> modelMapper.map(post, PromoPostResponseDTO.class)).collect(Collectors.toList()));
     }
 
     @Override
     public List<PostResponseDTO> getAllPosts(){
         List<Post> posts = postRepository.getAll();
-        List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
-
-        return responseDTOS;
+        return posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
     }
 
 

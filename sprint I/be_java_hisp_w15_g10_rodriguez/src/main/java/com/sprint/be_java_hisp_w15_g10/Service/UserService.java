@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
@@ -29,6 +30,15 @@ public class UserService implements IUserService {
             UserWithFollowersCountDTO userDTO = modelMapper.map(user, UserWithFollowersCountDTO.class);
             userDTO.setFollowers_count(user.getFollowers().size());
             return userDTO;
+    }
+
+    @Override
+    public UserWithPromoPostCountDTO getUsersWithPromoPostCount(int userID) {
+        User user = userRepository.getById(userID)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        UserWithPromoPostCountDTO userDTO = modelMapper.map(user, UserWithPromoPostCountDTO.class);
+        userDTO.setPromo_products_count(user.getPosts().stream().filter(post -> post.isHas_promo()).collect(Collectors.toList()).size());
+        return userDTO;
     }
 
     @Override

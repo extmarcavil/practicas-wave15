@@ -6,6 +6,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
 
 public interface IUserService {
     UserWithFollowersCountDTO getUsersWithFollowersCount(int userId);
+    UserWithPromoPostCountDTO getUsersWithPromoPostCount(int userID);
     UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow);
     FollowUserDTO followUser(int userId, int userIdToUnfollow);
     VendedorsFollowedDTO getVendorsFollow(int userId, String order);

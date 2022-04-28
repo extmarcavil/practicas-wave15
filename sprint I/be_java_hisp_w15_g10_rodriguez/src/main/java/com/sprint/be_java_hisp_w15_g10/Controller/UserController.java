@@ -1,6 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IUserService;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
