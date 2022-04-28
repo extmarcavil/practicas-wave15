@@ -1,6 +1,10 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCountPromoPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCreatePostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListPromoPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResPostListDTO;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDiscountException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
@@ -95,6 +99,22 @@ public class ProductsService implements IProductsService {
         int cantPromoPost = userRepository.cantPromoPosts(user);
 
         return new ResCountPromoPostDTO(userId,user.getName(),cantPromoPost);
+    }
+
+    @Override
+    public ResListPromoPostDTO getListPromoPosts(int userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+
+        List<PromoPostIdDTO> promo_list = new ArrayList<>();
+
+        for( Post post : user.getPublicaciones())
+            if(post.isHasPromo()){
+                PromoPostIdDTO promo_post = modelMapper.map(post,PromoPostIdDTO.class);
+                promo_list.add(promo_post);
+            }
+
+        return new ResListPromoPostDTO(userId,user.getName(),promo_list);
     }
 
 

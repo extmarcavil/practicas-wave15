@@ -1,9 +1,9 @@
 package com.example.be_java_hisp_w15_g05.controller;
 
 import com.example.be_java_hisp_w15_g05.service.IFollowsService;
-import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCountFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListSellersDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

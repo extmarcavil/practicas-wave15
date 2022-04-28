@@ -1,6 +1,10 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCountFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResFollowPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListSellersDTO;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFollowingException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;

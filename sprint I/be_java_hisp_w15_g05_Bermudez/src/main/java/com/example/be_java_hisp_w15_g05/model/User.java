@@ -19,7 +19,7 @@ public class User {
     public User(int userId, String name, boolean isSeller) {
         this.userId = userId;
         this.name = name;
-        this.isSeller = false;
+        this.isSeller = isSeller;
         this.publicaciones = new ArrayList<>();
     }
 

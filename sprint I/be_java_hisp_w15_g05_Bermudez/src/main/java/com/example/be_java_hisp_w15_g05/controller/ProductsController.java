@@ -1,6 +1,10 @@
 package com.example.be_java_hisp_w15_g05.controller;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCountPromoPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResCreatePostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResListPromoPostDTO;
+import com.example.be_java_hisp_w15_g05.dto.response.ResPostListDTO;
 import com.example.be_java_hisp_w15_g05.service.IProductsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,6 +42,11 @@ public class ProductsController {
     @GetMapping("/products/promo-post/count")
     public ResponseEntity<ResCountPromoPostDTO> getPromoPost(@RequestParam int userId) {
         return new ResponseEntity<>(productsService.getCountPromoPosts(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<ResListPromoPostDTO> getListPromoPost(@RequestParam int userId) {
+        return new ResponseEntity<>(productsService.getListPromoPosts(userId), HttpStatus.OK);
     }
 
 }
