@@ -34,6 +34,7 @@ public class PostController {
      * @return {@link ResponseEntity}
      * @see ResponseEntity
      * @see UserFollowedPostsDTO
+     * @author Jeronimo Graff
      */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (
@@ -48,6 +49,7 @@ public class PostController {
      * @param postDTO {@link NewPostDTO}
      * @return {@link ResponseEntity}
      * @see ResponseEntity
+     * @author Jeronimo Graff
      */
     @PostMapping("/post")
     public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
@@ -81,6 +83,14 @@ public class PostController {
         return new ResponseEntity<>(postService.getPromoProductsCount(userId), HttpStatus.OK);
     }
 
+    /**
+     * Get promo products list
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see PromoPostsListDTO
+     */
     @GetMapping("/promo-post/list")
     public ResponseEntity<PromoPostsListDTO> getPromoProductsList(@RequestParam(name="user_id") Integer userId){
         return new ResponseEntity<>(postService.getPromoProductsList(userId), HttpStatus.OK);

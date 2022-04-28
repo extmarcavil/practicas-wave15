@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements IUserService{
 
-    private IUserRepository userRepository;
-    private ModelMapper modelMapper;
+    private final IUserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     public UserService(IUserRepository userRepository){
         this.userRepository = userRepository;
@@ -31,6 +31,8 @@ public class UserService implements IUserService{
      * @param userId Integer
      * @return {@link FollowersDTO}
      * @see FollowersDTO
+     * @author Wendy Sclerandi
+     * @author Sebastián Muchut
      */
     @Override
     public FollowersDTO getFollowersList(Integer userId) {
@@ -140,8 +142,8 @@ public class UserService implements IUserService{
      */
     public FollowersCountDTO followersCount(Integer idUser){
         User user = userRepository.findById(idUser);
-        FollowersCountDTO followers = new FollowersCountDTO(user.getUserId(), user.getUserName(), user.getFollowers().size());
-        return  followers;
+        return new FollowersCountDTO(user.getUserId(), user.getUserName(),
+                user.getFollowers().size());
     }
 
     /**
@@ -175,6 +177,7 @@ public class UserService implements IUserService{
      *
      * @param userId Integer
      * @param userToUnfollowId Integer
+     * @author Facundo Chaves del Pino
      */
     @Override
     public void unfollowUser(Integer userId, Integer userToUnfollowId) {
@@ -184,7 +187,9 @@ public class UserService implements IUserService{
         if(userId.equals(userToUnfollowId)){
             throw new BadRequestException("No se puede dejar de seguir a si mismo.");
         }
-        boolean unfollow = user.getFollowed().removeIf(u -> u.getUserId().equals(userToUnfollowId)) && userToUnfollow.getFollowers().removeIf(u -> u.getUserId().equals(userId));;
+        boolean unfollow = user.getFollowed()
+                .removeIf(u -> u.getUserId().equals(userToUnfollowId)) && userToUnfollow.getFollowers()
+                .removeIf(u -> u.getUserId().equals(userId));
         if (!unfollow){
             throw new BadRequestException("Este usuario no sigue a este vendedor.");
         }

@@ -24,8 +24,8 @@ import java.util.stream.Collectors;
 @Service
 public class PostService implements IPostService{
 
-    private IUserRepository userRepository;
-    private ModelMapper modelMapper;
+    private final IUserRepository userRepository;
+    private final ModelMapper modelMapper;
 
     public PostService(IUserRepository userRepository) {
         this.userRepository = userRepository;
@@ -65,7 +65,9 @@ public class PostService implements IPostService{
                         .collect(Collectors.toList());
         }
 
-        List<PostDTO> listFollowedPosts = listPostsOrdered.stream().map(v -> modelMapper.map(v, PostDTO.class)).collect(Collectors.toList());
+        List<PostDTO> listFollowedPosts = listPostsOrdered.stream()
+                .map(v -> modelMapper.map(v, PostDTO.class))
+                .collect(Collectors.toList());
 
         return new UserFollowedPostsDTO(userId, listFollowedPosts);
     }

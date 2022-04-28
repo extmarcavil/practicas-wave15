@@ -141,6 +141,8 @@ public class UserService implements IUserService{
      * @param idUser Integer
      * @return {@link FollowersCountDTO}
      * @see FollowersCountDTO
+     * @author Jeronimo Graff
+     * @author Facundo Chaves del Pino
      */
     public FollowersCountDTO followersCount(Integer idUser){
         User user = userRepository.findById(idUser);
@@ -181,6 +183,7 @@ public class UserService implements IUserService{
      *
      * @param userId Integer
      * @param userToUnfollowId Integer
+     * @author Facundo Chaves del Pino
      */
     @Override
     public void unfollowUser(Integer userId, Integer userToUnfollowId) {
@@ -190,7 +193,7 @@ public class UserService implements IUserService{
         if(userId.equals(userToUnfollowId)){
             throw new BadRequestException("No se puede dejar de seguir a si mismo.");
         }
-        boolean unfollow = user.getFollowed().removeIf(u -> u.getUserId().equals(userToUnfollowId)) && userToUnfollow.getFollowers().removeIf(u -> u.getUserId().equals(userId));;
+        boolean unfollow = user.getFollowed().removeIf(u -> u.getUserId().equals(userToUnfollowId)) && userToUnfollow.getFollowers().removeIf(u -> u.getUserId().equals(userId));
         if (!unfollow){
             throw new BadRequestException("Este usuario no sigue a este vendedor.");
         }
