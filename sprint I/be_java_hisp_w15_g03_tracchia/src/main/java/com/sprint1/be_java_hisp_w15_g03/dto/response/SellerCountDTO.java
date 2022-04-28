@@ -17,5 +17,4 @@ import lombok.Setter;
 public class SellerCountDTO extends PersonDTO {
 
     private Integer followersCount;
-
 }

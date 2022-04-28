@@ -1,17 +1,13 @@
 package com.sprint1.be_java_hisp_w15_g03.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class Publication {
 
     private Integer postId;
@@ -22,6 +18,19 @@ public class Publication {
     private Product detail;
     private Boolean hasPromo;
     private Double discount;
+
+    public Publication() {
+    }
+
+    public Publication(Integer postId, LocalDate date, Category category, Double price, Product detail) {
+        this.postId = postId;
+        this.date = date;
+        this.category = category;
+        this.price = price;
+        this.detail = detail;
+        this.hasPromo = false;
+        this.discount = 0d;
+    }
 
     @Override
     public String toString() {

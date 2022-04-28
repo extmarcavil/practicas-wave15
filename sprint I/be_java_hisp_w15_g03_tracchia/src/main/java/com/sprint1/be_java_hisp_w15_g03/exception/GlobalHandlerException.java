@@ -39,5 +39,11 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(errorDTO, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(HasnotPromoException.class)
+    ResponseEntity<ErrorDTO> handlerExceptionProductDuplicated(HasnotPromoException hasnotPromoException){
+        ErrorDTO errorDTO = new ErrorDTO("Error en parametros de entrada", hasnotPromoException.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
 
 }

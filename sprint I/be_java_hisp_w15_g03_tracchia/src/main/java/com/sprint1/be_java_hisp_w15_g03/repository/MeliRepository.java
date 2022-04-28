@@ -7,7 +7,6 @@ import com.sprint1.be_java_hisp_w15_g03.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -115,5 +114,9 @@ public class MeliRepository implements IMeliRepository {
     @Override
     public Product getProduct(int productId){
         return products.get(productId);
+    }
+
+    public List<Publication> getPromoPublication (int userId){
+        return sellers.get(userId).getPublications().stream().filter(Publication::getHasPromo).collect(Collectors.toList());
     }
 }
