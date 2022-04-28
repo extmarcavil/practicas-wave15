@@ -34,12 +34,12 @@ public class FollowsController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId,@RequestParam(required = false) String order) {
+    public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId,@RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResListSellersDTO> getListFollowed(@PathVariable int userId, @RequestParam(required = false) String order) {
+    public ResponseEntity<ResListSellersDTO> getListFollowed(@PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListSellers(userId, order), HttpStatus.OK);
     }
 

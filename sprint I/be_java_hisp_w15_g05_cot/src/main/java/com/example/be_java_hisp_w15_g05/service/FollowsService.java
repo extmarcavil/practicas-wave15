@@ -104,7 +104,7 @@ public class FollowsService implements IFollowsService {
     }
 
     private void sortListByName(List<UserDTO> list, String order) {
-        if(order != null && order.equalsIgnoreCase("name_desc"))
+        if(order.equalsIgnoreCase("name_desc"))
             list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
         else
             list.sort(Comparator.comparing(UserDTO::getUserName));

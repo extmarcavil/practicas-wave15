@@ -102,7 +102,7 @@ public class ProductsService implements IProductsService {
     }
 
     private void sortListByDate(List<Post> list, String order) {
-        if(order != null && order.equals("date_desc"))
+        if(order.equals("date_desc"))
             list.sort(Comparator.comparing(Post::getDate));
         else
             list.sort(Comparator.comparing(Post::getDate).reversed());
