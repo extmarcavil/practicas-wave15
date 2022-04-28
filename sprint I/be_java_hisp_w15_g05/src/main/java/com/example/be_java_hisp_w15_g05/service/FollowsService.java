@@ -62,6 +62,7 @@ public class FollowsService implements IFollowsService {
         User user = userRepository.followersList(userId)
                 .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
         List<UserDTO> followers = getListUserDTO(user.getSeguidores());
+
         if(order!=null && order.equals("name_desc")){
             followers.sort(Comparator.comparing(UserDTO::getUserName).reversed());
         }else{

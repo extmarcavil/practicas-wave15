@@ -63,7 +63,7 @@ public class ProductsService implements IProductsService {
 
 
 
-        List<PostIdDTO> lista = modelMapper.map(listadoPosteos,new TypeToken<List<PostIdDTO>>() {}.getType());
+        List<PostIdDTO> lista = modelMapper.map(listadoPosteos, new TypeToken<List<PostIdDTO>>() {}.getType());
 
         return new ResPostListDTO(id,lista);
     }
