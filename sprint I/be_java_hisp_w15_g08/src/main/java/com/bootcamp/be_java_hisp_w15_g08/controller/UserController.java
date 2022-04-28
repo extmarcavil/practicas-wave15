@@ -25,6 +25,7 @@ public class UserController {
         return ResponseEntity.ok().body("");
     }
 
+
     @GetMapping("/users/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> followersCount(@PathVariable Integer userId) {
         FollowersCountDTO followersCountDTO = service.countFollers(userId);
@@ -57,6 +58,9 @@ public class UserController {
 
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<PostListDTO> getSellersLastsPosts(@PathVariable Integer userId, @RequestParam(required = false) String order) {
+        if (order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
+            throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
+        }
         PostListDTO postListDTO = service.getSellersLastsPosts(userId, order);
         return new ResponseEntity<>(postListDTO, HttpStatus.ACCEPTED);
     }

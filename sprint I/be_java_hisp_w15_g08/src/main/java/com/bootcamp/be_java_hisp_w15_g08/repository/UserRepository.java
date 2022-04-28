@@ -32,7 +32,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User findUser(Integer id){
-        return Optional.ofNullable(users.get(id)).orElseThrow(()-> new UserNotFoundException("The user id"+ id + " doesn't exist"));
+        return Optional.ofNullable(users.get(id)).orElseThrow(()-> new UserNotFoundException("The user id "+ id + " doesn't exist"));
     }
 
     @Override
@@ -43,8 +43,6 @@ public class UserRepository implements IUserRepository {
         followed.addFollower(follower);
         follower.addFollowed(followed);
 
-        //Esto es solo para testear hay que borrarlo.
-        System.out.println(followed.getFollowers().size());
     }
 
     @Override

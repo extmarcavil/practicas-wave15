@@ -10,6 +10,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ *  user
+ *
+ */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -18,7 +22,7 @@ public class User {
 
     private Integer userID;
     private String name;
-    private List<User> following;// Esta lista guarda los usurios a los que un usuario sigue.
+    private List<User> following;// Esta lista guarda los usuarios a los que un usuario sigue.
     private List<User> followers;// Esta lista guarda los usuarios que siguen a el usuario creado.
     private Map<Integer, Post> posts;// Lista de publicaciones realizadas.
 
@@ -49,6 +53,5 @@ public class User {
     public void addPost(Post post){
         posts.put(post.getPostID(),post);
     }
-
 
 }
