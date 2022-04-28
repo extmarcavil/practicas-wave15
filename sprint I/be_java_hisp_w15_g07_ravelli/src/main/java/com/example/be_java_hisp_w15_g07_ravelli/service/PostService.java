@@ -2,6 +2,7 @@ package com.example.be_java_hisp_w15_g07_ravelli.service;
 
 
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PostDTO;
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.model.Post;
 import com.example.be_java_hisp_w15_g07_ravelli.model.User;
@@ -71,16 +72,28 @@ public class PostService implements IPostService{
     }
 
     /**
+     * get promo products count by user id
+     *
+     * @param userId Integer
+     * @return {@link PromoProductsCountDTO}
+     * @see PromoProductsCountDTO
+     */
+    @Override
+    public PromoProductsCountDTO getPromoProductsCountByUserId(Integer userId) {
+        User user = userRepository.findById(userId);
+        Long promoProductsCount = userRepository.getPromoProductsCount(userId);
+        return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), promoProductsCount);
+    }
+
+    /**
      * create new post
      *
      * @param postDTO {@link NewPostDTO}
      */
     public void newPost(NewPostDTO postDTO){
         Post post = modelMapper.map(postDTO, Post.class);
-        if(post.getHasPromo() == null){
-            post.setHasPromo(false);
-            post.setDiscount(0d);
-        }
         userRepository.newPost(postDTO.getUserId(), post);
     }
+
+    private
 }
