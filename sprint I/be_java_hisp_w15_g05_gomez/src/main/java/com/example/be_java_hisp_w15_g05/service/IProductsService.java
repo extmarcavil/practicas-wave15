@@ -29,10 +29,11 @@ public interface IProductsService {
     ResPostPromoCountDTO getPostPromoCount(int id);
 
     /**
-     * @param id id del seller
+     * @param id    id del seller
+     * @param order name_asc o name_desc para ordenar
      * @return DTO con id y nombre del usuario y DTO 'posts'
      */
-    ResPostPromoListDTO getPostPromoList(int id);
+    ResPostPromoListDTO getPostPromoList(int id, String order);
 
     /**
      * @param id del seller

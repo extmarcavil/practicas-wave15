@@ -96,7 +96,7 @@ public class ProductsService implements IProductsService {
     }
 
     @Override
-    public ResPostPromoListDTO getPostPromoList(int id) {
+    public ResPostPromoListDTO getPostPromoList(int id, String order) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
 
@@ -105,6 +105,12 @@ public class ProductsService implements IProductsService {
         List<PostFullDTO> lista = modelMapper.map(listadoPosteos, new TypeToken<List<PostFullDTO>>() {
         }.getType());
 
+        // No utilizo la version compactada para poder usar el ignorecase
+        if (order.equals("name_desc")) {
+            lista.sort((p1, p2) -> p2.getDetail().getProductName().compareToIgnoreCase(p1.getDetail().getProductName()));
+        } else {
+            lista.sort((p1, p2) -> p1.getDetail().getProductName().compareToIgnoreCase(p2.getDetail().getProductName()));
+        }
 
         return new ResPostPromoListDTO(id, user.getName(), lista);
     }
@@ -119,7 +125,7 @@ public class ProductsService implements IProductsService {
         List<PostFullDTO> dtoList = modelMapper.map(postList, new TypeToken<List<PostFullDTO>>() {
         }.getType());
 
-        
+
         return new ResPostPromoListDTO(id, user.getName(), dtoList);
     }
 

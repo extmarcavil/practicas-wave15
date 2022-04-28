@@ -64,18 +64,18 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
   POST /products/post
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `user_id` | `int` | **Required**. id de la persona|
-| `date` | `LocalDate` | **Required**. fecha|
-| `product_id` | `int` | **Required**. id del post|
-| `product_name` | `String` | **Required**. nombre del producto|
-| `type` | `String` | **Required**. tipo de producto|
-| `brand` | `String` | **Required**. marca del producto|
-| `color` | `String` | **Required**. color del producto|
-| `notes` | `String` | **Optional**. color del producto|
-| `category` | `int` | **Optional**. color del producto|
-| `price` | `double` | **Required**. color del producto|
+| Parameter | Type     | Description                           |
+| :-------- | :------- |:--------------------------------------|
+| `user_id` | `int` | **Required**. id de la persona        |
+| `date` | `LocalDate` | **Required**. fecha                   |
+| `product_id` | `int` | **Required**. id del post             |
+| `product_name` | `String` | **Required**. nombre del producto     |
+| `type` | `String` | **Required**. tipo de producto        |
+| `brand` | `String` | **Required**. marca del producto      |
+| `color` | `String` | **Required**. color del producto      |
+| `notes` | `String` | **Optional**. notas sobre el producto |
+| `category` | `int` | **Optional**. categoria del producto  |
+| `price` | `double` | **Required**. precio del producto     |
 
 #### queryPost
 
@@ -97,20 +97,20 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
   POST /products/promo-post
 ```
 
-| Parameter      | Type        | Description                       |
-|:---------------|:------------|:----------------------------------|
-| `user_id`      | `int`       | **Required**. id de la persona    |
-| `date`         | `LocalDate` | **Required**. fecha               |
-| `product_id`   | `int`       | **Required**. id del post         |
-| `product_name` | `String`    | **Required**. nombre del producto |
-| `type`         | `String`    | **Required**. tipo de producto    |
-| `brand`        | `String`    | **Required**. marca del producto  |
-| `color`        | `String`    | **Required**. color del producto  |
-| `notes`        | `String`    | **Optional**. color del producto  |
-| `category`     | `int`       | **Optional**. color del producto  |
-| `price`        | `double`    | **Required**. color del producto  |
-| `has_promo`    | `boolean`   | **Required**. color del producto  |
-| `discount`     | `double`    | **Required**. color del producto  |
+| Parameter      | Type        | Description                           |
+|:---------------|:------------|:--------------------------------------|
+| `user_id`      | `int`       | **Required**. id de la persona        |
+| `date`         | `LocalDate` | **Required**. fecha                   |
+| `product_id`   | `int`       | **Required**. id del post             |
+| `product_name` | `String`    | **Required**. nombre del producto     |
+| `type`         | `String`    | **Required**. tipo de producto        |
+| `brand`        | `String`    | **Required**. marca del producto      |
+| `color`        | `String`    | **Required**. color del producto      |
+| `notes`        | `String`    | **Optional**. notas sobre el producto |
+| `category`     | `int`       | **Optional**. categoria del producto  |
+| `price`        | `double`    | **Required**. precio del producto     |
+| `has_promo`    | `boolean`   | **Required**. si contiene promoción   |
+| `discount`     | `double`    | **Required**. descuento               |
 
 #### Productos en promocion de un vendedor
 
@@ -127,12 +127,14 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 #### Lista de productos en promocion de un vendedor
 
 ````http 
-  GET /products/promo-post/list?user_id={userId} 
+  GET /products/promo-post/list?user_id={userId}&order={name_asc}
+      /products/promo-post/list?user_id={userId}&order={name_desc}
 ````
 
-| Parameter | Type     | Description                |
-|:----------| :------- | :------------------------- |
-| `user_id` | `int` | **Required**. id de la persona |
+| Parameter | Type     | Description                        |
+|:----------|:---------|:-----------------------------------|
+| `user_id` | `int`    | **Required**. id de la persona     |
+| `order`   | `String` | **Optional**. el orden de la lista |
 
 #### Lista de todos los productos de un vendedor
 
