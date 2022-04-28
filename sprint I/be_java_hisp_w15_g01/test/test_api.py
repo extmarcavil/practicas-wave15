@@ -63,3 +63,24 @@ class TestApi(unittest.TestCase):
         count2=r.json()['promo_products_count']
         self.assertEquals(count+1, count2)
 
+
+    def test_agregamosUnPostAFavoritos(self):
+        url = self.host+"/favorites/add"
+        datos= {
+            "user_id": 1,
+            "product_id": 1
+        }
+        r = requests.post(url, json=datos)
+        # verificamos que responda 200 okey
+        self.assertEquals(r.status_code, 200)
+
+
+    def test_siIntentamosagregarUnPostQueNoExisteAFavoritoRespondeNotFound(self):
+        url = self.host+"/favorites/add"
+        datos= {
+            "user_id": 1,
+            "product_id": 500
+        }
+        r = requests.post(url, json=datos)
+        # verificamos que responda 404 not found
+        self.assertEquals(r.status_code, 404)

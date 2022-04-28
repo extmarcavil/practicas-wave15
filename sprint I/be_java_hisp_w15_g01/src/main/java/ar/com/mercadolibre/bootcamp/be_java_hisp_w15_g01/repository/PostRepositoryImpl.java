@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.PostNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.PostPromo;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Repository
@@ -71,6 +73,19 @@ PostPromo createPromo(User user, LocalDate date, Product product, Integer catego
             .filter( p -> p.getUser().equals(user) &&
                 p.getClass().equals(PostPromo.class))
             .collect(Collectors.toList());
+    }
+    
+    @Override
+    public Post findById(Long id) {
+        Optional<Post> op = posts
+            .stream()
+            .filter(p -> p.getPostId().equals(id))
+            .findFirst();
+        if (op.isPresent()) {
+            return op.get();
+        } else {
+            throw new PostNotFoundException();
+        }
     }
 
 }

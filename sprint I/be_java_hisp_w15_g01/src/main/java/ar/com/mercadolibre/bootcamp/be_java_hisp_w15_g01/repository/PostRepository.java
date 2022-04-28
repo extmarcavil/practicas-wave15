@@ -17,6 +17,8 @@ public interface PostRepository {
     List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack);
 
 	PostPromo createPromo(User user, LocalDate date, Product product, Integer category, Float price, Float discount);
+	Post findById(Long id);
 	
 	List<Post> getAllPostsPromoByUser(User user);
+	
 }

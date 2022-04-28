@@ -19,6 +19,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
