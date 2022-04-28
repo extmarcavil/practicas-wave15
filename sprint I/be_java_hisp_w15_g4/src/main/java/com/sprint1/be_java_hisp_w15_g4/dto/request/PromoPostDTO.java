@@ -2,9 +2,7 @@ package com.sprint1.be_java_hisp_w15_g4.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
