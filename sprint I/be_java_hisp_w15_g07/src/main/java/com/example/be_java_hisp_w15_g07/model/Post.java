@@ -11,7 +11,6 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 
 public class Post {
@@ -22,11 +21,25 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Float discount;
 
-    public Post(LocalDate date, Product detail, Integer category, Double price) {
+    public Post(LocalDate date, Product detail, Integer category, Double price, Boolean hasPromo, Float discount) {
+        this.postId = postId;
         this.date = date;
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
+    }
+
+    public Post(LocalDate date, Product detail, Integer category, Double price) {
+        this.postId = postId;
+        this.date = date;
+        this.detail = detail;
+        this.category = category;
+        this.price = price;
+        this.hasPromo = false;
     }
 }

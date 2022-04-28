@@ -18,6 +18,4 @@ public class NewPostDTO {
     private ProductDTO detail;
     private Integer category;
     private Double price;
-
-
 }
