@@ -1,7 +1,9 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponseCountPromoPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePromoPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,21 @@ public class PostController {
                                                                    @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsLastTwoWeekById(userId, order);
 
+    }
+
+    @PostMapping("promo-post")
+    public ResponseEntity<SuccessDTO> createPromoPost(@RequestBody RequestPostDTO promoPostDTO) {
+        return productService.savePost(promoPostDTO);
+    }
+
+    @GetMapping("promo-post/count")
+    public ResponseEntity<ResponseCountPromoPostDTO> getCountPromoPostsById(@RequestParam Integer user_id) {
+        return productService.getCountPromoPostsById(user_id);
+    }
+
+    @GetMapping("promo-post/list")
+    public ResponseEntity<ResponsePromoPostDTO> getAllPromoPostsById(@RequestParam Integer user_id) {
+        return productService.getAllPromoPostById(user_id);
     }
 
 }

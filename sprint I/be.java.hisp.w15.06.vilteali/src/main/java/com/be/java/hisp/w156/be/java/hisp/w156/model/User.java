@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,4 +21,11 @@ public class User {
     private List<User> followers;
     private List<User> followed;
 
+    public void addNewPost(Post newPost) {
+        if (posts == null) {
+            setPosts(Stream.of(newPost).collect(Collectors.toList()));
+        } else {
+            getPosts().add(newPost);
+        }
+    }
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -25,11 +26,11 @@ public class UserRepositoryImpl implements IUserRepository {
     public void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
         List<Post> posts = Stream.of(
-                new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
-                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50)
+                new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50, null,false, null),
+                new Post(1, LocalDate.of(2022, 4, 12), product, "100", 600.50, null, false, null)
         ).collect(Collectors.toList());
 
-        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50))
+        List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50, null, false, null))
                 .collect(Collectors.toList());
 
         User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
@@ -58,7 +59,8 @@ public class UserRepositoryImpl implements IUserRepository {
     }
 
     @Override
-    public boolean existsById(Integer id) {
-        return users.stream().anyMatch(user -> user.getId().equals(id));
+    public <T> T findUserByIdForUpdate(Integer id, Function<User, T> callback) {
+        User user = getUser(id);
+        return callback.apply(user);
     }
 }

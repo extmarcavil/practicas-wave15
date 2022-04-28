@@ -12,13 +12,22 @@ import java.time.LocalDate;
 public class ResponsePostDTO {
 
     private Integer post_id;
-    private String date;
+    private LocalDate date;
     private Product detail;
     private String category;
     private Double price;
+    private Double priceDiscount;
+    private boolean has_promo;
+    private Double discount;
 
     public static ResponsePostDTO from(Post post) {
-        String date = LocalDate.from(post.getDate()).toString();
-        return new ResponsePostDTO(post.getId(), date, post.getDetail(), post.getCategory(), post.getPrice());
+        return new ResponsePostDTO(post.getId(),
+                post.getDate(),
+                post.getDetail(),
+                post.getCategory(),
+                post.getPrice(),
+                post.getPriceDiscount(),
+                post.isHas_promo(),
+                post.getDiscount());
     }
 }

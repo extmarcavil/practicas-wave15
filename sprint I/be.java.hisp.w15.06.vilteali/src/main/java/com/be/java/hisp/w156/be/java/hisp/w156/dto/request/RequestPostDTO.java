@@ -25,5 +25,7 @@ public class RequestPostDTO {
     private Product detail;
     private String category;
     private Double price;
+    private boolean has_promo;
+    private Double discount;
 
 }
