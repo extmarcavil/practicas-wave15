@@ -11,6 +11,7 @@ public class User {
     private int userId;
     private String name;
     private boolean isSeller;
+    private int promoPosts;
 
     private ArrayList<User> seguidos = new ArrayList<>();
     private ArrayList<User> seguidores = new ArrayList<>();
@@ -19,6 +20,7 @@ public class User {
         this.userId = userId;
         this.name = name;
         this.isSeller = isSeller;
+        this.promoPosts = 0;
     }
 
     public void agregarSeguidor(User user) {
@@ -36,5 +38,7 @@ public class User {
     public void dejarDeSeguir(User user) {
         seguidos.remove(user);
     }
+
+    public void aumentarCantPromoPost() { promoPosts ++; }
 }
 

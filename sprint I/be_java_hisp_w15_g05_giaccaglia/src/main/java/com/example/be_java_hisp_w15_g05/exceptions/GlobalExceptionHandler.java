@@ -33,4 +33,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> InvalidPriceException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidDiscountException.class)
+    public ResponseEntity<?> InvalidDiscountException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

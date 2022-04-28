@@ -31,7 +31,7 @@ public interface IUserRepository {
 
     /**
      *
-     * @param id id del usuario
+     * @param user usuario
      * @return cantidad de followers de dicho usuario
      */
     int cantFollowers(User user);
@@ -53,6 +53,14 @@ public interface IUserRepository {
 
     /**
      *
+     * @param user usuario al cual se le asigna el posteo.
+     * @param post el posteo a asignar con promoción.
+     */
+
+    void createPostPromo(User user, Post post);
+
+    /**
+     *
      * @param id del usuario
      * @return devuelve una lista de vendedores
      */
@@ -64,5 +72,19 @@ public interface IUserRepository {
      * @return lista de post del usuario solicitado
      */
     List<Post> getPostsTwoWeeks(int id);
+
+    /**
+     *
+     * @param user el usuario vendedor
+     * @return cantidad de posts con promoción
+     */
+    int cantPromoPost(User user);
+
+    /**
+     *
+     * @param id del usuario
+     * @return lista de post del usuario solicitado
+     */
+    List<Post> getPromoPosts(User user);
 
 }

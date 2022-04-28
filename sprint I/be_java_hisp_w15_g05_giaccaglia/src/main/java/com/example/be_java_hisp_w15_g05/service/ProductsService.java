@@ -2,6 +2,7 @@ package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
+import com.example.be_java_hisp_w15_g05.exceptions.InvalidDiscountException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.Post;
@@ -45,6 +46,25 @@ public class ProductsService implements IProductsService {
         return new ResCreatePostDTO("La publicación se ha creado con éxito");
     }
 
+    @Override
+    public ResCreatePostDTO createPostPromo(PromoPostDTO promoPostDTO) {
+        Post post = modelMapper.map(promoPostDTO, Post.class);
+
+        User user = userRepository.findById(post.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + post.getUserId() + " no encontrado."));
+
+        validateDate(post.getDate());
+        validatePrice(post.getPrice());
+        if(post.isHasPromo()) {
+            validateDiscount(post.getDiscount());
+            post.setPrice(post.getPrice()*post.getDiscount());
+        }
+
+        userRepository.createPostPromo(user, post);
+
+        return new ResCreatePostDTO("La publicación se ha creado con éxito");
+    }
+
     public ResPostListDTO getPostFollowed(int id, String order){
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
@@ -61,13 +81,28 @@ public class ProductsService implements IProductsService {
             listadoPosteos.sort(Comparator.comparing(Post::getDate).reversed());
         }
 
-
-
         List<PostIdDTO> lista = modelMapper.map(listadoPosteos,new TypeToken<List<PostIdDTO>>() {}.getType());
 
         return new ResPostListDTO(id,lista);
     }
 
+    @Override
+    public ResPostListDTO getPromoPostFollowed(int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
+
+        List<Post> listadoPosteosPromo;
+        listadoPosteosPromo = userRepository.getPromoPosts(user);
+        List<PostIdDTO> lista = modelMapper.map(listadoPosteosPromo,new TypeToken<List<PostIdDTO>>() {}.getType());
+        return new ResPostListDTO(id,lista);
+    }
+
+    @Override
+    public ResPostCountDTO getPromoPostCount(int id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
+        return new ResPostCountDTO(id, user.getName(), userRepository.cantPromoPost(user));
+    }
 
     private void validateDate(LocalDate date){
         long period = ChronoUnit.DAYS.between( date , LocalDate.now());
@@ -79,5 +114,10 @@ public class ProductsService implements IProductsService {
     private void validatePrice (double price){
         if(price < 0)
             throw new InvalidPriceException("El precio del producto debe ser mayor a 0.");
+    }
+
+    private void validateDiscount(double discount){
+        if(discount < 0)
+            throw new InvalidDiscountException("El descuento del producto debe ser mayor a 0.");
     }
 }

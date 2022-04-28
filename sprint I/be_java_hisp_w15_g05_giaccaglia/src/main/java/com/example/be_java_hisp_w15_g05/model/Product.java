@@ -17,5 +17,4 @@ public class Product {
     private String brand;
     private String color;
     private String notes;
-
 }

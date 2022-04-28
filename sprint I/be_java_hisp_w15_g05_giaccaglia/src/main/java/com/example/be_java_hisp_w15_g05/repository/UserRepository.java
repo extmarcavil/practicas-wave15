@@ -40,10 +40,10 @@ public class UserRepository implements IUserRepository {
         users.add(pedro);
         users.add(valentina);
 
-        Post posteo = new Post(1,20,LocalDate.of(2022,4,1),null,100,202.00);
-        Post posteo2 = new Post(1,21,LocalDate.of(2022,4,26),null,100,202.00);
-        Post posteo3 = new Post(1,22,LocalDate.of(2022,4,24),null,100,202.00);
-        Post posteo4 = new Post(1,23,LocalDate.of(2022,4,25),null,100,202.00);
+        Post posteo = new Post(1,20,LocalDate.of(2022,4,1),null,100,202.00, false, 0);
+        Post posteo2 = new Post(1,21,LocalDate.of(2022,4,26),null,100,202.00,false, 0);
+        Post posteo3 = new Post(1,22,LocalDate.of(2022,4,24),null,100,202.00,false, 0);
+        Post posteo4 = new Post(1,23,LocalDate.of(2022,4,25),null,100,202.00,true,0.5);
 
         posts.addAll(Arrays.asList(posteo,posteo2,posteo3,posteo4));
     }
@@ -92,10 +92,30 @@ public class UserRepository implements IUserRepository {
         user.setSeller(true);
     }
 
+    @Override
+    public void createPostPromo(User user, Post post) {
+        post.setPostId(postContador ++);
+        posts.add(post);
+        user.setSeller(true);
+        user.aumentarCantPromoPost();
+    }
+
     public List<Post> getPostsTwoWeeks(int id){
 
         return posts.stream()
                 .filter(post -> post.getUserId() == id && inTwoWeeksRange(post.getDate()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int cantPromoPost(User user) {
+        return user.getPromoPosts();
+    }
+
+    @Override
+    public List<Post> getPromoPosts(User user) {
+        return posts.stream()
+                .filter(post -> post.getUserId() == user.getUserId() && post.isHasPromo())
                 .collect(Collectors.toList());
     }
 
