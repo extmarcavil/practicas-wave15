@@ -5,11 +5,13 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.Optional;
+import java.util.OptionalDouble;
 
 @Getter
 @Setter
 public class NewPostDTO {
-    private int postID;
+    private Integer post_id;
     private Integer user_id;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;

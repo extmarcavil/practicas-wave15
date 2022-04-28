@@ -6,4 +6,5 @@ public interface IUserRepository {
     User findUser(Integer id);
     void followUser(Integer idFollowed, Integer idFollower);
     void unFollowUser(Integer idFollowed, Integer idFollower);
+    int generateId();
 }

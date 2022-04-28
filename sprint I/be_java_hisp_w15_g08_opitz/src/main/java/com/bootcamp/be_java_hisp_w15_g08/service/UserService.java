@@ -3,9 +3,10 @@ package com.bootcamp.be_java_hisp_w15_g08.service;
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
+import com.bootcamp.be_java_hisp_w15_g08.model.PromoProduct;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
-import com.bootcamp.be_java_hisp_w15_g08.utils.SortUsers;
+import com.bootcamp.be_java_hisp_w15_g08.utils.SprintOneHelper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,7 @@ public class UserService implements IUserService{
                 .collect(toList());
 
         if(order!= null){
-            listDto = SortUsers.order(listDto,order);
+            listDto = SprintOneHelper.orderByName(listDto,order);
         }
         FollowersListDTO followersListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);
         return followersListDTO;
@@ -59,7 +60,7 @@ public class UserService implements IUserService{
                 .map(user1 -> mapper.map(user1,UserDTO.class))
                 .collect(toList());
         if(order!= null){
-            listDto = SortUsers.order(listDto,order);
+            listDto = SprintOneHelper.orderByName(listDto,order);
         }
         FollowersListDTO followedListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);
         return followedListDTO;
@@ -69,7 +70,7 @@ public class UserService implements IUserService{
     public PostNotUserIdDTO addPost(NewPostDTO newPostDTO){
         User user = repository.findUser(newPostDTO.getUser_id());
         Post post = mapper.map(newPostDTO,Post.class);
-        post.setPostID(idsPost++);
+        post.setPost_id(repository.generateId());
         user.addPost(post);
         return mapper.map(post,PostNotUserIdDTO.class);
     }
@@ -95,7 +96,7 @@ public class UserService implements IUserService{
                 .map(post -> mapper.map(post,PostNotUserIdDTO.class))
                 .collect(toList());
         if(order!= null){
-            postNotUserIdDTOS = SortUsers.orderDate(postNotUserIdDTOS,order);
+            postNotUserIdDTOS = SprintOneHelper.orderByDate(postNotUserIdDTOS,order);
         }
         postListDTO.setPosts(postNotUserIdDTOS);
         return postListDTO;

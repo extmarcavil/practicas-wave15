@@ -10,10 +10,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- *  user
- *
- */
 @Getter
 @Setter
 @NoArgsConstructor
@@ -25,6 +21,7 @@ public class User {
     private List<User> following;// Esta lista guarda los usuarios a los que un usuario sigue.
     private List<User> followers;// Esta lista guarda los usuarios que siguen a el usuario creado.
     private Map<Integer, Post> posts;// Lista de publicaciones realizadas.
+    private Map<Integer, PromoProduct> promoproducts;// Lista de publicaciones realizadas.
 
     public User(int userID, String name) {
         this.userID = userID;
@@ -32,6 +29,7 @@ public class User {
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
         this.posts = new HashMap<>();
+        this.promoproducts = new HashMap<>();
     }
 
     public void addFollower(User user){
@@ -51,7 +49,11 @@ public class User {
     }
 
     public void addPost(Post post){
-        posts.put(post.getPostID(),post);
+        posts.put(post.getPost_id(), post);
+    }
+
+    public void addPromoProduct(PromoProduct product){
+        promoproducts.put(product.getPost_id(),product);
     }
 
 }

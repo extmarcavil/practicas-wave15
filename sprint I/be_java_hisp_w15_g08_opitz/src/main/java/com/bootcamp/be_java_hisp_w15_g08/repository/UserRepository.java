@@ -1,6 +1,5 @@
 package com.bootcamp.be_java_hisp_w15_g08.repository;
 
-import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import org.springframework.stereotype.Repository;
@@ -12,6 +11,7 @@ import java.util.Optional;
 public class UserRepository implements IUserRepository {
 
     private Map<Integer, User> users;
+    private static Integer id = 0;
 
     public UserRepository() {
         users = new HashMap<>();
@@ -52,5 +52,11 @@ public class UserRepository implements IUserRepository {
 
         followed.removeFollower(follower);
         follower.removeFollowed(followed);
+    }
+
+    @Override
+    public int generateId(){
+        id++;
+        return id;
     }
 }

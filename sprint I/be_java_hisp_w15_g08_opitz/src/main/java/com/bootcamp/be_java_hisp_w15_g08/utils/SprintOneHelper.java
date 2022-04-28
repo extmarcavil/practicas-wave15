@@ -6,9 +6,11 @@ import com.bootcamp.be_java_hisp_w15_g08.dto.response.UserDTO;
 import java.util.Comparator;
 import java.util.List;
 
-public class SortUsers {
+public class SprintOneHelper {
 
-    public static List<UserDTO> order (List<UserDTO> list, String order){
+
+
+    public static List<UserDTO> orderByName(List<UserDTO> list, String order){
         if(order.equalsIgnoreCase("name_asc")){
              list.sort(Comparator.comparing(UserDTO::getName));
         } else if (order.equalsIgnoreCase("name_desc")){
@@ -17,7 +19,7 @@ public class SortUsers {
         return list;
     }
 
-    public static List<PostNotUserIdDTO> orderDate (List<PostNotUserIdDTO> list, String order){
+    public static List<PostNotUserIdDTO> orderByDate(List<PostNotUserIdDTO> list, String order){
         if(order.equalsIgnoreCase("date_asc")){
             list.sort(Comparator.comparing(PostNotUserIdDTO::getDate));
         } else if (order.equalsIgnoreCase("date_desc")){
