@@ -69,12 +69,22 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `postDTO` | `PostDTO` | **Required**.  publicación|
+| `user_id` | `int` | **Required**.  id de la persona|
+| `date` | `LocalDate` | **Required**.  fecha|
+| `product_id` | `int` | **Required**.  id del post|
+| `product_name` | `String` | **Required**.  nombre del producto|
+| `type` | `String` | **Required**.  tipo de producto|
+| `brand` | `String` | **Required**.  marca del producto|
+| `color` | `String` | **Required**.  color del producto|
+| `notes` | `String` | **Optional**.  color del producto|
+| `category` | `int` | **Optional**.  color del producto|
+| `price` | `double` | **Required**.  color del producto|
 
 #### queryPost
 
 ```http
-  GET /products/followed/{userId}/list
+  GET /products/followed/{userId}/list?order=date_asc
+      /products/followed/{userId}/list?order=date_desc
 ```
 
 | Parameter | Type     | Description                |
@@ -96,7 +106,7 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 
 -[@NicoLopez1203](https://github.com/NicoLopez1203)
 
--[@mfranciscog](https://github.com/mfranciscog)
+-[@vaneza17ruiz](https://github.com/ruizandino)
 
 
 
