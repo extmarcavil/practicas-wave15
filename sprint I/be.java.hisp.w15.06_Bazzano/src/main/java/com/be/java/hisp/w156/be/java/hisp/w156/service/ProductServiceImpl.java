@@ -6,7 +6,6 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
-import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class ProductServiceImpl implements IProductService {
@@ -86,6 +84,7 @@ public class ProductServiceImpl implements IProductService {
                         .count());
     }
 
+    @Override
     public ResponseEntity<RecentlyPostPromoDTO> getPostsPromotion(Integer id, String order){
         User userseller = this.useRepository.getUser(id);
         List<ResponsePostPromoDTO> postsWithPromo = userseller.getPosts().stream()

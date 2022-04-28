@@ -56,5 +56,5 @@ public class PostController {
         return productService.getPostsPromotion(user_id, order);
     }
 
-    
+
 }
