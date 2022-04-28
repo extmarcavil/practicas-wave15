@@ -15,10 +15,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.ZoneId;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -138,13 +135,15 @@ public class PostService implements IPostService{
     /**
      * obtiene la lista  de productos que tienen promocion.
      * <p>
-     * El método recibe un userId, filtra los post del user y tambien que tengan promocion.
+     * El método recibe un userId, filtra los post del user y tambien que tengan promocion.como parametro opcional se pide el order
+     * que puede ser name_asc o name_desc que ordena alfabeticamente el nombre de los productos
      * <p>
      * @param userId identificador del usuario.
+     * @param order ordena alfabeticamente el nombre de los productos ,es opcional.
      * @return Retorna un GetProductsPromoByUserDTO.
      */
     @Override
-    public GetProductsPromoByUserDTO getProductsPromoByUser(int userId) {
+    public GetProductsPromoByUserDTO getProductsPromoByUser(int userId,String order) {
         var result = new GetProductsPromoByUserDTO();
         var whereUser = userRepository.getUserById(userId);
         if(!whereUser.isSeller())
@@ -179,6 +178,15 @@ public class PostService implements IPostService{
         });
         result.setUser_id(whereUser.getUserId());
         result.setUser_name(whereUser.getUserName());
+
+        if(order != null){
+            if(order.toLowerCase(Locale.ROOT).equals("name_asc"))
+                Collections.sort(listPost, Comparator.comparing(c -> c.getDetail().getProduct_name()));
+             else if(order.toLowerCase(Locale.ROOT).equals("name_desc"))
+                Collections.sort(listPost, (c1, c2) -> c2.getDetail().getProduct_name().compareTo(c1.getDetail().getProduct_name()));
+            else
+                throw  new OrderNotFoundException("orden no valido");
+        }
         result.setPosts(listPost);
         return result;
     }

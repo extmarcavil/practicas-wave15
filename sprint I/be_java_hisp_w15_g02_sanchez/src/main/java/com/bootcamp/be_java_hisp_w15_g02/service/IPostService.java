@@ -10,6 +10,6 @@ public interface IPostService {
     boolean createPost(PostCreateDTO newPost);
     GetPostsSellerByUserIdDTO getListPostByFollowIdUser(int idUser, String order);
     GetProductsCountPromoByUserDTO getProductsCountPromoByUser(int userId);
-    GetProductsPromoByUserDTO getProductsPromoByUser(int userId);
+    GetProductsPromoByUserDTO getProductsPromoByUser(int userId,String order);
 }
 
