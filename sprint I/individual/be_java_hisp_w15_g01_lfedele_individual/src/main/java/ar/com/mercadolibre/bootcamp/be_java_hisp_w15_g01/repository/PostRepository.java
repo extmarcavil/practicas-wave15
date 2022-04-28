@@ -9,17 +9,64 @@ import java.util.List;
 
 public interface PostRepository {
 
+    /**
+     * PostRepository
+     * Crea un post
+     *
+     * @param user El owner del post
+     * @param date La fecha de creacion
+     * @param detail El detalle del post
+     * @param category La categoria del post
+     * @param price El precio del post
+     */
     Post create(User user, LocalDate date, Product detail, Integer category, Float price);
 
+    /**
+     * PostRepository
+     * Dice si user es vendedor
+     *
+     * @param user El owner del post
+     */
 	boolean isseller(User user);
 
+    /**
+     * PostRepository
+     * Obtiene una lista de todos los posts que realizo user en los pasados daysBack dias
+     *
+     * @param user El owner de los posts
+     * @param daysBack La cantidad de dias atras a buiscar
+     */
     List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack);
 
+    /**
+     * PostRepository
+     * Obtiene los posts en promocion del usuario con id id
+     *
+     * @param id El id del usuario a botener los posts
+     */
     List<Post> getUserPromoPosts(Long id);
 
+    /**
+     * PostRepository
+     * Obtiene la cantidad de posts en promocion del usuario con id id
+     *
+     * @param id El id del usuario a botener los posts
+     */
     Integer getUserPromoPostsCount(Long id);
 
+    /**
+     * PostRepository
+     * Crea un post en promocion
+     *
+     * @param post El post a crear
+     */
     Post createPostPromo(Post post);
 
+    /**
+     * PostRepository
+     * Desactiva todos los posts que pertenezcan al usuario con id userId
+     *
+     * @param userId El id del usuario
+     */
     void desactivatePostsByUserId(Long userId);
 }

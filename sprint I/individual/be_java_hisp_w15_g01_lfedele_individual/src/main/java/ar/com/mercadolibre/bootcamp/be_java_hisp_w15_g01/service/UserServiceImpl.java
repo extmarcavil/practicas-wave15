@@ -6,6 +6,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
+import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
-
+@Log
 @Service
 public class UserServiceImpl implements  UserService {
     private final UserRepository userRepository;
@@ -32,11 +33,13 @@ public class UserServiceImpl implements  UserService {
     @Override
     public ResponseDTO follow(Long userId, long userIdToFollow) {
         if (userId.equals(userIdToFollow)) {
+            log.warning("El id " + userId + " intento seguirse a si mismo");
             throw new OwnFollowingException("Your cant follow yourself");
         }
         User follower = this.findById(userId);
         User followed = this.findById(userIdToFollow);
         if(!this.postRepository.isseller(followed)) {
+            log.warning("El id" + userId + " intento seguir a un no vendedor");
             throw new NotSellerException();
         }
         this.followRepository.save(follower, followed);
@@ -50,7 +53,10 @@ public class UserServiceImpl implements  UserService {
     public User findById(Long id) {
         User u = findByIdHARD(id);
         if (u.getDeactivated())
+        {
+            log.warning("Se busco una cuenta desactivada, id: " + id);
             throw new DeactivatedUserException();
+        }
         return u;
     }
 
@@ -59,6 +65,7 @@ public class UserServiceImpl implements  UserService {
         if (ou.isPresent()) {
             return ou.get();
         } else {
+            log.warning("Se busco un usuario inexistente, id " + id);
             throw new UserNotFoundException();
         }
     }
@@ -66,6 +73,7 @@ public class UserServiceImpl implements  UserService {
     @Override
     public FollowersListDTO whoFollowsMe(Long id, String order) {
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
+            log.warning("Se recibieron parametros inesperados: " + order);
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
         }
         User user = this.findById(id);
@@ -105,6 +113,7 @@ public class UserServiceImpl implements  UserService {
 
     public FollowedListDTO findAllFollowedByUserId(Long userId, String order) {
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
+            log.warning("Se recibieron parametros inesperados: " + order);
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
         }
         User userFollowing = findById(userId);
@@ -120,9 +129,6 @@ public class UserServiceImpl implements  UserService {
             Collections.reverse(followed);
         }
 
-        if(followed.isEmpty()){
-            throw new NotFollowedException("The user don't follow anyone");
-        }
         FollowedListDTO userDto = new FollowedListDTO();
         userDto.setUserName(userFollowing.getUserName());
         userDto.setUserId(userId);
@@ -133,6 +139,7 @@ public class UserServiceImpl implements  UserService {
     @Override
     public ResponseDTO unFollow(Long userId, long userIdToUnfollow) {
         if (userId.equals(userIdToUnfollow)) {
+            log.warning("El usuario con id " + userId + " intento dejar de seguirse a si mismo");
             throw new OwnFollowingException("You can´t unfollow yourself");
         }
         User follower = this.findById(userId);

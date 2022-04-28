@@ -8,6 +8,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
+import lombok.extern.java.Log;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Log
 public class PostServiceImpl implements PostService {
 
     private final UserService userService;
@@ -54,6 +56,7 @@ public class PostServiceImpl implements PostService {
         try {
             date = LocalDate.parse(postDto.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         } catch(DateTimeException e) {
+            log.warning("Se recibio una fecha incorrecta " + e.getMessage());
             throw new InvalidDateException();
         }
 
@@ -71,6 +74,7 @@ public class PostServiceImpl implements PostService {
         userService.findById(userId);
 
         if(order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
+            log.warning("Se recibieron parametros inesperados: " + order);
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be order_desc or order_asc");
         }
 
