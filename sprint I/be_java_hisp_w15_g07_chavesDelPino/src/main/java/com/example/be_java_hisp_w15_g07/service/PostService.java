@@ -1,9 +1,9 @@
 package com.example.be_java_hisp_w15_g07.service;
 
-
+import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
+import com.example.be_java_hisp_w15_g07.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
-import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 
@@ -83,5 +83,13 @@ public class PostService implements IPostService{
             post.setDiscount(0d);
         }
         userRepository.newPost(postDTO.getUserId(), post);
+    }
+
+    //US-0011
+    @Override
+    public PromoProductsCountDTO getPromoProductsCountByUserId(Integer userId) {
+        User user = userRepository.findById(userId);
+        Long promoProductsCount = userRepository.getPromoProductsCount(userId);
+        return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), promoProductsCount);
     }
 }
