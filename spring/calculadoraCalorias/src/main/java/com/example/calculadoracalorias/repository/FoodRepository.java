@@ -1,5 +1,6 @@
 package com.example.calculadoracalorias.repository;
 
+import com.example.calculadoracalorias.dto.DishDTO;
 import com.example.calculadoracalorias.dto.IngredientDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class FoodRepository implements IFoodRepository {
@@ -20,19 +22,13 @@ public class FoodRepository implements IFoodRepository {
         this.ingredients = this.loadDataBase();
     }
 
+    @Override
     public IngredientDTO findIngredientByName(String name){
-        return ingredients.stream().filter(v -> v.getName().equals(name)).findFirst().get();
-    }
-
-    public List<IngredientCaloriesDTO> getListIngredientsWithCalories(DishDTO dish){
-        dish.getIngredients().stream()
-                .map(v -> new IngredientDTO(v.getName()))
-        return dish.getIngredients().stream()
-                .map(ingredient -> this.getIngredientCalories(ingredient));
-    }
-
-    private IngredientCaloriesDTO getIngredientCalories(IngredientDTO ingredient){
-
+        Optional optional = ingredients.stream().filter(v -> v.getName().equals(name)).findFirst();
+        IngredientDTO result = null;
+        if (optional.isPresent())
+            result = optional.get();
+        return result;
     }
 
     private List<IngredientDTO> loadDataBase () {

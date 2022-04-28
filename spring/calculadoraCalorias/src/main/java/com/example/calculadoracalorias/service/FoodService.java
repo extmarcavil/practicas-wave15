@@ -1,7 +1,6 @@
 package com.example.calculadoracalorias.service;
 
 import com.example.calculadoracalorias.dto.DishDTO;
-import com.example.calculadoracalorias.dto.IngredientDTO;
 import com.example.calculadoracalorias.dto.response.CaloriesResponseDTO;
 import com.example.calculadoracalorias.repository.IFoodRepository;
 import org.springframework.stereotype.Service;
@@ -18,9 +17,9 @@ public class FoodService implements IFoodService {
     @Override
     public CaloriesResponseDTO getCalories(DishDTO dish) {
         CaloriesResponseDTO response = new CaloriesResponseDTO();
-        response.setTotalCalories(repository.getTotalCalories());
-        response.setIngredients(repository.getIngredients());
-        response.setIngredientMaxCalories(repository.getMaxCalories());
+        response.setTotalCalories(repository.getTotalCalories(dish));
+        response.setIngredients(repository.getIngredients(dish));
+        response.setIngredientMaxCalories(repository.getMaxCalories(dish));
         return null;
     }
 }
