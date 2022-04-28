@@ -1,9 +1,7 @@
 package com.example.be_java_hisp_w15_g07_ravelli.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 
@@ -16,6 +14,8 @@ public class NewPostDTO {
     private ProductDTO detail;
     private Integer category;
     private Double price;
+    private Boolean hasPromo;
+    private Double discount;
 
 
 }
