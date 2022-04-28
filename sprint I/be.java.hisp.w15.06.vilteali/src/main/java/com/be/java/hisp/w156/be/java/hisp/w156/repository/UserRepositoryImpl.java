@@ -54,8 +54,9 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public User getUser(Integer id) {
         return this.users.stream()
-                .filter(x -> x.getId() == id)
-                .findFirst().orElseThrow(() -> new UserNotFoundException(id));
+                .filter(user -> user.getId().equals(id))
+                .findFirst()
+                .orElseThrow(() -> new UserNotFoundException(id));
     }
 
     @Override

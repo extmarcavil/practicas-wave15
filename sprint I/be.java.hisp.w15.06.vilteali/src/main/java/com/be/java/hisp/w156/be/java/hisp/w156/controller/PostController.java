@@ -44,8 +44,9 @@ public class PostController {
     }
 
     @GetMapping("promo-post/list")
-    public ResponseEntity<ResponsePromoPostDTO> getAllPromoPostsById(@RequestParam Integer user_id) {
-        return productService.getAllPromoPostById(user_id);
+    public ResponseEntity<ResponsePromoPostDTO> getAllPromoPostsById(@RequestParam Integer user_id,
+                                                                     @RequestParam(required=false, defaultValue = "") String order) {
+        return productService.getAllPromoPostById(user_id, order);
     }
 
 }

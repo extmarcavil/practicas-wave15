@@ -74,14 +74,24 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<ResponsePromoPostDTO> getAllPromoPostById(Integer user_id) {
+    public ResponseEntity<ResponsePromoPostDTO> getAllPromoPostById(Integer user_id, String order) {
         User user = userRepository.getUser(user_id);
+
         List<ResponsePostDTO> posts = user.getPosts().stream()
                 .filter(Post::isHas_promo)
                 .map(ResponsePostDTO::from)
+                .sorted(orderByNameDetail(order))
                 .collect(Collectors.toList());
 
         return new ResponseEntity<>(ResponsePromoPostDTO.from(user, posts), HttpStatus.OK);
+    }
+
+    private Comparator<? super ResponsePostDTO> orderByNameDetail(String order) {
+        if (order.equals("name_asc")) {
+            return Comparator.comparing(post -> post.getDetail().getName());
+        } else {
+            return (a, b) -> -a.getDetail().getName().compareToIgnoreCase(b.getDetail().getName());
+        }
     }
 
     private void validatePrinceAndDiscountGreaterThanZero(Double discount, Double price) {
