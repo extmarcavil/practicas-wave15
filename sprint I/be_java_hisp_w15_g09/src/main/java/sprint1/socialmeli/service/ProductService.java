@@ -55,6 +55,13 @@ public class ProductService implements IProductService {
         return new ResponsePromoPostCountDTO(user.getId(), user.getName(), contador);
     }
 
+    @Override
+    public ResponsePostListOfUser listPostsOfUser(int userId) {
+        User user = getUserFromRepositoryById(userId);
+        List<Post> listOfPost = getPostsOfUser(userId);
+        return new ResponsePostListOfUser(user.getId(), user.getName(), this.converter.createFromEntities(listOfPost));
+    }
+
     //----------Private----------//
 
     /**
@@ -138,5 +145,9 @@ public class ProductService implements IProductService {
                     "order=date_asc\n" +
                     "order=date_desc");
         }
+    }
+
+    private List<Post> getPostsOfUser(int userId){
+        return postRepository.getListOfPostOfUser(userId);
     }
 }

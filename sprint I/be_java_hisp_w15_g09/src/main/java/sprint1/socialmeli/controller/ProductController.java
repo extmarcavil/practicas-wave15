@@ -36,4 +36,10 @@ public class ProductController {
     public ResponseEntity<ResponsePromoPostCountDTO> countPromoPostOfUser(@RequestParam int user_id){
         return ResponseEntity.ok(productService.countPromoPostOfUser(user_id));
     }
+
+    // US 0012
+    @GetMapping("/post/list")
+    public ResponseEntity<ResponsePostListOfUser> listPostsOfUser(@RequestParam int user_id){
+        return ResponseEntity.ok(productService.listPostsOfUser(user_id));
+    }
 }

@@ -20,8 +20,7 @@ Para poder realizar esto, un analista funcional relevó [una serie de **requerim
 - US0009 (GRUPAL): Fecha Ascendente y Descendente.   SocialMeli tiene como objetivo extra lograr permitir a los vendedores la posibilidad de publicar nuevos productos con ofertas o descuentos especiales exclusivos para sus seguidores por un determinado período de tiempo. Para ello propone los siguientes requerimientos:
 - US00010 (INDIVIDUAL): Llevar a cabo la publicación de un nuevo producto en promoción.
 - US00011 (INDIVIDUAL): Obtener la cantidad de productos en promoción de un determinado vendedor.
-- US00012 (INDIVIDUAL OPCIONAL): Para finalizar, desde Mercado Libre dieron a conocer que están abiertos a cualquier nueva funcionalidad o propuesta de mejora para “SocialMeli”. En caso de que esto se lleve a cabo, será necesario, además de desarrollar la funcionalidad, presentar la documentación técnica asociada.
-
+- US00012 (INDIVIDUAL OPCIONAL): Obtener un listado de todos los productos (con promo y sin) de un determinado vendedor.
 
 ### USUARIOS PARA TESTEAR
 En el constructor del repositorio en función cargarUsuarios();
@@ -36,3 +35,6 @@ En el constructor del repositorio en función cargarUsuarios();
 - US0001, US0006, US0007: Ramiro Augusto Vera Guzman y Nicolás Leonardo Kazandjian.
 - US0002, US0003, US0004: Lorena Maciel Bitencur y Gonzalo Murias.
 - US0005, US0008, US0009: Alan Leonel Gimenez y Alejandro Ivan Henestroza.
+
+### COLABORADORES POR REQUERIMIENTOS INDIVIDUALES:
+- US0010, US0011, US0012: Gonzalo Murias

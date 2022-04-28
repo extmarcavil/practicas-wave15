@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "63708337-665d-40ed-ac5f-69dae52adb77",
+		"_postman_id": "dcbacc4c-1e30-479f-a513-38a97479109b",
 		"name": "Sprint I Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -368,7 +368,7 @@
 					"response": []
 				},
 				{
-					"name": "US 12 - Seller's Promo Post",
+					"name": "US 12 - Seller's Post",
 					"event": [
 						{
 							"listen": "prerequest",
@@ -385,13 +385,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/promo-post/list?user_id={{seller_id}}",
+							"raw": "{{url}}/products/post/list?user_id={{seller_id}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"products",
-								"promo-post",
+								"post",
 								"list"
 							],
 							"query": [
