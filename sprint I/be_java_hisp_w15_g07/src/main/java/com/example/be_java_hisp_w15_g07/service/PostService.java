@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g07.service;
 
 
+import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
@@ -79,5 +80,10 @@ public class PostService implements IPostService{
     public void newPost(NewPostDTO postDTO){
         Post post = modelMapper.map(postDTO, Post.class);
         userRepository.newPost(postDTO.getUserId(), post);
+    }
+
+    public void newPromoPost(NewPromoPostDTO promoPostDTO){
+        Post post = modelMapper.map(promoPostDTO.getUserId(), Post.class);
+        userRepository.newPost(promoPostDTO.getUserId(), post);
     }
 }

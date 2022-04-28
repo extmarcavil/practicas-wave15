@@ -112,6 +112,7 @@ public class UserRepository implements IUserRepository{
     public void newPost(Integer userId, Post unPost){
         User user = this.findById(userId);
         user.newPost(unPost);
+        System.out.println(user.getPosts());
     }
 
     /**

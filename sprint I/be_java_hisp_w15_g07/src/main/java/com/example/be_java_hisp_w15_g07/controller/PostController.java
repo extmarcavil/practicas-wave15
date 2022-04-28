@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g07.controller;
 
 
+import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,6 +49,20 @@ public class PostController {
     @PostMapping("/post")
     public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+
+    /**
+     * add new user PromoPost
+     *
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Jeronimo Graff
+     */
+    @PostMapping("/promo-post")
+    public ResponseEntity<?> newPost(@RequestBody NewPromoPostDTO promoPostDTO){
+        postService.newPost(promoPostDTO);
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
