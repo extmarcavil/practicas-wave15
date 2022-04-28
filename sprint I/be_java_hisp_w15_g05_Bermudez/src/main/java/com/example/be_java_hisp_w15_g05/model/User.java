@@ -14,11 +14,13 @@ public class User {
 
     private ArrayList<User> seguidos = new ArrayList<>();
     private ArrayList<User> seguidores = new ArrayList<>();
+    private ArrayList<Post> publicaciones;
 
     public User(int userId, String name, boolean isSeller) {
         this.userId = userId;
         this.name = name;
-        this.isSeller = isSeller;
+        this.isSeller = false;
+        this.publicaciones = new ArrayList<>();
     }
 
     public void agregarSeguidor(User user) {
@@ -36,5 +38,7 @@ public class User {
     public void dejarDeSeguir(User user) {
         seguidos.remove(user);
     }
+
+    public void agregarPost(Post post) {publicaciones.add(post);}
 }
 

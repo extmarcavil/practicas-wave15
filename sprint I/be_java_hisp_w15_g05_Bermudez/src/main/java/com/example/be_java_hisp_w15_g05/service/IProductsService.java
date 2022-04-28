@@ -7,4 +7,5 @@ public interface IProductsService {
     ResCreatePostDTO createPost(PostDTO postDTO);
     ResCreatePostDTO createPromoPost(PromoPostDTO promoPostDTO);
     ResPostListDTO getPostFollowed(int id, String order);
+    ResCountPromoPostDTO getCountPromoPosts(int userId);
 }

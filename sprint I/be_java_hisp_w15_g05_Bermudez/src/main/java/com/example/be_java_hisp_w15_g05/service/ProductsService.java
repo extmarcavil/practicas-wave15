@@ -86,7 +86,16 @@ public class ProductsService implements IProductsService {
         return new ResPostListDTO(id,lista);
     }
 
+    @Override
+    public ResCountPromoPostDTO getCountPromoPosts(int userId){
 
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+
+        int cantPromoPost = userRepository.cantPromoPosts(user);
+
+        return new ResCountPromoPostDTO(userId,user.getName(),cantPromoPost);
+    }
 
 
     private void validateDate(LocalDate date){

@@ -43,7 +43,7 @@ public class UserRepository implements IUserRepository {
         Post posteo = new Post(1,20,LocalDate.of(2022,4,1),null,100,202.00);
         Post posteo2 = new Post(1,21,LocalDate.of(2022,4,26),null,100,202.00);
         Post posteo3 = new Post(1,22,LocalDate.of(2022,4,24),null,100,202.00);
-        Post posteo4 = new Post(1,23,LocalDate.of(2022,4,25),null,100,202.00);
+        Post posteo4 = new Post(2,23,LocalDate.of(2022,4,25),null,100,202.00);
 
         posts.addAll(Arrays.asList(posteo,posteo2,posteo3,posteo4));
     }
@@ -90,8 +90,10 @@ public class UserRepository implements IUserRepository {
         post.setPostId(postContador ++);
         posts.add(post);
         user.setSeller(true);
+        user.agregarPost(post);
     }
 
+    @Override
     public List<Post> getPostsTwoWeeks(int id){
 
         return posts.stream()
@@ -99,9 +101,14 @@ public class UserRepository implements IUserRepository {
                 .collect(Collectors.toList());
     }
 
-
+    @Override
     public Optional<User> sellersList(int id) {
         return findById(id);
+    }
+
+    @Override
+    public int cantPromoPosts(User user) {
+        return (int) user.getPublicaciones().stream().filter(Post::isHasPromo).count();
     }
 
     private boolean inTwoWeeksRange(LocalDate fecha){

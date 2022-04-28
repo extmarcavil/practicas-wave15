@@ -65,4 +65,10 @@ public interface IUserRepository {
      */
     List<Post> getPostsTwoWeeks(int id);
 
+    /**
+     *
+     * @param user: usuario para buscar la cantidad de publicaciones con promocion.
+     * @return cantidad de publicaciones con promocion.
+     */
+    int cantPromoPosts(User user);
 }

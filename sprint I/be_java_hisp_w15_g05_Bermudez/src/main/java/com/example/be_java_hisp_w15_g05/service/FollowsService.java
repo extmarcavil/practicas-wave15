@@ -72,6 +72,7 @@ public class FollowsService implements IFollowsService {
 
     }
 
+    @Override
     public ResCountFollowersDTO countFollowers(int userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
