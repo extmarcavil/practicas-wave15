@@ -1,6 +1,7 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.PromoPostCountDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PostPromoCountDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
@@ -13,5 +14,6 @@ public interface IProductService {
     ResponseEntity<SuccessDTO> savePostPromo(RequestPostPromoDTO requestPostPromoDto);
 
     ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order);
-    ResponseEntity<PromoPostCountDTO> getCountPostPromoByUser(Integer id);
+    ResponseEntity<PostPromoCountDTO> getCountPostPromoByUser(Integer id);
+    ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id);
 }

@@ -1,6 +1,7 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.PromoPostCountDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PostPromoCountDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.PostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
@@ -32,19 +33,19 @@ public class PostController {
     }
 
     @GetMapping("followed/{userId}/list")
-    public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(@PathVariable Integer userId,
-                                                                   @RequestParam(required=false, defaultValue = "") String order) {
+    public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(@PathVariable Integer userId, @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsLastTwoWeekById(userId, order);
-
     }
 
     @GetMapping("promo-post/count")
-    public ResponseEntity<PromoPostCountDTO> getCountPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id) {
+    public ResponseEntity<PostPromoCountDTO> getCountPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id) {
         return productService.getCountPostPromoByUser(user_id);
-
     }
 
-    ///products/promo-post/count?user_id={userId}
+    @GetMapping("promo-post/list")
+    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id) {
+        return productService.getListPostPromoByUser(user_id);
+    }
 
 
 }

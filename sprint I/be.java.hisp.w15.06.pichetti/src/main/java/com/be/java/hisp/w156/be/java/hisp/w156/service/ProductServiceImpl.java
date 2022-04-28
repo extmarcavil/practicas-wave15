@@ -1,9 +1,6 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.PromoPostCountDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.ResponsePostDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.UserCountFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.*;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostPromoDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
@@ -77,22 +74,29 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<PromoPostCountDTO> getCountPostPromoByUser(Integer id) {
+    public ResponseEntity<PostPromoCountDTO> getCountPostPromoByUser(Integer id) {
         User user = useRepository.getUser(id);
         Integer countPostPromo = user.getPosts().stream()
                 .filter(post -> post.isHas_promo())
                 .collect(Collectors.toList()).size();
 
-        PromoPostCountDTO promoPostCountDTO = new PromoPostCountDTO(user.getId(),
+        PostPromoCountDTO postPromoCountDTO = new PostPromoCountDTO(user.getId(),
                 user.getName(),
                  countPostPromo);
 
-        return new ResponseEntity<>(promoPostCountDTO, HttpStatus.OK);
+        return new ResponseEntity<>(postPromoCountDTO, HttpStatus.OK);
     }
 
+    @Override
+    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id) {
 
+        List<ResponsePostPromoDTO> posts = useRepository.getUser(id).getPosts().stream()
+                .filter(post -> post.isHas_promo())
+                .map(ResponsePostPromoDTO::from)
+                .collect(Collectors.toList());
 
-
+        return new ResponseEntity<>(PostPromoDTO.from(id, posts), HttpStatus.OK);
+    }
 
 
     private boolean byLastTwoWeek(LocalDate date) {
