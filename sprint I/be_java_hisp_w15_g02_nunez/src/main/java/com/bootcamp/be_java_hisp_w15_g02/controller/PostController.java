@@ -2,6 +2,7 @@ package com.bootcamp.be_java_hisp_w15_g02.controller;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.DiscountedPostCreateDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.DiscountedProductsBySellerDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.DiscountedProductsListDTO;
 import com.bootcamp.be_java_hisp_w15_g02.service.IPostService;
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.PostCreateDTO;
 import org.springframework.http.HttpStatus;
@@ -42,5 +43,10 @@ public class PostController {
     @GetMapping("promo-post/count")
     public ResponseEntity<DiscountedProductsBySellerDTO> getCountDiscountedProducts(@RequestParam("user_id") int userId) {
         return ResponseEntity.ok(postService.getCountDiscountedProducts(userId));
+    }
+
+    @GetMapping("promo-post/list")
+    public ResponseEntity<DiscountedProductsListDTO> findDiscountedProductsBySeller(@RequestParam("user_id") int userId) {
+        return ResponseEntity.ok(postService.findDiscountedProductsBySeller(userId));
     }
 }

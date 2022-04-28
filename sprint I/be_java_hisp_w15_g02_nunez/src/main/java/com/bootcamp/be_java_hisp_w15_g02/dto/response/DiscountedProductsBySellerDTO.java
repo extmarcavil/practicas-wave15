@@ -3,6 +3,9 @@ package com.bootcamp.be_java_hisp_w15_g02.dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
+/**
+ * Class added for individual work.
+ */
 @Setter @Getter
 public class DiscountedProductsBySellerDTO {
 

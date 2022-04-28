@@ -10,5 +10,5 @@ public interface IPostRepository {
     List<Post> postsByUser(int userId);
     List<Post> all();
 
-    int getCountDiscountedProducts(int userId);
+    List<Post> getDiscountedProducts(int userId);
 }

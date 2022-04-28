@@ -14,11 +14,9 @@ import java.util.stream.Collectors;
 @Repository
 public class PostRepository implements  IPostRepository {
     private List<Post> listPost;
-    private List<Post> listDiscountedPost;
 
     public PostRepository() {
         listPost = new ArrayList<>();
-        listDiscountedPost = new ArrayList<>();
         init();
     }
 
@@ -49,10 +47,10 @@ public class PostRepository implements  IPostRepository {
     }
 
     @Override
-    public int getCountDiscountedProducts(int userId) {
+    public List<Post> getDiscountedProducts(int userId) {
         List<Post> filterList = listPost.stream().filter(p -> p.getUserId() == userId && p.isHasPromo())
                                                  .collect(Collectors.toList());
-        return filterList.size();
+        return filterList;
     }
 
     private void init(){

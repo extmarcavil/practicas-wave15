@@ -2,15 +2,12 @@ package com.bootcamp.be_java_hisp_w15_g02.service;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.DiscountedPostCreateDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.PostCreateDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.DiscountedProductsBySellerDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g02.exception.NotSellerException;
 import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.model.Product;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IPostRepository;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPostsSellerByUserIdDTO;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
@@ -22,6 +19,7 @@ import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class PostService implements IPostService{
@@ -73,6 +71,13 @@ public class PostService implements IPostService{
         return true;
     }
 
+    /**
+     * Crate a discounted post and save in the repository's list
+     * <p>
+     * The method receives a post with the discount data
+     * @param newPost The DTO data of post
+     * @return Returns a boolean to confirm the registration
+     */
     @Override
     public boolean createPost(DiscountedPostCreateDTO newPost) {
         var user = userRepository.getUserById(newPost.getUserId());
@@ -130,10 +135,15 @@ public class PostService implements IPostService{
         return new GetPostsSellerByUserIdDTO(idUser,posts);
     }
 
+    /**
+     * Returns the quantity of discounted products from a seller
+     * @param userId Seller id
+     * @return Quantity of discounted products
+     */
     @Override
     public DiscountedProductsBySellerDTO getCountDiscountedProducts(int userId) {
         var user = userRepository.getUserById(userId);
-        var numPosts = postRepository.getCountDiscountedProducts(userId);
+        var numPosts = postRepository.getDiscountedProducts(userId).size();
         DiscountedProductsBySellerDTO discountedProducts;
         if (user.isSeller()) {
             discountedProducts = new DiscountedProductsBySellerDTO(userId, user.getUserName(), numPosts);
@@ -141,5 +151,22 @@ public class PostService implements IPostService{
             throw new NotSellerException("Usuario no vendedor");
         }
         return discountedProducts;
+    }
+
+    /**
+     * Returns Returns a list with publications with discounted products
+     * @param userId Seller id
+     * @return DTO with user data and list of with publications with discounted products
+     */
+    @Override
+    public DiscountedProductsListDTO findDiscountedProductsBySeller(int userId) {
+        var user = userRepository.getUserById(userId);
+        var posts = postRepository.getDiscountedProducts(userId);
+        var postsDto = posts.stream().map(p -> {
+            PostDTO postDTO = new PostDTO(p.getPostId(), p.getDate(), p.getDetail(), p.getCategory(), p.getPrice(),
+                                          p.isHasPromo(), p.getDiscount());
+            return postDTO;
+        }).collect(Collectors.toList());
+        return new DiscountedProductsListDTO(userId, user.getUserName(), postsDto);
     }
 }
