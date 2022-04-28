@@ -8,6 +8,6 @@ import org.springframework.http.ResponseEntity;
 public interface IProductService {
 
     ResponseEntity<SuccessDTO> savePost(RequestPostDTO requestPostDto);
-
+    ResponseEntity<SuccessDTO> savePromoPost(RequestPostDTO requestPostDto);
     ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order);
 }

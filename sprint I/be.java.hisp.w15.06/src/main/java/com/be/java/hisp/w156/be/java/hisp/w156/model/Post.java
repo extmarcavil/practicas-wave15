@@ -18,6 +18,7 @@ public class Post {
     private String category;
     private Double price;
 
+
     public static Post from(RequestPostDTO post) {
         return new Post(post.getUser_id(), post.getDate(), post.getDetail(), post.getCategory(), post.getPrice());
     }

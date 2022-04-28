@@ -6,6 +6,7 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPromoPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,7 +35,7 @@ public class PostController {
 
     @PostMapping("promo-post")
     public ResponseEntity<SuccessDTO> createNewPromoPost(@RequestBody RequestPromoPostDTO requestPromoPostDTO){
-        return productService
+       return ResponseEntity<>(productService)
     }
 
 }
