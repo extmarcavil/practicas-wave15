@@ -8,9 +8,9 @@ import sprint1.socialmeli.model.Product;
 @Getter
 public class RequestPromoPostDTO extends RequestPostDTO {
     boolean hasPromo;
-    int discount;
+    float discount;
 
-    public RequestPromoPostDTO(Integer userId, String date, Product detail, Integer category, Double price, boolean hasPromo, int discount) {
+    public RequestPromoPostDTO(Integer userId, String date, Product detail, Integer category, Double price, boolean hasPromo, float discount) {
         super(userId, date, detail, category, price);
         this.hasPromo = hasPromo;
         this.discount = discount;

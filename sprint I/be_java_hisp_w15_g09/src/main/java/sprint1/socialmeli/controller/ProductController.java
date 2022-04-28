@@ -8,6 +8,7 @@ import sprint1.socialmeli.dto.post.request.RequestPostDTO;
 import sprint1.socialmeli.dto.post.request.RequestPromoPostDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePromoPostCountDTO;
+import sprint1.socialmeli.dto.post.response.ResponsePromoPostListDTO;
 import sprint1.socialmeli.service.IProductService;
 
 @RestController
@@ -38,6 +39,12 @@ public class ProductController {
     @GetMapping("/promo-post/count")
     public ResponseEntity<ResponsePromoPostCountDTO> countPromoPost(@RequestParam Integer user_id){
         return ResponseEntity.ok(productService.countPromoPost(user_id));
+    }
+
+    // US 0012
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<ResponsePromoPostListDTO> getListOfPromoPost(@RequestParam Integer user_id){
+        return ResponseEntity.ok(productService.getListOfPromoPost(user_id));
     }
 
 
