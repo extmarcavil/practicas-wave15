@@ -20,8 +20,10 @@ public class ProductController {
     }
 
     /**
-     * Endpoint US 05
-     * Dar de alta una publicacion
+     * ProductController
+     * Crea una publicacion
+     *
+     * @param postDTO el dto de la publicacion a crear
      */
     @PostMapping("/post")
     public ResponseEntity<ResponseDTO> createPost(@RequestBody PostDTO postDTO) {
@@ -32,10 +34,11 @@ public class ProductController {
     }
 
     /**
-     * Endpoint US 06 y 09
-     * Obtener un listado de las publicaciones realizadas por los
-     * vendedores que un usuario sigue en las últimas dos semanas
-     * Ordenamiento por fecha ascendente y descendente
+     * ProductController
+     * Devuelve la lista de usuarios que siguen al parametro userId
+     *
+     * @param userId User a buscar.
+     * @param order orden de los resultados.
      */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostListDTO> getPostByFollowedSellers(@PathVariable Long userId, @RequestParam(required = false) String order) {
@@ -44,10 +47,11 @@ public class ProductController {
                 .status(HttpStatus.OK)
                 .body(service.getPostsByFollowedUsers(userId, order));
     }
-
     /**
-     * Endpoint US 10
-     * Llevar a cabo la publicación de un nuevo producto en promoción
+     * ProductController
+     * Publica un producto en promocion
+     *
+     * @param promoPostDTO el dto de la publicacion a crear
      */
     @PostMapping("/promo-post")
     public ResponseEntity<ResponseDTO> createPromoPost(@RequestBody PromoPostDTO promoPostDTO) {
@@ -58,8 +62,10 @@ public class ProductController {
     }
 
     /**
-     * Endpoint US 11
+     * ProductController
      * Obtener la cantidad de productos en promoción de un determinado vendedor
+     *
+     * @param user_id id del vendedor a buscar
      */
     @GetMapping("/promo-post/count")
     public ResponseEntity<PromoPostCountDTO> getPromoPostCountById(@RequestParam Long user_id) {
@@ -70,8 +76,10 @@ public class ProductController {
     }
 
     /**
-     * Endpoint US 12
-     * Actualizar la información de un post existente
+     * ProductController
+     * Actualiza una publicacion
+     *
+     * @param postDTO el dto de la publicacion a actualizar
      */
     @PutMapping("/update/{postId}")
     public ResponseEntity<ResponseDTO> updatePost(@PathVariable Long postId, @RequestBody PromoPostDTO postDTO) {
@@ -82,8 +90,10 @@ public class ProductController {
     }
 
     /**
-     * Endpoint US 13
-     * Obtener un listado de todos los productos de un determinado vendedor
+     * ProductController
+     * Obtiene los productos de un determinado vendedor
+     *
+     * @param userId id del vendedor a buscar
      */
     @GetMapping("/user/{userId}")
     public ResponseEntity<PostListDetailDTO> getAllPostsByUserId(@PathVariable Long userId) {

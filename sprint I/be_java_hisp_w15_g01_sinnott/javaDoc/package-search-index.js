@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller"},{"l":"ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository"},{"l":"ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service"}];updateSearchResults();
