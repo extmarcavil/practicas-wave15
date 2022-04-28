@@ -4,6 +4,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
+import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -106,4 +107,6 @@ public class UserService implements IUserService {
         vendedorsFollowedDTO.setUserName(user.getUser_name());
         return vendedorsFollowedDTO;
     }
+
+
 }

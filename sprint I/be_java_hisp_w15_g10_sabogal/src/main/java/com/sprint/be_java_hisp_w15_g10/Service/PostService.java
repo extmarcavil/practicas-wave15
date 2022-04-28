@@ -1,10 +1,8 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostPromoDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
@@ -20,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +44,7 @@ public class PostService implements IPostService{
         this.productRepository = productRepository;
     }
 
-    public PostCreatedDTO createPost(PostCreateDTO postCreateDTO){
+    public PostCreatedDTO createPost(@Valid PostCreateDTO postCreateDTO){
         Category category = categoryRepository
                 .getById(postCreateDTO.getCategory_id())
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
@@ -91,7 +90,7 @@ public class PostService implements IPostService{
         });
 
         if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
+        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post1.getDate()));
 
         UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
@@ -108,11 +107,52 @@ public class PostService implements IPostService{
     }
 
     @Override
+    public PostsPromoDTO createPromoPost(@Valid PostPromoDTO postPromoDTO) {
+        Category category = categoryRepository
+                .getById(postPromoDTO.getCategory_id())
+                .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
+
+        Post post = modelMapper.map(postPromoDTO, Post.class);
+        post.setPost_id(postRepository.nextIndex());
+        post.setCategory(category);
+        User user = userRepository.getById(postPromoDTO.getUser_id())
+                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
+
+        Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
+        if(product.isEmpty()){
+            productRepository.add(post.getDetail());
+        }else {
+            post.setDetail(product.get());
+        }
+        postRepository.add(post);
+        user.agregarPost(post);
+        return new PostsPromoDTO("Se ha creado el Post de promocion con éxito");
+
+    }
+
+    @Override
     public List<PostResponseDTO> getAllPromoPosts() {
         List<Post> posts = postRepository.getAll();
 
         List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
         return responseDTOS;
+    }
+
+    @Override
+    public VendorProductsDTO countPromoProductOfVendor(int userId) {
+        User user = userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        VendorProductsDTO userDTO = modelMapper.map(user, VendorProductsDTO.class);
+        userDTO.setPromo_products_count(user.getPosts().size());
+
+        List<Post> posts = new ArrayList<>();
+        for (Post p:user.getPosts()){
+            if(p.isHas_promo()==true){
+                posts.add(p);
+            }
+        }
+        userDTO.setPromo_products_count(posts.size());
+        return userDTO;
     }
 
 

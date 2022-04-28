@@ -1,14 +1,13 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostPromoDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
+import com.sprint.be_java_hisp_w15_g10.Service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -44,23 +43,19 @@ public class PostController {
         return new ResponseEntity<List<PostResponseDTO>>(postService.getAllPosts(), HttpStatus.OK);
     }
 
-/*
-    @PostMapping("post/promo-post")
-    public ResponseEntity<?> getUserWitFollowersCount(@Valid @RequestBody PostCreateDTO postCreateDTO){
-        return new ResponseEntity<PostCreatedDTO>(postService.createPost(postCreateDTO), HttpStatus.OK);
+
+    @PostMapping("promo-post")
+    public ResponseEntity<PostsPromoDTO> getUserWitFollowersCount(@Valid @RequestBody PostPromoDTO postPromoDTO){
+
+        return new ResponseEntity<PostsPromoDTO>(postService.createPromoPost(postPromoDTO), HttpStatus.OK);
     }
 
-    @GetMapping("/products/promo-post/count")
-    public ResponseEntity<?> countPromoPost(@RequestParam Integer user_id) {
-        return ResponseEntity.ok(service.countPromoPosts(user_id));
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<VendorProductsDTO> countPromoProductOfVendor( @RequestParam() int user_id) {
+        return new ResponseEntity<VendorProductsDTO>(postService.countPromoProductOfVendor(user_id), HttpStatus.OK);
     }
 
-    @GetMapping("/products/promo-post/list")
-    public ResponseEntity<PromoPostListDTO> listPromoPost(@RequestParam Integer user_id) {
-        return ResponseEntity.ok(service.listPromoPost(user_id));
-    }
 
-    */
 
 
 
