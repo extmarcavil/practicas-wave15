@@ -167,8 +167,9 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void createPromo(PostPromoDTO promo) {
         User user = getUser(promo.getUser_id());
-        user.addPromo(mapper.map(promo,PostPromo.class));
-        /*PostPromo nuevaPromo = new PostPromo();
+        //Con mapeo no cuenta el id del post
+        //user.addPromo(mapper.map(promo,PostPromo.class));
+        PostPromo nuevaPromo = new PostPromo();
         nuevaPromo.setCategory(promo.getCategory());
         nuevaPromo.setDate(promo.getDate());
         nuevaPromo.setDetail(productDTOToproduct(promo.getDetail()));
@@ -176,7 +177,7 @@ public class SocialMeliService implements ISocialMeliService {
         nuevaPromo.setPrice(promo.getPrice());
         nuevaPromo.setHas_promo(true);
         nuevaPromo.setDiscount(promo.getDiscount());
-        user.addPromo(nuevaPromo);*/
+        user.addPromo(nuevaPromo);
 
     }
 
