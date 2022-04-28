@@ -65,7 +65,7 @@ public class SocialMeliService implements ISocialMeliService {
      * @return user retorna el usuario en caso de que lo encuentre.
      */
     private User getUserFromRepositoryById(Integer userID) {
-        existUser(userID, "Usuario con id:");
+        existUser(userID);
         return this.repository.findUserById(userID);
     }
 
@@ -110,12 +110,11 @@ public class SocialMeliService implements ISocialMeliService {
      * Verifica si el usuario existe en el repositorio.
      * Busca un usuario a través de un ID recibido por parámetro, y en caso de no existir lanza la excepción UserNotFound con un mensaje recibido por parámetro.
      * @param userId ídentificador del usuario a buscar.
-     * @param msg mensaje al lanzar la excepción.
      * @throws UserNotFound en caso de no existir un usuario con dicho ID.
      */
-    private void existUser(Integer userId, String msg) {
+    private void existUser(Integer userId) {
         if( !this.repository.existUser(userId)){
-            throw new UserNotFound(msg + " "+ userId + " no fue encontrado");
+            throw new UserNotFound( "Usuario con id: " + userId + " no fue encontrado");
         }
     }
 }

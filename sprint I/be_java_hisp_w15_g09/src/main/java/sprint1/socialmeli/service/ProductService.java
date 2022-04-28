@@ -3,7 +3,6 @@ package sprint1.socialmeli.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sprint1.socialmeli.dto.post.request.RequestPostDTO;
-import sprint1.socialmeli.dto.post.response.ResponsePostDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint1.socialmeli.dto.post.response.ResponsePromoPostCountDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
@@ -12,7 +11,6 @@ import sprint1.socialmeli.model.Post;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
-import sprint1.socialmeli.utils.PostConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,7 +24,6 @@ public class ProductService implements IProductService {
 
     private final IPostRepository postRepository;
     private final ISocialMeliRepository userRepository;
-    private final PostConverter converter;
 
     @Override
     public Integer save(RequestPostDTO postDTO) throws InvalidPostException {
@@ -36,11 +33,10 @@ public class ProductService implements IProductService {
 
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
-        String sortOrder = setDefaultOrder(order);
-        validateOrder(sortOrder);
+        order = checkOrderParam(order);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
-        return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+        return new ResponsePostListDTO(userFollowerID, sortPosts(listOfPost, order));
     }
 
     @Override
@@ -54,7 +50,7 @@ public class ProductService implements IProductService {
     public ResponsePostListDTO getListOfPromoPost(Integer userId) {
         return new ResponsePostListDTO(
                     userId,
-                    this.converter.createFromEntities( getUserPromoPost(userId) ));
+                    getUserPromoPost(userId));
     }
 
     private List<Post> getUserPromoPost(Integer userId) {
@@ -101,26 +97,17 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * En el caso de ser nulo, define el orden como descendente de una lista a ordenar.
-     * @param order tipo de ordenamiento (date_asc o date_desc).
-     * @return el tipo de ordenamiento.
-     */
-    private String setDefaultOrder(String order) {
-        return (order == null) ? "date_desc" : order;
-    }
-
-    /**
-     * Ordena una Lista de DTO POST según el ordenamiento recibido por parámetro order.
-     * @param posts lista de PostDTO a ordenar.
+     * Ordena una Lista de POST según el ordenamiento recibido por parámetro order.
+     * @param posts lista de Post a ordenar.
      * @param order tipo de ordenamiento elegido.
      * @return la lista ordenada según el tipo de ordenamiento.
      */
-    private List<ResponsePostDTO> sortDTOPosts(List<ResponsePostDTO> posts, String order) {
-        List<ResponsePostDTO> sortedPosts = posts.stream()
-                .sorted(Comparator.comparing(ResponsePostDTO::getDate))
+    private List<Post> sortPosts(List<Post> posts, String order) {
+        List<Post> sortedPosts = posts.stream()
+                .sorted(Comparator.comparing(Post::getDate))
                 .collect(Collectors.toList());
         if (order.equals("date_desc")) {
-            sortedPosts.sort(Comparator.comparing(ResponsePostDTO::getDate).reversed());
+            sortedPosts.sort(Comparator.comparing(Post::getDate).reversed());
         }
         return sortedPosts;
     }
@@ -139,15 +126,20 @@ public class ProductService implements IProductService {
     }
 
     /**
-     * Comprueba que el parámetro order sea correcto.
-     * @param order orden a aplicar. Los parámetros admitidos son date_asc y date_desc.
+     * Comprueba que el parámetro order sea correcto. Si el parametro es nulo lo define
+     * como name_asc por defecto
+     * @param order orden a aplicar. Los parámetros admitidos son name_asc y name_desc.
      * @throws InvalidParamsException en caso de que el tipo de orden ingresado sea incorrecto.
+     * @return orden chequeado
      */
-    private void validateOrder(String order) {
+    private static String checkOrderParam(String order) {
+        if (order == null)
+            return "date_asc";
         if (!(order.equals("date_asc") || order.equals("date_desc"))) {
             throw new InvalidParamsException("Los parámetros ingresados son incorrectos. Este endpoint admite solo:\n" +
                     "order=date_asc\n" +
                     "order=date_desc");
         }
+        return order;
     }
 }

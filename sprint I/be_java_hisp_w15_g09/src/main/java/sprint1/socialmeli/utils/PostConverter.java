@@ -1,10 +1,9 @@
 package sprint1.socialmeli.utils;
 
-import org.springframework.stereotype.Component;
 import sprint1.socialmeli.dto.post.response.ResponsePostDTO;
 import sprint1.socialmeli.model.Post;
 
-@Component
+//@Component
 public class PostConverter extends Converter<ResponsePostDTO,Post> {
 
     public PostConverter() {
