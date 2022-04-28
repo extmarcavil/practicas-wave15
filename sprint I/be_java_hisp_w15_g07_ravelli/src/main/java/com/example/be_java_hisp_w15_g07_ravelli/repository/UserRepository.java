@@ -171,6 +171,13 @@ public class UserRepository implements IUserRepository{
         return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
     }
 
+    /**
+     * get promo products count by user id
+     *
+     * @param userId Integer
+     * @return {@link Long}
+     * @see Long
+     */
     @Override
     public Long getPromoProductsCount(Integer userId) {
         return findById(userId).getPosts().stream().filter(Post::getHasPromo).count();
