@@ -1,8 +1,10 @@
 package com.example.be_java_hisp_w15_g07_ravelli.controller;
 
 
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoPostDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserPromoPosts;
 import com.example.be_java_hisp_w15_g07_ravelli.service.IPostService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,4 +66,8 @@ public class PostController {
         return new ResponseEntity<>(postService.getPromoProductsCountByUserId(userId), HttpStatus.OK);
     }
 
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<UserPromoPosts> getPromoPosts (@RequestParam(name = "user_id") Integer userId) {
+        return new ResponseEntity<>(postService.getPromoPosts(userId), HttpStatus.OK);
+    }
 }

@@ -1,9 +1,7 @@
 package com.example.be_java_hisp_w15_g07_ravelli.service;
 
 
-import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PostDTO;
-import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
-import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07_ravelli.dto.response.*;
 import com.example.be_java_hisp_w15_g07_ravelli.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07_ravelli.model.Post;
 import com.example.be_java_hisp_w15_g07_ravelli.model.User;
@@ -102,5 +100,22 @@ public class PostService implements IPostService{
         }
         userRepository.newPost(postDTO.getUserId(), post);
     }
-    
+
+    /**
+     * get promo posts by userId
+     *
+     * @param userId Integer
+     * @return {@link UserFollowedPostsDTO}
+     * @see UserFollowedPostsDTO
+     */
+    @Override
+    public UserPromoPosts getPromoPosts(Integer userId) {
+        User user = userRepository.findById(userId);
+        if(user.getPosts().isEmpty()){
+            throw new BadRequestException("Este usuario no es un vendedor");
+        }
+        List<Post> listPromoPosts = user.getPosts().stream().filter(Post::getHasPromo).collect(Collectors.toList());
+        List<PromoPostDTO> resultPosts = listPromoPosts.stream().map(v -> modelMapper.map(v, PromoPostDTO.class)).collect(Collectors.toList());
+        return new UserPromoPosts(userId, user.getUserName(), resultPosts);
+    }
 }
