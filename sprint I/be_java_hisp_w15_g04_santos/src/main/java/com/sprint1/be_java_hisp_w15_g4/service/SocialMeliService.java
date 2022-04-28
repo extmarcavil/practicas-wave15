@@ -132,10 +132,17 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void getPromoPosts(PostPromoDTO postPromoDTO) {
-
+        Post newPromoPost = new Post();
         User user = getUser(postPromoDTO.getUser_id());
 
-        Post newPromoPost = mapper.map(postPromoDTO, Post.class);
+        newPromoPost.setUser_id(postPromoDTO.getUser_id());
+        newPromoPost.setDate(postPromoDTO.getDate());
+        newPromoPost.setDetail(productDTOToproduct(postPromoDTO.getDetail()));
+        newPromoPost.setCategory(postPromoDTO.getCategory());
+        newPromoPost.setPrice(postPromoDTO.getPrice());
+        newPromoPost.setHas_promo(postPromoDTO.isHas_promo());
+        newPromoPost.setDiscount(postPromoDTO.getDiscount());
+
         user.addPost(newPromoPost);
     }
 

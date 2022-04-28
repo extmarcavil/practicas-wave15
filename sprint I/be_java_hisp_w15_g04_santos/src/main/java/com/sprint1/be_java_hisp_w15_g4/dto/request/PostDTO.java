@@ -10,6 +10,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class PostDTO {
+
     private int user_id;
     private int post_id;
     @JsonFormat(pattern = "dd-MM-yyyy",shape = JsonFormat.Shape.STRING)

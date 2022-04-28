@@ -9,9 +9,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Setter
 @Getter
 public class Post {
+
     private static AtomicInteger idSequence = new AtomicInteger();
-    private int user_id;
+
     private int post_id;
+    private int user_id;
     private LocalDate date;
     private Product detail;
     private int category;
@@ -20,7 +22,7 @@ public class Post {
     private double discount;
 
 
-    public Post(){
+    public Post() {
         this.post_id = idSequence.incrementAndGet();
     }
 
