@@ -47,21 +47,21 @@ public class UserController {
                 .body(userService.findAllFollowedByUserId(userId, order));
     }
 
-    @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
+    @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<ResponseDTO> unFollow(@PathVariable long userId, @PathVariable long userIdToUnfollow){
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.unFollow(userId, userIdToUnfollow));
     }
 
-    @PutMapping("{userId}/deactivate")
+    @PutMapping("/{userId}/deactivate")
     public ResponseEntity<ResponseDTO> deactivate(@PathVariable Long userId) {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(userService.deactivate(userId));
     }
 
-    @PutMapping("{userId}/activate")
+    @PutMapping("/{userId}/activate")
     public ResponseEntity<ResponseDTO> activate(@PathVariable Long userId) {
         return ResponseEntity
                 .status(HttpStatus.OK)
