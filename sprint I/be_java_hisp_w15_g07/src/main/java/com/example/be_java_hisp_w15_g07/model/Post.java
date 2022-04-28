@@ -22,9 +22,9 @@ public class Post {
     private Integer category;
     private Double price;
     private Boolean hasPromo;
-    private Float discount;
+    private Double discount;
 
-    public Post(LocalDate date, Product detail, Integer category, Double price, Boolean hasPromo, Float discount) {
+    public Post(LocalDate date, Product detail, Integer category, Double price, Boolean hasPromo, Double discount) {
         this.postId = postId;
         this.date = date;
         this.detail = detail;

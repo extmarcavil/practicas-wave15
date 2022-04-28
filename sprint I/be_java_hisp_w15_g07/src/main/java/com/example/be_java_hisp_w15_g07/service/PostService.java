@@ -2,9 +2,7 @@ package com.example.be_java_hisp_w15_g07.service;
 
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.PromoPostsDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.*;
 import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 
@@ -87,6 +85,16 @@ public class PostService implements IPostService{
                 collect(Collectors.toList()).
                 size();
         return new PromoPostsDTO(userId, user.getUserName(), promoCount);
+    }
+
+    @Override
+    public PromoPostListDTO getPromoPosts(int userId) {
+        User user = userRepository.findById(userId);
+        List<PromoPostDTO> promoList = user.getPosts().stream().
+                filter(Post::getHasPromo).
+                map(v -> modelMapper.map(v, PromoPostDTO.class)).
+                collect(Collectors.toList());
+        return new PromoPostListDTO(user.getUserId(), user.getUserName(), promoList);
     }
 
     /**

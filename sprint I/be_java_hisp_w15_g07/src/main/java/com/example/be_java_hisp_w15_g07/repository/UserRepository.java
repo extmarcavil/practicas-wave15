@@ -32,19 +32,19 @@ public class UserRepository implements IUserRepository{
         User user4 = new User(4, "User 4");
 
         Product product = new Product(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        Post post = new Post(LocalDate.of(2020, Month.APRIL, 10), product, 1, 60000d, false, 0f);
+        Post post = new Post(LocalDate.of(2020, Month.APRIL, 10), product, 1, 60000d, false, 0d);
         user2.newPost(post);
 
         product = new Product(2, "Computadora", "Electrodomesticos", "Samsung", "Negro", "");
-        post = new Post(LocalDate.of(2022, Month.APRIL, 20), product, 2, 100000d, false, 0f);
+        post = new Post(LocalDate.of(2022, Month.APRIL, 20), product, 2, 100000d, false, 0d);
         user2.newPost(post);
 
         product = new Product(3, "Aire Acondicionado", "Electrodomesticos", "LG", "Blanco", "");
-        post = new Post(LocalDate.of(2022, Month.APRIL, 26), product, 3, 87000d, false, 0f);
+        post = new Post(LocalDate.of(2022, Month.APRIL, 26), product, 3, 87000d, false, 0d);
         user3.newPost(post);
 
         product = new Product(4, "Pava eléctrica", "Electrodomesticos", "Philip", "Negro", "");
-        post = new Post(LocalDate.of(2020, Month.JUNE, 12), product, 4, 4000d, false, 0f);
+        post = new Post(LocalDate.of(2020, Month.JUNE, 12), product, 4, 4000d, false, 0d);
         user3.newPost(post);
 
         // Add followers

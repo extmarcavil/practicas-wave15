@@ -8,5 +8,5 @@ import lombok.Data;
 public class NewPromoPostDTO extends NewPostDTO {
 
     private Boolean has_promo;
-    private Float discount;
+    private Double discount;
 }
