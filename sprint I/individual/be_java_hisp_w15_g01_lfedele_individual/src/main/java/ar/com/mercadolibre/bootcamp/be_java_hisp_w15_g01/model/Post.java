@@ -16,10 +16,12 @@ public class Post {
     private User user;
     private Boolean hasPromo;
     private Float discount;
+    private Boolean deactivated;
 
     public Post() {
         this.hasPromo = false;
         this.discount = 0F;
+        this.deactivated = false;
     }
 
     public boolean isOwnedById(Long id) {

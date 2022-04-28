@@ -1,6 +1,5 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,10 +7,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class User {
     private Long userId;
     private String userName;
+    private Boolean deactivated;
+
+    public User(Long userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+        this.deactivated = false;
+    }
     
     public Boolean equals(User anUser) {
     	        return this.userId.equals(anUser.getUserId());
