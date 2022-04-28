@@ -76,9 +76,9 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `type` | `String` | **Required**.  tipo de producto|
 | `brand` | `String` | **Required**.  marca del producto|
 | `color` | `String` | **Required**.  color del producto|
-| `notes` | `String` | **Optional**.  color del producto|
-| `category` | `int` | **Optional**.  color del producto|
-| `price` | `double` | **Required**.  color del producto|
+| `notes` | `String` | **Optional**.  nota del producto|
+| `category` | `int` | **Optional**.  categoria del producto|
+| `price` | `double` | **Required**.  precio del producto|
 
 #### queryPost
 
@@ -92,23 +92,50 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `userId` | `int` | **Required**.  id de la persona|
 | `order` | `String` | **Optional**.  tipo de orden|
 
+#### createPromoPost
+
+```http
+  POST /products/promo-post
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `userId` | `int` | **Required**.  id de la vendedor|
+| `date` | `LocalDate` | **Required**.  fecha|
+| `productId` | `int` | **Required**.  id del post|
+| `productName` | `String` | **Required**.  nombre del producto|
+| `type` | `String` | **Required**.  tipo de producto|
+| `brand` | `String` | **Required**.  marca del producto|
+| `color` | `String` | **Required**.  color del producto|
+| `notes` | `String` | **Optional**.  nota del producto|
+| `category` | `int` | **Optional**.  categoria del producto|
+| `price` | `double` | **Required**.  precio del producto|
+| `hasPromo` | `boolean` | **Required**.  producto en promoción|
+| `discount` | `double` | **Required**.  descuento|
+
+#### countPromoPosts
+
+```http
+  GET /products/promo-post/count?user_id={userId}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `userId` | `int` | **Required**. id del vendedor|
+
+#### getListPromoPosts
+
+```http
+  GET /products/promo-post/list?user_id={userId}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `userId` | `int` | **Required**. id del vendedor|
 
 
-## Authors
-
--[@GomezRodrigoML](https://github.com/GomezRodrigoML)
-
+## Author
 -[@marbermudez](https://github.com/marbermudez)
-
--[@sofiacotmeli](https://github.com/sofiacotmeli)
-
--[@mfranciscog](https://github.com/mfranciscog)
-
--[@NicoLopez1203](https://github.com/NicoLopez1203)
-
--[@vaneza17ruiz](https://github.com/ruizandino)
-
-
 
 ## Screenshots
 
