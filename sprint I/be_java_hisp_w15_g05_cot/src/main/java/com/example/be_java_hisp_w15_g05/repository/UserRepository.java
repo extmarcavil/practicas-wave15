@@ -14,25 +14,75 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository {
-    ArrayList<User> users = new ArrayList<>();
-    ArrayList<Post> posts = new ArrayList<>();
-    int postContador = 0;
+
+    private ArrayList<User> users = new ArrayList<>();
+    private ArrayList<Post> posts = new ArrayList<>();
+    private Integer postContador = 0;
 
     public UserRepository() {
+        initializeData();
+    }
+
+    @Override
+    public Optional<User> findById(int id) {
+        return users.stream()
+                .filter(u -> u.getUserId() == id)
+                .findFirst();
+    }
+
+    @Override
+    public void follow(User user, User seller) {
+        seller.addFollower(user);
+        user.follow(seller);
+    }
+
+    @Override
+    public void unFollow(User user, User seller) {
+        seller.deleteFollower(user);
+        user.unfollow(seller);
+    }
+
+    @Override
+    public int countFollowers(User user) {
+        return user.getSeguidores().size();
+    }
+
+    @Override
+    public void createPost(User user, Post post) {
+        post.setPostId(postContador ++);
+        posts.add(post);
+        user.setSeller(true);
+    }
+
+    @Override
+    public List<Post> getPostsTwoWeeks(int id){
+        return posts.stream()
+                .filter(post -> post.getUserId() == id && inTwoWeeksRange(post.getDate()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Post> getPromoPosts(int userId) {
+        return posts.stream()
+                .filter(post -> post.getUserId() == userId && post.isHasPromo())
+                .collect(Collectors.toList());
+    }
+
+    private void initializeData() {
         User galperin = new User(1, "Marcos Galperin", true);
         User antonio = new User(2, "Antonio", true);
         User juan = new User(10, "Juan", false);
         User pedro = new User(11, "APedro", false);
         User valentina = new User(12, "Valentina", false);
 
-        galperin.agregarSeguidor(juan);
-        juan.seguir(galperin);
+        galperin.addFollower(juan);
+        juan.follow(galperin);
 
-        galperin.agregarSeguidor(pedro);
-        pedro.seguir(galperin);
+        galperin.addFollower(pedro);
+        pedro.follow(galperin);
 
-        antonio.agregarSeguidor(juan);
-        juan.seguir(antonio);
+        antonio.addFollower(juan);
+        juan.follow(antonio);
 
         users.add(galperin);
         users.add(antonio);
@@ -46,69 +96,6 @@ public class UserRepository implements IUserRepository {
         Post posteo4 = new Post(1,23,LocalDate.of(2022,4,25),null,100,202.00, false, 0);
 
         posts.addAll(Arrays.asList(posteo,posteo2,posteo3,posteo4));
-    }
-
-    @Override
-    public Optional<User> findById(int id) {
-        return users.stream()
-                .filter(u -> u.getUserId() == id)
-                .findFirst();
-    }
-
-    @Override
-    public boolean follow(User usuario, User vendedor) {
-        if(vendedor.isSeller()){
-            vendedor.agregarSeguidor(usuario);
-            usuario.seguir(vendedor);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public boolean unFollow(User usuario, User vendedor) {
-        if(vendedor.isSeller() && vendedor.getSeguidores().contains(usuario)){
-            vendedor.eliminarSeguidor(usuario);
-            usuario.dejarDeSeguir(vendedor);
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public int cantFollowers(User user) {
-        return user.getSeguidores().size();
-    }
-
-    @Override
-    public Optional<User> followersList(int id) {
-        return findById(id);
-    }
-
-    @Override
-    public void createPost(User user, Post post) {
-        post.setPostId(postContador ++);
-        posts.add(post);
-        user.setSeller(true);
-    }
-
-    public List<Post> getPostsTwoWeeks(int id){
-
-        return posts.stream()
-                .filter(post -> post.getUserId() == id && inTwoWeeksRange(post.getDate()))
-                .collect(Collectors.toList());
-    }
-
-
-    public Optional<User> sellersList(int id) {
-        return findById(id);
-    }
-
-    @Override
-    public List<Post> getPromoPosts(int userId) {
-        return posts.stream()
-                .filter(post -> post.getUserId() == userId && post.isHasPromo())
-                .collect(Collectors.toList());
     }
 
     private boolean inTwoWeeksRange(LocalDate fecha){

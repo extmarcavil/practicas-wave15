@@ -23,82 +23,80 @@ public class FollowsService implements IFollowsService {
 
     @Override
     public ResFollowPostDTO follow(int userId, int userToFollowId) {
+        User follower = validateUserExists(userId);
+        User toFollow = validateUserExists(userToFollowId);
+        validateIsSeller(toFollow);
 
-        User follower = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+        userRepository.follow(follower, toFollow);
 
-        User toFollow = userRepository.findById(userToFollowId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToFollowId + " no encontrado."));;
-
-        boolean resultado = userRepository.follow(follower, toFollow);
-
-        if(!resultado){
-            throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
-        }
         return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
     }
 
     @Override
     public ResFollowPostDTO unFollow(int userId, int userToUnfollowId) {
+        User follower = validateUserExists(userId);
+        User toFollow = validateUserExists(userToUnfollowId);
+        validateIsSeller(toFollow);
+        validateUserIsFollower(follower, toFollow);
 
-        User follower = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+        userRepository.unFollow(follower, toFollow);
 
-        User toFollow = userRepository.findById(userToUnfollowId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToUnfollowId + " no encontrado."));;
-
-        boolean resultado = userRepository.unFollow(follower, toFollow);
-
-        if(!resultado){
-            throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + userId +
-                    " no sigue actualmente al usuario " + userToUnfollowId + ", o éste último no es un vendedor");
-        }
         return new ResFollowPostDTO("Usuario " + userToUnfollowId + " dejado de seguir");
     }
 
     @Override
     public ResListFollowersDTO getListFollowers(int userId, String order) {
+        User user = validateUserExists(userId);
 
-        User user = userRepository.followersList(userId)
-                .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
         List<UserDTO> followers = getListUserDTO(user.getSeguidores());
-
-        if(order!=null && order.equals("name_desc")){
-            followers.sort(Comparator.comparing(UserDTO::getUserName).reversed());
-        }else{
-            followers.sort(Comparator.comparing(UserDTO::getUserName));
-        }
+        sortListByName(followers, order);
 
         return new ResListFollowersDTO(user.getUserId(), user.getName(), followers);
 
     }
 
     public ResCountFollowersDTO countFollowers(int userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
-
-        int cantFollowers = userRepository.cantFollowers(user);
+        User user = validateUserExists(userId);
+        int cantFollowers = userRepository.countFollowers(user);
 
         return new ResCountFollowersDTO(userId, user.getName(), cantFollowers);
     }
 
     @Override
     public ResListSellersDTO getListSellers(int userId, String order) {
-        User user = userRepository.sellersList(userId)
-                .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
-        List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+        User user = validateUserExists(userId);;
 
-       if( order!=null && order.equals("name_desc")){
-            followed.sort(Comparator.comparing(UserDTO::getUserName).reversed());
-        }else{
-            followed.sort(Comparator.comparing(UserDTO::getUserName));
-        }
+        List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+        sortListByName(followed, order);
 
         return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
     }
 
     private List<UserDTO> getListUserDTO(List<User> users) {
         return users.stream().map(u -> new UserDTO(u.getUserId(), u.getName())).collect(Collectors.toList());
+    }
+
+    private User validateUserExists(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+    }
+
+    private void validateIsSeller(User user) {
+        if(!user.isSeller())
+            throw new UserNotSellerException("El usuario " + user.getUserId() + " no es un vendedor");
+    }
+
+    private void validateUserIsFollower(User follower, User seller) {
+        if(!seller.getSeguidores().contains(follower))
+            throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + follower.getUserId() +
+                    " no sigue actualmente al usuario " + seller.getUserId());
+    }
+
+    private void sortListByName(List<UserDTO> list, String order) {
+        if(order != null && order.equalsIgnoreCase("name_desc"))
+            list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
+        else
+            list.sort(Comparator.comparing(UserDTO::getUserName));
     }
 
 }

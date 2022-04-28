@@ -21,19 +21,19 @@ public class User {
         this.isSeller = isSeller;
     }
 
-    public void agregarSeguidor(User user) {
+    public void addFollower(User user) {
         seguidores.add(user);
     }
 
-    public void eliminarSeguidor(User user) {
+    public void deleteFollower(User user) {
         seguidores.remove(user);
     }
 
-    public void seguir(User user) {
+    public void follow(User user) {
         seguidos.add(user);
     }
 
-    public void dejarDeSeguir(User user) {
+    public void unfollow(User user) {
         seguidos.remove(user);
     }
 }

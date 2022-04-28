@@ -7,64 +7,61 @@ import java.util.List;
 import java.util.Optional;
 
 public interface IUserRepository {
-    /**
-     * @id el id para buscar al usuario.
-     * @return el usuario buscado o un opcional para arrojar una excepción.
-     */
-    Optional<User> findById(int id);
 
     /**
+     * Obtiene un usuario buscandolo por id
      *
-     * @param usuario utilizado para seguir al vendedor.
-     * @param vendedor utilizado para actualizar su lista de seguidores
-     * @return un flag de si se ejecuto correctamente o no.
+     * @param userId id del usuario a buscar
+     * @return devuelve el usuario buscado
      */
-    boolean follow(User usuario, User vendedor);
+    Optional<User> findById(int userId);
 
     /**
+     * Un usuario comienza a seguir a un vendedor
      *
-     * @param usuario utilizado para dejar de seguir al vendedor.
-     * @param vendedor utilizado para actualizar su lista de seguidores.
-     * @return un flag de si se ejecuto correctamente o no.
+     * @param usuario usuario que hara la accion de seguir
+     * @param vendedor vendedor a seguir
      */
-    boolean unFollow(User usuario, User vendedor);
+    void follow(User usuario, User vendedor);
 
     /**
+     * Un usuario deja de seguir a un vendedor
      *
-     * @param id id del usuario
-     * @return cantidad de followers de dicho usuario
+     * @param usuario usuario que hara la accion de dejar de seguir
+     * @param vendedor vendedor a dejar de seguir
      */
-    int cantFollowers(User user);
+    void unFollow(User usuario, User vendedor);
 
     /**
+     * Obtiene la cantidad de seguidores de un usuario
      *
-     * @param id del usuario al cual se solicita la lista de seguidores.
-     * @return un opcional que devulve la lista de seguidores.
+     * @param user usuario a consultar
+     * @return cantidad de seguidores de un usuario
      */
-    Optional<User> followersList(int id);
+    int countFollowers(User user);
 
     /**
+     * Crea una publicacion
      *
-     * @param user usuario al cual se le asigna el posteo.
-     * @param post el posteo a asignar.
+     * @param user usuario que crea la publicacion
+     * @param post publicacion
      */
-
     void createPost(User user, Post post);
 
     /**
+     * Obtiene los post de las ultimas dos semanas del userId correspondiente
      *
-     * @param id del usuario
-     * @return devuelve una lista de vendedores
+     * @param userId id del usuario a buscar
+     * @return lista de post que corresponden al userId
      */
-    Optional<User> sellersList(int id);
+    List<Post> getPostsTwoWeeks(int userId);
 
     /**
+     * Obtiene los post en promoción del userId correspondiente
      *
-     * @param id del usuario
-     * @return lista de post del usuario solicitado
+     * @param userId id del usuario a buscar
+     * @return lista de post con promocion que corresponden al userId
      */
-    List<Post> getPostsTwoWeeks(int id);
-
     List<Post> getPromoPosts(int userId);
 
 }
