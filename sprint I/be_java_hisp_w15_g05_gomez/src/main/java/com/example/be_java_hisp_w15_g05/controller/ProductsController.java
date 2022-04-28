@@ -19,12 +19,12 @@ public class ProductsController {
 
     @PostMapping("/post")
     public ResponseEntity<ResCreatePostDTO> createPost(@RequestBody PostDTO postDTO) {
-        return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.CREATED);
     }
 
     @PostMapping("/promo-post")
     public ResponseEntity<ResCreatePostDTO> createPostPromo(@RequestBody PostPromoDTO postPromoDTO) {
-        return new ResponseEntity<>(productsService.createPromoPost(postPromoDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productsService.createPromoPost(postPromoDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/followed/{userId}/list")
