@@ -14,5 +14,5 @@ import java.util.List;
 public class UserPromoPosts {
     public Integer userID;
     public String userName;
-    public List<PromoPostDTO> posts;
+    public List<PostDTO> posts;
 }

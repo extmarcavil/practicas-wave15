@@ -71,6 +71,35 @@ public class PostService implements IPostService{
     }
 
     /**
+     * create new post
+     *
+     * @param postDTO {@link NewPostDTO}
+     */
+    @Override
+    public void newPost(NewPostDTO postDTO){
+        Post post = modelMapper.map(postDTO, Post.class);
+        if(!post.verifyPromoSetted()){
+            post.setHasPromo(false);
+            post.setDiscount(0d);
+        }
+        userRepository.newPost(postDTO.getUserId(), post);
+    }
+
+    /**
+     * create new promo post
+     * @param postDTO NewPostDTO
+     * @author Tomas Ravelli
+     */
+    @Override
+    public void newPromoPost(NewPostDTO postDTO){
+        Post post = modelMapper.map(postDTO, Post.class);
+        if(!post.verifyPromoSetted()){
+            throw new BadRequestException("No has ingresado una promo");
+        }
+        userRepository.newPost(postDTO.getUserId(), post);
+    }
+
+    /**
      * get promo products count by user id
      *
      * @param userId Integer
@@ -83,22 +112,8 @@ public class PostService implements IPostService{
         if(user.getPosts().isEmpty()){
             throw new BadRequestException("Este usuario no es vendedor");
         }
-        Long promoProductsCount = userRepository.getPromoProductsCount(userId);
+        Long promoProductsCount = user.getPosts().stream().filter(Post::getHasPromo).count();;
         return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), promoProductsCount);
-    }
-
-    /**
-     * create new post
-     *
-     * @param postDTO {@link NewPostDTO}
-     */
-    public void newPost(NewPostDTO postDTO){
-        Post post = modelMapper.map(postDTO, Post.class);
-        if(post.getHasPromo() == null){
-            post.setHasPromo(false);
-            post.setDiscount(0d);
-        }
-        userRepository.newPost(postDTO.getUserId(), post);
     }
 
     /**
@@ -115,7 +130,7 @@ public class PostService implements IPostService{
             throw new BadRequestException("Este usuario no es un vendedor");
         }
         List<Post> listPromoPosts = user.getPosts().stream().filter(Post::getHasPromo).collect(Collectors.toList());
-        List<PromoPostDTO> resultPosts = listPromoPosts.stream().map(v -> modelMapper.map(v, PromoPostDTO.class)).collect(Collectors.toList());
+        List<PostDTO> resultPosts = listPromoPosts.stream().map(post -> modelMapper.map(post, PostDTO.class)).collect(Collectors.toList());
         return new UserPromoPosts(userId, user.getUserName(), resultPosts);
     }
 }

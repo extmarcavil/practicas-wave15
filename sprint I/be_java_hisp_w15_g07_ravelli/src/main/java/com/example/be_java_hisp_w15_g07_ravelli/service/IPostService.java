@@ -15,4 +15,6 @@ public interface IPostService {
     PromoProductsCountDTO getPromoProductsCountByUserId(Integer userId);
 
     UserPromoPosts getPromoPosts(Integer userId);
+
+    void newPromoPost(NewPostDTO newPostDTO);
 }
