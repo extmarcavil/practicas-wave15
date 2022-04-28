@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 @Getter
 @Repository
 public class PostRepository implements IPostRepository {
+
     private final Map<Integer, Post> postList;
     private Integer postId;
 
