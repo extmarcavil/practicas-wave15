@@ -52,8 +52,10 @@ public interface IProductService {
 
     /**
      * Retorna la lista de posteos de productos en promoción de todos los seguidos por un usuario, que se encuentren dentro del rango de precio requerido
+     * ordenados por precio.
      * Este método recibe el índice de un usuario #userId que sigue determinado grupo de vendedores (otros usuarios)
-     * que postean. Al invocar este método se obtendrá la lista de posteos de productos en promoción de aquellos usuarios que estan dentro del rango de precio entre #minPrice y #maxPrice
+     * que postean. Al invocar este método se obtendrá la lista de posteos de productos en promoción de aquellos usuarios que estan
+     * dentro del rango de precio entre #minPrice y #maxPrice ordenada por precio de menor a mayor.
      * @param userId indice del usuario seguidor
      * @param minPrice precio minimo
      * @param maxPrice precio máximo

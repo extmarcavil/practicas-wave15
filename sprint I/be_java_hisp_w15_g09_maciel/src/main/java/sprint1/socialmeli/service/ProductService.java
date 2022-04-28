@@ -56,6 +56,7 @@ public class ProductService implements IProductService {
 
     @Override
     public ResponsePromoPostListDTO getAllPromoProductByPriceRangeOfFollowed(int userId, double minPrice, double maxPrice) {
+        existUser(userId, "Usuario con id:");
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userId);
         ArrayList<ResponsePromoPostDTO> listOfPromoPost = getAllPromoPostsByRange(listOfFollowedUsers, minPrice, maxPrice);
         return new ResponsePromoPostListDTO(userId,listOfPromoPost);
@@ -160,9 +161,12 @@ public class ProductService implements IProductService {
         }
     }
 
-    /** Devuelve la lista de todos los post de productos en promoción de los usuarios con precio entre un determinado rango
+    /** Devuelve la lista de todos los post de productos en promoción de los usuarios con precio entre un determinado rango,
+     * ordenados por precio de menor a mayor.
      * @param listFollowed identificador de un usuario.
-     * @return la lista de post que tiene un determinado usuario
+     * @param min monto mínimo
+     * @param max monto máximo
+     * @return la lista de ResponsePromoPostDTO con todos los promo post de todos los usuarios seguidos
      */
 
     private ArrayList<ResponsePromoPostDTO> getAllPromoPostsByRange(List<User> listFollowed, double min, double max) {
@@ -170,13 +174,17 @@ public class ProductService implements IProductService {
         for(User eachFollowedUser : listFollowed){
             listOfPromoPost.addAll( getUserPromoPostByRange( eachFollowedUser.getId(), min, max) );
         }
+        listOfPromoPost.sort(Comparator.comparing(ResponsePromoPostDTO::getPrice));
+
         return listOfPromoPost;
     }
 
     /**
      * Obtiene una lista de posteos de un usuario en particular que hayan sido realizados en las últimas dos semanas.
      * @param followedIDToSearch identificador de un usuario.
-     * @return la lista mencionada.
+     * @param min monto mínimo
+     * @param max monto máximo
+     * @return lista de ResponsePromoPostDTO
      */
     private List<ResponsePromoPostDTO> getUserPromoPostByRange(int followedIDToSearch, double min, double max) {
         List<Post> allPromoPost = postRepository
