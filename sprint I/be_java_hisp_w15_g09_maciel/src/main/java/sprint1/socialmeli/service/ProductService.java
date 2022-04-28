@@ -11,10 +11,10 @@ import sprint1.socialmeli.model.Post;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.IPostRepository;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
+import sprint1.socialmeli.utils.PromoPostConverter;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,25 +25,29 @@ public class ProductService implements IProductService {
 
     private final IPostRepository postRepository;
     private final ISocialMeliRepository userRepository;
-    private final PostConverter converter;
+    private final PostConverter postConverter;
+    private final PromoPostConverter promoPostConverter;
 
     @Override
     public Integer save(RequestPostDTO postDTO) throws InvalidPostException {
+        existUser(postDTO.getUserId(), "Usuario con id:");
         Post newPost = new Post(postDTO);
         return postRepository.save(newPost);
     }
 
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
+        existUser(userFollowerID, "Usuario con id:");
         String sortOrder = setDefaultOrder(order);
         validateOrder(sortOrder);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
-        return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+        return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.postConverter.createFromEntities(listOfPost), sortOrder));
     }
 
     @Override
     public Integer savePromoPost(RequestPromoPostDTO promoPost) {
+        existUser(promoPost.getUserId(), "Usuario con id:");
         Post newPromoPost = new Post(promoPost);
         return postRepository.save(newPromoPost);
     }
@@ -58,8 +62,8 @@ public class ProductService implements IProductService {
     public ResponsePromoPostListDTO getAllPromoProductByPriceRangeOfFollowed(int userId, double minPrice, double maxPrice) {
         existUser(userId, "Usuario con id:");
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userId);
-        ArrayList<ResponsePromoPostDTO> listOfPromoPost = getAllPromoPostsByRange(listOfFollowedUsers, minPrice, maxPrice);
-        return new ResponsePromoPostListDTO(userId,listOfPromoPost);
+        ArrayList<Post> listOfPromoPost = getAllPromoPostsByRange(listOfFollowedUsers, minPrice, maxPrice);
+        return new ResponsePromoPostListDTO(userId,this.promoPostConverter.createFromEntities(listOfPromoPost));
     }
 
     //----------Private----------//
@@ -142,7 +146,7 @@ public class ProductService implements IProductService {
      */
     private List<Post> getUserPostOfLast2Week(int followedIDToSearch) {
         return postRepository
-                .getListOfPostOfUser(followedIDToSearch)
+                .getListOfSimplePostOfUser(followedIDToSearch)
                 .stream()
                 .filter(x -> x.getDate().isAfter(LocalDate.now().minusDays(14)))
                 .collect(Collectors.toList());
@@ -166,15 +170,15 @@ public class ProductService implements IProductService {
      * @param listFollowed identificador de un usuario.
      * @param min monto mínimo
      * @param max monto máximo
-     * @return la lista de ResponsePromoPostDTO con todos los promo post de todos los usuarios seguidos
+     * @return la lista de Post con todos los promo post de todos los usuarios seguidos
      */
 
-    private ArrayList<ResponsePromoPostDTO> getAllPromoPostsByRange(List<User> listFollowed, double min, double max) {
-        ArrayList<ResponsePromoPostDTO> listOfPromoPost = new ArrayList<>();
+    private ArrayList<Post> getAllPromoPostsByRange(List<User> listFollowed, double min, double max) {
+        ArrayList<Post> listOfPromoPost = new ArrayList<>();
         for(User eachFollowedUser : listFollowed){
             listOfPromoPost.addAll( getUserPromoPostByRange( eachFollowedUser.getId(), min, max) );
         }
-        listOfPromoPost.sort(Comparator.comparing(ResponsePromoPostDTO::getPrice));
+        listOfPromoPost.sort(Comparator.comparing(Post::getPrice));
 
         return listOfPromoPost;
     }
@@ -184,19 +188,14 @@ public class ProductService implements IProductService {
      * @param followedIDToSearch identificador de un usuario.
      * @param min monto mínimo
      * @param max monto máximo
-     * @return lista de ResponsePromoPostDTO
+     * @return lista de Post
      */
-    private List<ResponsePromoPostDTO> getUserPromoPostByRange(int followedIDToSearch, double min, double max) {
+    private List<Post> getUserPromoPostByRange(int followedIDToSearch, double min, double max) {
         List<Post> allPromoPost = postRepository
                 .getListOfProductPostOfUser(followedIDToSearch)
                 .stream()
                 .filter(x -> x.getPrice() >= min && x.getPrice() <= max)
                 .collect(Collectors.toList());
-
-        List<ResponsePromoPostDTO> allPromoPostDTO = new ArrayList<>();
-        for (Post p : allPromoPost) {
-            allPromoPostDTO.add(new ResponsePromoPostDTO(p));
-        }
-        return allPromoPostDTO;
+       return allPromoPost;
     }
 }

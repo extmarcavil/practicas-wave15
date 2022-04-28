@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IPostRepository {
     Integer save(Post post);
-    List<Post> getListOfPostOfUser(int followedIDToSearch);
+    List<Post> getListOfSimplePostOfUser(int followedIDToSearch);
 
     List<Post> getListOfProductPostOfUser(int userIDToSearch);
 }

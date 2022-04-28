@@ -28,10 +28,9 @@ public class PostRepository implements IPostRepository {
     }
 
     @Override
-    public List<Post> getListOfPostOfUser(int followedIDToSearch) {
-        return postList.values()
-                .stream()
-                .filter((Post p) -> p.hasUserID(followedIDToSearch))
+    public List<Post> getListOfSimplePostOfUser(int followedIDToSearch) {
+        return postList.values().stream()
+                .filter((Post p) -> p.hasUserID(followedIDToSearch) && p.getHasPromo() == false)
                 .collect(Collectors.toList());
     }
 
