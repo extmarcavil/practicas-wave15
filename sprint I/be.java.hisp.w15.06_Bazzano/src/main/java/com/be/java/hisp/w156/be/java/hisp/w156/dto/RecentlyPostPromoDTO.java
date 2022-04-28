@@ -16,4 +16,6 @@ public class RecentlyPostPromoDTO {
     public static RecentlyPostPromoDTO from(Integer id, String  user_name, List<ResponsePostPromoDTO> posts) {
         return new RecentlyPostPromoDTO(id, user_name, posts);
     }
+
+
 }

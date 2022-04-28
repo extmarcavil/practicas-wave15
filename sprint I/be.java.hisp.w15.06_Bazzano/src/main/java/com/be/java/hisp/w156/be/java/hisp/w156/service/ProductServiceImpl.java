@@ -94,9 +94,9 @@ public class ProductServiceImpl implements IProductService {
                 .collect(Collectors.toList());
 
         if(order.equals("name_asc"))
-            postsWithPromo.sort(Comparator.comparing(postsWithPromo.getJSONObject()));
+            postsWithPromo.sort(Comparator.comparing(a -> a.getDetail().getName()));
         else
-            postsWithPromo.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+            postsWithPromo.sort((a, b) -> -a.getDetail().getName().compareToIgnoreCase(b.getDetail().getName()));
 
         return new ResponseEntity<>(RecentlyPostPromoDTO.from(id, userseller.getName(), postsWithPromo), HttpStatus.OK);
     }

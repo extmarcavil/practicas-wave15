@@ -385,7 +385,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/promo-post/list?user_id={{seller_id}}&order=date_asc",
+							"raw": "{{url}}/products/promo-post/list?user_id={{seller_id}}&order=name_asc",
 							"host": [
 								"{{url}}"
 							],
@@ -401,7 +401,12 @@
 								},
 								{
 									"key": "order",
-									"value": "date_asc"
+									"value": "name_asc"
+								},
+								{
+									"key": "order",
+									"value": "name_desc",
+									"disabled": true
 								}
 							]
 						}

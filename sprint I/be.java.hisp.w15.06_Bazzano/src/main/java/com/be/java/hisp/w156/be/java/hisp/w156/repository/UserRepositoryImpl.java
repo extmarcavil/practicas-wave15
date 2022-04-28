@@ -24,7 +24,9 @@ public class UserRepositoryImpl implements IUserRepository {
     @Override
     public void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
-        Product product2 = new Product(2, "lampara Escritorio", "Lampara", "Racer", "Black", "Special Edition");
+        Product product2 = new Product(2, "Lampara Escritorio", "Lampara", "Racer", "Black", "Special Edition");
+        Product product3 = new Product(3, "Auriculares", "Sonido", "Racer", "Black", "Special Edition");
+        Product product4 = new Product(3, "Teclado", "teclado", "Racer", "Black", "Special Edition");
 
         List<Post> posts = Stream.of(
                 new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50, false, null),
@@ -34,8 +36,10 @@ public class UserRepositoryImpl implements IUserRepository {
         List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50, false, null))
                 .collect(Collectors.toList());
         List<Post> posts3 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50, true, 0.25),
-                                      new Post(2, LocalDate.of(2022, 4, 10), product2, "80", 50.50, false, null),
-                                      new Post(3, LocalDate.of(2022, 3, 30), product2, "150", 550.50, true, 0.5))
+                                      new Post(2, LocalDate.of(2022, 4, 10), product3, "80", 50.50, false, null),
+                                      new Post(3, LocalDate.of(2022, 3, 30), product2, "150", 550.50, true, 0.5),
+                                      new Post(4, LocalDate.of(2021, 2, 27), product4, "80", 400.50, true, 0.1))
+
                 .collect(Collectors.toList());
 
         User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
