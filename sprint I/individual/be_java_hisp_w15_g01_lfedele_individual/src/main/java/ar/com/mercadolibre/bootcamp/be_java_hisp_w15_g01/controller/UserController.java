@@ -60,4 +60,11 @@ public class UserController {
             .status(HttpStatus.OK)
             .body(userService.deactivate(userId));
     }
+
+    @PutMapping("{userId}/activate")
+    public ResponseEntity<ResponseDTO> activate(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(userService.activate(userId));
+    }
 }

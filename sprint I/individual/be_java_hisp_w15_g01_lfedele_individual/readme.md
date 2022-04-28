@@ -1,8 +1,12 @@
-# Project: Sprint 1
+# Project: Sprint 1 - VERSION INDIVIDUAL LUCAS FEDELE
 # Introduccion
 versión Beta de la API “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
 
 Esta API engloba los metodos basicos para dicha funcionalidad
+
+
+# Coleccion postman
+Se encuentra en una carpeta llamada postaman en la raiz del proyecto
 
 # Colaboradores
 Barraza Miguel Angel
@@ -184,5 +188,39 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 13 - A - Deactivate user
+Desactiva un usuario, sus posts no se veran mas, tampoco aparecera en seguidores ni podra obtener seguidores
+ni seguir ni publicar nada
+### Method: PUT
+>```
+>{{url}}/users/{{user_id}}/deactivate
+>```
+### Path Params
+
+|Param|value|
+|---|---|
+|user_id|{{user_id}}|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 13 - B - Activate user
+Revierte la condicion del endpoint anterior
+### Method: PUT
+>```
+>{{url}}/users/{{user_id}}/activate
+>```
+### Path Params
+
+|Param|value|
+|---|---|
+|user_id|{{user_id}}|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
 _________________________________________________
 Powered By: [postman-to-markdown](https://github.com/bautistaj/postman-to-markdown/)

@@ -19,4 +19,5 @@ public interface UserService {
 
     ResponseDTO deactivate(Long userId);
 
+    ResponseDTO activate(Long userId);
 }

@@ -67,6 +67,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public PostListDTO getPostsByFollowedUsers(Long userId, String order) {
+        // esta linea solo se usa para que lance la excepcion si el userId esta desactivado
+        userService.findById(userId);
 
         if(order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be order_desc or order_asc");
@@ -78,7 +80,10 @@ public class PostServiceImpl implements PostService {
 
         for(User v : followedUsers) {
             this.postRepository.getAllPostsByUserWithinTimespan(v, 14)
-                    .forEach(p -> internalPostList.add(new PostDTO(p)));
+                    .forEach(p -> {
+                        if (!p.getDeactivated())
+                            internalPostList.add(new PostDTO(p));
+                    });
         }
 
 

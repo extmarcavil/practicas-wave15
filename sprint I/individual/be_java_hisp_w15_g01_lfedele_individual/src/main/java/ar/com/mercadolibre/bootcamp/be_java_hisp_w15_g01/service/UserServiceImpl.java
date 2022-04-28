@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -47,6 +48,13 @@ public class UserServiceImpl implements  UserService {
 
     @Override
     public User findById(Long id) {
+        User u = findByIdHARD(id);
+        if (u.getDeactivated())
+            throw new DeactivatedUserException();
+        return u;
+    }
+
+    private User findByIdHARD(Long id) {
         Optional<User> ou = userRepository.findById(id);
         if (ou.isPresent()) {
             return ou.get();
@@ -64,8 +72,9 @@ public class UserServiceImpl implements  UserService {
         List<UserDTO> followers = this.followRepository
                 .whoFollows(id)
                 .stream()
+                .filter(f -> !f.getFollower().getDeactivated())
                 .map(f -> mapper.map(f.getFollower(), UserDTO.class))
-                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
+                .sorted(Comparator.comparing(UserDTO::getUserName))
                 .collect(Collectors.toList());
 
         if (order!= null && order.equals("name_desc")){
@@ -82,14 +91,15 @@ public class UserServiceImpl implements  UserService {
     @Override
     public FollowersCountDTO wowManyFollowsMe(Long userId) {
         User user = this.findById(userId);
-        Integer followersCount = this.followRepository
+        Long followersCount = this.followRepository
                 .whoFollows(userId)
-                .size();
+                .stream().filter(f -> !f.getFollowing().getDeactivated())
+                .count();
 
         FollowersCountDTO dto = new FollowersCountDTO();
         dto.setUserId(user.getUserId());
         dto.setUserName(user.getUserName());
-        dto.setFollowersCount(followersCount);
+        dto.setFollowersCount(followersCount.intValue());
         return dto;
     }
 
@@ -97,13 +107,14 @@ public class UserServiceImpl implements  UserService {
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
         }
+        User userFollowing = findById(userId);
         List<UserDTO> followed = followRepository
                 .findFollowedByUserId(userId)
                 .stream()
+                .filter(u -> !u.getDeactivated())
                 .map(u -> mapper.map(u, UserDTO.class))
-                .sorted((v,k)->v.getUserName().compareTo(k.getUserName()))
+                .sorted(Comparator.comparing(UserDTO::getUserName))
                 .collect(Collectors.toList());
-        User userFollowing = findById(userId);
 
         if (order!= null && order.equals("name_desc")){
             Collections.reverse(followed);
@@ -140,6 +151,16 @@ public class UserServiceImpl implements  UserService {
         postRepository.desactivatePostsByUserId(userId);
         ResponseDTO dto = new ResponseDTO();
         dto.setMessage("Usuario desactivado!");
+        return dto;
+    }
+
+    @Override
+    public ResponseDTO activate(Long userId) {
+        User user = this.findByIdHARD(userId);
+        user.activate();
+        postRepository.desactivatePostsByUserId(userId);
+        ResponseDTO dto = new ResponseDTO();
+        dto.setMessage("Usuario activado!");
         return dto;
     }
 }
