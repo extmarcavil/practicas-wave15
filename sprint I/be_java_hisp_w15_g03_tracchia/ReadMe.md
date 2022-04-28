@@ -185,6 +185,89 @@ Ordenamiento alfabético ascendente y descendente para la US 6.
 |:-----|--------|--------------------------------------------------------------------------------------------------------|
 | 0009 | GET    | /products/followed/{userId}/list?order=date_asc <br />/products/followed/{userId}/list?order=date_desc |
 
+## Parte Individual
+
+###**US 0010**
+Llevar a cabo la publicación de un nuevo producto en promoción.
+
+| US   | METHOD | SIGN           | RESPONSE                               |
+|:-----|--------|----------------|----------------------------------------|
+| 0010 | POST   | /products/promo-post | Status Code 200 <br /> Status Code 400 |
+
+#### Payload
+```
+{
+    "user_id": 1569,
+    "date": "29-04-2021",
+    "detail": {
+        "product_id": 1,
+        "product_name": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50,
+    "has_promo": true,
+    "discount": 0.25
+}
+
+```
+
+###**US 0011**
+Obtener la cantidad de productos en promoción de un determinado vendedor.
+
+| US   | METHOD | SIGN                                                                                                   |
+|:-----|--------|---------------------------------|
+| 0011 | GET    |  /products/promo-post/count?user_id={userId}|
+
+#### Response
+
+```
+{  
+   "user_id" : 1569,
+   "user_name": "vendedor1",
+   "promo_products_count": 23
+}
+```
+
+###**US 0012**
+Obtener un listado de todos los productos en promoción de un determinado vendedor
+
+| US   | METHOD | SIGN                                                                                                   |
+|:-----|--------|---------------------------------|
+| 0012 | GET    | /products/promo-post/list?user_id={userId}|
+
+#### Response
+
+```
+{
+    "user_id": 1569,
+    "user_name": "vendedor1",
+    "posts": [
+        {
+            "post_id": 18,
+            "date": "29-04-2021",
+            "detail": {
+                "product_id": 1,
+                "product_name": "Silla Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "category": "100",
+            "price": 15000.50,
+            "has_promo": true,
+            "discount": 0.25
+        }
+    ]
+}
+
+```
+
+
 
 ## Excepciones
 
@@ -213,7 +296,12 @@ Ordenamiento alfabético ascendente y descendente para la US 6.
 * Excepcion creada en caso de que la relacion entre vendedor y usuario exista o no.<br/>
 * **Response:** 409 CONFLICT
 
+## Excepciones Parte individual
 
+#### HasnotPromoException:
+
+* Excepcion creada en caso de que una publicacion que deberia tenerlo, no tenga promo.<br/>
+* **Response:** 400 BAD REQUEST
 
 ## Datos precargados
 
