@@ -76,9 +76,9 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `type` | `String` | **Required**.  tipo de producto|
 | `brand` | `String` | **Required**.  marca del producto|
 | `color` | `String` | **Required**.  color del producto|
-| `notes` | `String` | **Optional**.  color del producto|
-| `category` | `int` | **Optional**.  color del producto|
-| `price` | `double` | **Required**.  color del producto|
+| `notes` | `String` | **Optional**.  notas sobre el producto|
+| `category` | `int` | **Optional**.  id de categoría|
+| `price` | `double` | **Required**.  precio del producto|
 
 #### queryPost
 
