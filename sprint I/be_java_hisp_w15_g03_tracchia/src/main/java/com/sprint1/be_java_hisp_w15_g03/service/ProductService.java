@@ -30,6 +30,14 @@ public class ProductService implements IProductService {
         this.modelMapper = new ModelMapper();
     }
 
+    /**
+     * Permite obtener las publicaciones de los vendedores seguidos por un usuario, publicadas en las ultimas dos
+     * semanas. Las publicaciones se obtienen ordenadas por fecha teniendo en cuenta el parametro order.
+     *
+     * @param userId Id del usuario
+     * @param order Puede ser date_asc o date_desc, indica si se ordena en forma ascendente o descendente.
+     * @return
+     */
     @Override
     public SellerPListDTO getLastPublication(int userId, String order) {
 
@@ -54,6 +62,12 @@ public class ProductService implements IProductService {
         return followedPublications;
     }
 
+    /**
+     * Permite obtener la cantidad de publicaciones con promocion que posee un vendedor.
+     *
+     * @param sellerId Id del vendedor
+     * @return Objeto con informacion del vendedor y la cantidad de publicaciones con promocion que posee.
+     */
     @Override
     public PromoCountDT0 getPromoCount(int sellerId) {
 
@@ -66,6 +80,13 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Permite obtener una lista con las publicaciones con promocion de un vendedor.
+     *
+     * @param sellerId Id del vendedor
+     * @return Devuelve un objeto con la informacion del vendedor y una lista de las publicaciones
+     * con promocion que posee.
+     */
     @Override
     public PromoListDTO getPromoList(int sellerId) {
         if(!repository.hasSeller(sellerId)){
@@ -77,6 +98,12 @@ public class ProductService implements IProductService {
         return new PromoListDTO(s.getUserId(),s.getUserName(),promoResp);
     }
 
+    /**
+     * Permite ordenar una lista de publicaciones de acuerdo a la fecha
+     * @param publicationList Lista a ordenar
+     * @param order Puede ser date_asc o date_desc dependiendo de si es en forma ascendente o descendente.
+     * @return Lista de publicaciones ordenada
+     */
     private List<PublicationRespDTO> orderByDate(List<PublicationRespDTO> publicationList, String order) {
 
         if (order != null) {
@@ -98,6 +125,10 @@ public class ProductService implements IProductService {
         return publicationList;
     }
 
+    /**
+     * Permite guardar una publicacion que no tiene promocion, generando la publicacion a guardar
+     * @param publication El dto de la publicacion a guardar
+     */
     @Override
     public void savePublicationWithoutPromo(PublicationDTO publication) {
 
@@ -118,7 +149,10 @@ public class ProductService implements IProductService {
 
     }
 
-
+    /**
+     * Permite guardar una publicacion con promocion, generando la publicacion a guardar
+     * @param publication El dto de la publicacion a guardar
+     */
     @Override
     public void savePromoPublication (PublicationPromoDTO publication){
 
@@ -139,9 +173,14 @@ public class ProductService implements IProductService {
         savePublication(p,publication.getUserId());
     }
 
-    private void savePublication(Publication publication, int userId){
+    /**
+     * Comprueba que los datos sean correctos y si es asi, guarda la publicacion recibida.
+     * @param publication Publicacion a ser guardada
+     * @param sellerId Id del vendedor
+     */
+    private void savePublication(Publication publication, int sellerId){
 
-        if (repository.hasSeller(userId)) {
+        if (repository.hasSeller(sellerId)) {
 
             if (repository.hasProduct(publication.getDetail().getProductId()))
             {
@@ -152,10 +191,10 @@ public class ProductService implements IProductService {
                 repository.addProduct(publication.getDetail());
             }
 
-            repository.savePublication(userId, publication);
+            repository.savePublication(sellerId, publication);
 
         } else {
-            throw new PersonNotFoundException("El vendedor con el id: " + userId + " no existe");
+            throw new PersonNotFoundException("El vendedor con el id: " + sellerId + " no existe");
         }
     }
 
