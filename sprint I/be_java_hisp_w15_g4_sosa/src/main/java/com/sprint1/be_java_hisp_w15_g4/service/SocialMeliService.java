@@ -6,6 +6,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
+import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentException;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
@@ -134,18 +135,21 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private void orderByName(String order, List<UserDTO> userDTO) {
-        if (order == null || order.equals("name_asc")) {
+        if (order == null || order.equals("name_asc"))
             userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
-        } else if (order.equals("name_desc")) {
-            userDTO.sort((u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
-        }
+        else if (order.equals("name_desc"))
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+        else
+            throw new BadOrderArgumentException(order);
     }
 
     private List<Post> orderByDate(List<Post> posts, String order) {
         if (order == null || order.equals("date_desc"))
+            return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else if(order.equals("date_asc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
-
-        return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else
+            throw new BadOrderArgumentException(order);
     }
 
     @Override
@@ -162,7 +166,8 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void createPromo(PostPromoDTO promo) {
         User user = getUser(promo.getUser_id());
-        PostPromo nuevaPromo = new PostPromo();
+        user.addPromo(mapper.map(promo,PostPromo.class));
+        /*PostPromo nuevaPromo = new PostPromo();
         nuevaPromo.setCategory(promo.getCategory());
         nuevaPromo.setDate(promo.getDate());
         nuevaPromo.setDetail(productDTOToproduct(promo.getDetail()));
@@ -170,7 +175,7 @@ public class SocialMeliService implements ISocialMeliService {
         nuevaPromo.setPrice(promo.getPrice());
         nuevaPromo.setHas_promo(true);
         nuevaPromo.setDiscount(promo.getDiscount());
-        user.addPromo(nuevaPromo);
+        user.addPromo(nuevaPromo);*/
 
     }
 

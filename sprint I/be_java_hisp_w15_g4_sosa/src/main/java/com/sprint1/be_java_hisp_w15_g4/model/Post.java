@@ -4,6 +4,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.time.Period;
 
@@ -19,8 +21,9 @@ public class Post {
     private double price;
 
     public boolean ultimas2Semanas() {
-        Period periodo = Period.between(date, LocalDate.now());
-        return periodo.getDays() <= 14;
+        return date.isAfter(LocalDate.now().minus(2, ChronoUnit.WEEKS));
+        /*Period periodo = Period.between(date, LocalDate.now());
+        return periodo.getDays() <= 14;*/
     }
 
     public Post(){
