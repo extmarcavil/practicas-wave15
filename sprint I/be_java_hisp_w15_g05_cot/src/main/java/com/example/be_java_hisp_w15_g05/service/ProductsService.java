@@ -35,9 +35,7 @@ public class ProductsService implements IProductsService {
     public ResCreatePostDTO createPost(PostDTO postDTO) {
         Post post = modelMapper.map(postDTO, Post.class);
 
-        User user = userRepository.findById(post.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + post.getUserId() + " no encontrado."));
-
+        User user = validateUserExists(post.getUserId());
         validateDate(post.getDate());
         validatePrice(post.getPrice());
 
@@ -46,32 +44,24 @@ public class ProductsService implements IProductsService {
         return new ResCreatePostDTO("La publicación se ha creado con éxito");
     }
 
-    public ResPostListDTO getPostFollowed(int id, String order){
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + id + " no encontrado."));
+    public ResPostListDTO getPostFollowed(int userId, String order){
+        User user = validateUserExists(userId);;
 
-        List<Post> listadoPosteos = new ArrayList<>();
+        List<Post> posts = new ArrayList<>();
+        for(User usuario : user.getFollowed())
+            posts.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
 
-        for( User usuario : user.getFollowed())
-            listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
+        sortListByDate(posts, order);
 
-        if(order != null && order.equals("date_desc"))
-            listadoPosteos.sort(Comparator.comparing(Post::getDate));
-        else
-            listadoPosteos.sort(Comparator.comparing(Post::getDate).reversed());
+        List<PostIdDTO> lista = modelMapper.map(posts, new TypeToken<List<PostIdDTO>>() {}.getType());
 
-        List<PostIdDTO> lista = modelMapper.map(listadoPosteos, new TypeToken<List<PostIdDTO>>() {}.getType());
-
-        return new ResPostListDTO(id,lista);
+        return new ResPostListDTO(userId,lista);
     }
 
     @Override
     public ResPromoPostsDTO getCountPromoPosts(int userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
-
-        if(!user.isSeller())
-            throw new UserNotSellerException("El usuario " + userId + " no es un vendedor");
+        User user = validateUserExists(userId);;
+        validateIsSeller(user);
 
         Integer countPromoPosts = userRepository.getPromoPosts(userId).size();
 
@@ -80,13 +70,11 @@ public class ProductsService implements IProductsService {
 
     @Override
     public ResListPromoPostDTO getListPromoPosts(int userId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
-
-        if(!user.isSeller())
-            throw new UserNotSellerException("El usuario " + userId + " no es un vendedor");
+        User user = validateUserExists(userId);;
+        validateIsSeller(user);
 
         List<Post> listPromoPosts = userRepository.getPromoPosts(userId);
+
         List<PromoPostDTO> listPromoPostsDTO = modelMapper.map(listPromoPosts, new TypeToken<List<PromoPostDTO>>() {}.getType());
 
         return new ResListPromoPostDTO(user.getUserId(), user.getName(), listPromoPostsDTO);
@@ -101,5 +89,22 @@ public class ProductsService implements IProductsService {
     private void validatePrice (double price){
         if(price < 0)
             throw new InvalidPriceException("El precio del producto debe ser mayor a 0.");
+    }
+
+    private User validateUserExists(Integer userId) {
+        return userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
+    }
+
+    private void validateIsSeller(User user) {
+        if(!user.isSeller())
+            throw new UserNotSellerException("El usuario " + user.getUserId() + " no es un vendedor");
+    }
+
+    private void sortListByDate(List<Post> list, String order) {
+        if(order != null && order.equals("date_desc"))
+            list.sort(Comparator.comparing(Post::getDate));
+        else
+            list.sort(Comparator.comparing(Post::getDate).reversed());
     }
 }

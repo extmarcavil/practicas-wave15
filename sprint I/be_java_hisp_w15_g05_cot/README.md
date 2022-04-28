@@ -80,7 +80,7 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `category` | `int` | **Optional**.  color del producto|
 | `price` | `double` | **Required**.  color del producto|
 
-#### queryPost
+#### getPostFollowed
 
 ```http
   GET /products/followed/{userId}/list?order=date_asc
@@ -91,6 +91,51 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | :-------- | :------- | :------------------------- |
 | `userId` | `int` | **Required**.  id de la persona|
 | `order` | `String` | **Optional**.  tipo de orden|
+
+#### createPromoPost
+
+```http
+  POST /products/promo-post
+```
+
+
+| Parameter      | Type        | Description                                     |
+|:---------------|:------------|:------------------------------------------------|
+| `user_id`      | `int`       | **Required**.  id de la persona                 |
+| `date`         | `LocalDate` | **Required**.  fecha                            |
+| `product_id`   | `int`       | **Required**.  id del post                      |
+| `product_name` | `String`    | **Required**.  nombre del producto              |
+| `type`         | `String`    | **Required**.  tipo de producto                 |
+| `brand`        | `String`    | **Required**.  marca del producto               |
+| `color`        | `String`    | **Required**.  color del producto               |
+| `notes`        | `String`    | **Optional**.  color del producto               |
+| `category`     | `int`       | **Optional**.  color del producto               |
+| `price`        | `double`    | **Required**.  color del producto               |
+| `has_promo`    | `boolean`   | **Required**.  indica si esta en promocion o no |
+| `dicount`      | `double` | **Required**.  porcentaje de descuento          |
+
+#### getCountPromoPosts
+
+```http
+  GET /products/promo-post/count
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `userId` | `int` | **Required**.  id de la persona|
+
+
+#### getListPromoPosts
+
+```http
+  GET /products/promo-post/list
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `userId` | `int` | **Required**.  id de la persona|
+
+
 
 
 
