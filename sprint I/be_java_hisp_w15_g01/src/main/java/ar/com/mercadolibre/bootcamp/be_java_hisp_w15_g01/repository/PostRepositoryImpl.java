@@ -65,4 +65,12 @@ PostPromo createPromo(User user, LocalDate date, Product product, Integer catego
         return postList;
     }
 
+    @Override
+    public List<Post> getAllPostsPromoByUser(User user) {
+        return posts.stream()
+            .filter( p -> p.getUser().equals(user) &&
+                p.getClass().equals(PostPromo.class))
+            .collect(Collectors.toList());
+    }
+
 }

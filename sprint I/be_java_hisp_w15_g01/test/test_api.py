@@ -26,3 +26,40 @@ class TestApi(unittest.TestCase):
         r = requests.post(url, json=datos)
         # verificamos que responda 200 okey
         self.assertEquals(r.status_code, 200)
+
+    def test_consultamosCuantosPostPromoTieneUnUsuario(self):
+        userId = 1
+        url = self.host+"/products/promo-post/count?userId="+str(userId)
+        data = {"userId": userId}
+        r = requests.get(url)
+        #  guardamos la cantidad:
+        count=r.json()['promo_products_count']
+
+        # hacemos un posteo:
+        urlPosteo = self.host+"/products/promo-post"
+        datos= {
+            "user_id": userId,
+            "date": "27-04-2022",
+            "detail": {
+                "product_id": 1,
+                "product_name": "Silla Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 1500.50,
+            "has_promo": True,
+            "discount": 0.25
+        }
+        r = requests.post(urlPosteo, json=datos)
+        # verificamos que responda 200 okey
+        self.assertEquals(r.status_code, 200)
+
+        # consultamos para ver si se sumo un producto más
+        r = requests.get(url)
+        #  guardamos la cantidad:
+        count2=r.json()['promo_products_count']
+        self.assertEquals(count+1, count2)
+

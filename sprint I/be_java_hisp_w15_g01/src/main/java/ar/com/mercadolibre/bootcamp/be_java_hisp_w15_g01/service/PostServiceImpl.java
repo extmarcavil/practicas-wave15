@@ -1,19 +1,5 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostPromoDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
-import org.springframework.stereotype.Service;
-
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -22,6 +8,21 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostPromoCountDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostPromoDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
 
 @Service
 public class PostServiceImpl implements PostService {
@@ -120,5 +121,15 @@ public class PostServiceImpl implements PostService {
         postListDTO.setPosts(sortedAscPostList);
 
         return postListDTO;
+    }
+    
+    @Override
+    public PostPromoCountDTO getPostsPromoByUser(Long userId) {
+        User user = userService.findById(userId);
+        PostPromoCountDTO post = new PostPromoCountDTO();
+        post.setUserId(userId);
+        post.setUserName(user.getUserName());
+        post.setPromoProductsCount(this.postRepository.getAllPostsPromoByUser(user).size());
+        return post;
     }
 }
