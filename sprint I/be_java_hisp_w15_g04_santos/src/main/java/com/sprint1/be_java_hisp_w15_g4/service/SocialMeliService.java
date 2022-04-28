@@ -86,10 +86,17 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void createPost(PostDTO post) {
+
+        Post postToAdd = new Post();
         User user = getUser(post.getUser_id());
 
-        Post newPost = mapper.map(post, Post.class);
-        user.addPost(newPost);
+        postToAdd.setCategory(post.getCategory());
+        postToAdd.setDate(post.getDate());
+        postToAdd.setDetail(productDTOToproduct(post.getDetail()));
+        postToAdd.setUser_id(post.getUser_id());
+        postToAdd.setPrice(post.getPrice());
+
+        user.addPost(postToAdd);
     }
 
     @Override
@@ -98,6 +105,7 @@ public class SocialMeliService implements ISocialMeliService {
 
         List<Post> posts = vendedoresSeguidos.stream()
                 .flatMap(v -> v.getPosts().stream())
+                .filter(post -> !post.isHas_promo())
                 .filter(Post :: ultimas2Semanas)
                 .collect(Collectors.toList());
 
@@ -184,5 +192,16 @@ public class SocialMeliService implements ISocialMeliService {
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
         else
             throw new BadOrderArgumentException(order);
+    }
+
+    private Product productDTOToproduct(ProductDTO productDetail){
+        Product producto = new Product();
+        producto.setProduct_id(productDetail.getProduct_id());
+        producto.setProduct_name(productDetail.getProduct_name());
+        producto.setBrand(productDetail.getBrand());
+        producto.setColor(productDetail.getColor());
+        producto.setType(productDetail.getType());
+        producto.setNotes(productDetail.getNotes());
+        return producto;
     }
 }
