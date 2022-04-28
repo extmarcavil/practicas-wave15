@@ -92,7 +92,61 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `userId` | `int` | **Required**.  id de la persona|
 | `order` | `String` | **Optional**.  tipo de orden|
 
+#### createPromoPost
 
+```http
+  POST /products/promo-post
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `user_id` | `int` | **Required**.  id de la persona|
+| `date` | `LocalDate` | **Required**.  fecha|
+| `product_id` | `int` | **Required**.  id del producto|
+| `product_name` | `String` | **Required**.  nombre del producto|
+| `type` | `String` | **Required**.  tipo de producto|
+| `brand` | `String` | **Required**.  marca del producto|
+| `color` | `String` | **Required**.  color del producto|
+| `note` | `String` | **Required**.  observaciones del producto|
+| `category` | `int` | **Required**.  categoría|
+| `price` | `double` | **Required**.  precio|
+| `has_promo` | `boolean` | **Required**.  true/false para saber si hay promo|
+| `discount` | `double` | **Required**.  monto de descuento|
+
+#### countPromoPost
+
+```http
+  GET /products/promo-post/count?user_id={userId}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `user_id` | `int` | **Required**.  id de la persona|
+| `user_name` | `String` | **Required**.  nombre de la persona|
+| `promo_products_count` | `int` | **Required**.  cantidad de productos con promo|
+
+#### queryPromoPost
+
+```http
+  GET /products/promo-post/list?user_id={userId}
+```
+
+| Parameter | Type     | Description                |
+| :-------- | :------- | :------------------------- |
+| `user_id` | `int` | **Required**.  id de la persona|
+| `post_id` | `int` | **Required**.  id de la publicación|
+| `user_name` | `String` | **Required**.  nombre de la persona|
+| `date` | `LocalDate` | **Required**.  fecha|
+| `product_id` | `int` | **Required**.  id del producto|
+| `product_name` | `String` | **Required**.  nombre del producto|
+| `type` | `String` | **Required**.  tipo de producto|
+| `brand` | `String` | **Required**.  marca del producto|
+| `color` | `String` | **Required**.  color del producto|
+| `note` | `String` | **Required**.  observaciones del producto|
+| `category` | `int` | **Required**.  categoría|
+| `price` | `double` | **Required**.  precio|
+| `has_promo` | `boolean` | **Required**.  true/false para saber si hay promo|
+| `discount` | `double` | **Required**.  monto de descuento|
 
 ## Authors
 
