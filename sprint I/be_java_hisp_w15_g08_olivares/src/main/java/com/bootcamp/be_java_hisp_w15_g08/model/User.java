@@ -21,7 +21,7 @@ public class User {
     private List<User> following;// Esta lista guarda los usurios a los que un usuario sigue.
     private List<User> followers;// Esta lista guarda los usuarios que siguen a el usuario creado.
     private Map<Integer, Post> posts;// Lista de publicaciones realizadas.
-    private List<User> onSalePosts;// Esta lista guarda los usuarios que siguen a el usuario creado.
+    private List<Promo> onSalePosts;// Esta lista guarda los usuarios que siguen a el usuario creado.
 
 
     public User(int userID, String name) {
@@ -29,6 +29,7 @@ public class User {
         this.name = name;
         this.followers = new ArrayList<>();
         this.following = new ArrayList<>();
+        this.onSalePosts = new ArrayList<>();
         this.posts = new HashMap<>();
     }
 
@@ -51,6 +52,8 @@ public class User {
     public void addPost(Post post){
         posts.put(post.getPostID(),post);
     }
+    public void addPromo(Promo promo){onSalePosts.add(promo);};
+
 
 
 }

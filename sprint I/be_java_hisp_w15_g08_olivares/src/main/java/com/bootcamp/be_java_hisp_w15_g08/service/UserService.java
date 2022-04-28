@@ -4,6 +4,7 @@ import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.PromoDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
+import com.bootcamp.be_java_hisp_w15_g08.model.Promo;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
 import com.bootcamp.be_java_hisp_w15_g08.utils.SortUsers;
@@ -115,15 +116,15 @@ public class UserService implements IUserService{
     @Override
     public void addPromo(PromoDTO promoDTO){
         User user = repository.findUser(promoDTO.getUser_id());
-        Post post = mapper.map(promoDTO,Post.class);
-        post.setPostID(idsPost++);
-        user.addPost(post);
+        Promo promo = mapper.map(promoDTO,Promo.class);
+        user.addPromo(promo);
     }
 
     @Override
     public PromoCountDTO getPromoCount(Integer userId) {
         User user =repository.findUser(userId);
         int promoCount= user.getOnSalePosts().size();
+        System.out.println(promoCount);
         PromoCountDTO PromoCountDTO = new PromoCountDTO(user.getUserID(),user.getName(),promoCount);
         return PromoCountDTO;
     }

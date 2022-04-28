@@ -72,14 +72,14 @@ public class UserController {
         service.addPromo(promoDTO);
         return ResponseEntity.ok().body("");
     }
-    @GetMapping("/products/promo-post/count?user_id={userId}")
-    public ResponseEntity<PromoCountDTO> getPromoCount(@PathVariable Integer userId) {
-        PromoCountDTO promoCountDTO = service.getPromoCount(userId);
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<PromoCountDTO> getPromoCount(@RequestParam Integer user_id) {
+        PromoCountDTO promoCountDTO = service.getPromoCount(user_id);
         return new ResponseEntity<>(promoCountDTO, HttpStatus.ACCEPTED);
     }
-    @GetMapping("/products/promo-post/list?user_id={userId}")
-    public ResponseEntity<PromoListDTO> getPromoList(@PathVariable Integer userId) {
-        PromoListDTO promoListDTO = service.getPromoList(userId);
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PromoListDTO> getPromoList(@RequestParam Integer user_id) {
+        PromoListDTO promoListDTO = service.getPromoList(user_id);
         return new ResponseEntity<>(promoListDTO, HttpStatus.ACCEPTED);
     }
 

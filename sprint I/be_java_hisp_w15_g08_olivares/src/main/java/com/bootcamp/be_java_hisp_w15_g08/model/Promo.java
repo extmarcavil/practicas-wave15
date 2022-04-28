@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g08.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Promo {
     private int user_id;
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
     PostDetail detail;
     private int category;
