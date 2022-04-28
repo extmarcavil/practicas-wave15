@@ -28,6 +28,13 @@ public interface IUserRepository {
     boolean unFollow(User usuario, User vendedor);
 
     /**
+     * @param usuario  usuario que va a seguir
+     * @param vendedor vendedor que va a ser seguido
+     * @return true o false segun si el usuario ya sigue a dicho vendedor
+     */
+    boolean alreadyFollow(User usuario, User vendedor);
+
+    /**
      * @param user usuario
      * @return cantidad de followers de dicho usuario
      */

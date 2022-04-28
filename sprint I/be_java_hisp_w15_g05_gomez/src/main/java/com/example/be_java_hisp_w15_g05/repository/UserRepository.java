@@ -76,6 +76,11 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
+    public boolean alreadyFollow(User usuario, User vendedor) {
+        return usuario.getSeguidos().contains(vendedor);
+    }
+
+    @Override
     public int cantFollowers(User user) {
         return user.getSeguidores().size();
     }

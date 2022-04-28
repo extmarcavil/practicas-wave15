@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.exceptions.UserCantFollowException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFollowingException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
@@ -28,11 +29,18 @@ public class FollowsService implements IFollowsService {
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
 
         User toFollow = userRepository.findById(userToFollowId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToFollowId + " no encontrado."));;
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToFollowId + " no encontrado."));
+        ;
+
+        if (userId == userToFollowId) throw new UserCantFollowException("Un usuario no puede seguirse a si mismo");
+
+        boolean alreadyFollow = userRepository.alreadyFollow(follower, toFollow);
+        if (alreadyFollow)
+            throw new UserCantFollowException("El usuario " + userId + " ya sigue al usuario " + userToFollowId);
 
         boolean resultado = userRepository.follow(follower, toFollow);
 
-        if(!resultado){
+        if (!resultado) {
             throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
         }
         return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
@@ -45,11 +53,12 @@ public class FollowsService implements IFollowsService {
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
 
         User toFollow = userRepository.findById(userToUnfollowId)
-                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToUnfollowId + " no encontrado."));;
+                .orElseThrow(() -> new UserNotFoundException("Usuario " + userToUnfollowId + " no encontrado."));
+        ;
 
         boolean resultado = userRepository.unFollow(follower, toFollow);
 
-        if(!resultado){
+        if (!resultado) {
             throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + userId +
                     " no sigue actualmente al usuario " + userToUnfollowId + ", o éste último no es un vendedor");
         }
@@ -62,9 +71,9 @@ public class FollowsService implements IFollowsService {
         User user = userRepository.followersList(userId)
                 .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
         List<UserDTO> followers = getListUserDTO(user.getSeguidores());
-        if(order!=null && order.equals("name_desc")){
+        if (order != null && order.equals("name_desc")) {
             followers.sort(Comparator.comparing(UserDTO::getUserName).reversed());
-        }else{
+        } else {
             followers.sort(Comparator.comparing(UserDTO::getUserName));
         }
 
@@ -87,9 +96,9 @@ public class FollowsService implements IFollowsService {
                 .orElseThrow(() -> new UserNotFoundException("No se encontró el usuario con id: " + userId));
         List<UserDTO> followed = getListUserDTO(user.getSeguidos());
 
-       if( order!=null && order.equals("name_desc")){
+        if (order != null && order.equals("name_desc")) {
             followed.sort(Comparator.comparing(UserDTO::getUserName).reversed());
-        }else{
+        } else {
             followed.sort(Comparator.comparing(UserDTO::getUserName));
         }
 

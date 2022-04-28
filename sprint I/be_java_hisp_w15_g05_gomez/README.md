@@ -84,6 +84,11 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
       /products/followed/{userId}/list?order=date_desc
 ```
 
+```
+ATENCION: order **date_asc** trae del post mas reciente al mas antiguo y 
+                **date_desc** trae del post mas antiguo al mas reciente
+```
+
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
 | `userId` | `int` | **Required**. id de la persona|
@@ -146,7 +151,7 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | Parameter | Type     | Description                |
 |:----------| :------- | :------------------------- |
 | `userId`  | `int` | **Required**. id de la persona |
-| `order`   | `String` | **Optional**. el orden de la lista |
+| `order`   | `String` | **Optional**. el orden de la lista |****
 
 ## Authors
 

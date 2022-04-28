@@ -16,6 +16,9 @@ public interface IProductsService {
     ResCreatePostDTO createPromoPost(PostPromoDTO postPromoDTO);
 
     /**
+     * ATENCION: orden date_asc trae del post mas reciente al mas antiguo
+     * y date_desc trae del post mas antiguo al mas reciente
+     *
      * @param id    id del cliente
      * @param order metodo de ordenamiento, puede ser null
      * @return ResPostListDTO el cual contiene el id del cliente y la lista de post de las ultimas dos semanas
