@@ -5,10 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import sprint1.socialmeli.model.Product;
 
-@Getter
-@Setter
-@NoArgsConstructor
-public class PostRequestDTO {
+@Getter @Setter @NoArgsConstructor
+public class PostPromoRequestDTO {
     private Integer userId;
     private String date;
     private Product detail;
@@ -17,13 +15,14 @@ public class PostRequestDTO {
     private boolean hasPromo;
     private Double discount;
 
-
-    public PostRequestDTO(Integer userId, String date, Product detail, Integer category,
-                          Double price) {
+    public PostPromoRequestDTO(Integer userId, String date, Product detail, Integer category,
+                               Double price, boolean hasPromo, Double discount) {
         this.userId = userId;
         this.date = date;
         this.detail = detail;
         this.category = category;
         this.price = price;
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 }

@@ -2,6 +2,8 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sprint1.socialmeli.dto.PostPromoRequestDTO;
+import sprint1.socialmeli.model.PostPromo;
 import sprint1.socialmeli.utils.PostConverter;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.PostResponseDTO;
@@ -31,6 +33,12 @@ public class ProductService implements IProductService {
     public Integer save(PostRequestDTO postDTO) throws InvalidPostException {
         Post newPost = new Post(postDTO);
         return postRepository.save(newPost);
+    }
+
+    @Override
+    public Integer savePromo(PostPromoRequestDTO postPromoDTO) throws InvalidPostException {
+        PostPromo newPostPromo = new PostPromo(postPromoDTO);
+        return postRepository.savePromo(newPostPromo);
     }
 
     @Override

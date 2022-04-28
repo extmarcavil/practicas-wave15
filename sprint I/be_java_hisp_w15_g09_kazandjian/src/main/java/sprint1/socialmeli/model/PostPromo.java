@@ -10,11 +10,10 @@ import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
 @Getter
 @Setter
 @AllArgsConstructor
-public class Post {
+public class PostPromo{
     private Integer postId;
     private Integer userId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
@@ -22,20 +21,19 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    private boolean hasPromo;
+    private double discount;
 
-
-    public Post(PostRequestDTO post) {
+    public PostPromo(PostPromoRequestDTO post) {
         userId = post.getUserId();
         date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         detail = post.getDetail();
         category = post.getCategory();
         price = post.getPrice();
-        boolean hasPromo;
-        Double discount;
+        hasPromo = post.isHasPromo();
+        discount = post.getDiscount();
         isAValidPost();
     }
-
-
 
     public boolean hasUserID(int IDToMatch) {
         return userId.equals(IDToMatch);
