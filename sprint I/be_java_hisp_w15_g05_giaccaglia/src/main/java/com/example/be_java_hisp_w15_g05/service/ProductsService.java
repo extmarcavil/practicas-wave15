@@ -57,7 +57,7 @@ public class ProductsService implements IProductsService {
         validatePrice(post.getPrice());
         if(post.isHasPromo()) {
             validateDiscount(post.getDiscount());
-            post.setPrice(post.getPrice()*post.getDiscount());
+            post.setPrice(post.getPrice()-(post.getPrice()*post.getDiscount()));
         }
 
         userRepository.createPostPromo(user, post);
