@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "3b2ab1bb-90ab-4572-9626-a9d9c14c2ea3",
+		"_postman_id": "158a05c1-53b8-4a14-8536-8c197ab9661f",
 		"name": "Sprint I",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -15,8 +15,8 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"client_id\", 12);",
-									"pm.collectionVariables.set(\"seller_id\", 1);",
+									"pm.collectionVariables.set(\"client_id\", 11);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									""
 								],
 								"type": "text/javascript"
@@ -178,7 +178,7 @@
 							"script": {
 								"exec": [
 									"pm.collectionVariables.set(\"seller_id\", 1);",
-									"pm.collectionVariables.set(\"client_id\", 1);"
+									"pm.collectionVariables.set(\"client_id\", 3);"
 								],
 								"type": "text/javascript"
 							}
@@ -189,7 +189,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"userId\": \"{{seller_id}}\",\n    \"date\": \"28-04-2022\",\n    \"detail\": {\n        \"productId\": 1,\n        \"productName\": \"Silla Otra\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
+							"raw": "{\n    \"userId\": \"{{seller_id}}\",\n    \"date\": \"30-04-2022\",\n    \"detail\": {\n        \"productId\": 1,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -261,7 +261,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 1);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									"pm.collectionVariables.set(\"client_id\", 10);"
 								],
 								"type": "text/javascript"
@@ -298,7 +298,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 3);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									"pm.collectionVariables.set(\"client_id\", 3);"
 								],
 								"type": "text/javascript"
@@ -310,7 +310,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"29-04-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"has_promo\": true,\n    \"discount\": 0.25\n}",
+							"raw": "{\n    \"userId\": \"{{seller_id}}\",\n    \"date\": \"30-04-2022\",\n    \"detail\": {\n        \"productId\": 3,\n        \"productName\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 700.50,\n    \"hasPromo\": true,\n    \"discount\": 0.20\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -337,7 +337,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 2);",
+									"pm.collectionVariables.set(\"seller_id\", 1);",
 									"pm.collectionVariables.set(\"client_id\", 3);"
 								],
 								"type": "text/javascript"
@@ -348,7 +348,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/promo-post/count?user_id={{seller_id}}",
+							"raw": "{{url}}/products/promo-post/count?userId={{seller_id}}",
 							"host": [
 								"{{url}}"
 							],
@@ -359,7 +359,7 @@
 							],
 							"query": [
 								{
-									"key": "user_id",
+									"key": "userId",
 									"value": "{{seller_id}}"
 								}
 							]
@@ -385,7 +385,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/products/promo-post/list?user_id={{seller_id}}",
+							"raw": "{{url}}/products/promo-post/list?userId={{seller_id}}",
 							"host": [
 								"{{url}}"
 							],
@@ -396,7 +396,7 @@
 							],
 							"query": [
 								{
-									"key": "user_id",
+									"key": "userId",
 									"value": "{{seller_id}}"
 								}
 							]
