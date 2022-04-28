@@ -29,6 +29,13 @@ public class UserServiceImpl implements  UserService {
         this.mapper = new ModelMapper();
     }
 
+    /**
+     * UserService
+     * Accion de seguir a un vendedor
+     *
+     * @param userId El usuario que quiere seguir a otro usuario
+     * @param userIdToFollow El usuario target al cual quieren seguir
+     */
     @Override
     public ResponseDTO follow(Long userId, long userIdToFollow) {
         if (userId.equals(userIdToFollow)) {
@@ -46,6 +53,12 @@ public class UserServiceImpl implements  UserService {
         return dto;
     }
 
+    /**
+     * UserService
+     * Busca un usuario por id
+     *
+     * @param id El id del usuario a buscar
+     */
     @Override
     public User findById(Long id) {
         Optional<User> ou = userRepository.findById(id);
@@ -56,6 +69,13 @@ public class UserServiceImpl implements  UserService {
         }
     }
 
+    /**
+     * UserService
+     * Devuelve la lista de quienes siguen a userId
+     *
+     * @param id El usuario a buscar
+     * @param order El orden de los parametros
+     */
     @Override
     public FollowersListDTO whoFollowsMe(Long id, String order) {
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
@@ -80,6 +100,12 @@ public class UserServiceImpl implements  UserService {
         return dto;
     }
 
+    /**
+     * UserService
+     * Devuelve la cuenta de cuantas personas siguen a userId
+     *
+     * @param userId El usuario a buscar
+     */
     @Override
     public FollowersCountDTO wowManyFollowsMe(Long userId) {
         User user = this.findById(userId);
@@ -94,6 +120,12 @@ public class UserServiceImpl implements  UserService {
         return dto;
     }
 
+    /**
+     * UserService
+     * Devuelve la la lista de todas las personas a las que sigue userId
+     *
+     * @param userId El usuario a buscar
+     */
     public FollowedListDTO findAllFollowedByUserId(Long userId, String order) {
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
@@ -120,6 +152,13 @@ public class UserServiceImpl implements  UserService {
         return userDto;
     }
 
+    /**
+     * UserController
+     * Accion de dejar de seguir a un vendedor
+     *
+     * @param userId El usuario que quiere dejar de seguir a otro usuario
+     * @param userIdToUnfollow El usuario target al cual quieren dejar de seguir
+     */
     @Override
     public ResponseDTO unFollow(Long userId, long userIdToUnfollow) {
         if (userId.equals(userIdToUnfollow)) {
@@ -132,5 +171,14 @@ public class UserServiceImpl implements  UserService {
         ResponseDTO responseDTO = new ResponseDTO();
         responseDTO.setMessage("Unfollowed");
         return responseDTO;
+    }
+
+    /**
+     * UserController
+     * Obtiene una lista de todos los usuarios
+     */
+    @Override
+    public List<User> getAllUsers() {
+        return userRepository.getAllUsers();
     }
 }

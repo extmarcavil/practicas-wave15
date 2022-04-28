@@ -37,5 +37,10 @@ public class UserRepositoryImpl implements UserRepository {
                 .findFirst();
     }
 
+    @Override
+    public List<User> getAllUsers() {
+        return users;
+    }
+
 
 }

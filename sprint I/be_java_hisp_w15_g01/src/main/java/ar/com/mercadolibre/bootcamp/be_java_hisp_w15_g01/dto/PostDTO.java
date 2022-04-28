@@ -3,6 +3,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,9 +20,9 @@ public class PostDTO {
     private ProductDTO detail;
     private Integer category;
     private Float price;
-    @Nullable
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Boolean hasPromo;
-    @Nullable
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private Float discount;
 
     public PostDTO(Post post) {

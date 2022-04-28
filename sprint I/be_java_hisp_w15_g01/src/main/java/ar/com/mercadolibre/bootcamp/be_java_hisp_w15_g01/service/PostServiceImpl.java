@@ -32,6 +32,12 @@ public class PostServiceImpl implements PostService {
         this.followRepository = followRepository;
     }
 
+    /**
+     * PostService
+     * Crea un post
+     *
+     * @param postDto El post dto a crear
+     */
     @Override
     public ResponseDTO createPost(PostDTO postDto) {
         User user = userService.findById(postDto.getUserId());
@@ -63,6 +69,13 @@ public class PostServiceImpl implements PostService {
         return dto;
     }
 
+    /**
+     * PostService
+     * Obtiene todos los posts de usuarios que siguen a userId
+     *
+     * @param userId El id del usuario a buscar
+     * @param order El orden de los resultados
+     */
     @Override
     public PostListDTO getPostsByFollowedUsers(Long userId, String order) {
 
@@ -94,13 +107,63 @@ public class PostServiceImpl implements PostService {
         return postListDTO;
     }
 
+    /**
+     * PostService
+     * Obtiene el conteo de posts de un usuario
+     *
+     * @param userId El id del usuario a buscar
+     * @param hasPromo Obtener solo publicaciones con promoción
+     * @param daysInterval Intervalo en días (si aplica)
+     */
     @Override
-    public VendorInfoDTO getPromoPostsCount(Long userId) {
+    public VendorInfoDTO getPostCount(Long userId, Boolean hasPromo, Integer daysInterval) {
         User vendor = userService.findById(userId);
 
-        long postCount = this.postRepository.getAllPostsByUserWithinTimespan(vendor, null).stream()
-                .filter(Post::getHasPromo).count();
+        long postCount = this.postRepository.getAllPostsByUserWithinTimespan(vendor, daysInterval).stream()
+                .filter(p -> !hasPromo || p.getHasPromo()).count();
 
-        return new VendorInfoDTO(vendor.getUserId(), vendor.getUserName(), postCount);
+        // Lo ideal seria que el campo se llamara "count" a secas y poder reutilizarlo en varios metodos pero la firma especifica que se llama "promo_products_count"
+
+        Long totalCount = null, promoCount = null;
+
+        if(!hasPromo)
+            totalCount = postCount;
+        else
+            promoCount = postCount;
+
+        return new VendorInfoDTO(vendor.getUserId(), vendor.getUserName(), promoCount, totalCount);
+    }
+
+    /**
+     * PostService
+     * Obtener publicaciones en promocion de un usuario especifico
+     *
+     * @param userId El id del usuario a buscar
+     */
+    @Override
+    public PostListDTO getPromoPostsByUser(Long userId) {
+        User vendor = userService.findById(userId);
+
+        List<PostDTO> posts = this.postRepository.getAllPostsByUserWithinTimespan(vendor, null).stream()
+                .filter(Post::getHasPromo)
+                .map(PostDTO::new)
+                .collect(Collectors.toList());
+
+        return new PostListDTO(vendor.getUserId(), vendor.getUserName(), posts);
+    }
+
+    /**
+     * PostService
+     * Obtener una lista de vendedores con más publicaciones en cierto intervalo, ordenado de manera descendente
+     *
+     * @param daysInterval Intervalo en días
+     */
+    @Override
+    public List<VendorInfoDTO> getPosterRanking(Integer daysInterval) {
+        return userService.getAllUsers()
+                .stream()
+                .map(u -> getPostCount(u.getUserId(), false, daysInterval))
+                .sorted((a,b) -> b.getTotalCount().compareTo(a.getTotalCount()))
+                .collect(Collectors.toList());
     }
 }

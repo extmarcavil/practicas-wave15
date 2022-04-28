@@ -19,6 +19,13 @@ public class UserController {
         this.userService = userService;
     }
 
+    /**
+     * UserController
+     * Accion de seguir a un vendedor
+     *
+     * @param userId El usuario que quiere seguir a otro usuario
+     * @param userIdToFollow El usuario target al cual quieren seguir
+     */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<ResponseDTO> follow(@PathVariable Long userId, @PathVariable long userIdToFollow) {
         return ResponseEntity
@@ -26,6 +33,12 @@ public class UserController {
                 .body(userService.follow(userId, userIdToFollow));
     }
 
+    /**
+     * UserController
+     * Devuelve la cuenta de cuantas personas siguen a userId
+     *
+     * @param userId El usuario a buscar
+     */
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> wowManyFollowsMe(@PathVariable Long userId) {
         return ResponseEntity
@@ -33,6 +46,13 @@ public class UserController {
                 .body(userService.wowManyFollowsMe(userId));
     }
 
+    /**
+     * UserController
+     * Devuelve la lista de quienes siguen a userId
+     *
+     * @param userId El usuario a buscar
+     * @param order El orden de los parametros
+     */
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListDTO> whoFollowsMe(@PathVariable Long userId, @RequestParam(required=false) String order) {
         return ResponseEntity
@@ -41,6 +61,12 @@ public class UserController {
 
     }
 
+    /**
+     * UserController
+     * Devuelve la lista de todas las personas a las que sigue userId
+     *
+     * @param userId El usuario a buscar
+     */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@PathVariable Long userId , @RequestParam(required = false) String order){
         return ResponseEntity
@@ -48,6 +74,13 @@ public class UserController {
                 .body(userService.findAllFollowedByUserId(userId, order));
     }
 
+    /**
+     * UserController
+     * Accion de dejar de seguir a un vendedor
+     *
+     * @param userId El usuario que quiere dejar de seguir a otro usuario
+     * @param userIdToUnfollow El usuario target al cual quieren dejar de seguir
+     */
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<ResponseDTO> unFollow(@PathVariable long userId, @PathVariable long userIdToUnfollow){
         return ResponseEntity

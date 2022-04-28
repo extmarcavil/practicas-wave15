@@ -181,6 +181,30 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 |---|---|
 |user_id|{{seller_id}}|
 
+## End-point: US 12 - Promo Post List
+Obtener la lista de productos en promoción de un determinado vendedor
+### Method: GET
+>```
+>{{url}}/products/promo-post/list?user_id={{seller_id}}
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|user_id|{{seller_id}}|
+
+## Endpoint: Bonus - Ranking of users with the most posts
+Obtener ranking de los usuarios con mayor cantidad de posts en los últimos {days_interval} días
+### Method: GET
+>```
+>{{url}}/products/posters/ranking?days_interval={{days_interval}}
+>```
+### Query Params
+
+| Param         | value |
+|---------------|-------|
+| days_interval | int   |
+
 
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃

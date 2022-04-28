@@ -1,12 +1,7 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.VendorInfoDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
-
-import java.time.LocalDate;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
+import java.util.List;
 
 public interface PostService {
 
@@ -14,5 +9,9 @@ public interface PostService {
 
     PostListDTO getPostsByFollowedUsers(Long userId, String order);
 
-    VendorInfoDTO getPromoPostsCount(Long userId);
+    VendorInfoDTO getPostCount(Long userId, Boolean hasPromo, Integer daysInterval);
+
+    PostListDTO getPromoPostsByUser(Long userId);
+
+    List<VendorInfoDTO> getPosterRanking(Integer daysInterval);
 }
