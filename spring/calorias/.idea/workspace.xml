@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="905499a5-7de8-4b37-8f72-cd8aafcc1aca" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../sprint I/be_java_hisp_w15_g01/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../sprint I/be_java_hisp_w15_g01/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sprint I/be_java_hisp_w15_g01/src/main/java/ar/com/mercadolibre/bootcamp/be_java_hisp_w15_g01/model/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../sprint I/be_java_hisp_w15_g01/src/main/java/ar/com/mercadolibre/bootcamp/be_java_hisp_w15_g01/model/Post.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="28LhUUxAkJxGimUpwPHPDDln0m1" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="RunManager">
+    <configuration name="CaloriasApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="calorias" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="ar.com.mercadolibre.bootcam.calorias.CaloriasApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="905499a5-7de8-4b37-8f72-cd8aafcc1aca" name="Changes" comment="" />
+      <created>1651001788462</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651001788462</updated>
+      <workItem from="1651001789578" duration="38000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
