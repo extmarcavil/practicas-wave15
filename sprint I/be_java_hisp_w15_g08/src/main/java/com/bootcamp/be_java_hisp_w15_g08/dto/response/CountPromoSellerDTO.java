@@ -9,7 +9,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private Integer userID;
-    private String name;
+
+public class CountPromoSellerDTO {
+    private Integer user_id;
+    private String user_name;
+    private int promo_products_count;
 }

@@ -1,10 +1,8 @@
 package com.bootcamp.be_java_hisp_w15_g08.service;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersCountDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersListDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostListDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostNotUserIdDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPromoDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 
 public interface IUserService {
     FollowersCountDTO countFollers(Integer idUser);
@@ -14,4 +12,8 @@ public interface IUserService {
     void unFollowUser(Integer idFollowed, Integer idFollower);
     FollowersListDTO getFollowedList(Integer userId,String order);
     PostListDTO getSellersLastsPosts(Integer userId, String order);
+
+    void newPromoPost(NewPromoDTO promoDTO);
+    CountPromoSellerDTO countPromoSellerDTO(Integer idUser);
+    PromoListDTO getPromoList(Integer user_id);
 }

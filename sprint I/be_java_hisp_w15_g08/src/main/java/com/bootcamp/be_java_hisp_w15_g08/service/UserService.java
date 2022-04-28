@@ -1,8 +1,10 @@
 package com.bootcamp.be_java_hisp_w15_g08.service;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPromoDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
+import com.bootcamp.be_java_hisp_w15_g08.model.Promo;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
 import com.bootcamp.be_java_hisp_w15_g08.utils.SortUsers;
@@ -111,8 +113,25 @@ public class UserService implements IUserService{
         repository.unFollowUser(idFollowed,idFollower);
     }
 
+    @Override
+    public void newPromoPost(NewPromoDTO promoDTO) {
+        User user = repository.findUser(promoDTO.getUser_id());
+        user.addPromo(mapper.map(promoDTO, Promo.class));
+    }
 
+    @Override
+    public CountPromoSellerDTO countPromoSellerDTO(Integer idUser) {
+        User user= repository.findUser(idUser);
+        CountPromoSellerDTO promoSellerDTO= new CountPromoSellerDTO(user.getUserID(),user.getName(),user.getPromos().size());
+        return (promoSellerDTO);
+    }
 
+    @Override
+    public PromoListDTO getPromoList(Integer user_id) {
+        List <Promo> listaPromo= repository.findUser(user_id).getPromos();
+        List<PromoSellerListDTO> promoPostDTOS=listaPromo.stream().map(promoPost -> mapper.map(promoPost,PromoSellerListDTO.class)).collect(toList());
+        return new PromoListDTO(user_id,repository.findUser(user_id).getName(),promoPostDTOS);
+    }
 
 
 }

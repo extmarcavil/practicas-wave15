@@ -1,4 +1,4 @@
-package com.bootcamp.be_java_hisp_w15_g08.dto.response;
+package com.bootcamp.be_java_hisp_w15_g08.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
-    private Integer userID;
-    private String name;
+public class Promo  extends Post {
+    private boolean has_promo;
+    private double discount;
 }

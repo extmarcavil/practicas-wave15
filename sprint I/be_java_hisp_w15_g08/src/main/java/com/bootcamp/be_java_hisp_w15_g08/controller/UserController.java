@@ -1,10 +1,8 @@
 package com.bootcamp.be_java_hisp_w15_g08.controller;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersCountDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersListDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostListDTO;
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostNotUserIdDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPromoDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
 import com.bootcamp.be_java_hisp_w15_g08.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,6 +55,9 @@ public class UserController {
 
     @GetMapping("/products/followed/{userId}/list")
     public ResponseEntity<PostListDTO> getSellersLastsPosts(@PathVariable Integer userId, @RequestParam(required = false) String order) {
+        if (order != null && !order.equals("date_asc") && !order.equals("date_desc")) {
+            throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
+        }
         PostListDTO postListDTO = service.getSellersLastsPosts(userId, order);
         return new ResponseEntity<>(postListDTO, HttpStatus.ACCEPTED);
     }
@@ -66,5 +67,43 @@ public class UserController {
         service.unFollowUser(userIdToUnfollow, userId);
         return ResponseEntity.ok().body("");
     }
+
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> newPromoPost(@RequestBody NewPromoDTO promoDTO){
+        service.newPromoPost(promoDTO);
+        return  ResponseEntity.ok().body("");
+    }
+
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<?> countPromoPostByUser(@RequestParam Integer user_id){
+        CountPromoSellerDTO promoSellerDTO =  service.countPromoSellerDTO(user_id);
+        return new ResponseEntity<CountPromoSellerDTO>(promoSellerDTO,HttpStatus.OK);
+    }
+
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<?> getPromoListDTO(@RequestParam Integer user_id){
+        PromoListDTO promoListDTO = service.getPromoList(user_id);
+        return new ResponseEntity<>(promoListDTO,HttpStatus.FOUND);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
