@@ -3,10 +3,7 @@ package com.sprint.be_java_hisp_w15_g10.Controller;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostPromoCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +30,11 @@ public class PostController {
     @PostMapping("post/promo-post")
     public ResponseEntity<PostCreatedDTO> createPostPromo(@Valid @RequestBody PostPromoCreateDTO postPromoCreateDTO){
         return new ResponseEntity<PostCreatedDTO>(postService.createPost(postPromoCreateDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("promo-post/count")
+    public ResponseEntity<PostCountDTO> countPostPromo(@RequestParam int user_id){
+        return new ResponseEntity<PostCountDTO>(postService.countPostPromo(user_id), HttpStatus.OK);
     }
 
     @GetMapping("")

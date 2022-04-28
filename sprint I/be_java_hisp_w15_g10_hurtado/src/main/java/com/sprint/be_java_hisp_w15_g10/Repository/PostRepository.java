@@ -30,12 +30,12 @@ public class PostRepository {
         Post post3 = new Post(index++, productList.get(2), LocalDate.now(), categoryList.get(2), 1.99, false, 0);
         Post post4 = new Post(index++, productList.get(3), LocalDate.now(), categoryList.get(0), 3.00, true, 0.4);
         Post post5 = new Post(index++, productList.get(4), LocalDate.now(), categoryList.get(2), 2.98, true, 0.1);
-
-        postList.add(post1);
-        postList.add(post2);
-        postList.add(post3);
-        postList.add(post4);
-        postList.add(post5);
+//
+//        postList.add(post1);
+//        postList.add(post2);
+//        postList.add(post3);
+//        postList.add(post4);
+//        postList.add(post5);
 
     }
 

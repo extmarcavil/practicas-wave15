@@ -1,11 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
-import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
@@ -106,6 +102,19 @@ public class PostService implements IPostService{
         List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
 
         return responseDTOS;
+    }
+
+    @Override
+    public PostCountDTO countPostPromo(int userId){
+        User user = userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        List<Post> posts = user.getPosts();
+        List<Post> postPromo = new ArrayList<>();
+        posts.stream().forEach(post ->{
+            String valor = post.isHas_promo() + "";
+            if(valor.equals("true")) postPromo.add(post);
+        });
+        return new PostCountDTO(postPromo.size());
     }
 
 
