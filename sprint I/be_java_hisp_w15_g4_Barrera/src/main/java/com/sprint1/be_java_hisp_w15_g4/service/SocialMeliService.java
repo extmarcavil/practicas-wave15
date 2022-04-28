@@ -3,11 +3,12 @@ package com.sprint1.be_java_hisp_w15_g4.service;
 import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowingListDTO;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
-import com.sprint1.be_java_hisp_w15_g4.exception.*;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
+import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
+import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentExcepcion;
+import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
+import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -24,28 +25,27 @@ public class SocialMeliService implements ISocialMeliService {
     IUserRepository repo;
     ModelMapper mapper = new ModelMapper();
 
+
     public SocialMeliService(IUserRepository repo) {
         this.repo = repo;
     }
 
     @Override
     public void follow(int userID, int userIDToFollow) {
-        if(userID == userIDToFollow)
-            throw new EqualsIDException(userID);
+
 
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
-
-        if (!seguidor.getFollowing().contains(seguido) ){
+        if (!seguidor.getFollowing().contains(seguido)) {
             seguido.addFollower(seguidor);
             seguidor.addFollowing(seguido);
-        } else throw new AlreadyFollowing(userID,userIDToFollow);
+        } else throw new AlreadyFollowing(userID, userIDToFollow);
     }
 
     @Override
     public FollowerCountDTO countFollowers(int userID) {
         User user = getUser(userID);
-        return new FollowerCountDTO(user.getUser_id(),user.getUser_name(),user.getFollowers().size());
+        return new FollowerCountDTO(user.getUser_id(), user.getUser_name(), user.getFollowers().size());
     }
 
     private User getUser(int userID) {
@@ -56,13 +56,13 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public FollowerListDTO listFollowers(int userID,String order) {
+    public FollowerListDTO listFollowers(int userID, String order) {
         User user = getUser(userID);
 
-        FollowerListDTO retorno= new FollowerListDTO(user.getUser_id(),user.getUser_name(),
+        FollowerListDTO retorno = new FollowerListDTO(user.getUser_id(), user.getUser_name(),
                 user.getFollowers().stream()
-                .map(user1 -> new UserDTO(user1.getUser_id(),user1.getUser_name()))
-                .collect(Collectors.toList())
+                        .map(user1 -> new UserDTO(user1.getUser_id(), user1.getUser_name()))
+                        .collect(Collectors.toList())
         );
         orderByName(order, retorno.getFollowers());
         return retorno;
@@ -90,7 +90,7 @@ public class SocialMeliService implements ISocialMeliService {
         return followingsDTO;
     }
 
-    public Product productDTOToproduct(ProductDTO productDetail){
+    public Product productDTOToproduct(ProductDTO productDetail) {
         Product producto = new Product();
         producto.setProduct_id(productDetail.getProduct_id());
         producto.setProduct_name(productDetail.getProduct_name());
@@ -119,7 +119,7 @@ public class SocialMeliService implements ISocialMeliService {
 
         List<Post> posts = vendedoresSeguidos.stream()
                 .flatMap(v -> v.getPosts().stream())
-                .filter(Post :: ultimas2Semanas)
+                .filter(Post::ultimas2Semanas)
                 .collect(Collectors.toList());
 
         List<Post> ordenado = orderByDate(posts, order);
@@ -143,7 +143,7 @@ public class SocialMeliService implements ISocialMeliService {
     private List<Post> orderByDate(List<Post> posts, String order) {
         if (order == null || order.equals("date_desc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
-        else if(order.equals("date_asc"))
+        else if (order.equals("date_asc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
         else
             throw new BadOrderArgumentExcepcion(order);
@@ -151,17 +151,53 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void unfollow(int userID, int userIDToUnfollow) {
-        if(userID == userIDToUnfollow)
-            throw new EqualsIDException(userID);
-
         User user = getUser(userID);
         User userToUnfollow = getUser(userIDToUnfollow);
-
-        if(!user.getFollowing().contains(userToUnfollow)){
+        if (!user.getFollowing().contains(userToUnfollow)) {
             throw new NotFollowException(userIDToUnfollow);
         }
-
         user.removeFollowing(userToUnfollow);
         userToUnfollow.removeFollower(user);
+    }
+
+    @Override
+    public void createPromoPost(PostPromoDTO post) {
+        User user = getUser(post.getUser_id());
+        Post postToAdd = new Post();
+        postToAdd.setCategory(post.getCategory());
+        postToAdd.setDate(post.getDate());
+        postToAdd.setDetail(productDTOToproduct(post.getDetail()));
+        postToAdd.setUser_id(post.getUser_id());
+        postToAdd.setPrice(post.getPrice());
+        postToAdd.setHas_promo(post.isHas_promo());
+        postToAdd.setDiscount(post.getDiscount());
+        user.addPost(postToAdd);
+
+    }
+
+    @Override
+    public CountPromosDTO countPromo(int user_id) {
+        User user = getUser(user_id);
+        return new CountPromosDTO(user.getUser_id(), user.getUser_name(), user.contarProductosDescontados());
+    }
+
+    @Override
+    public PostPromoListDTO showPromo(int user_id) {
+        User user = getUser(user_id);
+        List<Post> posts = user.getPosts();
+//        for (Post p:posts){
+//            if (p.isHas_promo()){
+//
+//            }
+//        }
+
+        List<PostPromoDTO> ppdto = posts.stream()
+                .filter(Post::isHas_promo)
+                .map(p -> mapper.map(p, PostPromoDTO.class))
+                .collect(Collectors.toList());
+        PostPromoListDTO dto = new PostPromoListDTO(user.getUser_id(), user.getUser_name(), ppdto);
+
+        return dto;
+
     }
 }

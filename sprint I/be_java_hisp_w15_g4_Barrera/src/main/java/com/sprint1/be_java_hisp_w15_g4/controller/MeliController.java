@@ -1,11 +1,14 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class MeliController {
@@ -22,6 +25,7 @@ public class MeliController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+
     ////////////////////US0002////////////////////
     //Lucas - Luciano
     @GetMapping("/users/{userId}/followers/count")
@@ -35,6 +39,7 @@ public class MeliController {
         public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
             return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
         }
+
 
     ////////////////////US0004////////////////////
     //Nico - Nico
@@ -50,7 +55,6 @@ public class MeliController {
         service.createPost(post);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
-
     ////////////////////US0006////////////////////
     //Yamil - Nacho
     @GetMapping("/products/followed/{userId}/list")
@@ -65,5 +69,28 @@ public class MeliController {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
+
+    ////////////////////US00010////////////////////
+    // individual luciano
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<?> postPromoProduct(@RequestBody PostPromoDTO post){
+        service.createPromoPost(post);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
+    ////////////////////US00011////////////////////
+    // individual luciano
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<CountPromosDTO> countPromo(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.countPromo(user_id));
+    }
+
+    ////////////////////US00012////////////////////
+    // individual luciano Bonus
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PostPromoListDTO> showPromos(@RequestParam int user_id) {
+        return ResponseEntity.ok(service.showPromo(user_id));
+    }
+
 
 }

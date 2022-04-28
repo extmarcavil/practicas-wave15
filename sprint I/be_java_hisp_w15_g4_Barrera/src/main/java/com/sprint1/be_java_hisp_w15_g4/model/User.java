@@ -42,4 +42,14 @@ public class User {
         posts.add(post);
     }
 
+    public int contarProductosDescontados(){
+        int count = 0;
+        for(Post p: posts){
+            if (p.isHas_promo()){
+                count++;
+            }
+        }
+        return count;
+    }
+
 }
