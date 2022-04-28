@@ -2,8 +2,7 @@ package com.example.be_java_hisp_w15_g07.service;
 
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.*;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
@@ -83,7 +82,36 @@ public class PostService implements IPostService{
     }
 
     public void newPromoPost(NewPromoPostDTO promoPostDTO){
-        Post post = modelMapper.map(promoPostDTO.getUserId(), Post.class);
+            Post post = modelMapper.map(promoPostDTO, Post.class);
         userRepository.newPost(promoPostDTO.getUserId(), post);
+    }
+
+    public UserFollowedPromoPostsDTO getFollowedPromoPosts(Integer userId) {
+        List<Post> listPosts = new ArrayList<>();
+        List<Post> listPromo = new ArrayList<>();
+
+        listPosts = userRepository.findById(userId).getPosts();
+            for (Post p : listPosts
+                 ) {
+                if(p.getDiscount() > 0){
+                    listPromo.add(p);
+                }
+            }
+        List<PromoPostDTO> listFollowedPromoPosts = listPromo.stream().map(v -> modelMapper.map(v, PromoPostDTO.class )).collect(Collectors.toList());
+
+        return new UserFollowedPromoPostsDTO(userId, listFollowedPromoPosts);
+    }
+
+    /**
+     * promo post count
+     *
+     * @param idUser idus
+     * @return {@link FollowersCountDTO}
+     * @see FollowersCountDTO
+     */
+    public PromoCountDTO getpromoPostCount(Integer idUser){
+        User user = userRepository.findById(idUser);
+        PromoCountDTO count = new PromoCountDTO(user.getUserId(), user.getUserName(), getFollowedPromoPosts(idUser).posts.size());
+        return count;
     }
 }

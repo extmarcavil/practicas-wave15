@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g07.service;
 
-import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowersDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.*;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.User;
 
@@ -195,4 +192,5 @@ public class UserService implements IUserService{
             throw new BadRequestException("Este usuario no sigue a este vendedor.");
         }
     }
+
 }

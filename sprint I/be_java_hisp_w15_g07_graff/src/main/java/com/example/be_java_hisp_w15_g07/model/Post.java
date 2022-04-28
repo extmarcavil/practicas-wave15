@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g07.model;
 
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
@@ -14,13 +15,12 @@ import java.time.LocalDate;
 public class Post {
     private Integer postId;
 
-    @JsonFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat (pattern = "dd/MM/yyyy")
     private LocalDate date;
     private Product detail;
     private Integer category;
     private Double price;
-
-    private boolean hasPromo = false;
+    private boolean hasPromo;
     private double discount;
 
     public Post(LocalDate date, Product detail, Integer category, Double price) {
