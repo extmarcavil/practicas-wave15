@@ -107,13 +107,14 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void createPost(PostDTO post) {
         User user = getUser(post.getUser_id());
-        Post postToAdd = new Post();
+        user.addPost(mapper.map(post,Post.class));
+        /*Post postToAdd = new Post();
         postToAdd.setCategory(post.getCategory());
         postToAdd.setDate(post.getDate());
         postToAdd.setDetail(productDTOToproduct(post.getDetail()));
         postToAdd.setUser_id(post.getUser_id());
         postToAdd.setPrice(post.getPrice());
-        user.addPost(postToAdd);
+        user.addPost(postToAdd);*/
     }
 
     @Override
