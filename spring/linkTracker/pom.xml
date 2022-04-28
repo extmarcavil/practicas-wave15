@@ -5,6 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+<<<<<<< HEAD
         <version>2.6.7</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
@@ -13,11 +14,34 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>linkpractice</name>
     <description>Demo project for Spring Boot</description>
+=======
+        <version>2.5.13</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.bootcamp</groupId>
+    <artifactId>linkTracker</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>linkTracker</name>
+    <description>linkTracker</description>
+>>>>>>> 9ae5e9bcf1fd9d821e8b0d1780ce881ce0f5689c
     <properties>
         <java.version>11</java.version>
     </properties>
     <dependencies>
         <dependency>
+<<<<<<< HEAD
+=======
+            <groupId>javax.validation</groupId>
+            <artifactId>validation-api</artifactId>
+            <version>2.0.1.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>3.1.0</version>
+        </dependency>
+        <dependency>
+>>>>>>> 9ae5e9bcf1fd9d821e8b0d1780ce881ce0f5689c
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>

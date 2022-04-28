@@ -1,5 +1,6 @@
 package com.example.starwars.repositories;
 
+<<<<<<< HEAD
 import com.example.starwars.dto.CharacterDTO;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -42,4 +43,12 @@ public class CharacterRepository implements ICharacterRepository {
         }
         return characters;
     }
+=======
+import com.example.starwars.model.Character;
+
+import java.util.List;
+
+public interface CharacterRepository {
+  List<Character> findAllByNameContains(String query);
+>>>>>>> 9ae5e9bcf1fd9d821e8b0d1780ce881ce0f5689c
 }

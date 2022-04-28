@@ -34,7 +34,11 @@ class StarWarsApplicationTests {
   }
 
   private void performTest(String query, List<String> results) throws Exception {
+<<<<<<< HEAD
     ResultActions resultActions = this.mockMvc.perform(get("/" + query))
+=======
+    ResultActions resultActions = this.mockMvc.perform(get("/character?name=" + query))
+>>>>>>> 9ae5e9bcf1fd9d821e8b0d1780ce881ce0f5689c
         .andDo(print())
         .andExpect(status().isOk());
 
