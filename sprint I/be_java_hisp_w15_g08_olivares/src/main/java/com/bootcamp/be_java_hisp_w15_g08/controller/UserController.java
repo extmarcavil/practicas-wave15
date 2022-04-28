@@ -77,6 +77,10 @@ public class UserController {
         PromoCountDTO promoCountDTO = service.getPromoCount(userId);
         return new ResponseEntity<>(promoCountDTO, HttpStatus.ACCEPTED);
     }
-///products/promo-post
-    ///products/promo-post/count?user_id={userId}
+    @GetMapping("/products/promo-post/list?user_id={userId}")
+    public ResponseEntity<PromoListDTO> getPromoList(@PathVariable Integer userId) {
+        PromoListDTO promoListDTO = service.getPromoList(userId);
+        return new ResponseEntity<>(promoListDTO, HttpStatus.ACCEPTED);
+    }
+
 }

@@ -14,4 +14,6 @@ public interface IUserService {
     PostListDTO getSellersLastsPosts(Integer userId, String order);
     void addPromo(PromoDTO promoDTO);
     PromoCountDTO getPromoCount(Integer userId);
+    PromoListDTO getPromoList(Integer userId);
+
 }

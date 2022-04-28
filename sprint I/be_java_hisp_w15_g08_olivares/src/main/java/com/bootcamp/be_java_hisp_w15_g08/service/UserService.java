@@ -128,5 +128,16 @@ public class UserService implements IUserService{
         return PromoCountDTO;
     }
 
+    @Override
+    public PromoListDTO getPromoList(Integer userId) {
+        User user =repository.findUser(userId);
+        List<PromoDTO> listDto = user.getOnSalePosts()
+                .stream()
+                .map(promo -> mapper.map(promo,PromoDTO.class))
+                .collect(toList());
+        PromoListDTO promoListDTO = new PromoListDTO(user.getUserID(),user.getName(),listDto);
+        return promoListDTO;
+    }
+
 
 }
