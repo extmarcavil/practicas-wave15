@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.controller;
 
 import com.example.be_java_hisp_w15_g05.dto.PostDTO;
+import com.example.be_java_hisp_w15_g05.dto.PromoPostDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResCreatePostDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResPostListDTO;
 import com.example.be_java_hisp_w15_g05.service.IProductsService;
@@ -32,6 +33,9 @@ public class ProductsController {
 
     }
 
-
+    @PostMapping("/products/promo-post")
+    public ResponseEntity<ResCreatePostDTO> createPromoPost(@RequestBody PromoPostDTO promoPostDTO) {
+        return new ResponseEntity<>(productsService.createPromoPost(promoPostDTO), HttpStatus.OK);
+    }
 
 }
