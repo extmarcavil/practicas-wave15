@@ -4,11 +4,15 @@ import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.Post;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
+@Setter
 public class ResponsePostDTO {
 
     private Integer post_id;
@@ -19,6 +23,6 @@ public class ResponsePostDTO {
 
     public static ResponsePostDTO from(Post post) {
         String date = LocalDate.from(post.getDate()).toString();
-        return new ResponsePostDTO(post.getId(), date, post.getDetail(), post.getCategory(), post.getPrice());
+        return new ResponsePostDTO(post.getPost_id(), date, post.getDetail(), post.getCategory(), post.getPrice());
     }
 }

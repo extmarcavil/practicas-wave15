@@ -3,6 +3,7 @@ package com.be.java.hisp.w156.be.java.hisp.w156.vitale.controller;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.request.RequestPromoPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.PromoPostsCountDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.PromoPostsListDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.vitale.service.IProductService;
@@ -40,8 +41,14 @@ public class PostController {
 
 
     @GetMapping("promo-post/count")
-    public ResponseEntity<PromoPostsCountDTO> getCountPromoPosts(@RequestParam(required = true) Integer user_id) {
-        return productService.getCountPromoPosts(user_id);
+    public ResponseEntity<PromoPostsCountDTO> getPromoPostsCount(@RequestParam(required = true) Integer user_id) {
+        return productService.getPromoPostsCount(user_id);
+    }
+
+
+    @GetMapping("promo-post/list")
+    public ResponseEntity<PromoPostsListDTO> getPromoPostsList(@RequestParam(required = true) Integer user_id) {
+        return productService.getPromoPostsList(user_id);
     }
 
 }

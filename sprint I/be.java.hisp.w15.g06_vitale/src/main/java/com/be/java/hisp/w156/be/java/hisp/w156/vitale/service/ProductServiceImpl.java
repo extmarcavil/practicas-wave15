@@ -38,7 +38,7 @@ public class ProductServiceImpl implements IProductService {
             Post postToSaved = Post.from(requestPostDto);
             User user = userRepository.getUser(requestPostDto.getUser_id());
             user.getPosts().add(postToSaved);
-            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getId());
+            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getPost_id());
             return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
         }
         throw new UserNotFoundException(requestPostDto.getUser_id());
@@ -70,14 +70,14 @@ public class ProductServiceImpl implements IProductService {
     public ResponseEntity<SuccessDTO> savePromoPost(RequestPromoPostDTO requestPromoPostDto) {
         User user = userRepository.getUser(requestPromoPostDto.getUser_id());
         Post promoPost = modelMapper.map(requestPromoPostDto, Post.class);
-        promoPost.setId(requestPromoPostDto.getUser_id());
+        promoPost.setPost_id(requestPromoPostDto.getUser_id());
         user.getPosts().add(promoPost);
-        String message = String.format("Promo post with ID: %s was saved successfully", promoPost.getId());
+        String message = String.format("Promo post with ID: %s was saved successfully", promoPost.getPost_id());
         return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<PromoPostsCountDTO> getCountPromoPosts(Integer user_id) {
+    public ResponseEntity<PromoPostsCountDTO> getPromoPostsCount(Integer user_id) {
 
         User userSeller = this.userRepository.getUser(user_id);
 
@@ -85,5 +85,19 @@ public class ProductServiceImpl implements IProductService {
                 userSeller.getName(),
                 userSeller.getPosts().stream().filter(post -> post.isHas_promo()).collect(Collectors.toList()).size()),
                 HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<PromoPostsListDTO> getPromoPostsList(Integer user_id) {
+
+        User userSeller = this.userRepository.getUser(user_id);
+
+        List<ResponsePromoPostDTO> posts = userSeller.getPosts().stream()
+                .filter(Post::isHas_promo)
+                .map(promoPost -> modelMapper.map(promoPost, ResponsePromoPostDTO.class))
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<>(new PromoPostsListDTO(userSeller.getId(), userSeller.getName(), posts), HttpStatus.OK);
+
     }
 }
