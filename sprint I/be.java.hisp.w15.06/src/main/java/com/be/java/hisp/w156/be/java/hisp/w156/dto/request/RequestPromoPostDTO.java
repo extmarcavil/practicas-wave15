@@ -13,13 +13,13 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class RequestPromoPostDTO implements Serializable {
 
-        private int id_usuario;
+        private int user_id;
         @JsonFormat(pattern = "dd-MM-yyyy")
         private LocalDate date;
-        private Product detail; //Esto seria una lista?
+        private Product detail;
         private String category;
         private Double price;
-        private boolean has_promo; // Como manejar el has_promo??
+        private boolean has_promo;
         private double discount;
 
 

@@ -1,5 +1,6 @@
-package com.be.java.hisp.w156.be.java.hisp.w156.model;
+package com.be.java.hisp.w156.be.java.hisp.w156.dto.response;
 
+import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,8 +13,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PromoPost {
-
+public class PromoPostDTO {
 
     private int post_id;
     @JsonFormat(pattern = "dd-MM-yyyy")
@@ -21,11 +21,6 @@ public class PromoPost {
     private Product detail;
     private String category;
     private Double price;
-    private boolean has_promo; // Como manejar ?? donde puedo validar esto?
+    private boolean has_promo;
     private double discount;
-
-    public String getProductName(){
-        return detail.getProduct_name();
-    }
-
 }

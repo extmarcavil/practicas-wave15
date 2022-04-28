@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 public class RecentlyPostDTO {
 
-    //Por que seria aqui private final
+
     private final Integer user_id;
     private final List<ResponsePostDTO> posts;
 

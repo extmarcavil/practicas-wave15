@@ -17,11 +17,9 @@ import java.time.LocalDate;
 public class RequestPostDTO {
 
     private Integer user_id;
-
     @JsonSerialize(using = JsonAdapterSerializer.class)
     @JsonDeserialize(using = JsonAdapterDeserializer.class)
     private LocalDate date;
-
     private Product detail;
     private String category;
     private Double price;

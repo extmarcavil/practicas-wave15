@@ -3,6 +3,7 @@ package com.be.java.hisp.w156.be.java.hisp.w156.repository;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
+import com.be.java.hisp.w156.be.java.hisp.w156.model.PromoPost;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -32,28 +33,35 @@ public class UserRepositoryImpl implements IUserRepository {
         List<Post> posts2 = Stream.of(new Post(1, LocalDate.of(2022, 4, 15), product, "150", 100.50))
                 .collect(Collectors.toList());
 
-        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>());
-        User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>());
-        User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>());
-        User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>());
+        List<PromoPost> promoPostList = Stream.of(
+                new PromoPost(1, LocalDate.of(2022, 4 , 27), product, "100", 1500.50, true, 0.25)
+                ).collect(Collectors.toList());
+
+        User user1 = new User(1, "Pepe", new ArrayList<>(), new ArrayList<User>(), new ArrayList<User>(), new ArrayList<>());
+        User user2 = new User(2, "Moni", posts, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<>());
+        User user3 = new User(3, "Dardo", posts2, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<>());
+        User user4 = new User(4, "Marialena", posts2, new ArrayList<User>(), new ArrayList<User>(), new ArrayList<>());
+        User user5 = new User(5, "Juli", posts2, new ArrayList<User>(), new ArrayList<User>(), promoPostList);
 
         user1.getFollowed().add(user3);
         user2.getFollowed().add(user3);
         user3.getFollowers().add(user1);
         user3.getFollowers().add(user2);
+        user5.getFollowers().add(user3);
 
         users = Stream.of(
                 user1,
                 user2,
                 user3,
-                user4
+                user4,
+                user5
         ).collect(Collectors.toList());
     }
 
     @Override
     public User getUser(Integer id) {
         return this.users.stream()
-                .filter(x -> x.getId() == id)
+                .filter(x -> x.getId().equals(id))
                 .findFirst().orElseThrow(() -> new UserNotFoundException(id));
     }
 
