@@ -1,6 +1,7 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.PostPromo;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import org.springframework.stereotype.Repository;
@@ -28,6 +29,22 @@ public class PostRepositoryImpl implements PostRepository {
 
         posts.add(post);
 
+        return post;
+    }
+    
+    @Override
+    public
+PostPromo createPromo(User user, LocalDate date, Product product, Integer category, Float price, Float discount) {
+    	PostPromo post = new PostPromo();
+        post.setPostId(posts.size() +1L);
+        post.setUser(user);
+        post.setDate(date);
+        post.setDetail(product);
+        post.setCategory(category);
+        post.setPrice(price);
+        post.setDiscount(discount);
+
+        posts.add(post);
         return post;
     }
     

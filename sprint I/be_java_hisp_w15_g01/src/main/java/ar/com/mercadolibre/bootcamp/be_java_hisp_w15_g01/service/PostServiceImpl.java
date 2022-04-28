@@ -2,6 +2,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostPromoDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
@@ -40,14 +41,7 @@ public class PostServiceImpl implements PostService {
         User user = userService.findById(postDto.getUserId());
         ProductDTO detail = postDto.getDetail();
 
-        Product product = new Product(
-                detail.getProductId(),
-                detail.getProductName(),
-                detail.getType(),
-                detail.getBrand(),
-                detail.getColor(),
-                detail.getNotes()
-        );
+        Product product = this.createProduct(detail);
 
         LocalDate date;
 
@@ -57,15 +51,48 @@ public class PostServiceImpl implements PostService {
             throw new InvalidDateException();
         }
 
-        Post createdPost = postRepository.create(user, date, product, postDto.getCategory(), postDto.getPrice());
-
+        //Post createdPost
+        postRepository.create(user, date, product, postDto.getCategory(), postDto.getPrice());
+        return this.productCreated();
+    }
+    
+    private ResponseDTO productCreated() {
         ResponseDTO dto = new ResponseDTO();
         dto.setMessage("Product Created!");
-
         return dto;
     }
 
-    @Override
+	@Override
+    public ResponseDTO createPromoPost(PostPromoDTO promoPostDTO) {
+    	User user = userService.findById(promoPostDTO.getUserId());
+        ProductDTO detail = promoPostDTO.getDetail();
+
+        Product product = this.createProduct(detail);
+
+        LocalDate date;
+
+        try {
+            date = LocalDate.parse(promoPostDTO.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        } catch(DateTimeException e) {
+            throw new InvalidDateException();
+        }
+
+        postRepository.createPromo(user, date, product, promoPostDTO.getCategory(), promoPostDTO.getPrice(), promoPostDTO.getDiscount());
+        return this.productCreated();
+    }
+
+    private Product createProduct(ProductDTO detail) {
+        return new Product(
+                detail.getProductId(),
+                detail.getProductName(),
+                detail.getType(),
+                detail.getBrand(),
+                detail.getColor(),
+                detail.getNotes()
+        );
+    }
+
+	@Override
     public PostListDTO getPostsByFollowedUsers(Long userId, String order) {
 
         if(order != null && !order.equals("date_asc") && !order.equals("date_desc")) {

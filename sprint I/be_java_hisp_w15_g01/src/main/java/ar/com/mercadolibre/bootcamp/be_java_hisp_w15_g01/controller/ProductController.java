@@ -2,6 +2,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostPromoDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.PostService;
 
@@ -36,6 +37,12 @@ public class ProductController {
                 .status(HttpStatus.OK)
                 .body(service.getPostsByFollowedUsers(userId, order));
     }
-
-
+    
+    @PostMapping("/promo-post")
+    public ResponseEntity<ResponseDTO> promoCreate(@RequestBody PostPromoDTO postDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.createPromoPost(postDTO));
+    }
+    
 }
