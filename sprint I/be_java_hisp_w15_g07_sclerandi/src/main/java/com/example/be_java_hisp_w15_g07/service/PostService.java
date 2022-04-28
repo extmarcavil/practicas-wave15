@@ -103,6 +103,9 @@ public class PostService implements IPostService{
     @Override
     public PromoProductsCountDTO getPromoProductsCount(Integer userId) {
         User user = userRepository.findById(userId);
+        if (user.getPosts().isEmpty()){
+            throw new BadRequestException("Este usuario no es vendedor");
+        }
         int count = (int) user.getPosts().stream().filter(Post::getHasPromo).count();
         return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), count);
     }
@@ -117,6 +120,9 @@ public class PostService implements IPostService{
     @Override
     public PromoPostsListDTO getPromoProductsList(Integer userId) {
         User user = userRepository.findById(userId);
+        if (user.getPosts().isEmpty()){
+            throw new BadRequestException("Este usuario no es vendedor");
+        }
         List<PromoPostDTO> posts = user.getPosts().stream()
                 .filter(Post::getHasPromo)
                 .map(v -> modelMapper.map(v, PromoPostDTO.class))
