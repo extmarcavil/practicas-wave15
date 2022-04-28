@@ -8,14 +8,14 @@ import java.util.ArrayList;
 @Setter
 @Getter
 public class User {
-    private int userId;
+    private Integer userId;
     private String name;
     private boolean isSeller;
 
     private ArrayList<User> followed = new ArrayList<>();
     private ArrayList<User> followers = new ArrayList<>();
 
-    public User(int userId, String name, boolean isSeller) {
+    public User(Integer userId, String name, boolean isSeller) {
         this.userId = userId;
         this.name = name;
         this.isSeller = isSeller;

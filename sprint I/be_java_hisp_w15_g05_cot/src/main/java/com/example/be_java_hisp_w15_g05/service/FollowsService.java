@@ -1,9 +1,7 @@
 package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
-import com.example.be_java_hisp_w15_g05.exceptions.UserNotFollowingException;
-import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
-import com.example.be_java_hisp_w15_g05.exceptions.UserNotSellerException;
+import com.example.be_java_hisp_w15_g05.exceptions.*;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import org.springframework.stereotype.Service;
@@ -26,6 +24,8 @@ public class FollowsService implements IFollowsService {
         User follower = validateUserExists(userId);
         User toFollow = validateUserExists(userToFollowId);
         validateIsSeller(toFollow);
+        validateUserAlreadyFollowed(follower, toFollow);
+        validateUserCannotFollowHimself(follower, toFollow);
 
         userRepository.follow(follower, toFollow);
 
@@ -48,7 +48,7 @@ public class FollowsService implements IFollowsService {
     public ResListFollowersDTO getListFollowers(int userId, String order) {
         User user = validateUserExists(userId);
 
-        List<UserDTO> followers = getListUserDTO(user.getSeguidores());
+        List<UserDTO> followers = getListUserDTO(user.getFollowers());
         sortListByName(followers, order);
 
         return new ResListFollowersDTO(user.getUserId(), user.getName(), followers);
@@ -66,7 +66,7 @@ public class FollowsService implements IFollowsService {
     public ResListSellersDTO getListSellers(int userId, String order) {
         User user = validateUserExists(userId);;
 
-        List<UserDTO> followed = getListUserDTO(user.getSeguidos());
+        List<UserDTO> followed = getListUserDTO(user.getFollowed());
         sortListByName(followed, order);
 
         return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
@@ -87,9 +87,20 @@ public class FollowsService implements IFollowsService {
     }
 
     private void validateUserIsFollower(User follower, User seller) {
-        if(!seller.getSeguidores().contains(follower))
+        if(!seller.getFollowers().contains(follower))
             throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + follower.getUserId() +
                     " no sigue actualmente al usuario " + seller.getUserId());
+    }
+
+    private void validateUserAlreadyFollowed(User follower, User seller) {
+        if(seller.getFollowers().contains(follower))
+            throw new UserAlreadyFollowedException("No se puede seguir: El usuario " + follower.getUserId() +
+                    " actualmente ya es un seguidor del usuario " + seller.getUserId());
+    }
+
+    private void validateUserCannotFollowHimself(User follower, User seller) {
+        if(seller.getUserId().equals(follower.getUserId()))
+            throw new UserCannotFollowHimself("Un usuario no se puede seguir a sí mismo");
     }
 
     private void sortListByName(List<UserDTO> list, String order) {

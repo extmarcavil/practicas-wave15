@@ -33,4 +33,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<?> InvalidPriceException(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(UserAlreadyFollowedException.class)
+    public ResponseEntity<?> UserAlreadyFollowedException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
+
+    @ExceptionHandler(UserCannotFollowHimself.class)
+    public ResponseEntity<?> UserCannotFollowHimself(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

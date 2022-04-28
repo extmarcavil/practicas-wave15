@@ -52,7 +52,7 @@ public class ProductsService implements IProductsService {
 
         List<Post> listadoPosteos = new ArrayList<>();
 
-        for( User usuario : user.getSeguidos())
+        for( User usuario : user.getFollowed())
             listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
 
         if(order != null && order.equals("date_desc"))

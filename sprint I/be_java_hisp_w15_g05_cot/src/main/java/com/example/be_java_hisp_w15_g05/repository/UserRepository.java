@@ -44,7 +44,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public int countFollowers(User user) {
-        return user.getSeguidores().size();
+        return user.getFollowers().size();
     }
 
     @Override
