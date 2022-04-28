@@ -18,6 +18,7 @@ public class NewPostDTO {
     private ProductDTO detail;
     private Integer category;
     private Double price;
-
-
+    //US-0010
+    private Boolean hasPromo;
+    private Double discount;
 }

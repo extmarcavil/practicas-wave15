@@ -78,6 +78,10 @@ public class PostService implements IPostService{
      */
     public void newPost(NewPostDTO postDTO){
         Post post = modelMapper.map(postDTO, Post.class);
+        if(post.getHasPromo() == null){
+            post.setHasPromo(false);
+            post.setDiscount(0d);
+        }
         userRepository.newPost(postDTO.getUserId(), post);
     }
 }

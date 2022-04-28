@@ -49,6 +49,12 @@ public class PostController {
     public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
 
+    //US-0010
+    @PostMapping("/promoPost")
+    public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
+        postService.newPost(postDTO);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

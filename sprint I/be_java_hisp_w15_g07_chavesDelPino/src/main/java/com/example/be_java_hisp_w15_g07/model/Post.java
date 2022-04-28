@@ -22,11 +22,17 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    //US-0010
+    private Boolean hasPromo;
+    private Double discount;
 
-    public Post(LocalDate date, Product detail, Integer category, Double price) {
+    public Post(LocalDate date, Product detail, Integer category, Double price, Boolean hasPromo, Double discount) {
         this.date = date;
         this.detail = detail;
         this.category = category;
         this.price = price;
+        //US-0010
+        this.hasPromo = hasPromo;
+        this.discount = discount;
     }
 }
