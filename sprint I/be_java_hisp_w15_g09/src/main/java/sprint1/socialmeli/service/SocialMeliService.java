@@ -8,7 +8,6 @@ import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
-import sprint1.socialmeli.utils.UserConverter;
 
 import java.util.Comparator;
 import java.util.List;
@@ -17,11 +16,8 @@ import java.util.List;
 public class SocialMeliService implements ISocialMeliService {
 
     ISocialMeliRepository repository;
-    UserConverter userConverter;
-
-    public SocialMeliService(ISocialMeliRepository repository, UserConverter converter) {
+    public SocialMeliService(ISocialMeliRepository repository) {
         this.repository = repository;
-        this.userConverter = converter;
     }
 
     @Override
@@ -40,30 +36,26 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public ResponseFollowersCountDTO countFollowers(Integer userID) {
-        User user1 = getUserFromRepositoryById(userID);
-        return new ResponseFollowersCountDTO(user1);
+        User anUserToCountTheirFollowers = getUserFromRepositoryById(userID);
+        return new ResponseFollowersCountDTO(anUserToCountTheirFollowers);
     }
 
     @Override
     public ResponseFollowersListDTO listFollowers(Integer userId, String order) {
-        User user = getUserFromRepositoryById(userId);
-
-        if (order !=  null) {
-            checkOrderParam(order);
-            sortListOfUsers(user.getListOfFollowers(), order);
-        }
-        return new ResponseFollowersListDTO( user, userConverter.createFromEntities(user.getListOfFollowers()));
+        User anUserToGetTheirListOfFollowers = getUserFromRepositoryById(userId);
+        List<User> orderListOfFollowers = sortListOfUsers(
+                anUserToGetTheirListOfFollowers.getListOfFollowers(),
+                order);
+        return new ResponseFollowersListDTO(anUserToGetTheirListOfFollowers,orderListOfFollowers);
     }
 
     @Override
     public ResponseFollowedListDTO listFollowed(Integer userId, String order) {
-        User user = getUserFromRepositoryById(userId);
-        if (order !=  null) {
-            checkOrderParam(order);
-            sortListOfUsers(user.getListOfFollowed(), order);
-        }
-        return new ResponseFollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
-    }
+        User anUserToGetTheirListOfFollowed = getUserFromRepositoryById(userId);
+        List<User> orderListOfFollowed = sortListOfUsers(
+                anUserToGetTheirListOfFollowed.getListOfFollowed(),
+                order);
+        return new ResponseFollowedListDTO( anUserToGetTheirListOfFollowed, orderListOfFollowed );  }
 
     //----------Private----------//
 
@@ -78,30 +70,40 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     /**
-     * Comprueba que el parámetro order sea correcto.
+     * Comprueba que el parámetro order sea correcto. Si el parametro es nulo lo define
+     * como name_asc por defecto
      * @param order orden a aplicar. Los parámetros admitidos son name_asc y name_desc.
      * @throws InvalidParamsException en caso de que el tipo de orden ingresado sea incorrecto.
+     * @return orden chequeado
      */
-    private static void checkOrderParam(String order) {
+    private static String checkOrderParam(String order) {
+        if (order == null)
+            return "name_asc";
         if (!(order.equalsIgnoreCase("name_asc") || order.equalsIgnoreCase("name_desc"))) {
             throw new InvalidParamsException("Los parámetros ingresados son incorrectos. Este endpoint admite solo:\n" +
                     "order=name_asc\n" +
                     "order=name_desc");
         }
+        return order;
     }
 
     /**
      * Recibe una lista de User y una String de ordenamiento y ordena la lista acorde al orden.
      * @param users Lista de usuarios a ordenar.
      * @param order orden a aplicar. Los parámetros admitidos son name_asc y name_desc.
-     * @return List<User> la lista ordenada
+     * retorna List<User> la lista ordenada
      */
-    private void sortListOfUsers(List<User> users, String order) {
-
-        users.sort(Comparator.comparing(User::getName));
-        if (order.equals("name_desc")) {
-            users.sort(Comparator.comparing(User::getName).reversed());
+    private List<User> sortListOfUsers(List<User> users, String order) {
+        order = checkOrderParam(order);
+        switch(order){
+            case "name_desc":
+                users.sort(Comparator.comparing(User::getName).reversed());
+                break;
+            case "name_asc":
+                users.sort(Comparator.comparing(User::getName));
+                break;
         }
+        return users;
     }
 
     /**

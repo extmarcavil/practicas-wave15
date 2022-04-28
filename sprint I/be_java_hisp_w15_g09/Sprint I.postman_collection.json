@@ -133,7 +133,169 @@
 					"response": []
 				},
 				{
+					"name": "US 03 - Followers / name_desc",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"seller_id\", 2);",
+									"pm.collectionVariables.set(\"client_id\", 3);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{seller_id}}/followers/list?order=name_desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{seller_id}}",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "oder",
+									"value": "name_desc",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 03 - Followers / name_asc",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"seller_id\", 2);",
+									"pm.collectionVariables.set(\"client_id\", 3);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{seller_id}}/followers/list?order=name_desc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{seller_id}}",
+								"followers",
+								"list"
+							],
+							"query": [
+								{
+									"key": "oder",
+									"value": "name_desc",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "name_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "US 04 - Followed / US 08",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"seller_id\", 3);",
+									"pm.collectionVariables.set(\"client_id\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{client_id}}/followed/list?order=name_asc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{client_id}}",
+								"followed",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 04 - Followed / name_asc",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"seller_id\", 3);",
+									"pm.collectionVariables.set(\"client_id\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/users/{{client_id}}/followed/list?order=name_asc",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"users",
+								"{{client_id}}",
+								"followed",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "name_asc"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "US 04 - Followed / name_desc",
 					"event": [
 						{
 							"listen": "prerequest",

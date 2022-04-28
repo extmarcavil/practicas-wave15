@@ -16,7 +16,6 @@ public class User {
     String name;
     List<User> listOfFollowers;
     List<User> listOfFollowed;
-    //...List<>
 
     public User(Integer id, String name) {
         this.name = name;
