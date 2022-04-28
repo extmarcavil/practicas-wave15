@@ -60,7 +60,7 @@ public class ProductsService implements IProductsService {
 
     @Override
     public ResPromoPostsDTO getCountPromoPosts(int userId) {
-        User user = validateUserExists(userId);;
+        User user = validateUserExists(userId);
         validateIsSeller(user);
 
         Integer countPromoPosts = userRepository.getPromoPosts(userId).size();
@@ -69,11 +69,13 @@ public class ProductsService implements IProductsService {
     }
 
     @Override
-    public ResListPromoPostDTO getListPromoPosts(int userId) {
-        User user = validateUserExists(userId);;
+    public ResListPromoPostDTO getListPromoPosts(int userId, String order) {
+        User user = validateUserExists(userId);
         validateIsSeller(user);
 
         List<Post> listPromoPosts = userRepository.getPromoPosts(userId);
+
+        sortListByName(listPromoPosts, order);
 
         List<PromoPostDTO> listPromoPostsDTO = modelMapper.map(listPromoPosts, new TypeToken<List<PromoPostDTO>>() {}.getType());
 
@@ -106,5 +108,12 @@ public class ProductsService implements IProductsService {
             list.sort(Comparator.comparing(Post::getDate));
         else
             list.sort(Comparator.comparing(Post::getDate).reversed());
+    }
+
+    private void sortListByName(List<Post> list, String order) {
+        if(order.equalsIgnoreCase("name_desc"))
+            list.sort(Comparator.comparing(Post::getProductName).reversed());
+        else
+            list.sort(Comparator.comparing(Post::getProductName));
     }
 }

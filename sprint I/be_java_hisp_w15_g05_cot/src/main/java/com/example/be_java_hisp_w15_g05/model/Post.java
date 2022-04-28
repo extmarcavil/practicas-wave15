@@ -22,4 +22,8 @@ public class Post {
     private boolean hasPromo;
     private double discount;
 
+    public String getProductName() {
+        return this.detail.getProductName();
+    }
+
 }
