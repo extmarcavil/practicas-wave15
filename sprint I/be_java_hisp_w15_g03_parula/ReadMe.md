@@ -325,6 +325,15 @@ Obtener todos los vendedores que venden un producto por ProductID
 }
 ```
 
+###***US015***
+Se agrega al US12 orden (No obligatorio ingresarlo).
+Por defecto se toma date_desc. Los valores posibles son: date_asc, date_desc
+
+| US   | METHOD | SIGN                                                                                              |
+|:-----|--------|---------------------------------------------------------------------------------------------------|
+| 0012 | GET    | /products/promo-post/list?user_id={userId}&order=date_asc
+
+
 ## Excepciones
 
 #### CategoryNotFoundException:

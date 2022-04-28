@@ -134,7 +134,7 @@ public class ProductService implements IProductService {
      * @return se devuelven los datos del vendedor y la lista de promos.
      */
     @Override
-    public SellerPPromoListDTO getPromoList(Integer sellerId) {
+    public SellerPPromoListDTO getPromoList(Integer sellerId, String order) {
         utils.existeSeller(sellerId);
         List<Publication> promoProduct = repository.getPromoProduct(sellerId);
 
@@ -152,10 +152,11 @@ public class ProductService implements IProductService {
                     return p;
                 })
                 .collect(Collectors.toList());
+
         SellerPPromoListDTO sellerDto = new SellerPPromoListDTO();
         sellerDto.setUserId(sellerId);
         sellerDto.setUserName(repository.getSeller(sellerId).getUserName());
-        sellerDto.setPosts(publicationRespDTOList);
+        sellerDto.setPosts(orderList(publicationRespDTOList, order));
         return sellerDto;
     }
 
@@ -183,6 +184,29 @@ public class ProductService implements IProductService {
             }
         } else {
             publicationList.sort(Comparator.comparing(PublicationRespDTO::getDate).reversed());
+        }
+
+        return publicationList;
+    }
+
+
+
+    private List<PublicationPromoRespDTO> orderList(List<PublicationPromoRespDTO> publicationList, String order) {
+
+        if (order != null) {
+
+            switch (order) {
+                case "date_asc":
+                    publicationList.sort(Comparator.comparing(PublicationPromoRespDTO::getDate));
+                    break;
+                case "date_desc":
+                    publicationList.sort(Comparator.comparing(PublicationPromoRespDTO::getDate).reversed());
+                    break;
+                default:
+                    throw new OrderInvalidException("El orden solicitado no existe");
+            }
+        } else {
+            publicationList.sort(Comparator.comparing(PublicationPromoRespDTO::getDate).reversed());
         }
 
         return publicationList;

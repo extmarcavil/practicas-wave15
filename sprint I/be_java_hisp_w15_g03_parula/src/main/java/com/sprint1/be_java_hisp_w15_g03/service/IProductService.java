@@ -11,6 +11,6 @@ public interface IProductService {
     SellerPListDTO getLastPublication(int userId, String order);
     void savePromoPublication(PublicationPromoDTO publication);
     SellerPromoCountDTO getPromoCount(Integer sellerId);
-    SellerPPromoListDTO getPromoList(Integer sellerId);
+    SellerPPromoListDTO getPromoList(Integer sellerId, String order);
 
 }

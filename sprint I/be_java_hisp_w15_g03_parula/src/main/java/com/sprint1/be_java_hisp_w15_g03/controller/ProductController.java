@@ -58,8 +58,9 @@ public class ProductController {
      * US12
      */
     @GetMapping("/promo-post/list")
-    public ResponseEntity<SellerPPromoListDTO> getPromoPostList(@RequestParam(name = "user_id") Integer sellerId) {
-        return new ResponseEntity<>(productService.getPromoList(sellerId), HttpStatus.OK);
+    public ResponseEntity<SellerPPromoListDTO> getPromoPostList(@RequestParam(name = "user_id") Integer sellerId,
+                                                                @RequestParam(required = false) String order) {
+        return new ResponseEntity<>(productService.getPromoList(sellerId,order), HttpStatus.OK);
     }
 
 
