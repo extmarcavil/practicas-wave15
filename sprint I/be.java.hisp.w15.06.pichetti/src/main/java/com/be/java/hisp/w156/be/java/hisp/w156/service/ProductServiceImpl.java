@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,12 +89,19 @@ public class ProductServiceImpl implements IProductService {
     }
 
     @Override
-    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id) {
+    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id,String order) {
 
         List<ResponsePostPromoDTO> posts = useRepository.getUser(id).getPosts().stream()
                 .filter(post -> post.isHas_promo())
                 .map(ResponsePostPromoDTO::from)
                 .collect(Collectors.toList());
+
+        if(order.equals("product_name_desc"))
+            //posts.sort(Comparator.comparing(o -> o.getDetail().getProduct_name()).reversed());
+            posts.sort(Comparator.comparing(ResponsePostPromoDTO::showNameProduct).reversed());
+        else
+            posts.sort(Comparator.comparing(ResponsePostPromoDTO::showNameProduct));
+            //posts.sort(Comparator.comparing(o -> o.getDetail().getProduct_name()));
 
         return new ResponseEntity<>(PostPromoDTO.from(id, posts), HttpStatus.OK);
     }

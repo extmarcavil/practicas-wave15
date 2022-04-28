@@ -15,5 +15,5 @@ public interface IProductService {
 
     ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order);
     ResponseEntity<PostPromoCountDTO> getCountPostPromoByUser(Integer id);
-    ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id);
+    ResponseEntity<PostPromoDTO> getListPostPromoByUser(Integer id, String order);
 }

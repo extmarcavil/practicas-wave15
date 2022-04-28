@@ -43,8 +43,9 @@ public class PostController {
     }
 
     @GetMapping("promo-post/list")
-    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id) {
-        return productService.getListPostPromoByUser(user_id);
+    public ResponseEntity<PostPromoDTO> getListPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id,
+                                                                @RequestParam(required=false, defaultValue = "product_name_asc") String order) {
+        return productService.getListPostPromoByUser(user_id, order);
     }
 
 

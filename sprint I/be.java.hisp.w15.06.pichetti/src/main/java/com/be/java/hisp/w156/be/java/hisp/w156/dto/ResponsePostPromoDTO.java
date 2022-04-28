@@ -23,4 +23,8 @@ public class ResponsePostPromoDTO extends ResponsePostDTO{
         String date = LocalDate.from(post.getDate()).toString();
         return new ResponsePostPromoDTO(post.getId(), date, post.getDetail(), post.getCategory(), post.getPrice(), post.isHas_promo(), post.getDiscount());
     }
+
+    public String showNameProduct(){
+        return getDetail().getProduct_name();
+    }
 }
