@@ -44,4 +44,18 @@ public class ProductController {
                 .status(HttpStatus.OK)
                 .body(service.howManyPromoPostById(user_id));
     }
+
+    @PutMapping("/update/{postId}")
+    public ResponseEntity<ResponseDTO> updatePost(@PathVariable Long postId, @RequestBody PromoPostDTO postDTO) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.updatePost(postId, postDTO));
+    }
+
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<PostListDetailDTO> getAllPostsByUserId(@PathVariable Long userId) {
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(service.getAllPostsByUserId(userId));
+    }
 }

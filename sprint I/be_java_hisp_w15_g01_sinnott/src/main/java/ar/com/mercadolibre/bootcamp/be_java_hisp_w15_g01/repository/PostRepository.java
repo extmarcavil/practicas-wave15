@@ -16,4 +16,8 @@ public interface PostRepository {
     boolean isSeller(User user);
 
     List<Post> getAllPostsByUserWithinTimeStamp(User user, int daysBack);
+
+    Post updatePost(Long postId, User user, LocalDate date, Product detail, Integer category, Float price, Boolean promo, Float discount);
+
+    List <Post> getAllPostsByUserId(Long userId);
 }

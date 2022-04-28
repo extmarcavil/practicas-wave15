@@ -1,9 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
-
-import java.time.LocalDate;
 
 public interface PostService {
 
@@ -11,7 +8,14 @@ public interface PostService {
 
     ResponseDTO createPromoPost(PromoPostDTO postDto);
 
+    ResponseDTO updatePost(Long postId, PromoPostDTO postDTO);
+
     PostListDTO getPostsByFollowedUsers(Long userId, String order);
 
     PromoPostCountDTO howManyPromoPostById(Long userId);
+
+    PostListDetailDTO getAllPostsByUserId(Long userId);
+
+
+
 }

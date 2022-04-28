@@ -3,12 +3,10 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.DateTimeException;
@@ -126,6 +124,36 @@ public class PostServiceImpl implements PostService {
         dto.setPromoProductsCount(postRepository.howManyPromoPostById(userId));
 
         return dto;
-
     }
+
+    @Override
+    public ResponseDTO updatePost(Long postId, PromoPostDTO postDTO) {
+
+        User user = userService.findById(postDTO.getUserId());
+        Product product = createProduct(postDTO.getDetail());
+        LocalDate date = checkDateValid(postDTO.getDate());
+        postRepository.updatePost(postId, user, date, product, postDTO.getCategory(), postDTO.getPrice(), postDTO.getHasPromo(), postDTO.getDiscount());
+
+        ResponseDTO dto = new ResponseDTO();
+        dto.setMessage("Post Updated!");
+
+        return dto;
+    }
+
+    @Override
+    public PostListDetailDTO getAllPostsByUserId(Long userId) {
+
+        PostListDetailDTO postListDTO = new PostListDetailDTO(userId, null);
+        List<PromoPostDTO> internalPostList = new ArrayList<>();
+
+        this.postRepository.getAllPostsByUserId(userId)
+                .forEach(p -> internalPostList.add(new PromoPostDTO(p)));
+
+        postListDTO.setPosts(internalPostList);
+
+        return postListDTO;
+    }
+
+
+
 }

@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "cfae8e78-4ec4-459f-8f37-3c53ff52a3a6",
-		"name": "Sprint 1",
+		"_postman_id": "68c21a4e-01db-423b-9938-0a6c4af6b6c7",
+		"name": "Sprint I",
 		"description": "# Introduccion\nversión Beta de la API “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.\n\nEsta API engloba los metodos basicos para dicha funcionalidad\n\n# Colaboradores\nBarraza Miguel Angel\nFedele Lucas\nLeon Jesus\nRamirez Thiago\nSalomone Ana\nSinnott Segura Gonzalo\n",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -17,7 +17,7 @@
 							"script": {
 								"exec": [
 									"pm.collectionVariables.set(\"client_id\", 1);",
-									"pm.collectionVariables.set(\"seller_id\", 4);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									""
 								],
 								"type": "text/javascript"
@@ -182,7 +182,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 2);",
+									"pm.collectionVariables.set(\"seller_id\", 3);",
 									"pm.collectionVariables.set(\"client_id\", 3);"
 								],
 								"type": "text/javascript"
@@ -194,7 +194,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"29-11-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
+							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"28-04-2022\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"product_name\": \"Mesa\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -229,7 +229,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 1);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									"pm.collectionVariables.set(\"client_id\", 1);"
 								],
 								"type": "text/javascript"
@@ -301,7 +301,7 @@
 							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.collectionVariables.set(\"seller_id\", 3);",
+									"pm.collectionVariables.set(\"seller_id\", 2);",
 									"pm.collectionVariables.set(\"client_id\", 3);"
 								],
 								"type": "text/javascript"
@@ -313,7 +313,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"29-04-2021\",\n    \"detail\": {\n        \"product_id\": 1,\n        \"product_name\": \"Silla Gamer\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"has_promo\": true,\n    \"discount\": 0.25\n}",
+							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"28-04-2022\",\n    \"detail\": {\n        \"product_id\": 4,\n        \"product_name\": \"Monitor\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"has_promo\": true,\n    \"discount\": 0.25\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -373,6 +373,97 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Bonus",
+			"item": [
+				{
+					"name": "US 12 - Update Post",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"post_id\", 1);",
+									"pm.collectionVariables.set(\"seller_id\", 3);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"post_id\": \"{{post_id}}\",\n    \"date\": \"28-04-2022\",\n    \"detail\": {\n        \"product_id\": 4,\n        \"product_name\": \"Parlantes\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"has_promo\": true,\n    \"discount\": 0.25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/update/{{post_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"update",
+								"{{post_id}}"
+							]
+						},
+						"description": "Actualiza la información de un post existente"
+					},
+					"response": []
+				},
+				{
+					"name": "US 13 - Get All Products By Seller",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"seller_id\", 3);",
+									"pm.collectionVariables.set(\"post_id\", 4);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": \"{{seller_id}}\",\n    \"date\": \"28-04-2022\",\n    \"detail\": {\n        \"product_id\": 4,\n        \"product_name\": \"BMW\",\n        \"type\": \"Gamer\",\n        \"brand\": \"Racer\",\n        \"color\": \"Red & Black\",\n        \"notes\": \"Special Edition\"\n    },\n    \"category\": 100,\n    \"price\": 1500.50,\n    \"has_promo\": true,\n    \"discount\": 0.25\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/products/user/{{seller_id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"user",
+								"{{seller_id}}"
+							]
+						},
+						"description": "Obtener un listado de todos los productos de un determinado vendedor"
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
@@ -407,6 +498,10 @@
 		{
 			"key": "seller_id",
 			"value": "Seller id"
+		},
+		{
+			"key": "post_id",
+			"value": ""
 		}
 	]
 }

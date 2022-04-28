@@ -1,4 +1,4 @@
-# Project: Sprint 1
+# Project: Sprint I
 # Introduccion
 versión Beta de la API “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
 
@@ -88,10 +88,10 @@ Dar de alta una nueva publicación
 ```json
 {
     "user_id": "{{seller_id}}",
-    "date": "29-11-2021",
+    "date": "28-04-2022",
     "detail": {
         "product_id": 1,
-        "product_name": "Silla Gamer",
+        "product_name": "Mesa",
         "type": "Gamer",
         "brand": "Racer",
         "color": "Red & Black",
@@ -150,10 +150,10 @@ Llevar a cabo la publicación de un nuevo producto en promoción
 ```json
 {
     "user_id": "{{seller_id}}",
-    "date": "29-04-2021",
+    "date": "28-04-2022",
     "detail": {
-        "product_id": 1,
-        "product_name": "Silla Gamer",
+        "product_id": 4,
+        "product_name": "Monitor",
         "type": "Gamer",
         "brand": "Racer",
         "color": "Red & Black",
@@ -181,6 +181,69 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 |---|---|
 |user_id|{{seller_id}}|
 
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+# 📁 Collection: Bonus 
+
+
+## End-point: US 12 - Update Post
+Actualiza la información de un post existente
+### Method: PUT
+>```
+>{{url}}/products/update/{{post_id}}
+>```
+### Body (**raw**)
+
+```json
+{
+    "user_id": "{{seller_id}}",
+    "post_id": "{{post_id}}",
+    "date": "28-04-2022",
+    "detail": {
+        "product_id": 4,
+        "product_name": "Parlantes",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50,
+    "has_promo": true,
+    "discount": 0.25
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 13 - Get All Products By Seller
+Obtener un listado de todos los productos de un determinado vendedor
+### Method: GET
+>```
+>{{url}}/products/user/{{seller_id}}
+>```
+### Body (**raw**)
+
+```json
+{
+    "user_id": "{{seller_id}}",
+    "date": "28-04-2022",
+    "detail": {
+        "product_id": 4,
+        "product_name": "BMW",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50,
+    "has_promo": true,
+    "discount": 0.25
+}
+```
 
 
 ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃

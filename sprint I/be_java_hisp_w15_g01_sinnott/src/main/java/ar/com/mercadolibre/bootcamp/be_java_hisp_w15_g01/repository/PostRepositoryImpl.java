@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.PostNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
@@ -57,12 +58,56 @@ public class PostRepositoryImpl implements PostRepository {
         return postList;
     }
 
+
+
     @Override
     public Integer howManyPromoPostById(Long id) {
 
         return (int) posts.stream()
                 .filter(p -> p.getUser().getUserId().equals(id) && p.getHasPromo())
                 .count();
+    }
+
+    @Override
+    public Post updatePost(Long postId, User user, LocalDate date, Product detail, Integer category, Float price, Boolean promo, Float discount) {
+
+        Post post = posts.stream()
+                .filter(p -> p.getPostId().equals(postId))
+                .findFirst()
+                .orElse(null);
+
+        try{
+            Long testPostId = post.getPostId();
+        }
+        catch (NullPointerException e){
+            throw new PostNotFoundException();
+        }
+
+        if(post != null){
+            post.setUser(user);
+            post.setDate(date);
+            post.setDetail(detail);
+            post.setCategory(category);
+            post.setPrice(price);
+
+            if(promo != null && discount != null){
+                post.setHasPromo(promo);
+                post.setDiscount(discount);
+            }
+            else{
+                post.setHasPromo(false);
+                post.setDiscount(0F);
+            }
+        }
+        return post;
+    }
+
+    @Override
+    public List<Post> getAllPostsByUserId(Long userId) {
+
+        return posts.stream()
+                .filter(p -> p.getUser().getUserId().equals(userId))
+                .collect(Collectors.toList());
     }
 
 
