@@ -3,6 +3,7 @@ package sprint1.socialmeli.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
+import sprint1.socialmeli.dto.CreateUserDTO;
 import sprint1.socialmeli.dto.ResponseFollowedListDTO;
 import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
 import sprint1.socialmeli.dto.ResponseFollowersListDTO;
@@ -46,5 +47,11 @@ public class    SocialMeliController {
     public ResponseEntity<?> unfollow(@PathVariable int userID, @PathVariable int userIdToUnfollow){
         service.unfollow(userID,userIdToUnfollow);
         return ResponseEntity.ok("El usuario: "+ userID + " dejo de seguir a "+ userIdToUnfollow);
+    }
+
+    // US 0012
+    @PostMapping("/users")
+    public ResponseEntity<Integer> create(@RequestBody CreateUserDTO user) {
+        return ResponseEntity.ok(service.save(user.getName()));
     }
 }

@@ -34,4 +34,9 @@ public class SocialMeliExceptionManager {
     public ResponseEntity<?> invalidPromoPost(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
+
+    @ExceptionHandler(InvalidUserNameException.class)
+    public ResponseEntity<?> invalidUsername(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 }

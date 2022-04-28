@@ -3,7 +3,9 @@ package sprint1.socialmeli.repository;
 import org.springframework.stereotype.Repository;
 import sprint1.socialmeli.model.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 @Repository
 public class SocialMeliRepository implements ISocialMeliRepository {
@@ -15,7 +17,6 @@ public class SocialMeliRepository implements ISocialMeliRepository {
         this.userDB = new HashMap<>();
         this.cargarUsuarios();
     }
-
 
     public void cargarUsuarios(){
         User user1 = new User(userDB.size()+1, "Lorena Maciel");
@@ -40,5 +41,16 @@ public class SocialMeliRepository implements ISocialMeliRepository {
     @Override
     public boolean existUser(Integer userID) {
         return userDB.containsKey(userID);
+    }
+
+    @Override
+    public Integer save(String name) {
+        User user = new User(userDB.size()+1, name);
+        userDB.put(user.getId(), user);
+        return user.getId();
+    }
+
+    public List<User> getUsers() {
+        return new ArrayList<>(userDB.values());
     }
 }

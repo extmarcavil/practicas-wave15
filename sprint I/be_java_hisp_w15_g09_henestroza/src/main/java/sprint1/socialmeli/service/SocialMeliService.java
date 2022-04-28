@@ -5,6 +5,7 @@ import sprint1.socialmeli.dto.ResponseFollowedListDTO;
 import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
 import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
+import sprint1.socialmeli.exceptions.InvalidUserNameException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;
 import sprint1.socialmeli.repository.ISocialMeliRepository;
@@ -65,7 +66,22 @@ public class SocialMeliService implements ISocialMeliService {
         return new ResponseFollowedListDTO( user, userConverter.createFromEntities(user.getListOfFollowed()) );
     }
 
+    @Override
+    public Integer save(String name) {
+        if (userExists(name)) {
+            throw new InvalidUserNameException("El usuario ya existe");
+        }
+        return repository.save(name);
+    }
+
     //----------Private----------//
+
+    private boolean userExists(String name) {
+        for (User user : repository.getUsers()) {
+            if (user.getName().equalsIgnoreCase(name)) return true;
+        }
+        return false;
+    }
 
     /**
      * Retorna el usuario buscado a través de un parámetro de ID recibido.

@@ -5,6 +5,7 @@ import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
 import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidFollower;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
+import sprint1.socialmeli.exceptions.InvalidUserNameException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 
 public interface ISocialMeliService {
@@ -59,4 +60,13 @@ public interface ISocialMeliService {
      * @return ResponseFollowedListDTO
      */
     public ResponseFollowedListDTO listFollowed(Integer userId, String order);
+
+    /**
+     * Permite guardar un nuevo usuario en la base de datos. Lanza una excepcion si se intenta registrar con un nombre
+     * de usuario ya existente.
+     * @param name String
+     * @return Integer userId
+     * @throws InvalidUserNameException en caso de que ya haya un usuario registrado con ese nombre
+     */
+    Integer save(String name);
 }

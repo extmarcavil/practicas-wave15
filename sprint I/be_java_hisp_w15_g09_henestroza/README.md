@@ -23,7 +23,13 @@ Para poder realizar esto, un analista funcional relevó [una serie de **requerim
 - US00012 (INDIVIDUAL OPCIONAL): Para finalizar, desde Mercado Libre dieron a conocer que están abiertos a cualquier nueva funcionalidad o propuesta de mejora para “SocialMeli”. En caso de que esto se lleve a cabo, será necesario, además de desarrollar la funcionalidad, presentar la documentación técnica asociada.
 
 ### Mejoras sobre la aplicacion (US0012):
-Se desarrollaron 2 funcionalidades adicionales:
+Se desarrollaron 3 funcionalidades adicionales:
+- Crear Usuario: Se puede crear un nuevo usuario, haciendo un POST a `{{url}}/users`, enviando el siguiente body:
+  ```
+  {
+    "name": "User Name"
+  }
+  ```
 - Mostrar todos los posts con descuento de un vendedor: Se puede acceder a esta funcionalidad
 mediante el siguiente endpoint -> `{{url}}/products/promo-post/list?user_id={{user_id}}`
 - Mostrar todos los posts que haya en la plataforma, mostrando primero los que tienen descuento, y ordenando por fecha de creacion, desde el mas reciente al mas antiguo.
