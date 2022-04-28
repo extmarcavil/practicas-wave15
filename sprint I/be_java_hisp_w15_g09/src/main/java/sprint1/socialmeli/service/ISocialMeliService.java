@@ -1,8 +1,8 @@
 package sprint1.socialmeli.service;
 
-import sprint1.socialmeli.dto.ResponseFollowedListDTO;
-import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
-import sprint1.socialmeli.dto.ResponseFollowersListDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidFollower;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.UserNotFound;

@@ -3,9 +3,9 @@ package sprint1.socialmeli.controller;
 import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.*;
-import sprint1.socialmeli.dto.ResponseFollowedListDTO;
-import sprint1.socialmeli.dto.ResponseFollowersCountDTO;
-import sprint1.socialmeli.dto.ResponseFollowersListDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint1.socialmeli.service.ISocialMeliService;
 
 @RestController

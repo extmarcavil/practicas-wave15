@@ -1,23 +1,24 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import sprint1.socialmeli.model.User;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
-public class ResponsePromoPostCountDTO {
+public class ResponseFollowedListDTO {
 
     private Integer userId;
     private String userName;
-    private Integer promo_products_count;
+    private List<UserDTO> followed;
 
-
-    public ResponsePromoPostCountDTO(User user,int count) {
+    public ResponseFollowedListDTO(User user, List<UserDTO> listOfDTO) {
         this.userId = user.getId();
         this.userName = user.getName();
-        this.promo_products_count = count;
+        this.followed = listOfDTO;
     }
 }

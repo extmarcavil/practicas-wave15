@@ -1,7 +1,9 @@
 package sprint1.socialmeli.service;
 
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.*;
+import sprint1.socialmeli.dto.user.ResponseFollowedListDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersCountDTO;
+import sprint1.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.UserNotFound;
 import sprint1.socialmeli.model.User;

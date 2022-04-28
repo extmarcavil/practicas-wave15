@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.dto.post.request;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -6,9 +6,9 @@ import sprint1.socialmeli.model.Product;
 
 @Setter
 @Getter
-public class NormalPostRequestDTO extends PostRequestDTO{
+public class RequestNormalPostDTO extends RequestPostDTO {
 
-    public NormalPostRequestDTO(Integer userId, String date, Product detail, Integer category, Double price) {
+    public RequestNormalPostDTO(Integer userId, String date, Product detail, Integer category, Double price) {
         super(userId, date, detail, category, price);
     }
 

@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.dto.post.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,5 +11,5 @@ import java.util.List;
 @AllArgsConstructor
 public class ResponsePostListDTO {
     private Integer userId;
-    private List<PostResponseDTO> posts;
+    private List<ResponsePostDTO> posts;
 }

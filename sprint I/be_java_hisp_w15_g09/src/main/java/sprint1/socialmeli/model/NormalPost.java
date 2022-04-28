@@ -1,9 +1,9 @@
 package sprint1.socialmeli.model;
 
-import sprint1.socialmeli.dto.PostRequestDTO;
+import sprint1.socialmeli.dto.post.request.RequestPostDTO;
 
 public class NormalPost extends Post {
-    public NormalPost(PostRequestDTO postDTO) {
+    public NormalPost(RequestPostDTO postDTO) {
         super(postDTO);
     }
 

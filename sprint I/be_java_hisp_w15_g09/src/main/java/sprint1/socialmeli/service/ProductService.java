@@ -2,7 +2,10 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import sprint1.socialmeli.dto.*;
+import sprint1.socialmeli.dto.post.request.RequestPostDTO;
+import sprint1.socialmeli.dto.post.response.ResponsePostDTO;
+import sprint1.socialmeli.dto.post.response.ResponsePostListDTO;
+import sprint1.socialmeli.dto.post.response.ResponsePromoPostCountDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -26,7 +29,7 @@ public class ProductService implements IProductService {
     private final PostConverter converter;
 
     @Override
-    public Integer save(PostRequestDTO postDTO) throws InvalidPostException {
+    public Integer save(RequestPostDTO postDTO) throws InvalidPostException {
         Post newPost = Post.createPost(postDTO);
         return postRepository.save(newPost);
     }
@@ -105,12 +108,12 @@ public class ProductService implements IProductService {
      * @param order tipo de ordenamiento elegido.
      * @return la lista ordenada según el tipo de ordenamiento.
      */
-    private List<PostResponseDTO> sortDTOPosts(List<PostResponseDTO> posts, String order) {
-        List<PostResponseDTO> sortedPosts = posts.stream()
-                .sorted(Comparator.comparing(PostResponseDTO::getDate))
+    private List<ResponsePostDTO> sortDTOPosts(List<ResponsePostDTO> posts, String order) {
+        List<ResponsePostDTO> sortedPosts = posts.stream()
+                .sorted(Comparator.comparing(ResponsePostDTO::getDate))
                 .collect(Collectors.toList());
         if (order.equals("date_desc")) {
-            sortedPosts.sort(Comparator.comparing(PostResponseDTO::getDate).reversed());
+            sortedPosts.sort(Comparator.comparing(ResponsePostDTO::getDate).reversed());
         }
         return sortedPosts;
     }

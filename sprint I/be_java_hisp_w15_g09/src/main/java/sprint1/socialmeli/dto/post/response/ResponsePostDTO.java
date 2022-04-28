@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.dto.post.response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
@@ -10,7 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-public class PostResponseDTO {
+public class ResponsePostDTO {
     private Integer postId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
@@ -18,7 +18,7 @@ public class PostResponseDTO {
     private Integer category;
     private Double price;
 
-    public PostResponseDTO(Post post) {
+    public ResponsePostDTO(Post post) {
         this.postId = post.getPostId();
         this.date = post.getDate();
         this.detail = post.getDetail();

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PromoPostRequestDTO;
+import sprint1.socialmeli.dto.post.request.RequestPostDTO;
+import sprint1.socialmeli.dto.post.request.RequestPromoPostDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
@@ -23,7 +23,7 @@ public abstract class Post {
     private Integer category;
     private Double price;
 
-    public Post(PostRequestDTO post) {
+    public Post(RequestPostDTO post) {
         userId = post.getUserId();
         date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         detail = post.getDetail();
@@ -32,9 +32,9 @@ public abstract class Post {
         isAValidPost();
     }
 
-    public static Post createPost(PostRequestDTO postDTO) {
+    public static Post createPost(RequestPostDTO postDTO) {
         if( postDTO.isAPromoPost())
-            return new PromoPost((PromoPostRequestDTO) postDTO);
+            return new PromoPost((RequestPromoPostDTO) postDTO);
         else
             return new NormalPost(postDTO);
     }

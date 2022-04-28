@@ -1,4 +1,4 @@
-package sprint1.socialmeli.dto;
+package sprint1.socialmeli.dto.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,7 +1,7 @@
 package sprint1.socialmeli.utils;
 
 import org.springframework.stereotype.Component;
-import sprint1.socialmeli.dto.UserDTO;
+import sprint1.socialmeli.dto.user.UserDTO;
 import sprint1.socialmeli.model.User;
 
 @Component
