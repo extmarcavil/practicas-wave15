@@ -9,24 +9,13 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PromoPostDTO {
-    private Long userId;
-    private Long postId;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private String date;
-    private ProductDTO detail;
-    private Integer category;
-    private Float price;
+public class PromoPostDTO extends PostDTO {
+
     private Boolean hasPromo;
     private Float discount;
 
     public PromoPostDTO(Post post) {
-        this.userId = post.getUser().getUserId();
-        this.postId = post.getPostId();
-        this.date = post.getDate().toString();
-        this.detail = new ProductDTO(post.getDetail());
-        this.category = post.getCategory();
-        this.price = post.getPrice();
+        super(post);
         this.hasPromo = post.getHasPromo();
         this.discount = post.getDiscount();
     }
