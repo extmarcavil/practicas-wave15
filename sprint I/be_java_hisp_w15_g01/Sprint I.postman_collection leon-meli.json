@@ -412,7 +412,24 @@
 					"name": "US BONUS - Seller ranking",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "{{url}}/products/posters/ranking?days_interval=5",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"products",
+								"posters",
+								"ranking"
+							],
+							"query": [
+								{
+									"key": "days_interval",
+									"value": "5"
+								}
+							]
+						}
 					},
 					"response": []
 				}
