@@ -42,6 +42,10 @@ public class PostRepository {
     public List<Post> getAll(){
         return postList;
     }
+    public List<Post> getAllPromo(){
+
+        return postList;
+    }
 
     public void add(Post post){
         postList.add(post);

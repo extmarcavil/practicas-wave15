@@ -10,4 +10,6 @@ public interface IUserService {
     FollowUserDTO followUser(int userId, int userIdToUnfollow);
     VendedorsFollowedDTO getVendorsFollow(int userId, String order);
     FollowersDTO getFollowers(int userId, String order);
+
+
 }

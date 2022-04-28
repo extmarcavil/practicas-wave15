@@ -44,5 +44,24 @@ public class PostController {
         return new ResponseEntity<List<PostResponseDTO>>(postService.getAllPosts(), HttpStatus.OK);
     }
 
+/*
+    @PostMapping("post/promo-post")
+    public ResponseEntity<?> getUserWitFollowersCount(@Valid @RequestBody PostCreateDTO postCreateDTO){
+        return new ResponseEntity<PostCreatedDTO>(postService.createPost(postCreateDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<?> countPromoPost(@RequestParam Integer user_id) {
+        return ResponseEntity.ok(service.countPromoPosts(user_id));
+    }
+
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<PromoPostListDTO> listPromoPost(@RequestParam Integer user_id) {
+        return ResponseEntity.ok(service.listPromoPost(user_id));
+    }
+
+    */
+
+
 
 }
