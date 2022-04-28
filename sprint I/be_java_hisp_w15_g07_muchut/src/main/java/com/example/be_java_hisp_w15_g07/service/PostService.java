@@ -71,6 +71,14 @@ public class PostService implements IPostService{
         return new UserFollowedPostsDTO(userId, listFollowedPosts);
     }
 
+    /**
+     * get promo products
+     *
+     * @param userId Integer
+     * @return {@link PromoPostsDTO}
+     * @see PromoPostsDTO
+     * @author Sebastián Muchut
+     */
     @Override
     public PromoPostsDTO getPromoProducts(Integer userId) {
         User user = userRepository.findById(userId);
@@ -85,6 +93,14 @@ public class PostService implements IPostService{
         return response;
     }
 
+    /**
+     * get promo products list
+     *
+     * @param userId Integer
+     * @return {@link PromoPostsListDTO}
+     * @see PromoPostsListDTO
+     * @author Sebastián Muchut
+     */
     @Override
     public PromoPostsListDTO getPromoProductsList(Integer userId) {
         User user = userRepository.findById(userId);
