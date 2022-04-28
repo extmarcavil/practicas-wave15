@@ -5,7 +5,6 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.time.Period;
 
 @Setter
 @Getter
@@ -17,10 +16,12 @@ public class Post {
     private Product detail;
     private int category;
     private double price;
+    private boolean has_promo;
+    private double discount;
 
     public boolean ultimas2Semanas() {
-        Period periodo = Period.between(date, LocalDate.now());
-        return periodo.getDays() <= 14;
+        return !date.isBefore(LocalDate.now().minusDays(14));
+        //return date.isAfter(LocalDate.now().minusWeeks(2));
     }
 
     public Post(){
