@@ -108,7 +108,7 @@ public class UserRepository implements IUserRepository {
 
         long differencesInDays = ChronoUnit.DAYS.between( fecha , LocalDate.now() );
 
-        return differencesInDays < 14 && differencesInDays > 0;
+        return differencesInDays < 14 && differencesInDays >= 0;
     }
 
 }
