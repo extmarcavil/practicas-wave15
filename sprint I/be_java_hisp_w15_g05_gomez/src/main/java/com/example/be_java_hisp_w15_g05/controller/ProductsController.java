@@ -46,7 +46,9 @@ public class ProductsController {
     }
 
     @GetMapping("/post/{userId}/all")
-    public ResponseEntity<ResPostPromoListDTO> allPost(@PathVariable int userId) {
-        return new ResponseEntity<>(productsService.getAllPost(userId), HttpStatus.OK);
+    public ResponseEntity<ResPostPromoListDTO> allPost(
+            @PathVariable int userId,
+            @RequestParam(required = false, defaultValue = "") String order) {
+        return new ResponseEntity<>(productsService.getAllPost(userId, order), HttpStatus.OK);
     }
 }

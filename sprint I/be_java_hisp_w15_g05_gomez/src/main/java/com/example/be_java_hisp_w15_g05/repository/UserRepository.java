@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.repository;
 
 import com.example.be_java_hisp_w15_g05.model.Post;
+import com.example.be_java_hisp_w15_g05.model.Product;
 import com.example.be_java_hisp_w15_g05.model.User;
 import org.springframework.stereotype.Repository;
 
@@ -34,16 +35,15 @@ public class UserRepository implements IUserRepository {
         antonio.agregarSeguidor(juan);
         juan.seguir(antonio);
 
-        users.add(galperin);
-        users.add(antonio);
-        users.add(juan);
-        users.add(pedro);
-        users.add(valentina);
+        users.addAll(Arrays.asList(galperin, antonio, juan, pedro, valentina));
 
-        Post posteo = new Post(1, 20, LocalDate.of(2022, 4, 1), null, 100, 202.00, false, 0.0);
-        Post posteo2 = new Post(1, 21, LocalDate.of(2022, 4, 26), null, 100, 202.00, false, 0.0);
-        Post posteo3 = new Post(1, 22, LocalDate.of(2022, 4, 24), null, 100, 202.00, false, 0.0);
-        Post posteo4 = new Post(1, 23, LocalDate.of(2022, 4, 25), null, 100, 202.00, false, 0.0);
+        Product p1 = new Product(0, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
+        Product p2 = new Product(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
+
+        Post posteo = new Post(1, 20, LocalDate.of(2022, 4, 1), p1, 100, 202.00, false, 0.0);
+        Post posteo2 = new Post(1, 21, LocalDate.of(2022, 4, 26), p2, 100, 202.00, false, 0.0);
+        Post posteo3 = new Post(1, 22, LocalDate.of(2022, 4, 24), p1, 100, 202.00, false, 0.0);
+        Post posteo4 = new Post(1, 23, LocalDate.of(2022, 4, 25), p2, 100, 202.00, false, 0.0);
 
         posts.addAll(Arrays.asList(posteo, posteo2, posteo3, posteo4));
     }

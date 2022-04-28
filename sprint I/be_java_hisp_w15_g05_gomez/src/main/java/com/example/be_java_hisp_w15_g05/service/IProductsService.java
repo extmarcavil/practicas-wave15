@@ -36,8 +36,9 @@ public interface IProductsService {
     ResPostPromoListDTO getPostPromoList(int id, String order);
 
     /**
-     * @param id del seller
+     * @param id    del seller
+     * @param order name_asc o name_desc para ordenar
      * @return DTO con id y nombre del usuario y DTO 'posts'
      */
-    ResPostPromoListDTO getAllPost(int id);
+    ResPostPromoListDTO getAllPost(int id, String order);
 }

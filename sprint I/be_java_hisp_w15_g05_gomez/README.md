@@ -139,12 +139,14 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 #### Lista de todos los productos de un vendedor
 
 ````http 
-  GET /products/post/{userId}/all
+  GET /products/post/{userId}/all?order={name_asc}
+      /products/post/{userId}/all?order={name_desc}
 ````
 
 | Parameter | Type     | Description                |
 |:----------| :------- | :------------------------- |
 | `userId`  | `int` | **Required**. id de la persona |
+| `order`   | `String` | **Optional**. el orden de la lista |
 
 ## Authors
 
