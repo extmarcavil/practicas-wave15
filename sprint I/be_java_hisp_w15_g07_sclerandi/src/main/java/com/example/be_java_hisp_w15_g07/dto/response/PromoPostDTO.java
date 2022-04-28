@@ -1,25 +1,15 @@
 package com.example.be_java_hisp_w15_g07.dto.response;
 
-import com.example.be_java_hisp_w15_g07.dto.request.ProductDTO;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PromoPostDTO {
-    private Integer postId;
-    @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate date;
-    private ProductDTO detail;
-    private Integer category;
-    private Double price;
+public class PromoPostDTO extends PostDTO {
     private boolean hasPromo;
     private double discount;
 }
