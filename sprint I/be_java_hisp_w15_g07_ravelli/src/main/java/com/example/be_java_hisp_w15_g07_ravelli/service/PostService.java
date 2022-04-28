@@ -4,6 +4,7 @@ package com.example.be_java_hisp_w15_g07_ravelli.service;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07_ravelli.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07_ravelli.model.Post;
 import com.example.be_java_hisp_w15_g07_ravelli.model.User;
 
@@ -81,6 +82,9 @@ public class PostService implements IPostService{
     @Override
     public PromoProductsCountDTO getPromoProductsCountByUserId(Integer userId) {
         User user = userRepository.findById(userId);
+        if(user.getPosts().isEmpty()){
+            throw new BadRequestException("Este usuario no es vendedor");
+        }
         Long promoProductsCount = userRepository.getPromoProductsCount(userId);
         return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), promoProductsCount);
     }
@@ -98,4 +102,5 @@ public class PostService implements IPostService{
         }
         userRepository.newPost(postDTO.getUserId(), post);
     }
+    
 }
