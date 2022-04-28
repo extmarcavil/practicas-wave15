@@ -21,7 +21,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * init database
+     * Init database
      *
      */
     private void initDatabase(){
@@ -65,30 +65,14 @@ public class UserRepository implements IUserRepository{
 
         database.put(user2.getUserId(), user2);
 
-
         product = new Product(5, "Heladera", "Electrodomesticos", "Samsung", "Blanca", "");
         post = new Post(LocalDate.of(2020, Month.JULY, 22), product, 5, 180000d);
         user4.newPost(post);
         database.put(user4.getUserId(), user4);
-        /*
-
-
-        product = new Product(6, "Celular", "Electronica", "Motorola", "Blanco", "");
-        post = new Post(6, 1, LocalDate.of(2021, Month.DECEMBER, 2), product, 6, 87000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(7, "Tostadora", "Electrodomesticos", "Volkswagen", "Blanco", "4 modos");
-        post = new Post(7, 3, LocalDate.of(2022, Month.APRIL, 3), product, 7, 20000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(8, "Pantalla 50", "Electrodomesticos", "TopHouse", "Plateado", "");
-        post = new Post(8, 2, LocalDate.of(2020, Month.APRIL, 10), product, 8, 68000d);
-        database.put(post.getPostId(), post);
-        */
     }
 
     /**
-     * find user by id
+     * Find user by id
      *
      * @param id Integer
      * @return {@link User}
@@ -103,7 +87,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * store new post into an user
+     * Store new post into an user
      *
      * @param userId Integer
      * @param unPost Post
@@ -115,7 +99,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * find followers by user ordered by name ascendant
+     * Find followers by user ordered by name ascendant
      *
      * @param userId Integer
      * @return {@link List}
@@ -129,7 +113,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * find followers by user ordered by name descendant
+     * Find followers by user ordered by name descendant
      *
      * @param userId Integer
      * @return {@link List}
@@ -143,7 +127,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * find followed by user ordered by name ascendant
+     * Find followed by user ordered by name ascendant
      *
      * @param userId Integer
      * @return {@link List}
@@ -157,7 +141,7 @@ public class UserRepository implements IUserRepository{
     }
 
     /**
-     * find followed by user ordered by name descendant
+     * Find followed by user ordered by name descendant
      *
      * @param userId Integer
      * @return {@link List}
@@ -169,5 +153,4 @@ public class UserRepository implements IUserRepository{
         User u = findById(userId);
         return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
     }
-
 }

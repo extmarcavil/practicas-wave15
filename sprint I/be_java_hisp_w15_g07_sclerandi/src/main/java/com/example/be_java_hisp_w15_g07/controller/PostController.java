@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g07.controller;
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -48,9 +49,9 @@ public class PostController {
      * @see ResponseEntity
      */
     @PostMapping("/post")
-    public ResponseEntity newPost(@RequestBody NewPostDTO postDTO){
+    public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     /**
@@ -61,8 +62,21 @@ public class PostController {
      * @see ResponseEntity
      */
     @PostMapping("/promo-post")
-    public ResponseEntity newPromoPost(@RequestBody NewPromoPostDTO postDTO){
+    public ResponseEntity<?> newPromoPost(@RequestBody NewPromoPostDTO postDTO){
         postService.newPromoPost(postDTO);
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    /**
+     * Get promo products count
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see PromoProductsCountDTO
+     */
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<PromoProductsCountDTO> getPromoProductsCount(@RequestParam(name="user_id") Integer userId){
+        return new ResponseEntity<>(postService.getPromoProductsCount(userId), HttpStatus.OK);
     }
 }

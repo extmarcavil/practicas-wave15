@@ -34,7 +34,6 @@ public class UserController {
      */
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> countFollowers(@PathVariable String userId){
-
         FollowersCountDTO followers = userService.followersCount(Integer.parseInt(userId));
         return new ResponseEntity<>(followers, HttpStatus.OK);
     }

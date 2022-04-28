@@ -62,7 +62,6 @@ public class User implements Comparable<User>{
         return userId.equals(user.getUserId());
     }
 
-
     @Override
     public int compareTo(User user) {
         return this.getUserId().compareTo(user.getUserId());

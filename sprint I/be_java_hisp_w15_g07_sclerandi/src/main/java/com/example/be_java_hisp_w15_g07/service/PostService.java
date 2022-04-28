@@ -1,7 +1,9 @@
 package com.example.be_java_hisp_w15_g07.service;
 
 import com.example.be_java_hisp_w15_g07.dto.request.NewPromoPostDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -90,5 +93,18 @@ public class PostService implements IPostService{
     public void newPromoPost(NewPromoPostDTO postDTO) {
         Post post = modelMapper.map(postDTO, Post.class);
         userRepository.newPost(postDTO.getUserId(), post);
+    }
+
+    /**
+     * Get promo products count
+     *
+     * @param userId Integer
+     * @return {@link PromoProductsCountDTO}
+     */
+    @Override
+    public PromoProductsCountDTO getPromoProductsCount(Integer userId) {
+        User user = userRepository.findById(userId);
+        int count = (int) user.getPosts().stream().filter(Post::getHasPromo).count();
+        return new PromoProductsCountDTO(user.getUserId(), user.getUserName(), count);
     }
 }
