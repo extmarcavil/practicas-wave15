@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 import sprint1.socialmeli.dto.PostRequestDTO;
+import sprint1.socialmeli.dto.PromoPostRequestDTO;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @AllArgsConstructor
 public class Post {
+
     private Integer postId;
     private Integer userId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
@@ -21,6 +23,8 @@ public class Post {
     private Product detail;
     private Integer category;
     private Double price;
+    private boolean hasPromo;
+    private Double discount;
 
     public Post(PostRequestDTO post) {
         userId = post.getUserId();
@@ -28,6 +32,19 @@ public class Post {
         detail = post.getDetail();
         category = post.getCategory();
         price = post.getPrice();
+        hasPromo = false;
+        discount = 0.0;
+        isAValidPost();
+    }
+
+    public Post(PromoPostRequestDTO post) {
+        userId = post.getUserId();
+        date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        detail = post.getDetail();
+        category = post.getCategory();
+        price = post.getPrice() - (post.getPrice() * post.getDiscount());
+        hasPromo = true;
+        discount = post.getDiscount();
         isAValidPost();
     }
 
@@ -40,8 +57,9 @@ public class Post {
                 this.date == null       ||
                 this.detail== null      ||
                 this.category == null   ||
-                this.price == null      ){
-            throw new InvalidPostException("El post contiene campos incompletos.");
+                this.price == null      ||
+                this.discount < 0){
+            throw new InvalidPostException("El post contiene campos incompletos o erróneos.");
         }
     }
 }

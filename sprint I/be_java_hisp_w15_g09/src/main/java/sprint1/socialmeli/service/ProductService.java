@@ -2,6 +2,7 @@ package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sprint1.socialmeli.dto.PromoPostRequestDTO;
 import sprint1.socialmeli.utils.PostConverter;
 import sprint1.socialmeli.dto.PostRequestDTO;
 import sprint1.socialmeli.dto.PostResponseDTO;
@@ -32,6 +33,13 @@ public class ProductService implements IProductService {
         Post newPost = new Post(postDTO);
         return postRepository.save(newPost);
     }
+
+    @Override
+    public Integer save(PromoPostRequestDTO post) {
+        Post newPost = new Post(post);
+        return postRepository.save(newPost);
+    }
+
 
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
