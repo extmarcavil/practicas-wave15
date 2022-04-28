@@ -47,7 +47,6 @@ public class User {
     public int countPromo() {
         return getPromoPosts().size();
     }
-
     public List<Post> getPromoPosts() {
         return posts.stream().filter(Post::isHas_promo).collect(Collectors.toList());
     }

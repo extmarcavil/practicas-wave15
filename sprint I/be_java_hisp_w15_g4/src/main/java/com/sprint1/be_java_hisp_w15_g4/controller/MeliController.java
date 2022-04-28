@@ -8,8 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 public class MeliController {
     ISocialMeliService service;
@@ -64,7 +62,7 @@ public class MeliController {
     ////////////////////US0007////////////////////
     //Yamil - Nacho
     @PostMapping("/users/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+    public ResponseEntity<?> unfollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
@@ -73,7 +71,7 @@ public class MeliController {
     //Nacho
     @PostMapping("/products/promo-post")
     public ResponseEntity<?> promoPost(@RequestBody PromoPostDTO post) {
-        service.promoPost(post);
+        service.createPromoPost(post);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

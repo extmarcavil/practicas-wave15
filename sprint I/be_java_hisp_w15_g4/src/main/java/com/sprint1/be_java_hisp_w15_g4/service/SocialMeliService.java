@@ -5,9 +5,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
-import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
-import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
-import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
+import com.sprint1.be_java_hisp_w15_g4.exception.*;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -31,15 +29,16 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void follow(int userID, int userIDToFollow) {
-
+        if(userID == userIDToFollow)
+            throw new EqualsIDException(userID);
 
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
+
         if (!seguidor.getFollowing().contains(seguido) ){
             seguido.addFollower(seguidor);
             seguidor.addFollowing(seguido);
-        }
-        else throw new AlreadyFollowing(userID,userIDToFollow);
+        } else throw new AlreadyFollowing(userID,userIDToFollow);
     }
 
     @Override
@@ -132,18 +131,21 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     private void orderByName(String order, List<UserDTO> userDTO) {
-        if (order == null || order.equals("name_asc")) {
+        if (order == null || order.equals("name_asc"))
             userDTO.sort(Comparator.comparing(UserDTO::getUser_name));
-        } else if (order.equals("name_desc")) {
-            userDTO.sort( (u1, u2) -> u2.getUser_name().compareTo(u1.getUser_name()));
-        }
+        else if (order.equals("name_desc"))
+            userDTO.sort(Comparator.comparing(UserDTO::getUser_name).reversed());
+        else
+            throw new BadOrderArgumentExcepcion(order);
     }
 
     private List<Post> orderByDate(List<Post> posts, String order) {
         if (order == null || order.equals("date_desc"))
+            return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else if(order.equals("date_asc"))
             return posts.stream().sorted(Comparator.comparing(Post::getDate)).collect(Collectors.toList());
-
-        return posts.stream().sorted(Comparator.comparing(Post::getDate).reversed()).collect(Collectors.toList());
+        else
+            throw new BadOrderArgumentExcepcion(order);
     }
 
     @Override
@@ -158,7 +160,7 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public void promoPost(PromoPostDTO post) {
+    public void createPromoPost(PromoPostDTO post) {
         User user = getUser(post.getUser_id());
         user.addPost(mapper.map(post, Post.class));
     }
@@ -172,7 +174,7 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public PromoListDTO getPromoList(int id) {
         User user = getUser(id);
-        return new PromoListDTO(id, user.getUser_name(), user.getPromoPosts()
+        return new PromoListDTO(id, user.getUser_name(), orderByDate(user.getPromoPosts(), null)
                 .stream()
                 .map(p -> mapper.map(p, PromoPostDTO.class))
                 .collect(Collectors.toList()));

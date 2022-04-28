@@ -13,7 +13,7 @@ public interface ISocialMeliService {
     PostListDTO lastTwoWeeksPosts(int userID, String order); //Req 06: Devuelve una lista con los post de las últimas dos semanas de los seguidos de un usuario.
     void unfollow(int userID, int userIDToUnfollow); //Req 07
 
-    void promoPost(PromoPostDTO post); //Req 10
+    void createPromoPost(PromoPostDTO post); //Req 10
     PromoCountDTO getPromoCount(int id); //Req 11
     PromoListDTO getPromoList(int id); //Req 12
 }

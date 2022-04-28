@@ -23,4 +23,14 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorDTO> handlerNotFoundException(NotFollowException e){
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
     }
+
+    @ExceptionHandler(EqualsIDException.class)
+    public ResponseEntity<ErrorDTO> handlerEqualsIDException(EqualsIDException e){
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(BadOrderArgumentExcepcion.class)
+    public ResponseEntity<ErrorDTO> handlerBadOrderArgumentExcepcion(BadOrderArgumentExcepcion e){
+        return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
+    }
 }
