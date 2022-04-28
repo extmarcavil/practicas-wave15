@@ -1,9 +1,6 @@
-
 # Sprint I: SocialMeli
 
-Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Java con Spring Boot. 
-
-
+Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Java con Spring Boot.
 
 ## API Reference
 
@@ -69,16 +66,16 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `user_id` | `int` | **Required**.  id de la persona|
-| `date` | `LocalDate` | **Required**.  fecha|
-| `product_id` | `int` | **Required**.  id del post|
-| `product_name` | `String` | **Required**.  nombre del producto|
-| `type` | `String` | **Required**.  tipo de producto|
-| `brand` | `String` | **Required**.  marca del producto|
-| `color` | `String` | **Required**.  color del producto|
-| `notes` | `String` | **Optional**.  color del producto|
-| `category` | `int` | **Optional**.  color del producto|
-| `price` | `double` | **Required**.  color del producto|
+| `user_id` | `int` | **Required**. id de la persona|
+| `date` | `LocalDate` | **Required**. fecha|
+| `product_id` | `int` | **Required**. id del post|
+| `product_name` | `String` | **Required**. nombre del producto|
+| `type` | `String` | **Required**. tipo de producto|
+| `brand` | `String` | **Required**. marca del producto|
+| `color` | `String` | **Required**. color del producto|
+| `notes` | `String` | **Optional**. color del producto|
+| `category` | `int` | **Optional**. color del producto|
+| `price` | `double` | **Required**. color del producto|
 
 #### queryPost
 
@@ -89,26 +86,53 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 
 | Parameter | Type     | Description                |
 | :-------- | :------- | :------------------------- |
-| `userId` | `int` | **Required**.  id de la persona|
-| `order` | `String` | **Optional**.  tipo de orden|
+| `userId` | `int` | **Required**. id de la persona|
+| `order` | `String` | **Optional**. tipo de orden|
 
+#### Post con promo
 
+```http
+  POST /products/promo-post
+```
+
+| Parameter      | Type        | Description                       |
+|:---------------|:------------|:----------------------------------|
+| `user_id`      | `int`       | **Required**. id de la persona    |
+| `date`         | `LocalDate` | **Required**. fecha               |
+| `product_id`   | `int`       | **Required**. id del post         |
+| `product_name` | `String`    | **Required**. nombre del producto |
+| `type`         | `String`    | **Required**. tipo de producto    |
+| `brand`        | `String`    | **Required**. marca del producto  |
+| `color`        | `String`    | **Required**. color del producto  |
+| `notes`        | `String`    | **Optional**. color del producto  |
+| `category`     | `int`       | **Optional**. color del producto  |
+| `price`        | `double`    | **Required**. color del producto  |
+| `has_promo`    | `boolean`   | **Required**. color del producto  |
+| `discount`     | `double`    | **Required**. color del producto  |
+
+#### Productos en promocion de un vendedor
+
+```http
+  GET /products/promo-post/count?user_id={userId}
+```
+
+| Parameter | Type     | Description                |
+|:----------| :------- | :------------------------- |
+| `user_id` | `int` | **Required**. id de la persona |
+
+#### Lista de productos en promocion de un vendedor
+
+````http 
+  GET /products/promo-post/list?user_id={userId} 
+````
+
+| Parameter | Type     | Description                |
+|:----------| :------- | :------------------------- |
+| `user_id` | `int` | **Required**. id de la persona |
 
 ## Authors
 
 -[@GomezRodrigoML](https://github.com/GomezRodrigoML)
-
--[@marbermudez](https://github.com/marbermudez)
-
--[@sofiacotmeli](https://github.com/sofiacotmeli)
-
--[@mfranciscog](https://github.com/mfranciscog)
-
--[@NicoLopez1203](https://github.com/NicoLopez1203)
-
--[@vaneza17ruiz](https://github.com/ruizandino)
-
-
 
 ## Screenshots
 
