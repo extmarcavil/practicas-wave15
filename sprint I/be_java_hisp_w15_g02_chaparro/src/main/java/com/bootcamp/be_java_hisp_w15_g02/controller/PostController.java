@@ -1,5 +1,10 @@
 package com.bootcamp.be_java_hisp_w15_g02.controller;
 
+import com.bootcamp.be_java_hisp_w15_g02.dto.request.PromoPostDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPromoPostBySellerDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPromoPostCountDTO;
+import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.service.IPostService;
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.PostCreateDTO;
 import org.springframework.http.HttpStatus;
@@ -24,8 +29,26 @@ public class PostController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
     }
 
+    @PostMapping("/promo-post")
+    public ResponseEntity<String> createPost(@RequestBody PromoPostDTO newPost) {
+        if (postService.createPromoPost(newPost))
+            return ResponseEntity.status(HttpStatus.OK).body("");
+        else
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("");
+    }
+
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<GetPostsSellerByUserIdDTO> getListPostByFollowIdUser(@PathVariable Integer userId, @RequestParam(required = false) String order) {
         return new ResponseEntity<>(this.postService.getListPostByFollowIdUser(userId, order), HttpStatus.OK);
+    }
+
+    @GetMapping("/promo-post/count")
+    public ResponseEntity<GetPromoPostCountDTO> getFollowersCountById(@RequestParam Integer userId){
+        return new ResponseEntity<>(this.postService.getPromoPostCount(userId), HttpStatus.OK);
+    }
+
+    @GetMapping("/promo-post/list")
+    public ResponseEntity<GetPromoPostBySellerDTO> getPromoPostBySeller(@RequestParam Integer userId){
+        return new ResponseEntity<>(this.postService.getPromoPostById(userId), HttpStatus.OK);
     }
 }
