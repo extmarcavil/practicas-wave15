@@ -16,5 +16,11 @@ El objetivo de este sprint es aplicar los contenidos dados hasta el momento dura
 5. Dar de alta una nueva publicación.
 6. Obtener un listado de las publicaciones realizadas en las últimas dos semanas, por los vendedores que un usuario sigue (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
 7. Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor. 
-8. Alfabético Ascendente y Descendente
-9. Fecha Ascendente y Descendente
+8. Alfabético Ascendente y Descendente.
+9. Fecha Ascendente y Descendente.
+
+----Apartado individual----
+
+10. Llevar a cabo la publicación de un nuevo producto en promoción.
+11. Obtener la cantidad de productos en promoción de un determinado vendedor.
+12. Obtener un listado de todos los productos en promoción de un determinado vendedor.
