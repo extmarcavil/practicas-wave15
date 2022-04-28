@@ -10,7 +10,7 @@ import sprint1.socialmeli.dto.ResponseFollowersListDTO;
 import sprint1.socialmeli.service.ISocialMeliService;
 
 @RestController
-public class    SocialMeliController {
+public class SocialMeliController {
     ISocialMeliService service;
 
     public SocialMeliController(ISocialMeliService service) {
