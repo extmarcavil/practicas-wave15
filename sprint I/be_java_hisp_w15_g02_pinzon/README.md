@@ -38,18 +38,178 @@ If you want to run the project just download the folder and run the project with
 
 ## Endpoints
 
-- 1: <p align="center"> <img src="images/us01.png" width="1000"/></p>
-- 2: <p align="center"> <img src="images/us02.png" width="1000"/></p>
-- 3: <p align="center"> <img src="images/us03.png" width="1000"/></p>
-- 4: <p align="center"> <img src="images/us04.png" width="1000"/></p>
-- 5: <p align="center"> <img src="images/us05.png" width="1000"/></p>
-        <p align="center"> <img src="images/us05-0.png" width="1000"/></p>
-        <p align="center"> <img src="images/us05-1.png" width="1000"/></p>
-- 6: <p align="center"> <img src="images/us06.png" width="1000"/></p>
-        <p align="center"> <img src="images/us06-0.png" width="1000"/></p>
-- 7: <p align="center"> <img src="images/us07.png" width="1000"/></p>
-- 8: <p align="center"> <img src="images/us08.png" width="1000"/></p>
-- 9: <p align="center"> <img src="images/us09.png" width="1000"/></p>
+# Project: Sprint I
+# 📁 Collection: Main
+
+
+## End-point: US 01 - Follow
+### Method: POST
+>```
+>{{url}}/users/{{client_id}}/follow/{{seller_id}}
+>```
+### Headers
+
+|Content-Type|Value|
+|---|---|
+|linkid|1|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 02 - Count Followers
+### Method: GET
+>```
+>{{url}}/users/{{seller_id}}/followers/count
+>```
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 03 - Followers / US 08
+### Method: GET
+>```
+>{{url}}/users/{{seller_id}}/followers/list?order=name_desc
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|oder|name_desc|
+|order|name_desc|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 04 - Followed / US 08
+### Method: GET
+>```
+>{{url}}/users/{{client_id}}/followed/list?order=name_asc
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|order|name_asc|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 05 - New Post
+### Method: POST
+>```
+>{{url}}/products/post
+>```
+### Body (**raw**)
+
+```json
+{
+    "user_id": "{{seller_id}}",
+    "date": "29-11-2021",
+    "detail": {
+        "product_id": 1,
+        "product_name": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50
+}
+```
+
+### Query Params
+
+|Param|value|
+|---|---|
+|clientId|5001|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 06 - Seller's posts / US 09
+### Method: GET
+>```
+>{{url}}/products/followed/{{client_id}}/list?order=date_desc
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|order|date_desc|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 07 - Unfollow
+### Method: POST
+>```
+>{{url}}/users/{{client_id}}/unfollow/{{seller_id}}
+>```
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+# 📁 Collection: Bonus
+
+
+## End-point: US 10 - New Promo Post
+### Method: POST
+>```
+>{{url}}/products/promo-post
+>```
+### Body (**raw**)
+
+```json
+{
+    "user_id": "{{seller_id}}",
+    "date": "29-04-2021",
+    "detail": {
+        "product_id": 1,
+        "product_name": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50,
+    "has_promo": true,
+    "discount": 0.25
+}
+```
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 11 - Count Promo Post
+### Method: GET
+>```
+>{{url}}/products/promo-post/count?userId={{seller_id}}
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|user_id|{{seller_id}}|
+
+
+
+⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃ ⁃
+
+## End-point: US 12 - Seller's Promo Post
+### Method: GET
+>```
+>{{url}}/products/promo-post/list?userId={{seller_id}}
+>```
+### Query Params
+
+|Param|value|
+|---|---|
+|user_id|{{seller_id}}|
+
 
 ## Class Modeling
 
@@ -64,11 +224,6 @@ If you want to run the project just download the folder and run the project with
 
 <p align="left">
     <h3 align="left"> Santiago Pinzón D </h3>
-    <h3 align="left"> Edwin Gonzalez </h3>
-    <h3 align="left"> Gerson Jair Sanchez </h3>
-    <h3 align="left"> Josue Alexander Nunez </h3>
-    <h3 align="left"> Jose Alejandro Villamizar </h3>
-    <h3 align="left"> Juan Pablo Chaparro </h3>
 <p align="left">
 
 	   
