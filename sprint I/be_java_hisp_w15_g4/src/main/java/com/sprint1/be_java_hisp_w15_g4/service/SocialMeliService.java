@@ -7,6 +7,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.request.PromoPostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
+import com.sprint1.be_java_hisp_w15_g4.exception.IdEqualsException;
 import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
@@ -25,6 +26,8 @@ public class SocialMeliService implements ISocialMeliService {
     ModelMapper mapper = new ModelMapper();
 
 
+
+
     public SocialMeliService(IUserRepository repo) {
         this.repo = repo;
     }
@@ -32,6 +35,7 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void follow(int userID, int userIDToFollow) {
 
+        if (userID==userIDToFollow) throw new IdEqualsException();
 
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
@@ -116,11 +120,12 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public PostListDTO lastTwoWeeksPosts(int userID, String order) {
+
         List<User> vendedoresSeguidos = repo.findUser(userID).getFollowing();
 
         List<Post> posts = vendedoresSeguidos.stream()
                 .flatMap(v -> v.getPosts().stream())
-                .filter(Post :: ultimas2Semanas)
+                .filter(post -> post.ultimas2Semanas() && !post.isHas_promo())
                 .collect(Collectors.toList());
 
         List<Post> ordenado = orderByDate(posts, order);
@@ -161,7 +166,14 @@ public class SocialMeliService implements ISocialMeliService {
     @Override
     public void createPromoPost(PromoPostDTO promoPostDTO) {
         User user = getUser(promoPostDTO.getUser_id());
-        Post postToAdd = mapper.map(promoPostDTO,Post.class);
+        Post postToAdd = new Post();
+        postToAdd.setCategory(promoPostDTO.getCategory());
+        postToAdd.setDate(promoPostDTO.getDate());
+        postToAdd.setDetail(productDTOToproduct(promoPostDTO.getDetail()));
+        postToAdd.setUser_id(promoPostDTO.getUser_id());
+        postToAdd.setPrice(promoPostDTO.getPrice());
+        postToAdd.setHas_promo(true);
+        postToAdd.setDiscount(promoPostDTO.getDiscount());
         user.addPost(postToAdd);
     }
 
