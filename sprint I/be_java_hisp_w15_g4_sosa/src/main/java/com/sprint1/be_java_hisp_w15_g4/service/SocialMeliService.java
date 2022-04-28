@@ -5,16 +5,12 @@ import com.sprint1.be_java_hisp_w15_g4.dto.UserDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostPromoDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
-import com.sprint1.be_java_hisp_w15_g4.exception.AlreadyFollowing;
-import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentException;
-import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
-import com.sprint1.be_java_hisp_w15_g4.exception.NotFollowException;
+import com.sprint1.be_java_hisp_w15_g4.exception.*;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.PostPromo;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -34,15 +30,16 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public void follow(int userID, int userIDToFollow) {
-
-
         User seguidor = getUser(userID);
         User seguido = getUser(userIDToFollow);
+        if(seguidor.equals(seguido)){
+            throw new NotFoundFollowingException(userID, userIDToFollow);
+        }
         if (!seguidor.getFollowing().contains(seguido)) {
             seguido.addFollower(seguidor);
             seguidor.addFollowing(seguido);
         } else
-            throw new AlreadyFollowing(userID, userIDToFollow);
+            throw new AlreadyFollowingException(userID, userIDToFollow);
     }
 
     @Override
