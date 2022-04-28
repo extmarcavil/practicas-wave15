@@ -33,7 +33,9 @@ public class FollowsService implements IFollowsService {
         boolean resultado = userRepository.follow(follower, toFollow);
 
         if(!resultado){
-            throw new UserNotSellerException("El usuario " + userToFollowId + " no es un vendedor");
+            throw new UserNotSellerException("No se pudo seguir: El usuario " + userId +
+                    " ya sigue al usuario " + userToFollowId + ", éste último no es un vendedor, o se está tratando" +
+                    " de seguir a sí mismo");
         }
         return new ResFollowPostDTO("Usuario " + userToFollowId + " seguido con éxito");
     }

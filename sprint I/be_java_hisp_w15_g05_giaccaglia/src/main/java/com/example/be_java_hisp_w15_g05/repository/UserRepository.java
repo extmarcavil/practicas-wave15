@@ -57,7 +57,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public boolean follow(User usuario, User vendedor) {
-        if(vendedor.isSeller()){
+        if(vendedor.isSeller() && !vendedor.getSeguidores().contains(usuario) && !vendedor.equals(usuario)){
             vendedor.agregarSeguidor(usuario);
             usuario.seguir(vendedor);
             return true;
