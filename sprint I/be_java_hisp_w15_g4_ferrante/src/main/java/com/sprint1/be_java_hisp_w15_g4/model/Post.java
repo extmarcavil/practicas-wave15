@@ -12,7 +12,7 @@ public class Post {
     private int user_id;
     private static AtomicInteger idSequence = new AtomicInteger();
     private int post_id;
-    private LocalDate date; //se obtiene en el momento LocalDate.now()
+    private LocalDate date;
     private Product detail;
     private int category;
     private double price;
@@ -21,7 +21,6 @@ public class Post {
 
     public boolean ultimas2Semanas() {
         return !date.isBefore(LocalDate.now().minusDays(14));
-        //return date.isAfter(LocalDate.now().minusWeeks(2));
     }
 
     public Post(){
