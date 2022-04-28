@@ -20,4 +20,6 @@ public interface PostRepository {
     Integer getUserPromoPostsCount(Long id);
 
     Post createPostPromo(Post post);
+
+    void desactivatePostsByUserId(Long userId);
 }

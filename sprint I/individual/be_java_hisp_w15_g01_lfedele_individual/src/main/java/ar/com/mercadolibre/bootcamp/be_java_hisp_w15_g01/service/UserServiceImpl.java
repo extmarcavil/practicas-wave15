@@ -132,4 +132,14 @@ public class UserServiceImpl implements  UserService {
         responseDTO.setMessage("Unfollowed");
         return responseDTO;
     }
+
+    @Override
+    public ResponseDTO deactivate(Long userId) {
+        User user = this.findById(userId);
+        user.deactivate();
+        postRepository.desactivatePostsByUserId(userId);
+        ResponseDTO dto = new ResponseDTO();
+        dto.setMessage("Usuario desactivado!");
+        return dto;
+    }
 }

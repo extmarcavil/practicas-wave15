@@ -69,4 +69,12 @@ public class PostRepositoryImpl implements PostRepository {
         return p;
     }
 
+    @Override
+    public void desactivatePostsByUserId(Long userId) {
+        posts.forEach(p -> {
+            if (p.isOwnedById(userId))
+                p.deactivate();
+        });
+    }
+
 }

@@ -53,4 +53,11 @@ public class UserController {
                 .status(HttpStatus.OK)
                 .body(userService.unFollow(userId, userIdToUnfollow));
     }
+
+    @PutMapping("{userId}/deactivate")
+    public ResponseEntity<ResponseDTO> deactivate(@PathVariable Long userId) {
+        return ResponseEntity
+            .status(HttpStatus.OK)
+            .body(userService.deactivate(userId));
+    }
 }

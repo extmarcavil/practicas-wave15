@@ -17,4 +17,6 @@ public interface UserService {
 
     ResponseDTO unFollow(Long userId, long userIdToUnfollow);
 
+    ResponseDTO deactivate(Long userId);
+
 }

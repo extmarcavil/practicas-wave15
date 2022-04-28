@@ -27,4 +27,12 @@ public class Post {
     public boolean isOwnedById(Long id) {
         return this.getUser().getUserId().equals(id);
     }
+
+    public void deactivate() {
+        this.setDeactivated(true);
+    }
+
+    public void activate() {
+        this.setDeactivated(false);
+    }
 }

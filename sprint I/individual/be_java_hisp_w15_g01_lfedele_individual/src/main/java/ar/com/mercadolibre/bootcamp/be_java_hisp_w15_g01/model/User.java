@@ -21,4 +21,12 @@ public class User {
     public Boolean equals(User anUser) {
     	        return this.userId.equals(anUser.getUserId());
     }
+
+    public void deactivate() {
+        this.setDeactivated(true);
+    }
+
+    public void activate() {
+        this.setDeactivated(false);
+    }
 }
