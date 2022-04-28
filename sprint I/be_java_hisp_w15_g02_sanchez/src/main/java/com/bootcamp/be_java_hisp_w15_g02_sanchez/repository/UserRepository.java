@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02_sanchez.repository;
 
+import com.bootcamp.be_java_hisp_w15_g02_sanchez.exception.FollowYourselfException;
 import com.bootcamp.be_java_hisp_w15_g02_sanchez.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02_sanchez.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02_sanchez.model.User;
@@ -74,6 +75,8 @@ public class UserRepository implements IUserRepository {
 
         if (!userToFollow.isSeller())
             return false;
+        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 1)
+            throw new FollowYourselfException("Ya sigue a este usuario.");
 
         userToFollow.getFollowerList().add(new Follow(user.getUserId()));
         user.getFollowList().add(new Follow(userToFollow.getUserId()));

@@ -47,6 +47,7 @@ public class PostService implements IPostService{
      */
     @Override
     public boolean createPost(PostCreateDTO newPost) {
+        userRepository.getUserById(newPost.getUser_id());
         var id = 0;
         var postlist = postRepository.all();
         id = postlist.size() == 0 ? 1 : postlist.size() + 1;
