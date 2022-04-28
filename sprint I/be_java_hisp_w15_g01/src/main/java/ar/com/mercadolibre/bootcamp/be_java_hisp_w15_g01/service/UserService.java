@@ -49,7 +49,7 @@ public interface UserService {
      * @param userId El usuario a buscar
      */
     FollowedListDTO findAllFollowedByUserId(Long userId, String order);
-w
+
     /**
      * UserController
      * Accion de dejar de seguir a un vendedor
