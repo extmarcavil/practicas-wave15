@@ -1,8 +1,8 @@
-#README
+# README
 
-##Sprint I - SocialMeli
+## Sprint I - SocialMeli
 
-###Resumen:
+### Resumen:
 Mercado Libre sigue creciendo y para el año que viene  tiene como objetivo empezar a implementar una serie de herramientas que permitan a los compradores y vendedores tener una experiencia totalmente innovadora, en donde el lazo que los una sea mucho más cercano.
 
 La fecha de lanzamiento se aproxima, por lo cual es necesaria la presentación de una versión Beta de lo que va a ser conocido como “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
@@ -23,7 +23,7 @@ Para poder realizar esto, un analista funcional relevó [una serie de **requerim
 - US00012 (INDIVIDUAL OPCIONAL): Para finalizar, desde Mercado Libre dieron a conocer que están abiertos a cualquier nueva funcionalidad o propuesta de mejora para “SocialMeli”. En caso de que esto se lleve a cabo, será necesario, además de desarrollar la funcionalidad, presentar la documentación técnica asociada.
 
 
-###USUARIOS PARA TESTEAR
+### USUARIOS PARA TESTEAR
 En el constructor del repositorio en función cargarUsuarios();
 - ID: 1, NAME: LORENA MACIEL
 - ID: 2, NAME: GONZALO MURIAS
@@ -32,7 +32,7 @@ En el constructor del repositorio en función cargarUsuarios();
 - ID: 5, NAME: ALEJANDRO HENESTROZA
 - ID: 6, NAME: NICOLAS KAZANDJIAN
 
-###COLABORADORES POR REQUERIMIENTOS GRUPALES:
+### COLABORADORES POR REQUERIMIENTOS GRUPALES:
 - US0001, US0006, US0007: Ramiro Augusto Vera Guzman y Nicolás Leonardo Kazandjian.
 - US0002, US0003, US0004: Lorena Maciel Bitencur y Gonzalo Murias.
 - US0005, US0008, US0009: Alan Leonel Gimenez y Alejandro Ivan Henestroza.
