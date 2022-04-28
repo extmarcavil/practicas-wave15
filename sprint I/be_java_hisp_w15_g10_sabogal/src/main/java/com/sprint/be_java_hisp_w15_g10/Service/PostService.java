@@ -140,10 +140,7 @@ public class PostService implements IPostService{
         user.getPosts().forEach(post ->{
             if(post.isHas_promo()) posts.add(post);
         });
-/*
-        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post1.getDate()));
-*/
+
         UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
 
