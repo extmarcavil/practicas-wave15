@@ -1,6 +1,5 @@
 package com.bootcamp.be_java_hisp_w15_g08.repository;
 
-import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import org.springframework.stereotype.Repository;
@@ -32,7 +31,7 @@ public class UserRepository implements IUserRepository {
 
     @Override
     public User findUser(Integer id){
-        return Optional.ofNullable(users.get(id)).orElseThrow(()-> new UserNotFoundException("The user id"+ id + " doesn't exist"));
+        return Optional.ofNullable(users.get(id)).orElseThrow(()-> new UserNotFoundException("The user id "+ id + " doesn't exist"));
     }
 
     @Override
