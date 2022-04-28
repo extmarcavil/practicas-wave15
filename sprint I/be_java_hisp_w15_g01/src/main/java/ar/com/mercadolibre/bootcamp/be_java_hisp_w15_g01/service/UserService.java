@@ -1,9 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import org.springframework.http.ResponseEntity;
 

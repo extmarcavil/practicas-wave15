@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 @Repository
 public class PostRepositoryImpl implements PostRepository {
 
-    List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
 
     @Override
     public Post create(User user, LocalDate date, Product detail, Integer category, Float price, Float discount, Boolean hasPromo) {
@@ -39,12 +39,12 @@ public class PostRepositoryImpl implements PostRepository {
     }
 
     @Override
-    public List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack) {
+    public List<Post> getAllPostsByUserWithinTimespan(User user, Integer daysBack) {
         LocalDate now = LocalDate.now();
 
         List<Post> postList = posts.stream()
                 .filter( p -> p.getUser().getUserId().equals(user.getUserId()) &&
-                        p.getDate().compareTo(now.minusDays(daysBack)) > 0)
+                        (daysBack == null || p.getDate().compareTo(now.minusDays(daysBack)) > 0) )
                 .collect(Collectors.toList());
 
         return postList;

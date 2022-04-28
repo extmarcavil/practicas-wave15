@@ -2,6 +2,7 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.*;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;

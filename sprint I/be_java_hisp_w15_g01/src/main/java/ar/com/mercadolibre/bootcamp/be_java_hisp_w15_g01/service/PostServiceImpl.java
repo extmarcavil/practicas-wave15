@@ -1,9 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
@@ -95,5 +92,15 @@ public class PostServiceImpl implements PostService {
         postListDTO.setPosts(sortedAscPostList);
 
         return postListDTO;
+    }
+
+    @Override
+    public VendorInfoDTO getPromoPostsCount(Long userId) {
+        User vendor = userService.findById(userId);
+
+        long postCount = this.postRepository.getAllPostsByUserWithinTimespan(vendor, null).stream()
+                .filter(Post::getHasPromo).count();
+
+        return new VendorInfoDTO(vendor.getUserId(), vendor.getUserName(), postCount);
     }
 }

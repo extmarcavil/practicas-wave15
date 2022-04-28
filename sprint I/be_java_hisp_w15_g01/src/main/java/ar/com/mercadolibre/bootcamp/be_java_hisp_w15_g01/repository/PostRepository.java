@@ -13,5 +13,5 @@ public interface PostRepository {
 
 	boolean isseller(User user);
 
-    List<Post> getAllPostsByUserWithinTimespan(User user, int daysBack);
+    List<Post> getAllPostsByUserWithinTimespan(User user, Integer daysBack);
 }
