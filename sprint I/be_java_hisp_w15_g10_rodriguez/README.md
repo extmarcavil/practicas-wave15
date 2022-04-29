@@ -32,11 +32,20 @@ Obtener el resultado de la cantidad de usuarios que siguen a un determinado vend
 
 #### Sign:
 
-| Method   | SIGN                                                                        |
-|----------|-----------------------------------------------------------------------------|
-| GET      | /users/{userId}/followers/count                                             |
-| Ejemplo: | /users/1569/followers/count/                                                |
-| Response | { "user_id": 1569,<br> "user_name": "vendedor1",<br>"followers_count": 35 } |
+| Method   | SIGN                            |
+|----------|---------------------------------|
+| GET      | /users/{userId}/followers/count |
+| Ejemplo: | /users/1569/followers/count/    |
+| Response |                                 |
+
+```json
+{
+  "user_id": 1569,
+  "user_name": "vendedor1",
+  "followers_count": 35
+}
+```
+
 
 ### Filtros/Parámetros:
 
@@ -50,11 +59,32 @@ Obtener el resultado de la cantidad de usuarios que siguen a un determinado vend
 Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
 #### Sign:
 
-| Method   | SIGN                                                                                                                                                                                                                                                         |
-|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GET      | /users/{userId}/followers/list                                                                                                                                                                                                                               |
-| Ejemplo: | /users/1569/followers/list                                                                                                                                                                                                                                   |
-| Response | {"user_id": 1569,<br> "user_name": "vendedor1",<br>"followers": [<br>{<br>"user_id": 4698,<br>"user_name": "usuario1"<br>},<br>{<br>"user_id": 1536,<br>"user_name": "usuario2"<br>},<br>{<br>"user_id": 2236,<br>"user_name": "usuario3"<br>}<br>]<br>}<br> |
+| Method   | SIGN                           |
+|----------|--------------------------------|
+| GET      | /users/{userId}/followers/list |
+| Ejemplo: | /users/1569/followers/list     |
+| Response |                                |
+
+```json
+{
+  "user_id": 1569,
+  "user_name": "vendedor1",
+  "followers": [
+    {
+      "user_id": 4698,
+      "user_name": "usuario1"
+    },
+    {
+      "user_id": 1536,
+      "user_name": "usuario2"
+    },
+    {
+      "user_id": 2236,
+      "user_name": "usuario3"
+    }
+  ]
+}
+```
 
 #### Filtros/Parámetros:
 
@@ -68,11 +98,32 @@ Obtener un listado de todos los usuarios que siguen a un determinado vendedor (�
 Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
 #### Sign:
 
-| Method   | SIGN                                                                                                                                                                                                                                                     |
-|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GET      | /users/{userId}/followed/list                                                                                                                                                                                                                            |
-| Ejemplo: | /users/4698/followed/list                                                                                                                                                                                                                                |
-| Response | {"user_id": 4698,<br>"user_name": "usuario1",<br>"followed": [<br>{<br>"user_id": 1569,<br>"user_name": "vendedor1"<br>},<br>{<br>"user_id": 6932,<br>"user_name": "vendedor2"<br>},<br>{<br>"user_id": 6631,<br>"user_name": "vendedor3"<br>}<br>]<br>} |
+| Method   | SIGN                          |
+|----------|-------------------------------|
+| GET      | /users/{userId}/followed/list |
+| Ejemplo: | /users/4698/followed/list     |
+| Response |                               |
+
+```json
+{
+  "user_id": 4698,
+  "user_name": "usuario1",
+  "followed": [
+    {
+      "user_id": 1569,
+      "user_name": "vendedor1"
+    },
+    {
+      "user_id": 6932,
+      "user_name": "vendedor2"
+    },
+    {
+      "user_id": 6631,
+      "user_name": "vendedor3"
+    }
+  ]
+}
+```
 
 #### Filtros/Parámetros:
 
@@ -87,11 +138,28 @@ Dar de alta una nueva publicación
 
 #### Sign:
 
-| Method   | SIGN                                                                                                                                                                                                                                                                         |
-|----------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| POST     | /products/post                                                                                                                                                                                                                                                               |
-| PAYLOAD: | {<br>"user_id": 1235,<br>"date": "29-04-2021",<br>"detail": {<br>"product_id": 1,<br>"product_name": "Silla Gamer",<br>"type": "Gamer",<br>"brand": "Racer",<br>"color": "Red & Black",<br>"notes": "Special Edition"<br>},<br>"category": 100,<br>"price": 1500.50<br>}<br> |
-| RESPONSE | Status Code 200 (todo OK)<br>Status Code 400 (Bad Request)                                                                                                                                                                                                                   |
+| Method   | SIGN                                                       |
+|----------|------------------------------------------------------------|
+| POST     | /products/post                                             |
+| RESPONSE | Status Code 200 (todo OK)<br>Status Code 400 (Bad Request) |
+| PAYLOAD: |                                                            |
+
+```json
+{
+  "user_id": 1235,
+  "date": "29-04-2021",
+  "detail": {
+    "product_id": 1,
+    "product_name": "Silla Gamer",
+    "type": "Gamer",
+    "brand": "Racer",
+    "color": "Red & Black",
+    "notes": "Special Edition"
+  },
+  "category": 100,
+  "price": 1500.50
+}
+```
 
 #### Filtros/Parámetros:
 
@@ -114,11 +182,47 @@ Dar de alta una nueva publicación
 Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
 #### Sign:
 
-| Method    | SIGN                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
-|-----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GET       | /products/followed/{userId}/list                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| Ejemplo:  | /products/followed/4698/list                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
-| RESPONSE: | { "user_id": 4698,<br>"posts": [ {<br>"post_id": 32,<br>"date": "01-05-2021",<br>"detail": {<br>"product_id": 62,<br>"product_name": "Headset RGB Inalámbrico",<br>"type": "Gamer",<br>"brand": "Razer",<br>"color": "Green with RGB",<br>"notes": "Sin Batería"<br>},<br>"category": 120,<br>"price": 2800.69<br>},<br>{<br>"post_id": 18,<br>"date": "29-04-2021",<br>"detail": {<br>"product_id": 1,<br>"productName": "Silla Gamer",<br>"type": "Gamer",<br>"brand": "Racer",<br>"color": "Red & Black",<br>"notes": "Special Edition"<br>},<br>"category": 100,<br>"price": 15000.50<br>}<br>]<br>}<br> |
+| Method    | SIGN                             |
+|-----------|----------------------------------|
+| GET       | /products/followed/{userId}/list |
+| Ejemplo:  | /products/followed/4698/list     |
+| RESPONSE: |                                  |
+
+```json
+{
+    "user_id": 4698,
+    "posts": [ {
+            "post_id": 32,
+            "date": "01-05-2021",
+            "detail": {
+                "product_id": 62,
+                "product_name": "Headset RGB Inalámbrico",
+                "type": "Gamer",
+                "brand": "Razer",
+                "color": "Green with RGB",
+                "notes": "Sin Batería"
+            },
+            "category": 120,
+            "price": 2800.69
+        },
+        {
+            "post_id": 18,
+            "date": "29-04-2021",
+            "detail": {
+                "product_id": 1,
+                "productName": "Silla Gamer",
+                "type": "Gamer",
+                "brand": "Racer",
+                "color": "Red & Black",
+                "notes": "Special Edition"
+            },
+            "category": 100,
+            "price": 15000.50
+        }
+    ]
+}
+
+```
 
 #### Filtros/Parámetros:
 
@@ -183,11 +287,29 @@ Ordenamiento por fecha ascendente y descendente
 Llevar a cabo la publicación de un nuevo producto en promoción
 #### Sign:
 
-| Method   | SIGN                                                                                                                                                                                                                                                                                                                 |
-|----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| POST     | /products/promo-post                                                                                                                                                                                                                                                                                                 |
-| PAYLOAD: | { "user_id": 1569,<br>"date": "29-04-2021",<br>"detail": {<br>"product_id": 1,<br>"product_name": "Silla Gamer",<br>"type": "Gamer",<br>"brand": "Racer",<br>"color": "Red & Black",<br>"notes": "Special Edition"<br>},<br>"category": 100,<br>"price": 1500.50,<br>"has_promo": true,<br>"discount": 0.25<br>}<br> |
-| Response | Status Code 200 (OK)<br>Status Code 400 (Bad request)                                                                                                                                                                                                                                                                |
+| Method   | SIGN                                                  |
+|----------|-------------------------------------------------------|
+| POST     | /products/promo-post                                  |
+| Response | Status Code 200 (OK)<br>Status Code 400 (Bad request) |
+| PAYLOAD: |                                                       |
+```json
+{
+    "user_id": 1569,
+    "date": "29-04-2021",
+    "detail": {
+        "product_id": 1,
+        "product_name": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+    },
+    "category": 100,
+    "price": 1500.50,
+    "has_promo": true,
+    "discount": 0.25
+}
+```
 
 #### Filtros/Parámetros:
 
@@ -212,10 +334,18 @@ Llevar a cabo la publicación de un nuevo producto en promoción
 Obtener la cantidad de productos en promoción de un determinado vendedor
 #### Sign:
 
-| Method   | SIGN                                                                                    |
-|----------|-----------------------------------------------------------------------------------------|
-| GET      | /products/promo-post/count?user_id={userId}                                             |
-| Response | { "user_id" : 1569,<br>"user_name": "vendedor1",<br>"promo_products_count": 23<br>}<br> |
+| Method   | SIGN                                        |
+|----------|---------------------------------------------|
+| GET      | /products/promo-post/count?user_id={userId} |
+| Response |                                             |
+
+```json
+{
+  "user_id" : 1569,
+  "user_name": "vendedor1",
+  "promo_products_count": 23
+}
+```
 
 #### Filtros/Parámetros:
 
@@ -230,10 +360,37 @@ Obtener la cantidad de productos en promoción de un determinado vendedor
 Obtener un listado de todos los productos en promoción de un determinado vendedor
 #### Sign:
 
-| Method    | SIGN                                                                                                                                                                                                                                                                                                                                                                                               |
-|-----------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| GET       | /products/promo-post/list?user_id={userId}                                                                                                                                                                                                                                                                                                                                                         |
-| RESPONSE: | {"user_id": 1569,<br>"user_name": "vendedor1",<br>"posts": [<br>{<br>"post_id": 18,<br>"date": "29-04-2021",<br>"detail": {<br>"product_id": 1,<br>"product_name": "Silla Gamer",<br>"type": "Gamer",<br>"brand": "Racer",<br>"color": "Red & Black",<br>"notes": "Special Edition"<br>},<br>"category": "100",<br>"price": 15000.50,<br>"has_promo": true,<br>"discount": 0.25<br>}<br>]<br>}<br> |
+| Method    | SIGN                                       |
+|-----------|--------------------------------------------|
+| GET       | /products/promo-post/list?user_id={userId} |
+| RESPONSE: |                                            |
+
+```json
+{
+  "user_id": 1569,
+  "user_name": "vendedor1",
+  "posts": [
+    {
+      "post_id": 18,
+      "date": "29-04-2021",
+      "detail": {
+        "product_id": 1,
+        "product_name": "Silla Gamer",
+        "type": "Gamer",
+        "brand": "Racer",
+        "color": "Red & Black",
+        "notes": "Special Edition"
+      },
+      "category": "100",
+      "price": 15000.50,
+      "has_promo": true,
+      "discount": 0.25,
+      "real_price": 1350.45
+    }
+  ]
+}
+
+```
 
 #### Filtros/Parámetros:
 

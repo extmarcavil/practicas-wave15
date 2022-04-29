@@ -6,10 +6,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.DTOEntity;
 import lombok.*;
 
 import javax.validation.Valid;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PastOrPresent;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @Getter
@@ -39,5 +36,6 @@ public class PromoPostCreateDTO implements DTOEntity {
     private Boolean has_promo;
     @NotNull
     @DecimalMin(value = "0.0", inclusive = false)
+    @DecimalMax(value = "1.0", inclusive = false)
     private Double discount;
 }

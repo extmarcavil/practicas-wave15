@@ -22,4 +22,9 @@ public class PromoPostResponseDTO implements DTOEntity {
     private double price;
     private boolean has_promo;
     private double discount;
+    private double real_price;
+
+    public double getReal_price() {
+        return price*(1-discount);
+    }
 }
