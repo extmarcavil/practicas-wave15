@@ -70,6 +70,12 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(SelfException.class)
+    public ResponseEntity<ErrorDTO> handlerSelfException (SelfException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("FORBIDDEN", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(NotAPromoException.class)
     public ResponseEntity<ErrorDTO> handlerNotAPromoException (NotAPromoException exception ) {
         ErrorDTO errorDTO = new ErrorDTO("NOT A PROMO", exception.getMessage());

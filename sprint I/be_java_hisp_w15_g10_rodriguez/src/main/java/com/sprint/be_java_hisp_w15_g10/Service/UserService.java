@@ -5,6 +5,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.DuplicatedEntityException;
 import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
+import com.sprint.be_java_hisp_w15_g10.Exception.SelfException;
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
 import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
@@ -43,6 +44,7 @@ public class UserService implements IUserService {
     public UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow){
         User user = utils.getUserOrThrow(userId);
         User userToUnfollow = utils.getUserOrThrow(userIdToUnfollow);
+        if(userId==userIdToUnfollow)throw new SelfException("No puede dejar de seguirse a usted mismo");
         if(!user.getFollowed().contains(userToUnfollow)) throw new NotFollowException("Usted no sigue a: " + userToUnfollow.getUser_name());
         user.dejarDeSeguir(userToUnfollow);
         userToUnfollow.eliminarSeguidor(user);
@@ -53,6 +55,7 @@ public class UserService implements IUserService {
     public FollowUserDTO followUser(int userId, int userIdToFollow){
         User user = utils.getUserOrThrow(userId);
         User userToUnfollow = utils.getUserOrThrow(userIdToFollow);
+        if(userId==userIdToFollow)throw new SelfException("No puede seguirse a usted mismo");
         if(user.getFollowed().contains(userToUnfollow)) throw new FollowException("Usted ya sigue a: " + userToUnfollow.getUser_name());
         user.seguirUsuario(userToUnfollow);
         userToUnfollow.agregarSeguidor(user);
