@@ -96,9 +96,8 @@ public class PostService implements IPostService{
     public void newProductWithDiscount(NewProductWithDiscountDTO newProductDTO) {
         Post post = modelMapper.map(newProductDTO, Post.class);
 
-        userRepository.getAll().forEach(us -> {
-            if (us.getUser_id() == newProductDTO.getUserId()) us.agregarPost(post);
-        });
+        User user = this.getUser(newProductDTO.getUserId());
+        user.agregarPost(post);
 
         postRepository.add(post);
     }
