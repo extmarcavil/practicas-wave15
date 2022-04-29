@@ -36,7 +36,8 @@ Obtener el resultado de la cantidad de usuarios que siguen a un determinado vend
 |----------|---------------------------------|
 | GET      | /users/{userId}/followers/count |
 | Ejemplo: | /users/1569/followers/count/    |
-| Response |                                 |
+
+RESPONSE:
 
 ```json
 {
@@ -63,7 +64,8 @@ Obtener un listado de todos los usuarios que siguen a un determinado vendedor (�
 |----------|--------------------------------|
 | GET      | /users/{userId}/followers/list |
 | Ejemplo: | /users/1569/followers/list     |
-| Response |                                |
+
+RESPONSE:
 
 ```json
 {
@@ -102,7 +104,8 @@ Obtener un listado de todos los vendedores a los cuales sigue un determinado usu
 |----------|-------------------------------|
 | GET      | /users/{userId}/followed/list |
 | Ejemplo: | /users/4698/followed/list     |
-| Response |                               |
+
+RESPONSE:
 
 ```json
 {
@@ -142,7 +145,8 @@ Dar de alta una nueva publicaci처n
 |----------|------------------------------------------------------------|
 | POST     | /products/post                                             |
 | RESPONSE | Status Code 200 (todo OK)<br>Status Code 400 (Bad Request) |
-| PAYLOAD: |                                                            |
+
+PAYLOAD:
 
 ```json
 {
@@ -186,7 +190,8 @@ Obtener un listado de las publicaciones realizadas por los vendedores que un usu
 |-----------|----------------------------------|
 | GET       | /products/followed/{userId}/list |
 | Ejemplo:  | /products/followed/4698/list     |
-| RESPONSE: |                                  |
+
+RESPONSE:
 
 ```json
 {
@@ -291,7 +296,9 @@ Llevar a cabo la publicaci처n de un nuevo producto en promoci처n
 |----------|-------------------------------------------------------|
 | POST     | /products/promo-post                                  |
 | Response | Status Code 200 (OK)<br>Status Code 400 (Bad request) |
-| PAYLOAD: |                                                       |
+
+PAYLOAD:
+
 ```json
 {
     "user_id": 1569,
@@ -337,7 +344,8 @@ Obtener la cantidad de productos en promoci처n de un determinado vendedor
 | Method   | SIGN                                        |
 |----------|---------------------------------------------|
 | GET      | /products/promo-post/count?user_id={userId} |
-| Response |                                             |
+
+RESPONSE:
 
 ```json
 {
@@ -363,7 +371,8 @@ Obtener un listado de todos los productos en promoci처n de un determinado vended
 | Method    | SIGN                                       |
 |-----------|--------------------------------------------|
 | GET       | /products/promo-post/list?user_id={userId} |
-| RESPONSE: |                                            |
+ 
+RESPONSE:                                             
 
 ```json
 {
