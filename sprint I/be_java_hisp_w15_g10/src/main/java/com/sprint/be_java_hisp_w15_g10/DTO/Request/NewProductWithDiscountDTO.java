@@ -1,43 +1,29 @@
-package com.sprint.be_java_hisp_w15_g10.Model;
+package com.sprint.be_java_hisp_w15_g10.DTO.Request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sprint.be_java_hisp_w15_g10.Model.Product;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
-@AllArgsConstructor
-@ToString
-public class Post {
-    private int postId;
-    private Product detail;
+public class NewProductWithDiscountDTO {
+    @JsonProperty("user_id")
+    private int userId;
+    @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate date;
-    private Category category;
+    private Product detail;
+    private int category;
     private double price;
+    @JsonProperty("has_promo")
     private boolean hasPromo;
     private double discount;
 
-    public Post(){
-        hasPromo = false;
-        discount = 0.0;
+    public int getUserId() {
+        return userId;
     }
 
-    public int getPostId() {
-        return postId;
-    }
-
-    public void setPostId(int postId) {
-        this.postId = postId;
-    }
-
-    public Product getDetail() {
-        return detail;
-    }
-
-    public void setDetail(Product detail) {
-        this.detail = detail;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public LocalDate getDate() {
@@ -48,11 +34,19 @@ public class Post {
         this.date = date;
     }
 
-    public Category getCategory() {
+    public Product getDetail() {
+        return detail;
+    }
+
+    public void setDetail(Product detail) {
+        this.detail = detail;
+    }
+
+    public int getCategory() {
         return category;
     }
 
-    public void setCategory(Category category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -70,10 +64,6 @@ public class Post {
 
     public void setHasPromo(boolean hasPromo) {
         this.hasPromo = hasPromo;
-    }
-
-    public boolean getHasPromo() {
-        return this.hasPromo;
     }
 
     public double getDiscount() {

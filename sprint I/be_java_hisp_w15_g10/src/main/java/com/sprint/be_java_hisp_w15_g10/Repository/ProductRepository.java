@@ -32,7 +32,7 @@ public class ProductRepository {
 
     public Optional<Product> getById(int id){
         return productList.stream()
-                .filter(user -> user.getProduct_id()==id)
+                .filter(user -> user.getProductId()==id)
                 .findFirst();
     }
 

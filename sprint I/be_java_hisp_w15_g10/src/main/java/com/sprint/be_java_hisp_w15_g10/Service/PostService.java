@@ -1,10 +1,8 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.NewProductWithDiscountDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
@@ -51,12 +49,12 @@ public class PostService implements IPostService{
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
 
         Post post = modelMapper.map(postCreateDTO, Post.class);
-        post.setPost_id(postRepository.nextIndex());
+        post.setPostId(postRepository.nextIndex());
         post.setCategory(category);
         User user = userRepository.getById(postCreateDTO.getUser_id())
                 .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
 
-        Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
+        Optional<Product> product = productRepository.getById(post.getDetail().getProductId());
         if(product.isEmpty()){
             productRepository.add(post.getDetail());
         }else {
@@ -102,11 +100,48 @@ public class PostService implements IPostService{
     @Override
     public List<PostResponseDTO> getAllPosts(){
         List<Post> posts = postRepository.getAll();
-        List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
+        List<PostResponseDTO> responseDTOS = posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
 
         return responseDTOS;
     }
 
+    @Override
+    public void newProductWithDiscount(NewProductWithDiscountDTO newProductDTO) {
+        Post post = modelMapper.map(newProductDTO, Post.class);
 
+        userRepository.getAll().forEach(us -> {
+            if (us.getUser_id() == newProductDTO.getUserId()) us.agregarPost(post);
+        });
 
+        postRepository.add(post);
+    }
+
+    @Override
+    public CountPromoProductsOfUserDTO getPromoProductsOfUser(int userId) {
+        CountPromoProductsOfUserDTO countPromoProductsOfUserDTO = new CountPromoProductsOfUserDTO();
+        User user = userRepository.getById(userId).get();
+
+        List<Post> userPost = user.getPosts()
+                .stream().filter(Post::getHasPromo)
+                .collect(Collectors.toList());
+        countPromoProductsOfUserDTO.setUserId(user.getUser_id());
+        countPromoProductsOfUserDTO.setUserName(user.getUser_name());
+        countPromoProductsOfUserDTO.setPromoProductosCount(userPost.size());
+
+        return countPromoProductsOfUserDTO;
+    }
+
+    @Override
+    public UserProductPromoDTO getUserProductPromo(int userId) {
+        UserProductPromoDTO userProductPromoDTO = new UserProductPromoDTO();
+        User user = userRepository.getById(userId).get();
+        List<Post> posts = user.getPosts().stream()
+                .filter(Post::getHasPromo)
+                .collect(Collectors.toList());
+
+        userProductPromoDTO.setUserId(user.getUser_id());
+        userProductPromoDTO.setUserName(user.getUser_name());
+        userProductPromoDTO.setPosts(posts);
+        return userProductPromoDTO;
+    }
 }

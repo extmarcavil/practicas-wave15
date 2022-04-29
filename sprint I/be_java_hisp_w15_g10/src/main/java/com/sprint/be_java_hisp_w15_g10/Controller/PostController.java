@@ -1,11 +1,8 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.NewProductWithDiscountDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostCreatedDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserPostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,6 +40,18 @@ public class PostController {
     public ResponseEntity<List<PostResponseDTO>> getAllPosts(){
         return new ResponseEntity<List<PostResponseDTO>>(postService.getAllPosts(), HttpStatus.OK);
     }
+
+    @PostMapping("/promo-post")
+    public ResponseEntity<String> newProductWithDiscount(@Valid @RequestBody NewProductWithDiscountDTO newProductDTO) {
+        this.postService.newProductWithDiscount(newProductDTO);
+        return new ResponseEntity<>("Ok", HttpStatus.OK);
+    }
+
+    @GetMapping("/products/promo-post/count")
+    public ResponseEntity<CountPromoProductsOfUserDTO> getPromoProductCountOfUser(@RequestParam("user_id") int userId) {
+        return new ResponseEntity<>(postService.getPromoProductsOfUser(userId), HttpStatus.OK);
+    }
+
 
 
 }
