@@ -92,7 +92,10 @@ public class ProductsService implements IProductsService {
 
         //filtro los posteos del seller que sean de promo
         //el count me devuelve un long por eso lo casteo a int
-        return new ResPostPromoCountDTO(id, user.getName(), (int) listadoPosteos.stream().filter(p -> p.isHas_promo()).count());
+        return new ResPostPromoCountDTO(
+                id,
+                user.getName(),
+                (int) listadoPosteos.stream().filter(p -> p.isHas_promo()).count());
     }
 
     @Override
@@ -106,13 +109,7 @@ public class ProductsService implements IProductsService {
         }.getType());
 
         // No utilizo la version compactada para poder usar el ignorecase
-        if (order.equals("name_desc")) {
-            lista.sort(
-                    (p1, p2) -> p2.getDetail().getProductName().compareToIgnoreCase(p1.getDetail().getProductName()));
-        } else {
-            lista.sort(
-                    (p1, p2) -> p1.getDetail().getProductName().compareToIgnoreCase(p2.getDetail().getProductName()));
-        }
+        orderList(order, lista);
 
         return new ResPostPromoListDTO(id, user.getName(), lista);
     }
@@ -128,13 +125,17 @@ public class ProductsService implements IProductsService {
         }.getType());
 
         // No utilizo la version compactada para poder usar el ignorecase
+        orderList(order, dtoList);
+
+        return new ResPostPromoListDTO(id, user.getName(), dtoList);
+    }
+
+    private void orderList(String order, List<PostFullDTO> dtoList) {
         if (order.equals("name_desc")) {
             dtoList.sort((p1, p2) -> p2.getDetail().getProductName().compareToIgnoreCase(p1.getDetail().getProductName()));
         } else {
             dtoList.sort((p1, p2) -> p1.getDetail().getProductName().compareToIgnoreCase(p2.getDetail().getProductName()));
         }
-
-        return new ResPostPromoListDTO(id, user.getName(), dtoList);
     }
 
 
