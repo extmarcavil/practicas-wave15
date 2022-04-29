@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -51,33 +52,23 @@ public class PostService implements IPostService{
         Post post = modelMapper.map(postCreateDTO, Post.class);
         post.setPostId(postRepository.nextIndex());
         post.setCategory(category);
-        User user = userRepository.getById(postCreateDTO.getUser_id())
-                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
+        User user = this.getUser(postCreateDTO.getUser_id());
 
-        Optional<Product> product = productRepository.getById(post.getDetail().getProductId());
-        if(product.isEmpty()){
-            productRepository.add(post.getDetail());
-        }else {
-            post.setDetail(product.get());
-        }
-        postRepository.add(post);
-        user.agregarPost(post);
+        this.updatePost(post, user);
         return new PostCreatedDTO("Se ha creado el Post con éxito");
     }
 
     @Override
     public List<ProductResponseDTO> getAllProducts() {
         List<Product> products = productRepository.getAll();
-        List<ProductResponseDTO> productResponseDTOS = products.stream()
+        return products.stream()
                 .map(product ->  modelMapper.map(product, ProductResponseDTO.class))
                 .collect(Collectors.toList());
-        return productResponseDTOS;
     }
 
     @Override
     public UserPostResponseDTO getAllPostsByFollowerId(int userId, String order){
-        User user = userRepository.getById(userId)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        User user = this.getUser(userId);
         List<User> followed = user.getFollowed();
         List<Post> posts = new ArrayList<>();
 
@@ -87,22 +78,18 @@ public class PostService implements IPostService{
                 if(dias <= 15) posts.add(post);
             });
         });
+        posts.sort((post1, post2) -> (order.equals("date_asc")) ? post1.getDate().compareTo(post2.getDate()) :
+                post2.getDate().compareTo(post1.getDate()));
 
-        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
-
-        UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
+        return new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
-
-        return userPostResponseDTO;
     }
 
     @Override
     public List<PostResponseDTO> getAllPosts(){
         List<Post> posts = postRepository.getAll();
-        List<PostResponseDTO> responseDTOS = posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
 
-        return responseDTOS;
+        return posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
     }
 
     @Override
@@ -119,7 +106,7 @@ public class PostService implements IPostService{
     @Override
     public CountPromoProductsOfUserDTO getPromoProductsOfUser(int userId) {
         CountPromoProductsOfUserDTO countPromoProductsOfUserDTO = new CountPromoProductsOfUserDTO();
-        User user = userRepository.getById(userId).get();
+        User user = this.getUser(userId);
 
         List<Post> userPost = user.getPosts()
                 .stream().filter(Post::getHasPromo)
@@ -134,7 +121,7 @@ public class PostService implements IPostService{
     @Override
     public UserProductPromoDTO getUserProductPromo(int userId) {
         UserProductPromoDTO userProductPromoDTO = new UserProductPromoDTO();
-        User user = userRepository.getById(userId).get();
+        User user = this.getUser(userId);
         List<Post> posts = user.getPosts().stream()
                 .filter(Post::getHasPromo)
                 .collect(Collectors.toList());
@@ -143,5 +130,21 @@ public class PostService implements IPostService{
         userProductPromoDTO.setUserName(user.getUser_name());
         userProductPromoDTO.setPosts(posts);
         return userProductPromoDTO;
+    }
+
+    private void updatePost(Post post, User user) {
+        Optional<Product> product = productRepository.getById(post.getDetail().getProductId());
+        if(product.isEmpty()){
+            productRepository.add(post.getDetail());
+        }else {
+            post.setDetail(product.get());
+        }
+        postRepository.add(post);
+        user.agregarPost(post);
+    }
+
+    private User getUser(int userId) {
+        return userRepository.getById(userId)
+                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
     }
 }

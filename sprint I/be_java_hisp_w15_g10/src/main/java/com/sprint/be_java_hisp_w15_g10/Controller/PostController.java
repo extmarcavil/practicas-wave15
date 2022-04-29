@@ -4,6 +4,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Request.NewProductWithDiscountDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IPostService;
+import com.sprint.be_java_hisp_w15_g10.enums.ActionPromoEnum;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,14 +48,10 @@ public class PostController {
         return new ResponseEntity<>("Ok", HttpStatus.OK);
     }
 
-    @GetMapping("/products/promo-post/count")
-    public ResponseEntity<CountPromoProductsOfUserDTO> getPromoProductCountOfUser(@RequestParam("user_id") int userId) {
-        return new ResponseEntity<>(postService.getPromoProductsOfUser(userId), HttpStatus.OK);
-    }
-
-    @GetMapping("/products/promo-post/list")
-    public ResponseEntity<UserProductPromoDTO> getProductsPromoInfoUser(@RequestParam("user_id") int userId) {
-        return new ResponseEntity<>(postService.getUserProductPromo(userId), HttpStatus.OK);
+    @GetMapping("/promo-post/{action}")
+    public ResponseEntity<Object> getPromoProductCountOfUser(@PathVariable ActionPromoEnum action, @RequestParam("user_id") int userId) {
+        return new ResponseEntity<>((action.equals(ActionPromoEnum.count)) ? postService.getPromoProductsOfUser(userId) :
+                postService.getUserProductPromo(userId), HttpStatus.OK);
     }
 
 }
