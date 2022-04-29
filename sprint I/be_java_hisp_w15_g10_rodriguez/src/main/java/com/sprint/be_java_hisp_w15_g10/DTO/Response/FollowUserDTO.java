@@ -1,5 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.DTO.Response;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.DTOEntity;
 import lombok.*;
 
 @Getter
@@ -7,6 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class FollowUserDTO {
+public class FollowUserDTO implements DTOEntity {
     private String message;
 }

@@ -7,7 +7,22 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class Category {
+public class Category implements IIdInterface {
     private int category_id;
     private String category_name;
+
+    @Override
+    public int getId() {
+        return category_id;
+    }
+
+    @Override
+    public <T> boolean compares(T field) {
+        return category_name.equals(field);
+    }
+
+    @Override
+    public void setId(int id) {
+        category_id = id;
+    }
 }

@@ -1,119 +1,98 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.UserCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
+import com.sprint.be_java_hisp_w15_g10.Exception.DuplicatedEntityException;
 import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
-import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
+import com.sprint.be_java_hisp_w15_g10.Model.Category;
+import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
-import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
-import org.modelmapper.ModelMapper;
+import com.sprint.be_java_hisp_w15_g10.Utils.Utils;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserService implements IUserService {
-    private final ModelMapper modelMapper;
-    private final UserRepository userRepository;
+    private final Utils utils;
 
-    public UserService(UserRepository users, ModelMapper modelMapper) {
-        this.userRepository = users;
-        this.modelMapper = modelMapper;
+    public UserService(Utils utils) {
+        this.utils = utils;
     }
 
     @Override
     public UserWithFollowersCountDTO getUsersWithFollowersCount(int userID){
-            User user = userRepository.getById(userID)
-                    .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-            UserWithFollowersCountDTO userDTO = modelMapper.map(user, UserWithFollowersCountDTO.class);
+            User user = utils.getUserOrThrow(userID);
+            UserWithFollowersCountDTO userDTO = utils.getUserUtils().convertToDto(user, new UserWithFollowersCountDTO());
             userDTO.setFollowers_count(user.getFollowers().size());
             return userDTO;
     }
 
     @Override
     public UserWithPromoPostCountDTO getUsersWithPromoPostCount(int userID) {
-        User user = userRepository.getById(userID)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        UserWithPromoPostCountDTO userDTO = modelMapper.map(user, UserWithPromoPostCountDTO.class);
-        userDTO.setPromo_products_count(user.getPosts().stream().filter(post -> post.isHas_promo()).collect(Collectors.toList()).size());
+        User user = utils.getUserOrThrow(userID);
+        UserWithPromoPostCountDTO userDTO = utils.getUserUtils().convertToDto(user, new UserWithPromoPostCountDTO());
+        userDTO.setPromo_products_count((int) user.getPosts().stream().filter(Post::isHas_promo).count());
         return userDTO;
     }
 
     @Override
     public UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow){
-        User user = userRepository.getById(userId)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        User userToUnfollow = userRepository.getById(userIdToUnfollow)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-
-        if(!user.getFollowed().contains(userToUnfollow)){
-            throw new NotFollowException("Usted no sigue a: " +userToUnfollow.getUser_name());
-        }
-
+        User user = utils.getUserOrThrow(userId);
+        User userToUnfollow = utils.getUserOrThrow(userIdToUnfollow);
+        if(!user.getFollowed().contains(userToUnfollow)) throw new NotFollowException("Usted no sigue a: " + userToUnfollow.getUser_name());
         user.dejarDeSeguir(userToUnfollow);
         userToUnfollow.eliminarSeguidor(user);
-        return new UnfollowUserDTO("Se ha dejado de seguir al usuario: "+userToUnfollow.getUser_name());
+        return new UnfollowUserDTO("Se ha dejado de seguir al usuario: " + userToUnfollow.getUser_name());
     }
 
     @Override
-    public FollowUserDTO followUser(int userId, int userIdToUnfollow){
-        User user = userRepository.getById(userId)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        User userToUnfollow = userRepository.getById(userIdToUnfollow)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-
-        if(user.getFollowed().contains(userToUnfollow)){
-            throw new FollowException("Usted ya sigue a: " +userToUnfollow.getUser_name());
-        }
-
+    public FollowUserDTO followUser(int userId, int userIdToFollow){
+        User user = utils.getUserOrThrow(userId);
+        User userToUnfollow = utils.getUserOrThrow(userIdToFollow);
+        if(user.getFollowed().contains(userToUnfollow)) throw new FollowException("Usted ya sigue a: " + userToUnfollow.getUser_name());
         user.seguirUsuario(userToUnfollow);
         userToUnfollow.agregarSeguidor(user);
-        return new FollowUserDTO("Se ha comenzado a seguir al usuario: "+userToUnfollow.getUser_name());
+        return new FollowUserDTO("Se ha comenzado a seguir al usuario: " + userToUnfollow.getUser_name());
     }
 
     @Override
-    public VendedorsFollowedDTO getVendorsFollow(int userId, String order) {
-        User user = userRepository.getById(userId).get();
-        VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
-        List<UserDTO> listUsers = new ArrayList<>();
-
-        user.getFollowed().forEach(u -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUser_id(u.getUser_id());
-            userDTO.setUser_name(u.getUser_name());
-            listUsers.add(userDTO);
-        });
-
-        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+    public UserWithFollowedUsersDTO getUsersWithFollowers(int userId, String order) {
+        User user = utils.getUserOrThrow(userId);
+        UserWithFollowedUsersDTO userWithFollowedUsersDTO = utils.getUserUtils().convertToDto(user, new UserWithFollowedUsersDTO());
+        List<User> listUsers = user.getFollowed();
+        if(order.equals("name_asc")) listUsers.sort(Comparator.comparing(User::getUser_name));
         else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
-
-        vendedorsFollowedDTO.setFollowed(listUsers);
-        vendedorsFollowedDTO.setUserId(user.getUser_id());
-        vendedorsFollowedDTO.setUserName(user.getUser_name());
-        return vendedorsFollowedDTO;
+        userWithFollowedUsersDTO.setFollowed(utils.getUserUtils().convertToListOfDTO(listUsers, new UserDTO()));
+        return userWithFollowedUsersDTO;
     }
 
     @Override
     public FollowersDTO getFollowers(int userId, String order) {
-        User user = userRepository.getById(userId).get();
-        FollowersDTO vendedorsFollowedDTO = new FollowersDTO();
-        List<UserDTO> listUsers = new ArrayList<>();
-
-        user.getFollowers().forEach(u -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUser_id(u.getUser_id());
-            userDTO.setUser_name(u.getUser_name());
-            listUsers.add(userDTO);
-        });
-
-        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+        User user = utils.getUserOrThrow(userId);
+        FollowersDTO followersDTO = utils.getUserUtils().convertToDto(user, new FollowersDTO());
+        List<User> listUsers = user.getFollowers();
+        if(order.equals("name_asc")) listUsers.sort(Comparator.comparing(User::getUser_name));
         else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
+        followersDTO.setFollowers(utils.getUserUtils().convertToListOfDTO(listUsers, new UserDTO()));
+        return followersDTO;
+    }
 
-        vendedorsFollowedDTO.setFollowers(listUsers);
-        vendedorsFollowedDTO.setUserId(user.getUser_id());
-        vendedorsFollowedDTO.setUserName(user.getUser_name());
-        return vendedorsFollowedDTO;
+    @Override
+    public UserCreatedDTO createUser(UserCreateDTO userCreateDTO) {
+        if(utils.getUserUtils().addObject(utils.getUserUtils().convertToEntity(userCreateDTO, new User()),userCreateDTO.getUser_name()))
+            return new UserCreatedDTO("Se ha creado el usuario " + userCreateDTO.getUser_name() + " con éxito.");
+        throw new DuplicatedEntityException("El usuario con nombre " + userCreateDTO.getUser_name() + " ya se encuentra registrado");
+    }
+
+    @Override
+    public List<UserDTO> getAll(String order) {
+        List<User> users = utils.getUserUtils().getAllObjects();
+        if(order.equals("name_asc")) users.sort(Comparator.comparing(User::getUser_name));
+        else if(order.equals("name_desc")) users.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
+        return utils.getUserUtils().convertToListOfDTO(users, new UserDTO());
     }
 }

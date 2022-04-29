@@ -2,9 +2,8 @@ package com.sprint.be_java_hisp_w15_g10.DTO.Request;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sprint.be_java_hisp_w15_g10.DTO.DTOEntity;
 import lombok.*;
-import org.springframework.core.annotation.AliasFor;
 
 import javax.validation.Valid;
 import javax.validation.constraints.DecimalMin;
@@ -18,7 +17,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class PromoPostCreateDTO {
+public class PromoPostCreateDTO implements DTOEntity {
     @Min(1)
     @NotNull
     private Integer user_id;

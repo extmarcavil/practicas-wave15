@@ -1,6 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.DTO.Response;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sprint.be_java_hisp_w15_g10.DTO.DTOEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseDTO {
+public class PostResponseDTO implements DTOEntity {
     private int post_id;
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;

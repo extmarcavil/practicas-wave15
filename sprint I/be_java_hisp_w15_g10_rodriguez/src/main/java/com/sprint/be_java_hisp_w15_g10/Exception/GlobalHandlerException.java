@@ -1,5 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.Exception;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.ErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -15,21 +16,39 @@ import java.util.Map;
 @RestControllerAdvice
 public class GlobalHandlerException {
 
+    @ExceptionHandler(DuplicatedEntityException.class)
+    public ResponseEntity<ErrorDTO> handlerDuplicatedEntityException (DuplicatedEntityException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("DUPLICATE ENTITY", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(UserNotFoundException.class)
-    public ResponseEntity<ErrorDTO> handlerNotFoundUserException (UserNotFoundException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND USER", exception.getMessage());
+    public ResponseEntity<ErrorDTO> handlerUserNotFoundException (UserNotFoundException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("USER NOT FOUND", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(PostNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handlerPostNotFoundException (PostNotFoundException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("POST NOT FOUND", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ProductNotFoundException.class)
+    public ResponseEntity<ErrorDTO> handlerProductNotFoundException (ProductNotFoundException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("PRODUCT NOT FOUND", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFoundPostException.class)
     public ResponseEntity<ErrorDTO> handlerNotFoundUserPostException (UserNotFoundPostException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND USER", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("USER NOT FOUND", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(CategoryNotFoundPostException.class)
     public ResponseEntity<ErrorDTO> handlerNotFoundCategoryPostException (CategoryNotFoundPostException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND CATEGORY", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("CATEGORY NOT FOUND", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
@@ -47,13 +66,13 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(FollowException.class)
     public ResponseEntity<ErrorDTO> handlerFollowUserException (FollowException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("IS A FOLLOWER", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(NotAPromoException.class)
     public ResponseEntity<ErrorDTO> handlerNotAPromoException (NotAPromoException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("NOT A PROMO", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 

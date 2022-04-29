@@ -8,9 +8,8 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @ToString
-public class User {
+public class User implements IIdInterface {
     private int user_id;
     private String user_name;
     private List<User> followers;
@@ -25,6 +24,12 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
+    public User() {
+        this.followers = new ArrayList<>();
+        this.followed = new ArrayList<>();
+        this.posts = new ArrayList<>();
+    }
+
     public void seguirUsuario(User user){ followed.add(user); }
 
     public void agregarSeguidor(User user){ followers.add(user); }
@@ -34,4 +39,19 @@ public class User {
     public void dejarDeSeguir(User user){ followed.remove(user); }
 
     public void eliminarSeguidor(User user){ followers.remove(user); }
+
+    @Override
+    public int getId() {
+        return user_id;
+    }
+
+    @Override
+    public <T> boolean compares(T field) {
+        return user_name.equals(field);
+    }
+
+    @Override
+    public void setId(int id) {
+        user_id = id;
+    }
 }

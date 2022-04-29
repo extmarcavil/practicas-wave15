@@ -1,4 +1,4 @@
-package com.sprint.be_java_hisp_w15_g10.Exception;
+package com.sprint.be_java_hisp_w15_g10.DTO;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

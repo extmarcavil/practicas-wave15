@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @ToString
-public class Post {
+public class Post implements IIdInterface {
     private int post_id;
     private Product detail;
     private LocalDate date;
@@ -22,5 +22,20 @@ public class Post {
     public Post(){
         has_promo = false;
         discount = 0.0;
+    }
+
+    @Override
+    public int getId() {
+        return post_id;
+    }
+
+    @Override
+    public <T> boolean compares(T field) {
+        return Integer.valueOf(post_id).equals(field);
+    }
+
+    @Override
+    public void setId(int id) {
+        post_id = id;
     }
 }

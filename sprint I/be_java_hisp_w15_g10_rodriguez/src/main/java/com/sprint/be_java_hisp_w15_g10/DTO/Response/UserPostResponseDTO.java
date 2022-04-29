@@ -1,5 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.DTO.Response;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.DTOEntity;
 import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +13,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserPostResponseDTO {
+public class UserPostResponseDTO implements DTOEntity {
     private int user_id;
     private List<PostResponseDTO> posts;
 }

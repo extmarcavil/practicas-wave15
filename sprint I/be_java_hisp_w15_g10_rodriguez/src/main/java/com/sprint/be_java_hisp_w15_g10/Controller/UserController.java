@@ -1,11 +1,10 @@
 package com.sprint.be_java_hisp_w15_g10.Controller;
 
-
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.UserCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.IUserService;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
-import com.sprint.be_java_hisp_w15_g10.Service.UserService;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserWithFollowedUsersDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,13 +13,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("users/")
 @RestController
 public class UserController {
 
-    IUserService userService;
+    private final IUserService userService;
 
     public UserController(IUserService userService) {
         this.userService = userService;
@@ -48,8 +48,18 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) {
-        return new ResponseEntity<>(userService.getVendorsFollow(userId, order), HttpStatus.OK);
+    public ResponseEntity<UserWithFollowedUsersDTO> getVendorsFollow(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) {
+        return new ResponseEntity<>(userService.getUsersWithFollowers(userId, order), HttpStatus.OK);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<UserCreatedDTO> createUser(@Valid @RequestBody UserCreateDTO userCreateDTO){
+        return new ResponseEntity<>(userService.createUser(userCreateDTO), HttpStatus.OK);
+    }
+
+    @GetMapping("")
+    public ResponseEntity<List<UserDTO>> getAllUsers(@RequestParam(defaultValue = "name_asc") String order) {
+        return new ResponseEntity<>(userService.getAll(order), HttpStatus.OK);
     }
 
 }

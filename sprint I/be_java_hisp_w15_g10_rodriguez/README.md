@@ -93,7 +93,7 @@ Dar de alta una nueva publicación
 | PAYLOAD: | {<br>"user_id": 1235,<br>"date": "29-04-2021",<br>"detail": {<br>"product_id": 1,<br>"product_name": "Silla Gamer",<br>"type": "Gamer",<br>"brand": "Racer",<br>"color": "Red & Black",<br>"notes": "Special Edition"<br>},<br>"category": 100,<br>"price": 1500.50<br>}<br> |
 | RESPONSE | Status Code 200 (todo OK)<br>Status Code 400 (Bad Request)                                                                                                                                                                                                                   |
 
-### Filtros/Parámetros:
+#### Filtros/Parámetros:
 
 | Parámetros   | Tipo      | Descripción/Ejemplo                                                                                                      |
 |--------------|-----------|--------------------------------------------------------------------------------------------------------------------------|
@@ -210,14 +210,14 @@ Llevar a cabo la publicación de un nuevo producto en promoción
 
 ### US 0011:
 Obtener la cantidad de productos en promoción de un determinado vendedor
-### Sign:
+#### Sign:
 
 | Method   | SIGN                                                                                    |
 |----------|-----------------------------------------------------------------------------------------|
 | GET      | /products/promo-post/count?user_id={userId}                                             |
 | Response | { "user_id" : 1569,<br>"user_name": "vendedor1",<br>"promo_products_count": 23<br>}<br> |
 
-### Filtros/Parámetros:
+#### Filtros/Parámetros:
 
 | Parámetros           | Tipo   | Descripción/Ejemplo                                                    |
 |----------------------|--------|------------------------------------------------------------------------|

@@ -8,7 +8,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
-public class UserDTO implements DTOEntity {
-    private int user_id;
-    private String user_name;
+public class UserCreatedDTO implements DTOEntity {
+    private String message;
 }
