@@ -52,6 +52,9 @@ public class PostController {
         return new ResponseEntity<>(postService.getPromoProductsOfUser(userId), HttpStatus.OK);
     }
 
-
+    @GetMapping("/products/promo-post/list")
+    public ResponseEntity<UserProductPromoDTO> getProductsPromoInfoUser(@RequestParam("user_id") int userId) {
+        return new ResponseEntity<>(postService.getUserProductPromo(userId), HttpStatus.OK);
+    }
 
 }
