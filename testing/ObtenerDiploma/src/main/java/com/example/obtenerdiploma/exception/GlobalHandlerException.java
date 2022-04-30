@@ -7,6 +7,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -34,8 +35,10 @@ public class GlobalHandlerException {
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public ResponseEntity<?> handleValidationExceptions(HttpMessageNotReadableException e){
-        return new ResponseEntity<>(Map.of("message","chau "+ e.getLocalizedMessage()), HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String,Object> handleValidationExceptions(HttpMessageNotReadableException e){
+        return Map.of(  "message", e.getLocalizedMessage(),
+                        "status",HttpStatus.BAD_REQUEST);
     }
 
 }
