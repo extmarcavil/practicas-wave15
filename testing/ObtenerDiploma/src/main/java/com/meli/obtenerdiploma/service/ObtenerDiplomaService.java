@@ -17,6 +17,10 @@ public class ObtenerDiplomaService implements IObtenerDiplomaService {
             throw new CustomException("El nombre del alumno debe comenzar con mayúscula.");
 
         for (SubjectDTO subject: rq.getSubjects()){
+            /*
+            FIXME cambiar por esto
+            @Pattern(regexp = "[A-Z].*", message = "El nombre del alumno debe comenzar con mayúscula.")
+             */
             if(!Character.isUpperCase(subject.getName().charAt(0)))
                 throw new CustomException("El nombre de la materia debe comenzar con mayúscula.");
         }
