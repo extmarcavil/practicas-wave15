@@ -3,6 +3,7 @@ package com.meli.obtenerdiploma.model;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -14,7 +15,7 @@ import java.util.List;
 public class StudentDTO {
     @NotNull(message = "El nombre del estudiante no puede ser nulo.")
     @Pattern(regexp= "[A-Z].*", message = "El nombre del estudiante debe comenzar con mayuscula")
-    @Size(min=0,max=50,message = "El nombre de la asignatura no debe tener mas de 50 caracteres")
+    @Length(min=0,max=50,message = "El nombre del estudiante no debe tener mas de 50 caracteres")
     String studentName;
 
     String message;
