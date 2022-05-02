@@ -2,6 +2,7 @@ package com.meli.obtenerdiploma.model;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.*;
 
@@ -10,8 +11,8 @@ public class SubjectDTO {
 
     @NotNull(message = "El nombre de la materia no puede ser nullo")
     @NotEmpty(message = "El nombre de la materia no puede estar vacío.")
-    @Pattern(regexp = "[A-Z][a-zA-Z]+", message = "El nombre de la materia debe comenzar con mayúscula")
-    @Size(max=30, message = "Longitud máxima de 30 caracteres")
+    @Pattern(regexp = "[A-Z].*", message = "El nombre de la materia debe comenzar con mayúscula")
+    @Length(min = 1, max = 30, message = "Longitud máxima de 30 caracteres")
     String name;
 
     @NotNull(message = "El puntaje no puede ser vacio")
