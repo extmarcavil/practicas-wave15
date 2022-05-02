@@ -14,7 +14,9 @@ public class SubjectDTO {
     String name;
 
     @NotNull(message = "La nota no puede estar vacía")
-    @Min(value = 0, message = "La mínima nota es 0.0")
-    @Max(value = 10, message = "La máxima nota es 10.0")
+    //@Min(value = 0, message = "La mínima nota es 0.0")
+    @DecimalMin(value = "0", message = "La mínima nota es 0.0")
+    //@Max(value = 10, message = "La máxima nota es 10.0")
+    @DecimalMax(value = "10.0", message = "La máxima nota es 10.0")
     Double score;
 }

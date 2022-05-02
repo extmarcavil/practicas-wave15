@@ -9,17 +9,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
+//public class ExceptionController extends ResponseEntityExceptionHandler{
 public class ExceptionController {
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ErrorDTO> handleValidationExceptions(MethodArgumentNotValidException e){
-        ErrorDTO errorDTO = new ErrorDTO("Argumento inválido", e.getFieldError().getDefaultMessage());
+    protected ResponseEntity<ErrorDTO> handleValidationExceptions(MethodArgumentNotValidException ex){
+        ErrorDTO errorDTO = new ErrorDTO("Argumento inválido", ex.getFieldError().getDefaultMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    protected ResponseEntity<ErrorDTO> handleValidationExceptions2(HttpMessageNotReadableException e){
-        ErrorDTO errorDTO = new ErrorDTO("Argumento inválido", e.getMessage());
+    protected ResponseEntity<ErrorDTO> handleValidationExceptions(HttpMessageNotReadableException ex){
+        ErrorDTO errorDTO = new ErrorDTO("Argumento inválido", ex.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
