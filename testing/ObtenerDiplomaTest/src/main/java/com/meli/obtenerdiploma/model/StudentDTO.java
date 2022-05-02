@@ -1,18 +1,17 @@
 package com.meli.obtenerdiploma.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.util.List;
+import java.util.Objects;
 
 @Getter @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class StudentDTO {
 
     Long id;

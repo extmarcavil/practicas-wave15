@@ -16,8 +16,7 @@ import java.util.Set;
 @Repository
 public class StudentRepository implements IStudentRepository {
 
-    @Value("${api.scope}")
-    private String SCOPE;
+    private String SCOPE = "main";
 
     @Override
     public Set<StudentDTO> findAll() {
