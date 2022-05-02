@@ -68,6 +68,9 @@ public class SocialMeliService implements ISocialMeliService {
 
     @Override
     public Integer save(String name) {
+        if (name == null || name.equals("")) {
+            throw new InvalidUserNameException("Nombre de usuario invalido.");
+        }
         if (userExists(name)) {
             throw new InvalidUserNameException("El usuario ya existe");
         }

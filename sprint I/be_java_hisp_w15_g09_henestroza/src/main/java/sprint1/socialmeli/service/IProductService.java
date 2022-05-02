@@ -53,7 +53,8 @@ public interface IProductService {
 
     /**
      * Devuelve todos los posts de todos los usuarios de la plataforma, ordenados primero por descuento y luego por fecha
-     * @return List<Post> Listado de posts ordenados por descuento y fecha.
+     * @return List<Post> Listado de posts ordenados por descuento y fecha
      */
     List<Post> getAll();
+
 }

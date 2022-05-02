@@ -34,8 +34,8 @@ public interface ISocialMeliService {
      * Cuenta la cantidad de seguidores de un usuario.
      * Recibe un id de usuario por parámetro, valida a través del mismo que haya un usuario con ese ID, lo recupera, lo mapea a un DTO que se encarga de obtener el conteo de los seguidores a través de un .size() a la lista de Followers.
      * @param userID índice del usuario a consultar.
-     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
      * @return ResponseFollowersCountDTO
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
      */
     public ResponseFollowersCountDTO countFollowers(Integer userID);
 
@@ -44,9 +44,9 @@ public interface ISocialMeliService {
      * Recibe un id de usuario y un string opcional indicando un orden por parámetro, valida a través del id recibido que haya un usuario con ese ID, lo recupera. En caso de que haya algún valor en el string order, ordena la lista de Followers según el criterio del parámetro, y en caso de que el valor sea nulo, no ordena la misma. Luego se mapea al DTO y lo devuelve.
      * @param userId índice del usuario a consultar.
      * @param order tipo de orden a realizar (es nullable)
-     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
-     * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowersListDTO
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @throws InvalidParamsException en caso de que el tipo de orden ingresado sea incorrecto.
      */
     public ResponseFollowersListDTO listFollowers(Integer userId, String order);
 
@@ -55,9 +55,9 @@ public interface ISocialMeliService {
      * Recibe un id de usuario y un string opcional indicando un orden por parámetro, valida a través del id recibido que haya un usuario con ese ID, lo recupera. En caso de que haya algún valor en el string order, ordena la lista de Followed según el criterio del parámetro, y en caso de que el valor sea nulo, no ordena la misma. Luego se mapea al DTO y lo devuelve.
      * @param userId índice del usuario a consultar.
      * @param order tipo de orden a realizar (es nullable).
-     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
-     * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowedListDTO
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @throws InvalidParamsException en caso de que el tipo de orden ingresado sea incorrecto.
      */
     public ResponseFollowedListDTO listFollowed(Integer userId, String order);
 

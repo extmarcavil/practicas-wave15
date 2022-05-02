@@ -46,6 +46,7 @@ public class ProductController {
         return ResponseEntity.ok(productService.getPromoPosts(userId));
     }
 
+    // US 0012
     @GetMapping("")
     public ResponseEntity<List<Post>> getAll() {
         return ResponseEntity.ok(productService.getAll());
