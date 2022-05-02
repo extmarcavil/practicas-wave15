@@ -17,9 +17,3 @@ public class ObtenerDiplomaController {
     }
 }
 
-//Colocar @Valid dentro del argumento de la lista de DTO para que tome las validaciones del DTO
-//MethodNotValidArgumentException es el error que salta con cualquier validación
-
-//Arrange Definición de datos
-//Act Ejecutar el código
-//Assert Comprobar el resultado de la ejecución del código
