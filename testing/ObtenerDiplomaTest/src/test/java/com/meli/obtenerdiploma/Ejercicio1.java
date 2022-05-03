@@ -9,12 +9,15 @@ import com.meli.obtenerdiploma.repository.StudentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@ExtendWith(MockitoExtension.class)
 public class Ejercicio1 {
     IStudentDAO sdao;
     IStudentRepository srepo;
