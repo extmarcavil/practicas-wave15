@@ -1,0 +1,19 @@
+{
+  "studentName": "Juan",
+  "subjects":
+  [
+    {
+      "name": "Matemática",
+      "score": 10
+    },
+    {
+      "name": "Física",
+      "score": 7
+    },
+    {
+      "name": "Química",
+      "score": 6
+    }
+    ...
+  ]
+}
