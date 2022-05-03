@@ -1,0 +1,33 @@
+[
+  {
+    "name": "burger",
+    "description": "lorem ipsum",
+    "ingredients": [
+      { "name": "bread",    "quantity": 1 },
+      { "name": "meal",     "quantity": 2 }
+    ],
+    "quality": null,
+    "calories": null
+  },
+  {
+    "name": "pizza completa",
+    "description": "lorem ipsum",
+    "ingredients": [
+      { "name": "tomato",   "quantity": 3 },
+      { "name": "bread",    "quantity": 1 }
+    ],
+    "quality": null,
+    "calories": null
+  },
+  {
+    "name": "cheeseburger",
+    "description": "lorem ipsum",
+    "ingredients": [
+      { "name": "tomato",   "quantity": 3 },
+      { "name": "cheese",   "quantity": 2 },
+      { "name": "meal",     "quantity": 2 }
+    ],
+    "quality": null,
+    "calories": null
+  }
+]
