@@ -29,6 +29,7 @@ public class Ejercicio3Test {
     void agregarUnAlumnoTest() {
         StudentDTO student = newStudent(1l, "jose");
         service.create(student);
+        Mockito.doNothing().when(sdao).save(any(StudentDTO.class));
         Mockito.verify(sdao, Mockito.times(1)).save(any(StudentDTO.class));
         //Mockito.verify(sdao, Mockito.atLeast(1)).findById(any(Long.class));
     }
