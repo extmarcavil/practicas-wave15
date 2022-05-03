@@ -27,4 +27,15 @@ public class StudentDTO {
 
     @NotEmpty(message = "La lista de materias no puede estar vacía.")
     List<@Valid SubjectDTO> subjects;
+
+    @Override
+    public String toString() {
+        return "StudentDTO{" +
+                "id=" + id +
+                ", studentName='" + studentName + '\'' +
+                ", message='" + message + '\'' +
+                ", averageScore=" + averageScore +
+                ", subjects=" + subjects +
+                '}';
+    }
 }

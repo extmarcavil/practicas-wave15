@@ -42,5 +42,21 @@ public class StudentDAOTest {
         StudentDTO user = new StudentDTO();
         Assertions.assertFalse(repo.exists(user));
     }
-    
+
+    @Test
+    @DisplayName("Guarda correctamente un estudiante")
+    void saveAStudent () {
+        StudentDTO newStudent = new StudentDTO();
+        repo.save(newStudent);
+        Assertions.assertTrue(repo.exists(newStudent));
+    }
+
+    @Test
+    @DisplayName("Elimina correctamente un estudiante")
+    void deleteAStudent () {
+        //StudentDTO newStudent = new StudentDTO();
+        //repo.save(newStudent);
+        Assertions.assertTrue(repo.delete(1L));
+
+    }
 }
