@@ -46,6 +46,8 @@ public class StudentDAOTest {
 
         StudentDTO s1 = new StudentDTO(3L, "Jose", null, 7.0, subjectDTOS);
 
+        repository.save(s1);
+        Assertions.assertTrue(repository.exists(s1));
 
     }
 
