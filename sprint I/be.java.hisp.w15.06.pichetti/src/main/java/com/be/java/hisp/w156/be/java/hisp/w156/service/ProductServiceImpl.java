@@ -77,9 +77,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ResponseEntity<PostPromoCountDTO> getCountPostPromoByUser(Integer id) {
         User user = useRepository.getUser(id);
-        Integer countPostPromo = user.getPosts().stream()
-                .filter(post -> post.isHas_promo())
-                .collect(Collectors.toList()).size();
+        Integer countPostPromo = (int) user.getPosts().stream()
+                .filter(Post::isHas_promo).count();
 
         PostPromoCountDTO postPromoCountDTO = new PostPromoCountDTO(user.getId(),
                 user.getName(),

@@ -27,14 +27,14 @@ public class PostController {
         return productService.savePost(requestPostDTO);
     }
 
-    @PostMapping("promo-post")
-    public ResponseEntity<SuccessDTO> createPostPromo(@RequestBody RequestPostPromoDTO requestPostPromoDTO) {
-        return productService.savePostPromo(requestPostPromoDTO);
-    }
-
     @GetMapping("followed/{userId}/list")
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(@PathVariable Integer userId, @RequestParam(required=false, defaultValue = "") String order) {
         return productService.getPostsLastTwoWeekById(userId, order);
+    }
+
+    @PostMapping("promo-post")
+    public ResponseEntity<SuccessDTO> createPostPromo(@RequestBody RequestPostPromoDTO requestPostPromoDTO) {
+        return productService.savePostPromo(requestPostPromoDTO);
     }
 
     @GetMapping("promo-post/count")
@@ -44,7 +44,7 @@ public class PostController {
 
     @GetMapping("promo-post/list")
     public ResponseEntity<PostPromoDTO> getListPostPromoByUser(@RequestParam(required=true, defaultValue = "") Integer user_id,
-                                                                @RequestParam(required=false, defaultValue = "product_name_asc") String order) {
+                                                               @RequestParam(required=false, defaultValue = "product_name_asc") String order) {
         return productService.getListPostPromoByUser(user_id, order);
     }
 
