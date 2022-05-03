@@ -55,9 +55,38 @@ public class StudentDAOTests {
         //assert
         //assertEquals(validations.size(), 0);
         assertDoesNotThrow(()->studentDAO.save(studentDTO));
-        assertTrue(studentDAO.exists(studentDTO));
         //studentFound = studentDAO.findById(100L);
         //assertEquals(studentDTO, studentFound);
+    }
+
+    @Test
+    void existsStudent(){
+        //arrange
+        SubjectDTO subjectDTO1 = new SubjectDTO("Matemática", 10d);
+        SubjectDTO subjectDTO2 = new SubjectDTO("Física", 8d);
+        SubjectDTO subjectDTO3 = new SubjectDTO("Química", 4d);
+        StudentDTO studentDTO = new StudentDTO(100L, "Test", null, null, List.of(subjectDTO1, subjectDTO2, subjectDTO3));
+
+        //act
+        boolean result = studentDAO.exists(studentDTO);
+
+        //assert
+        assertTrue(result);
+    }
+
+    @Test
+    void notExistsStudent(){
+        //arrange
+        SubjectDTO subjectDTO1 = new SubjectDTO("Matemática", 10d);
+        SubjectDTO subjectDTO2 = new SubjectDTO("Física", 8d);
+        SubjectDTO subjectDTO3 = new SubjectDTO("Química", 4d);
+        StudentDTO studentDTO = new StudentDTO(101L, "Test", null, null, List.of(subjectDTO1, subjectDTO2, subjectDTO3));
+
+        //act
+        boolean result = studentDAO.exists(studentDTO);
+
+        //assert
+        assertFalse(result);
     }
 
     @Test

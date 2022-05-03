@@ -14,6 +14,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.Assert;
 
 import java.text.DecimalFormat;
 import java.util.List;
@@ -62,8 +63,8 @@ public class ObtenerDiplomaControllerTests {
         SubjectDTO subjectDTO1 = new SubjectDTO("Historia", 10d);
         SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 10d);
         String message = "El alumno " + "Test" + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(10D)
-                + ". Felicitacion!";
-        StudentDTO studentDTO = new StudentDTO(1L, "Test", message, 9d, List.of(subjectDTO1, subjectDTO2));
+                + ". Felicitaciones!";
+        StudentDTO studentDTO = new StudentDTO(1L, "Test", message, 10d, List.of(subjectDTO1, subjectDTO2));
 
         Mockito.when(obtenerDiplomaService.analyzeScores(any(Long.class))).thenReturn(studentDTO);
 

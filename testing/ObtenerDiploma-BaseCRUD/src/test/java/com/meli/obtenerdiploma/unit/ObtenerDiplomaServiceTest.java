@@ -6,6 +6,7 @@ import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -72,6 +73,25 @@ public class ObtenerDiplomaServiceTest {
     public void showLegendSuccessfully(){
         //arrange
         SubjectDTO subjectDTO1 = new SubjectDTO("Historia", 8d);
+        SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 8d);
+        String message = "El alumno " + "Test" + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(8D)
+                + ". Puedes mejorar.";
+        StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
+
+        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+
+        //act
+        StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
+
+        //assert
+        Assertions.assertEquals(message, result.getMessage());
+    }
+
+    @Test
+    @DisplayName("Borde: Mostrar el mensaje de 'puedes mejorar' por un promedio de 9")
+    public void showLegendSuccessfullyBorder(){
+        //arrange
+        SubjectDTO subjectDTO1 = new SubjectDTO("Historia", 8d);
         SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 10d);
         String message = "El alumno " + "Test" + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(9D)
                 + ". Puedes mejorar.";
@@ -92,6 +112,25 @@ public class ObtenerDiplomaServiceTest {
         SubjectDTO subjectDTO1 = new SubjectDTO("Historia", 9d);
         SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 10d);
         String message = "El alumno " + "Test" + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(9.5D)
+                + ". Felicitaciones!";
+        StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
+
+        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+
+        //act
+        StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
+
+        //assert
+        Assertions.assertEquals(message, result.getMessage());
+    }
+
+    @Test
+    @DisplayName("Borde: Mostrar el mensaje de felicitacion por un promedio de 9.05")
+    public void showLegendExcellentBorderSuccessfully(){
+        //arrange
+        SubjectDTO subjectDTO1 = new SubjectDTO("Historia", 9d);
+        SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 9.1d);
+        String message = "El alumno " + "Test" + " ha obtenido un promedio de " + new DecimalFormat("#.##").format(9.05D)
                 + ". Felicitaciones!";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
