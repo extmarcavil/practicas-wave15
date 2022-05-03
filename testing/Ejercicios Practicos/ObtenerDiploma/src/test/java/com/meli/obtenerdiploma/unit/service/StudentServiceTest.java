@@ -83,8 +83,6 @@ public class StudentServiceTest {
 
     @Test
     void deleteOk(){
-        StudentDTO mock= StudentFactory.getJuan();
-        Mockito.when(studentDAO.findById(1L)).thenReturn(mock);
         //act
         service.delete(1L);
         Assertions.assertAll(

@@ -25,12 +25,10 @@ public class ObtenerDiplomaServiceTest {
     void setUp(){
 
         ///*
-        StudentDTO juanMock= StudentFactory.getJuan();
-        Mockito.when(studentDAO.findById(1L)).thenReturn(juanMock);
+
         //*/
         ///*
-        StudentDTO pedroMock= StudentFactory.getPedro();
-        Mockito.when(studentDAO.findById(2L)).thenReturn(pedroMock);
+
          //*/
     }
 
@@ -38,6 +36,9 @@ public class ObtenerDiplomaServiceTest {
     @DisplayName("Se comprueba que los calculos de entrada no cambien.")
     void comprobarDatosIO(){
         //arr
+        StudentDTO juanMock= StudentFactory.getJuan();
+        Mockito.when(studentDAO.findById(1L)).thenReturn(juanMock);
+
         Long studenId=1L;
 
         //act
@@ -58,6 +59,8 @@ public class ObtenerDiplomaServiceTest {
     void comprobarDatosIO2(){
         //arr
         Long studenId=2L;
+        StudentDTO pedroMock= StudentFactory.getPedro();
+        Mockito.when(studentDAO.findById(2L)).thenReturn(pedroMock);
 
         //act
         StudentDTO result= service.analyzeScores(studenId);
@@ -76,6 +79,9 @@ public class ObtenerDiplomaServiceTest {
         Double scoreExpected= 7.;
         Long studenId=1L;
 
+        StudentDTO juanMock= StudentFactory.getJuan();
+        Mockito.when(studentDAO.findById(1L)).thenReturn(juanMock);
+
         //act
         StudentDTO result=service.analyzeScores(studenId);
 
@@ -88,6 +94,9 @@ public class ObtenerDiplomaServiceTest {
     void comprobarMessagePuedesMejorar(){
         //arr
         Long studenId=1L;
+
+        StudentDTO juanMock= StudentFactory.getJuan();
+        Mockito.when(studentDAO.findById(1L)).thenReturn(juanMock);
 
         //act
         StudentDTO result=service.analyzeScores(studenId);
@@ -102,6 +111,8 @@ public class ObtenerDiplomaServiceTest {
     void comprobarMessageFelicitaciones(){
         //arr
         Long studenId=2L;
+        StudentDTO pedroMock= StudentFactory.getPedro();
+        Mockito.when(studentDAO.findById(2L)).thenReturn(pedroMock);
 
         //act
         StudentDTO result=service.analyzeScores(studenId);

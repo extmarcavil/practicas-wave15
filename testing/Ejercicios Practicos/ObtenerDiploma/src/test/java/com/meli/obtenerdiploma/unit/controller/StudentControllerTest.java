@@ -17,7 +17,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
-public class ObtenerDiplomaControllerTest {
+public class StudentControllerTest {
 
     @Mock
     IStudentService service;
