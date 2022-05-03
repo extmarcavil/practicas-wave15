@@ -5,7 +5,6 @@ import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
-import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import com.meli.obtenerdiploma.service.StudentService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,7 +18,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTests {
@@ -52,51 +53,51 @@ public class StudentServiceTests {
     @Test
     void findAll(){
         //arrange
-        Mockito.when(studentRepository.findAll()).thenReturn(students);
+        when(studentRepository.findAll()).thenReturn(students);
 
         //act
         Set<StudentDTO> allStudents = studentService.getAll();
 
         //assert
-        Assertions.assertEquals(allStudents.size(), 2);
+        assertEquals(allStudents.size(), 2);
     }
 
     @Test
     void createStudentSuccesfully(){
         //arrange
         studentDTO1.setId(null);
-        Mockito.doNothing().when(studentDAO).save(any(StudentDTO.class));
+        doNothing().when(studentDAO).save(any(StudentDTO.class));
 
         //act
         studentService.create(studentDTO1);
 
         //assert
-        Mockito.verify(studentDAO, Mockito.times(1)).save(any(StudentDTO.class));
+        verify(studentDAO, Mockito.times(1)).save(any(StudentDTO.class));
     }
 
     @Test
     void findExistentStudentById(){
         //arrange
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO1);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO1);
 
         //act
 
 
         //assert
-        Assertions.assertDoesNotThrow(() -> studentService.read(1L));
-        Mockito.verify(studentDAO, Mockito.times(1)).findById(any(Long.class));
+        assertDoesNotThrow(() -> studentService.read(1L));
+        verify(studentDAO, times(1)).findById(any(Long.class));
     }
     @Test
     void findNonExistentStudentById(){
         //arrange
-        Mockito.when(studentDAO.findById(any(Long.class))).thenThrow(StudentNotFoundException.class);
+        when(studentDAO.findById(any(Long.class))).thenThrow(StudentNotFoundException.class);
 
         //act
 
 
         //assert
-        Assertions.assertThrows(StudentNotFoundException.class, () -> studentService.read(1L));
-        Mockito.verify(studentDAO, Mockito.times(1)).findById(any(Long.class));
+        assertThrows(StudentNotFoundException.class, () -> studentService.read(1L));
+        verify(studentDAO, times(1)).findById(any(Long.class));
     }
 
 
@@ -104,39 +105,36 @@ public class StudentServiceTests {
     void updateStudentSuccessfully(){
         //arrange
         studentDTO1.setStudentName("Test edited");
-        Mockito.doNothing().when(studentDAO).save(any(StudentDTO.class));
+        doNothing().when(studentDAO).save(any(StudentDTO.class));
 
         //act
         studentService.update(studentDTO1);
 
         //assert
-        Mockito.verify(studentDAO, Mockito.times(1)).save(any(StudentDTO.class));
+        verify(studentDAO, times(1)).save(any(StudentDTO.class));
     }
 
     @Test
     void deleteExistentStudentById(){
         //arrange
-        Mockito.when(studentDAO.delete(any(Long.class))).thenReturn(true);
+        when(studentDAO.delete(any(Long.class))).thenReturn(true);
 
         //act
         studentService.delete(1L);
 
         //assert
-        Mockito.verify(studentDAO, Mockito.times(1)).delete(any(Long.class));
+        verify(studentDAO, times(1)).delete(any(Long.class));
     }
 
     @Test
     void deleteNonExistentStudentById(){
         //arrange
-        Mockito.when(studentDAO.delete(any(Long.class))).thenReturn(false);
+        when(studentDAO.delete(any(Long.class))).thenReturn(false);
 
         //act
         studentService.delete(1L);
 
         //assert
-        Mockito.verify(studentDAO, Mockito.times(1)).delete(any(Long.class));
+        verify(studentDAO, times(1)).delete(any(Long.class));
     }
-
-
-
 }

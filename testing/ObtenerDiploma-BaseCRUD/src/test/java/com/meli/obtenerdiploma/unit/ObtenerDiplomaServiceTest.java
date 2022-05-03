@@ -3,7 +3,6 @@ package com.meli.obtenerdiploma.unit;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
-import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -11,14 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import javax.validation.constraints.AssertTrue;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class ObtenerDiplomaServiceTest {
@@ -35,13 +33,13 @@ public class ObtenerDiplomaServiceTest {
         SubjectDTO subjectDTO2 = new SubjectDTO("Matemática", 10d);
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(result.getAverageScore(), 9D);
+        assertEquals(result.getAverageScore(), 9D);
     }
 
     @Test
@@ -53,20 +51,24 @@ public class ObtenerDiplomaServiceTest {
                 + ". Puedes mejorar.";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", message, 9D, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(result.getAverageScore(), studentDTO.getAverageScore());
-        Assertions.assertEquals(result.getStudentName(), studentDTO.getStudentName());
-        Assertions.assertEquals(result.getMessage(), studentDTO.getMessage());
-        Assertions.assertEquals(result.getId(), studentDTO.getId());
-        Assertions.assertEquals(result.getSubjects().size(), studentDTO.getSubjects().size());
-        for (SubjectDTO s: result.getSubjects()) {
-            Assertions.assertTrue(studentDTO.getSubjects().contains(s));
-        }
+        assertAll(
+                () -> assertEquals(result.getAverageScore(), studentDTO.getAverageScore()),
+                () -> assertEquals(result.getStudentName(), studentDTO.getStudentName()),
+                () -> assertEquals(result.getMessage(), studentDTO.getMessage()),
+                () -> assertEquals(result.getId(), studentDTO.getId()),
+                () -> assertEquals(result.getSubjects().size(), studentDTO.getSubjects().size()),
+                () -> {
+                    for (SubjectDTO s : result.getSubjects()) {
+                        Assertions.assertTrue(studentDTO.getSubjects().contains(s));
+                    }
+                }
+        );
     }
 
     @Test
@@ -78,13 +80,13 @@ public class ObtenerDiplomaServiceTest {
                 + ". Puedes mejorar.";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(message, result.getMessage());
+        assertEquals(message, result.getMessage());
     }
 
     @Test
@@ -97,13 +99,13 @@ public class ObtenerDiplomaServiceTest {
                 + ". Puedes mejorar.";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(message, result.getMessage());
+        assertEquals(message, result.getMessage());
     }
 
     @Test
@@ -115,13 +117,13 @@ public class ObtenerDiplomaServiceTest {
                 + ". Felicitaciones!";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(message, result.getMessage());
+        assertEquals(message, result.getMessage());
     }
 
     @Test
@@ -134,13 +136,13 @@ public class ObtenerDiplomaServiceTest {
                 + ". Felicitaciones!";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertEquals(message, result.getMessage());
+        assertEquals(message, result.getMessage());
     }
 
     @Test
@@ -152,12 +154,12 @@ public class ObtenerDiplomaServiceTest {
                 + ". Puedes mejorar.";
         StudentDTO studentDTO = new StudentDTO(1L, "Test", null, null, List.of(subjectDTO1, subjectDTO2));
 
-        Mockito.when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
+        when(studentDAO.findById(any(Long.class))).thenReturn(studentDTO);
 
         //act
         StudentDTO result = obtenerDiplomaService.analyzeScores(1L);
 
         //assert
-        Assertions.assertNotEquals(message, result.getMessage());
+        assertNotEquals(message, result.getMessage());
     }
 }

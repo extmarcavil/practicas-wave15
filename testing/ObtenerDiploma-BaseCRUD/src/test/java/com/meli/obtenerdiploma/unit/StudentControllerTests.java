@@ -19,7 +19,9 @@ import org.springframework.http.ResponseEntity;
 import java.util.List;
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentControllerTests {
@@ -50,94 +52,94 @@ public class StudentControllerTests {
     @Test
     void listAll(){
         //arrange
-        Mockito.when(studentService.getAll()).thenReturn(students);
+        when(studentService.getAll()).thenReturn(students);
 
         //act
         Set<StudentDTO> allStudents = studentController.listStudents();
 
         //assert
-        Assertions.assertEquals(allStudents.size(), 2);
+        assertEquals(allStudents.size(), 2);
     }
 
     @Test
     void createStudentSuccesfully(){
         //arrange
         studentDTO1.setId(null);
-        Mockito.doNothing().when(studentService).create(any(StudentDTO.class));
+        doNothing().when(studentService).create(any(StudentDTO.class));
 
         //act
         ResponseEntity response = studentController.registerStudent(studentDTO1);
 
         //assert
-        Mockito.verify(studentService, Mockito.times(1)).create(any(StudentDTO.class));
-        Assertions.assertEquals(response.getStatusCode(), HttpStatus.OK);
+        Mockito.verify(studentService, times(1)).create(any(StudentDTO.class));
+        assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
     void findExistentStudentById(){
         //arrange
-        Mockito.when(studentService.read(any(Long.class))).thenReturn(studentDTO1);
+        when(studentService.read(any(Long.class))).thenReturn(studentDTO1);
 
         //act
         //StudentDTO resultado = studentController.getStudent(1L);
 
         //assert
-        Assertions.assertDoesNotThrow(() -> studentController.getStudent(1L));
-        Mockito.verify(studentService, Mockito.times(1)).read(any(Long.class));
+        assertDoesNotThrow(() -> studentController.getStudent(1L));
+        verify(studentService, times(1)).read(any(Long.class));
         //Assertions.assertEquals(resultado.getId(), studentDTO1.getId());
     }
 
     @Test
     void findNonExistentStudentById(){
         //arrange
-        Mockito.when(studentService.read(any(Long.class))).thenThrow(StudentNotFoundException.class);
+        when(studentService.read(any(Long.class))).thenThrow(StudentNotFoundException.class);
 
         //act
 
 
         //assert
-        Assertions.assertThrows(StudentNotFoundException.class, () -> studentController.getStudent(1L));
-        Mockito.verify(studentService, Mockito.times(1)).read(any(Long.class));
+        assertThrows(StudentNotFoundException.class, () -> studentController.getStudent(1L));
+        verify(studentService, times(1)).read(any(Long.class));
     }
 
     @Test
     void updateStudentSuccessfully(){
         //arrange
         studentDTO1.setStudentName("Test edited");
-        Mockito.doNothing().when(studentService).update(any(StudentDTO.class));
+        doNothing().when(studentService).update(any(StudentDTO.class));
 
         //act
         ResponseEntity resultado = studentController.modifyStudent(studentDTO1);
 
         //assert
-        Mockito.verify(studentService, Mockito.times(1)).update(any(StudentDTO.class));
-        Assertions.assertEquals(resultado.getStatusCode(), HttpStatus.OK);
+        verify(studentService, times(1)).update(any(StudentDTO.class));
+        assertEquals(resultado.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
     void deleteExistentStudentById(){
         //arrange
-        Mockito.doNothing().when(studentService).delete(any(Long.class));
+        doNothing().when(studentService).delete(any(Long.class));
 
         //act
         ResponseEntity resultado = studentController.removeStudent(1L);
 
         //assert
-        Mockito.verify(studentService, Mockito.times(1)).delete(any(Long.class));
-        Assertions.assertEquals(resultado.getStatusCode(), HttpStatus.OK);
+        verify(studentService, times(1)).delete(any(Long.class));
+        assertEquals(resultado.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
     void deleteNonExistentStudentById(){
         //arrange
-        Mockito.doNothing().when(studentService).delete(any(Long.class));
+        doNothing().when(studentService).delete(any(Long.class));
 
         //act
         ResponseEntity resultado = studentController.removeStudent(1L);
 
         //assert
-        Mockito.verify(studentService, Mockito.times(1)).delete(any(Long.class));
-        Assertions.assertEquals(resultado.getStatusCode(), HttpStatus.OK);
+        Mockito.verify(studentService, times(1)).delete(any(Long.class));
+        assertEquals(resultado.getStatusCode(), HttpStatus.OK);
     }
 
 }
