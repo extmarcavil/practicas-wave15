@@ -16,6 +16,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Set;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
 @ExtendWith(MockitoExtension.class)
 public class TestStudentService {
 
@@ -37,7 +41,7 @@ public class TestStudentService {
         studentService.create(s);
 
         // Then
-        Mockito.verify(studentDAO).save(s);
+        verify(studentDAO).save(s);
     }
 
     @Test
@@ -50,23 +54,25 @@ public class TestStudentService {
         studentService.read(id);
 
         // Then
-        Mockito.verify(studentDAO).findById(id);
+        verify(studentDAO).findById(id);
     }
 
     @Test
     @DisplayName("Read encuentre el objeto correcto")
     public void test_readFindCorrectObject() {
-        // Given
+        // Arrange
         Long id = 50L;
         StudentDTO s = StudentFactory.createStraightAStudent();
         s.setId(id);
-        Mockito.when(studentDAO.findById(id)).thenReturn(s);
+        StudentDTO s1 = StudentFactory.createStraightAStudent();
+        s1.setId(id);
+        when(studentDAO.findById(id)).thenReturn(s);
 
-        // When
+        // Act
         StudentDTO result = studentService.read(id);
 
-        // Then
-        Assertions.assertEquals(s, result);
+        // Assert
+        assertEquals(s1, result);
     }
 
     @Test
@@ -79,7 +85,7 @@ public class TestStudentService {
         studentService.update(s);
 
         // Then
-        Mockito.verify(studentDAO).save(s);
+        verify(studentDAO).save(s);
     }
 
     @Test
@@ -92,7 +98,7 @@ public class TestStudentService {
         studentService.delete(id);
 
         // Then
-        Mockito.verify(studentDAO).delete(id);
+        verify(studentDAO).delete(id);
     }
 
     @Test
@@ -103,12 +109,12 @@ public class TestStudentService {
         StudentDTO s = StudentFactory.createStraightAStudent();
         s.setId(id);
         Set<StudentDTO> students = Set.of(s);
-        Mockito.when(studentRepository.findAll()).thenReturn(students);
+        when(studentRepository.findAll()).thenReturn(students);
 
         // When
         Set<StudentDTO> result = studentService.getAll();
 
         // Then
-        Assertions.assertEquals(students, result);
+        assertEquals(students, result);
     }
 }

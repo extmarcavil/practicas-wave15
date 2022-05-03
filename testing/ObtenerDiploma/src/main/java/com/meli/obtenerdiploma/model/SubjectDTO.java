@@ -5,7 +5,6 @@ import lombok.*;
 import javax.validation.constraints.*;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class SubjectDTO {
     @NotBlank(message = "El nombre de la materia no puede estar vacío.")
