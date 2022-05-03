@@ -1,7 +1,6 @@
 package com.meli.obtenerdiploma;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
-import com.meli.obtenerdiploma.model.SubjectDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
 import com.meli.obtenerdiploma.repository.StudentDAO;
@@ -9,16 +8,13 @@ import com.meli.obtenerdiploma.repository.StudentRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.stream.Collectors;
 
-@ExtendWith(MockitoExtension.class)
-public class Ejercicio1 {
+import static com.meli.obtenerdiploma.Utils.newStudent;
+
+public class Ejercicio1Test {
     IStudentDAO sdao;
     IStudentRepository srepo;
 
@@ -30,30 +26,16 @@ public class Ejercicio1 {
 
     @Test
     void agregarUnAlumnoTest() {
-        List<SubjectDTO> subjects = new ArrayList<>();
-
-        subjects.add(new SubjectDTO("Matematica", 8.0));
-        subjects.add(new SubjectDTO("Lengua", 6.0));
-        subjects.add(new SubjectDTO("historia", 7.0));
-
-        StudentDTO student = new StudentDTO(1l, "Jose", "mensaje", 8.0, subjects);
+        StudentDTO student = newStudent(1l, "jose");
 
         sdao.save(student);
-
         Assertions.assertTrue(sdao.exists(student));
-
         sdao.delete(student.getId());
     }
 
     @Test
     void eliminarUnAlumnoQueExisteTest() {
-        List<SubjectDTO> subjects = new ArrayList<>();
-
-        subjects.add(new SubjectDTO("Matematica", 8.0));
-        subjects.add(new SubjectDTO("Lengua", 6.0));
-        subjects.add(new SubjectDTO("historia", 7.0));
-
-        StudentDTO student = new StudentDTO(1l, "Jose", "mensaje", 8.0, subjects);
+        StudentDTO student = newStudent(1l, "jose");
 
         sdao.save(student);
 
@@ -70,14 +52,8 @@ public class Ejercicio1 {
 
     @Test
     void listarTodosLosAlumnosTest() {
-        List<SubjectDTO> subjects = new ArrayList<>();
-
-        subjects.add(new SubjectDTO("Matematica", 8.0));
-        subjects.add(new SubjectDTO("Lengua", 6.0));
-        subjects.add(new SubjectDTO("historia", 7.0));
-
-        StudentDTO student = new StudentDTO(1l, "Jose", "mensaje", 8.0, subjects);
-        StudentDTO student2 = new StudentDTO(2l, "Pepe", "mensaje", 9.0, subjects);
+        StudentDTO student = newStudent(1l, "jose");
+        StudentDTO student2 = newStudent(2l, "pepe");
 
         sdao.save(student);
         sdao.save(student2);
