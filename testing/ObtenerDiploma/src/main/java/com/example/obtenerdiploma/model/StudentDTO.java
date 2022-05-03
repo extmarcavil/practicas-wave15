@@ -20,4 +20,10 @@ public class StudentDTO {
     @NotEmpty(message = "La lista no puede ser vacía.")
     List<@Valid SubjectDTO> subjects;
 
+    /*
+    @AssertTrue(message = "Algo nuevo")
+    public Boolean checkMayus(){
+        return studentName.charAt(0)==Character.toUpperCase(studentName.charAt(0));
+    }*/
+
 }
