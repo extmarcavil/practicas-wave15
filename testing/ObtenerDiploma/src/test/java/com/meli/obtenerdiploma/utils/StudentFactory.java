@@ -27,6 +27,18 @@ public class StudentFactory {
         return juan;
     }
 
+    public static StudentDTO getStudent() {
+        String message = "El alumno Pedro ha obtenido un promedio de 4.67. Puedes mejorar.";
+
+        List<SubjectDTO> pedroSubjects = new ArrayList<>();
+        pedroSubjects.add(new SubjectDTO("Matemática", 2.0));
+        pedroSubjects.add(new SubjectDTO("Física", 8.0));
+        pedroSubjects.add(new SubjectDTO("Química", 4.0));
+        StudentDTO pedro = new StudentDTO(10L, "Pedro", message, (2+8+4)/3D, pedroSubjects);
+
+        return pedro;
+    }
+
     public static StudentDTO getStudentWithAverageScore() {
         String message = "El alumno Pedro ha obtenido un promedio de 4.67. Puedes mejorar.";
 
@@ -46,18 +58,25 @@ public class StudentFactory {
         pedroSubjects.add(new SubjectDTO("Matemática", 2.0));
         pedroSubjects.add(new SubjectDTO("Física", 8.0));
         pedroSubjects.add(new SubjectDTO("Química", 4.0));
-        StudentDTO pedro = new StudentDTO(1L, "Pedro", null, null, pedroSubjects);
+        StudentDTO pedro = new StudentDTO(2L, "Pedro", null, null, pedroSubjects);
 
         students.add(pedro);
 
         List<SubjectDTO> juanSubjects = new ArrayList<>();
-        juanSubjects.add(new SubjectDTO("Matemática", 10.0));
-        juanSubjects.add(new SubjectDTO("Física", 6.0));
-        juanSubjects.add(new SubjectDTO("Química", 7.0));
-        StudentDTO juan = new StudentDTO(2L, "Juan", null, null, juanSubjects);
+        juanSubjects.add(new SubjectDTO("Matemática", 9.0));
+        juanSubjects.add(new SubjectDTO("Física", 7.0));
+        juanSubjects.add(new SubjectDTO("Química", 6.0));
+        StudentDTO juan = new StudentDTO(1L, "Juan", null, null, juanSubjects);
 
         students.add(juan);
 
+        return students;
+    }
+
+    public static Set<StudentDTO> getAllStudents2() {
+        Set<StudentDTO> students = new HashSet<>();
+        StudentDTO studentDTO = getStudentWithAverageScore();
+        students.add(studentDTO);
         return students;
     }
 }

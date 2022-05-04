@@ -1,1 +1,38 @@
-[{"id":7,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":19,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":6,"studentName":"Carlos","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":5,"studentName":"Juan","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":16,"studentName":"Sofia","message":null,"averageScore":null,"subjects":null},{"id":22,"studentName":"Sofia","message":null,"averageScore":null,"subjects":null},{"id":23,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":5,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":9,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":13,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":17,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":21,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":2,"studentName":"Pedro","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":10,"studentName":"Pedro","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":20,"studentName":"Sofia","message":null,"averageScore":null,"subjects":null},{"id":11,"studentName":"Pedro","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":12,"studentName":"Sofia","message":null,"averageScore":null,"subjects":null},{"id":15,"studentName":"Carlos","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":8,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":2,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]},{"id":14,"studentName":"Carlos","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":2.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":8,"studentName":"Sofia","message":null,"averageScore":null,"subjects":null},{"id":18,"studentName":"Carla","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":9.0},{"name":"Física","score":7.0},{"name":"Química","score":6.0}]}]
+[
+  {
+    "id": 1,
+    "studentName": "Juan",
+    "subjects": [
+      {
+        "name": "Matemática",
+        "score": 9
+      },
+      {
+        "name": "Física",
+        "score": 7
+      },
+      {
+        "name": "Química",
+        "score": 6
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "studentName": "Pedro",
+    "subjects": [
+      {
+        "name": "Matemática",
+        "score": 2
+      },
+      {
+        "name": "Física",
+        "score": 8
+      },
+      {
+        "name": "Química",
+        "score": 4
+      }
+    ]
+  }
+]

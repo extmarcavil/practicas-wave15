@@ -43,7 +43,6 @@ public class StudentDAO implements IStudentDAO {
 
         students.add(stu);
 
-        this.saveData();
     }
 
     @Override
@@ -55,7 +54,6 @@ public class StudentDAO implements IStudentDAO {
 
             students.remove(found);
             ret  = true;
-            this.saveData();
 
         } catch (StudentNotFoundException e) {}
 
@@ -97,19 +95,5 @@ public class StudentDAO implements IStudentDAO {
         }
 
         this.students = loadedData;
-    }
-
-    private void saveData() {
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            File file = ResourceUtils.getFile("classpath:users.json");
-            objectMapper.writeValue(file, this.students);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your resources files");
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Failed while writing to DB, check your JSON formatting.");
-        }
     }
 }

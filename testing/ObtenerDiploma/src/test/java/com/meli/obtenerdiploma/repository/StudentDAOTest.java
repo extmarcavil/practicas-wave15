@@ -69,11 +69,11 @@ public class StudentDAOTest {
         juanSubjects.add(new SubjectDTO("Matemática", 9.0));
         juanSubjects.add(new SubjectDTO("Física", 7.0));
         juanSubjects.add(new SubjectDTO("Química", 6.0));
-        StudentDTO juan = new StudentDTO(5L, "Juan", null, null, juanSubjects);
+        StudentDTO juan = new StudentDTO(1L, "Juan", null, null, juanSubjects);
 
         dao.save(juan);
 
-        StudentDTO studentDTO = dao.findById(5L);
+        StudentDTO studentDTO = dao.findById(1L);
 
         assertEquals(studentDTO, juan);
     }
