@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.service;
 
+import com.bootcamp.be_java_hisp_w15_g02.dto.UserCreateDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowedByUserDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.FollowYourselfException;
 import com.bootcamp.be_java_hisp_w15_g02.exception.NotSellerException;
@@ -32,6 +33,12 @@ public class UserService implements IUserService {
         this.userRepository = userRepository;
     }
 
+
+    @Override
+    public boolean createUser() {
+        UserCreateDTO userCreateDTO = new UserCreateDTO();
+        return false;
+    }
 
     /**
      * This method allows a user to follow another user

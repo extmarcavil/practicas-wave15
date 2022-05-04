@@ -51,11 +51,6 @@ public class UserRepository implements IUserRepository {
         init();
     }
 
-    @Override
-    public boolean createUser(User user) {
-
-        return false;
-    }
 
     @Override
     public List<User> getListUser() {

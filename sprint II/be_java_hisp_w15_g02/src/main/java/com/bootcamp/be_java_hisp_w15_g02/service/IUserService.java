@@ -6,6 +6,7 @@ import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
 
 public interface IUserService {
+    boolean createUser();
     void follow(int userId, int userIdToFollow);
     void unFollow(int userId, int userIdToUnFollow);
     GetFollowersCountDTO getFollowersCount(int userId);

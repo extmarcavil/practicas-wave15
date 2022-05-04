@@ -7,11 +7,18 @@ import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
 import com.bootcamp.be_java_hisp_w15_g02.service.IUserService;
 import com.bootcamp.be_java_hisp_w15_g02.service.UserService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @RestController
 @RequestMapping("/users")
+@Validated
 public class UserController {
     private IUserService userService;
 
@@ -21,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
+    public ResponseEntity<?> follow(@PathVariable(value = "userId") @NotNull @Min(1) Integer userId, @PathVariable("userIdToFollow") @Min(1) Integer userIdToFollow) {
         userService.follow(userId, userIdToFollow);
         return ResponseEntity.ok("Seguidor anadido");
     }
