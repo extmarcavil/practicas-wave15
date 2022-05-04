@@ -33,6 +33,7 @@ public class UserService implements IUserService {
 
     @Override
     public UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow){
+
         User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
         User userToUnfollow = userRepository.getById(userIdToUnfollow)
