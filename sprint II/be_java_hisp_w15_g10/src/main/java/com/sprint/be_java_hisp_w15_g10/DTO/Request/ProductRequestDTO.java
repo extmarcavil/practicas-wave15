@@ -1,26 +1,37 @@
 package com.sprint.be_java_hisp_w15_g10.DTO.Request;
 
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @ToString
 public class ProductRequestDTO {
-    @Min(1)
-    private int product_id;
-    @NotBlank
+    @NotNull(message = "La id no puede estar vacía")
+    @Min(value = 1, message = "El id debe ser mayor a cero")
+    private Integer product_id;
+    @NotBlank(message = "El campo no puede estar vacío")
+    @Size(max = 40, message = "La longitud no puede superar los 40 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
     private String product_name;
-    @NotBlank
+    @Size(max = 15, message = "La longitud no puede superar los 15 caracteres")
+    @NotBlank(message = "El campo no puede estar vacío")
+    @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
     private String type;
-    @NotBlank
+    @Size(max = 25, message = "La longitud no puede superar los 25 caracteres")
+    @NotBlank(message = "El campo no puede estar vacío")
+    @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
     private String brand;
-    @NotBlank
+    @Size(max = 15, message = "La longitud no puede superar los 15 caracteres")
+    @NotBlank(message = "El campo no puede estar vacío")
+    @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
     private String color;
-    @NotBlank
+    @Size(max = 80, message = "La longitud no puede superar los 80 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
+    @JsonProperty
     private String notes;
 }
