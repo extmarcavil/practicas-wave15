@@ -5,14 +5,14 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.6.7</version>
+		<version>2.4.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>ar.com.mercadolibre.bootcamp</groupId>
-	<artifactId>be_java_hisp_w15_g01</artifactId>
+	<groupId>com.meli</groupId>
+	<artifactId>obtenerdiploma</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>be_java_hisp_w15_g01</name>
-	<description>Projecto sprint 1 grupo 1</description>
+	<name>obtenerDiploma</name>
+	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
 	</properties>
@@ -29,37 +29,43 @@
 			<optional>true</optional>
 		</dependency>
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.18</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.5.13</version>
+            <scope>test</scope>
+        </dependency>
 
-		<!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper -->
-		<!--  MODEL MAPPER  -->
+		<!-- Validation dependencies -->
 		<dependency>
-			<groupId>org.modelmapper</groupId>
-			<artifactId>modelmapper</artifactId>
-			<version>3.1.0</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>2.0.1.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.hibernate.validator</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.0.13.Final</version>
+		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.0</version>
 		</dependency>
 
-
-		<dependency>
-			<groupId> org.springframework.boot </groupId> <artifactId> spring-boot-starter-validation </artifactId>
-		</dependency>
-		<dependency>
-			<groupId> javax.validation </groupId> <artifactId> validation-api </artifactId> <version> 2.0.1.Final </version>
-		</dependency>
-		<dependency>
-			<groupId> org.hibernate.validator </groupId> <artifactId> hibernate-validator </artifactId> <version> 6.0.13.Final </version>
-		</dependency>
-		<dependency>
-			<groupId> org.glassfish </groupId> <artifactId>javax.el</artifactId> <version>3.0.0</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -67,14 +73,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>

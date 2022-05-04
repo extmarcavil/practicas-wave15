@@ -8,10 +8,14 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserService;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.constraints.NotNull;
 
 @RestController
 @RequestMapping("/users")
+@Validated
 public class UserController {
     private UserService userService;
 
@@ -20,7 +24,7 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<ResponseDTO> follow(@PathVariable Long userId, @PathVariable long userIdToFollow) {
+    public ResponseEntity<ResponseDTO> follow(@valid @PathVariable Long userId, @PathVariable long userIdToFollow) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(userService.follow(userId, userIdToFollow));
