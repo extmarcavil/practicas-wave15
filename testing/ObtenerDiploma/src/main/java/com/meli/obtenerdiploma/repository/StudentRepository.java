@@ -17,7 +17,14 @@ import java.util.Set;
 public class StudentRepository implements IStudentRepository {
 
     @Value("${api.scope}")
-    private String SCOPE;
+    private String SCOPE = "test";
+
+    @Override
+    public String toString() {
+        return "StudentRepository{" +
+                "SCOPE='" + SCOPE + '\'' +
+                '}';
+    }
 
     @Override
     public Set<StudentDTO> findAll() {
@@ -25,7 +32,7 @@ public class StudentRepository implements IStudentRepository {
 
         ObjectMapper objectMapper = new ObjectMapper();
         try {
-            File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
+            File file = ResourceUtils.getFile("./src/" + SCOPE + "/java/com/meli/obtenerdiploma/resources/users.json");
             loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();

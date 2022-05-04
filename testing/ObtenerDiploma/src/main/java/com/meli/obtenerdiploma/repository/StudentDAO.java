@@ -42,7 +42,7 @@ public class StudentDAO implements IStudentDAO {
 
         students.add(stu);
 
-        this.saveData();
+        //this.saveData();
     }
 
     @Override
@@ -54,7 +54,7 @@ public class StudentDAO implements IStudentDAO {
 
             students.remove(found);
             ret  = true;
-            this.saveData();
+            //this.saveData();
 
         } catch (StudentNotFoundException e) {}
 

@@ -1,1 +1,71 @@
-[{"id":8,"studentName":"Juan","message":null,"averageScore":null,"subjects":null},{"id":4,"studentName":null,"message":null,"averageScore":null,"subjects":null},{"id":1,"studentName":"Seba","message":null,"averageScore":null,"subjects":null},{"id":5,"studentName":null,"message":null,"averageScore":null,"subjects":null},{"id":6,"studentName":null,"message":null,"averageScore":null,"subjects":null},{"id":2,"studentName":"Pedro","message":null,"averageScore":null,"subjects":[{"name":"Matemática","score":10.0},{"name":"Física","score":8.0},{"name":"Química","score":4.0}]},{"id":7,"studentName":null,"message":null,"averageScore":null,"subjects":null},{"id":3,"studentName":null,"message":null,"averageScore":null,"subjects":null}]
+[
+  {
+    "id": 1,
+    "studentName": "Juan",
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 4,
+    "studentName": null,
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 1,
+    "studentName": "Seba",
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 5,
+    "studentName": null,
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 6,
+    "studentName": null,
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 2,
+    "studentName": "Pedro",
+    "message": null,
+    "averageScore": null,
+    "subjects": [
+      {
+        "name": "Matemática",
+        "score": 10.0
+      },
+      {
+        "name": "Física",
+        "score": 8.0
+      },
+      {
+        "name": "Química",
+        "score": 4.0
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "studentName": null,
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  },
+  {
+    "id": 3,
+    "studentName": null,
+    "message": null,
+    "averageScore": null,
+    "subjects": null
+  }
+]
