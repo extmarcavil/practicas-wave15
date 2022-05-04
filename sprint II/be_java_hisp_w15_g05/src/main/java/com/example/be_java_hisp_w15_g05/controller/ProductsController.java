@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/products")
@@ -23,12 +25,12 @@ public class ProductsController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<ResCreatePostDTO> createPost(@RequestBody PostDTO postDTO) {
+    public ResponseEntity<ResCreatePostDTO> createPost(@Valid @RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.OK);
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ResPostListDTO> queryPost(@PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResPostListDTO> queryPost(@Valid @PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(productsService.getPostFollowed(userId, order), HttpStatus.OK);
 
     }

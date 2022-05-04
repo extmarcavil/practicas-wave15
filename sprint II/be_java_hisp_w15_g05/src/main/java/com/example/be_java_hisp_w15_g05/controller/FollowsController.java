@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/users")
 public class FollowsController {
@@ -19,30 +21,30 @@ public class FollowsController {
     }
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity follow(@PathVariable int userId, @PathVariable int userIdToFollow) {
+    public ResponseEntity follow(@Valid @PathVariable int userId, @Valid @PathVariable int userIdToFollow) {
 
         return new ResponseEntity<>(userService.follow(userId, userIdToFollow), HttpStatus.OK);
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unFollow(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+    public ResponseEntity unFollow(@Valid @PathVariable int userId, @Valid @PathVariable int userIdToUnfollow) {
 
         return new ResponseEntity<>(userService.unFollow(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<ResCountFollowersDTO> countFollowers(@PathVariable int userId) {
+    public ResponseEntity<ResCountFollowersDTO> countFollowers(@Valid @PathVariable int userId) {
 
         return new ResponseEntity<>(userService.countFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<ResListFollowersDTO> getListFollowers(@PathVariable int userId,@RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResListFollowersDTO> getListFollowers(@Valid @PathVariable int userId,@RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResListSellersDTO> getListFollowed(@PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResListSellersDTO> getListFollowed(@Valid @PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListSellers(userId, order), HttpStatus.OK);
     }
 
