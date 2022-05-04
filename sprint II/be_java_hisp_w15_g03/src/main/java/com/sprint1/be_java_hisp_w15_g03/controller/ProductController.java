@@ -5,10 +5,13 @@ import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerPListDTO;
 import com.sprint1.be_java_hisp_w15_g03.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Min;
 
+@Validated
 @RestController
 @RequestMapping("/products")
 public class ProductController {
@@ -26,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<SellerPListDTO> getLastPublications(@PathVariable int userId,
+    public ResponseEntity<SellerPListDTO> getLastPublications(@PathVariable @Min(0) int userId,
                                                               @RequestParam(required = false) String order) {
 
         return new ResponseEntity<>(productService.getLastPublication(userId, order), HttpStatus.OK);
