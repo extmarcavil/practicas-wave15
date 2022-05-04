@@ -5,11 +5,13 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserService;
 import lombok.extern.java.Log;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -18,6 +20,7 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping("/users")
 @Log
+@Validated
 public class UserController {
     private UserService userService;
 
@@ -46,9 +49,8 @@ public class UserController {
      * @param userId El usuario a buscar
      */
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<FollowersCountDTO> wowManyFollowsMe(
-            @PathVariable @Min(value = 1, message = "El id debe ser mayor a cero") Long userId
-    ) {
+    public ResponseEntity<FollowersCountDTO> wowManyFollowsMe( @Valid UserIdDTO userIdDTO) {
+        Long userId = userIdDTO.getUserId();
         log.info("Se recibe peticion de cantidad de seguidores del id " + userId);
         return ResponseEntity
                 .status(HttpStatus.OK)
