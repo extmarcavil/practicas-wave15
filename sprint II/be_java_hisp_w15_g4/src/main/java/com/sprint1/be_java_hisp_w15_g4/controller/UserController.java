@@ -48,7 +48,7 @@ public class UserController {
     ////////////////////US0007////////////////////
     //Yamil - Nacho
     @PostMapping("/unfollow/{userIdToUnfollow}")
-    public ResponseEntity<?> lastPosts(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
+    public ResponseEntity<?> unfolow(@PathVariable int userId, @PathVariable int userIdToUnfollow) {
         service.unfollow(userId, userIdToUnfollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }

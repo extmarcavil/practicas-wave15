@@ -1,6 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g4.exception;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.response.ErrorDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.ValidationErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -42,17 +43,21 @@ public class GlobalExceptionHandler {
         return  ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO(e.getMessage(),HttpStatus.BAD_REQUEST));
     }
 
-    ///////////// Handler de excepciones de validaciones /////////////
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    protected ResponseEntity<ErrorDTO> handlerValidationExceptions(MethodArgumentNotValidException ex) {
-        ErrorDTO customException = new ErrorDTO(ex.getBindingResult().getFieldError().getDefaultMessage(), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
-    }
+    public ResponseEntity<?> handleValidationExceptions(MethodArgumentNotValidException e){
+        Map<String, List<String>> errors = new HashMap<>();
 
+        e.getFieldErrors().forEach(fieldError -> {
+                    String name = fieldError.getField();
+                    errors.putIfAbsent(name, new ArrayList<>());
+                    errors.get(name).add(fieldError.getDefaultMessage());
+                    });
+
+        return ResponseEntity.badRequest().body(new ValidationErrorDTO(HttpStatus.BAD_REQUEST, errors));
+    }
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    protected ResponseEntity<ErrorDTO> handlerValidationExceptions(HttpMessageNotReadableException ex) {
-        ErrorDTO customException = new ErrorDTO(ex.getMessage(), HttpStatus.BAD_REQUEST);
-        return new ResponseEntity<>(customException, HttpStatus.BAD_REQUEST);
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<?> handleValidationExceptions(HttpMessageNotReadableException e){
+        return ResponseEntity.badRequest().body(new ErrorDTO(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST));
     }
 }
