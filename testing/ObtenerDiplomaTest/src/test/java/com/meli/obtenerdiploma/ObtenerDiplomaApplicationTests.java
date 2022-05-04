@@ -20,11 +20,6 @@ import java.util.Arrays;
 import java.util.List;
 import static org.mockito.Mockito.when;
 
-//TODO: Casos nulos, vacíos, inválidos.
-//TODO: Agregar un alumno.
-//TODO: Buscar un alumno por Id.
-//TODO: Modificar los datos de un alumno.
-//TODO: Listar todos los alumnos.
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
 class ObetenerDiplomaApplicationTests {
