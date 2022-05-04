@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g07.controller;
 
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.example.be_java_hisp_w15_g07.dto.request.NewPostDTO;
@@ -15,10 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 
 @RestController
 @RequestMapping("/products")
+@Validated
 public class PostController {
 
     private IPostService postService;
@@ -36,7 +40,11 @@ public class PostController {
      * @author Jeronimo Graff
      */
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (@PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order) {
+    public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (@PathVariable
+                                                                      @NotNull(message = "El  id no puede estar vacío.")
+                                                                      @Positive(message = "El id debe ser mayor a cero")
+                                                                      Integer userId,
+                                                                      @RequestParam(defaultValue = "date_asc") String order) {
         return new ResponseEntity<>(postService.getFollowedPosts(userId, order), HttpStatus.OK);
     }
 

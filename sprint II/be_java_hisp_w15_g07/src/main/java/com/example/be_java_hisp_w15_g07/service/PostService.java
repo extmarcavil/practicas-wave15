@@ -42,6 +42,9 @@ public class PostService implements IPostService{
      */
     @Override
     public UserFollowedPostsDTO getFollowedPosts(Integer userId, String order) {
+        if(!order.equals("date_asc") && !order.equals("date_desc")){
+            throw new BadRequestException("Argumento de ordenamiento invalido");
+        }
         List<Post> listPosts = new ArrayList<>();
         for (User user : userRepository.findById(userId).getFollowed()) {
             listPosts.addAll(user.getPosts());
