@@ -55,9 +55,7 @@ public class PostService implements IPostService{
         var postlist = postRepository.all();
         id = postlist.size() == 0 ? 1 : postlist.size() + 1;
         var modelProduct = new Product();
-        var instant = newPost.getDate().toInstant();
-        var zdt = instant.atZone(ZoneId.systemDefault());
-        var date = zdt.toLocalDate();
+
         modelProduct.setProductId(newPost.getDetail().getProduct_id());
         modelProduct.setProductName(newPost.getDetail().getProduct_name());
         modelProduct.setType(newPost.getDetail().getType());
@@ -65,7 +63,7 @@ public class PostService implements IPostService{
         modelProduct.setColor(newPost.getDetail().getColor());
         modelProduct.setNotes(newPost.getDetail().getNotes());
         var modelPost = new Post(
-                id, newPost.getUser_id(), date, Integer.valueOf(newPost.getCategory()), modelProduct, newPost.getPrice(),newPost.isHas_Promo(),newPost.getDiscount());
+                id, newPost.getUser_id(), newPost.getDate(), Integer.valueOf(newPost.getCategory()), modelProduct, newPost.getPrice(),newPost.isHas_Promo(),newPost.getDiscount());
         postRepository.createPost(modelPost);
         userRepository.getUserById(newPost.getUser_id()).setSeller(true);
         return true;
