@@ -1,17 +1,24 @@
 package com.example.be_java_hisp_w15_g07.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.util.*;
 
 @Setter
 @Getter
 public class User implements Comparable<User>{
+
     private Integer userId;
+
     private String userName;
+
     private Set<User> followers;
+
     private Set<User> followed;
+    
     private List<Post> posts;
 
     public User(Integer userId, String userName) {
