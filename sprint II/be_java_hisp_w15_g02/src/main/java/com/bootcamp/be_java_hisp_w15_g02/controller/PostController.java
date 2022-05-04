@@ -7,6 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPostsSellerByUserIdDTO;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/products")
 public class PostController {
@@ -17,7 +19,7 @@ public class PostController {
     }
 
     @PostMapping("/post")
-    public ResponseEntity<String> createPost(@RequestBody PostCreateDTO newPost) {
+    public ResponseEntity<String> createPost(@Valid @RequestBody PostCreateDTO newPost) {
         if (postService.createPost(newPost))
             return ResponseEntity.status(HttpStatus.OK).body("");
         else
