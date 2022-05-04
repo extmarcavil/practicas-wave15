@@ -1,4 +1,4 @@
-package com.meli.obtenerdiploma;
+package com.meli.obtenerdiploma.unitarios;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
-import static com.meli.obtenerdiploma.Utils.newStudent;
+import static com.meli.obtenerdiploma.utilidades.Utils.*;
 
 public class Ejercicio1Test {
     IStudentDAO sdao;

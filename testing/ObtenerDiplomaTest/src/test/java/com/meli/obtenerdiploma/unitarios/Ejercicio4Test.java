@@ -1,4 +1,4 @@
-package com.meli.obtenerdiploma;
+package com.meli.obtenerdiploma.unitarios;
 
 import com.meli.obtenerdiploma.controller.ObtenerDiplomaController;
 import com.meli.obtenerdiploma.model.StudentDTO;
@@ -11,8 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static com.meli.obtenerdiploma.Utils.newGoodStudent;
-import static com.meli.obtenerdiploma.Utils.newStudent;
+import static com.meli.obtenerdiploma.utilidades.Utils.newGoodStudent;
 
 @ExtendWith(MockitoExtension.class)
 public class Ejercicio4Test {
