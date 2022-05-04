@@ -9,7 +9,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class User {
     private int user_id;
     private String user_name;
