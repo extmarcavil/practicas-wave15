@@ -15,13 +15,13 @@
     </facet>
   </component>
   <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_11">
-    <output url="file://$MODULE_DIR$/target/classes" />
-    <output-test url="file://$MODULE_DIR$/target/test-classes" />
-    <content url="file://$MODULE_DIR$">
-      <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
-      <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/target" />
+    <output url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/target/classes" />
+    <output-test url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/target/test-classes" />
+    <content url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)">
+      <sourceFolder url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/../ObtenerDiploma (Validation)/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

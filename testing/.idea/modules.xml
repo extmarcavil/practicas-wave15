@@ -3,8 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/covid/covid.iml" filepath="$PROJECT_DIR$/covid/covid.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ObtenerDiploma/obtenerdiploma.iml" filepath="$PROJECT_DIR$/ObtenerDiploma/obtenerdiploma.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ObtenerDiploma 2/obtenerdiploma (1).iml" filepath="$PROJECT_DIR$/ObtenerDiploma 2/obtenerdiploma (1).iml" />
+      <module fileurl="file://$PROJECT_DIR$/ObtenerDiploma (Testing)/obtenerDiploma.iml" filepath="$PROJECT_DIR$/ObtenerDiploma (Testing)/obtenerDiploma.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ObtenerDiploma (Validation)/obtenerdiploma.iml" filepath="$PROJECT_DIR$/ObtenerDiploma (Validation)/obtenerdiploma.iml" />
       <module fileurl="file://$PROJECT_DIR$/restaurant-w15-testing(mañana)/testing.iml" filepath="$PROJECT_DIR$/restaurant-w15-testing(mañana)/testing.iml" />
       <module fileurl="file://$PROJECT_DIR$/restaurant-w15-testing(tarde)/testing (1).iml" filepath="$PROJECT_DIR$/restaurant-w15-testing(tarde)/testing (1).iml" />
     </modules>

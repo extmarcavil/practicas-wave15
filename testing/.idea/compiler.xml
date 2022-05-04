@@ -6,7 +6,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="obtenerdiploma (1)" />
+        <module name="obtenerDiploma" />
         <module name="covid" />
         <module name="obtenerdiploma" />
         <module name="testing (1)" />
@@ -16,7 +16,7 @@
     <bytecodeTargetLevel>
       <module name="covid" target="11" />
       <module name="obtenerdiploma" target="11" />
-      <module name="obtenerdiploma (1)" target="11" />
+      <module name="obtenerDiploma" target="11" />
       <module name="testing" target="11" />
       <module name="testing (1)" target="11" />
     </bytecodeTargetLevel>
@@ -24,8 +24,8 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="covid" options="-parameters" />
+      <module name="obtenerDiploma" options="-parameters" />
       <module name="obtenerdiploma" options="-parameters" />
-      <module name="obtenerdiploma (1)" options="-parameters" />
       <module name="testing" options="-parameters" />
       <module name="testing (1)" options="-parameters" />
     </option>
