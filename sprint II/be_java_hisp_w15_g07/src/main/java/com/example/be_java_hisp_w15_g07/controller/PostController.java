@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/products")
@@ -46,7 +48,7 @@ public class PostController {
      * @author Jeronimo Graff
      */
     @PostMapping("/post")
-    public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
+    public ResponseEntity<?> newPost(@Valid @RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
 
