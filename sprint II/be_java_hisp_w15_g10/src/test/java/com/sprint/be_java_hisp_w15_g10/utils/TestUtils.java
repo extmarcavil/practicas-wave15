@@ -21,4 +21,13 @@ public class TestUtils {
         userRepository.add(user4);
         return user1;
     }
+
+    public static User createUser(int i, String name){
+        return new User(i, name);
+    }
+
+    public static void FollowUser(User cliente, User vendedor){
+        cliente.seguirUsuario(vendedor);
+        vendedor.agregarSeguidor(cliente);
+    }
 }
