@@ -10,7 +10,22 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ControllerAdviceExceptions extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {UserNotFoundException.class})
-    protected ResponseEntity<Object> NotFoundException(RuntimeException ex){
+    protected ResponseEntity<Object> UserNotFoundException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserNotFollowedException.class})
+    protected ResponseEntity<Object> UserNotFollowedException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserCantFollowHimselfException.class})
+    protected ResponseEntity<Object> UserCantFollowHimselfException(RuntimeException ex){
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(value = {UserAlreadyFollowsTheUserException.class})
+    protected ResponseEntity<Object> UserAlreadyFollowsTheUserException(RuntimeException ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
     }
 

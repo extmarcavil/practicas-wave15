@@ -1,5 +1,6 @@
-package com.be.java.hisp.w156.be.java.hisp.w156.dto;
+package com.be.java.hisp.w156.be.java.hisp.w156.dto.response;
 
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;

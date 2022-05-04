@@ -1,8 +1,8 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.exception;
 
-public class TheUserWasNotFoundException extends RuntimeException {
+public class UserNotFollowedException extends RuntimeException {
 
-    public TheUserWasNotFoundException(Integer userId, Integer userToUnfollowId) {
+    public UserNotFollowedException(Integer userId, Integer userToUnfollowId) {
         super("The user " + userId + " wasn't following user " + userToUnfollowId);
     }
 }
