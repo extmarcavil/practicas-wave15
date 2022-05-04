@@ -1,0 +1,183 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <title>Coverage Report > CharacterRepositoryImpl</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/highlight-idea.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.pack.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.mercadolibre.starwars.repositories</a>
+</div>
+
+<h1>Coverage Summary for Class: CharacterRepositoryImpl (com.mercadolibre.starwars.repositories)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CharacterRepositoryImpl</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (4/4)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    78.9%
+  </span>
+  <span class="absValue">
+    (15/19)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CharacterRepositoryImpl$1</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (5/5)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    80%
+  </span>
+  <span class="absValue">
+    (16/20)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<div class="sourceCode" id="sourceCode"><i class="no-highlight">1</i>&nbsp;package com.mercadolibre.starwars.repositories;
+<i class="no-highlight">2</i>&nbsp;
+<i class="no-highlight">3</i>&nbsp;import com.fasterxml.jackson.core.type.TypeReference;
+<i class="no-highlight">4</i>&nbsp;import com.fasterxml.jackson.databind.ObjectMapper;
+<i class="no-highlight">5</i>&nbsp;import com.mercadolibre.starwars.dto.CharacterDTO;
+<i class="no-highlight">6</i>&nbsp;import org.springframework.stereotype.Repository;
+<i class="no-highlight">7</i>&nbsp;import org.springframework.util.ResourceUtils;
+<i class="no-highlight">8</i>&nbsp;
+<i class="no-highlight">9</i>&nbsp;import java.io.File;
+<i class="no-highlight">10</i>&nbsp;import java.io.FileNotFoundException;
+<i class="no-highlight">11</i>&nbsp;import java.io.IOException;
+<i class="no-highlight">12</i>&nbsp;import java.util.List;
+<i class="no-highlight">13</i>&nbsp;import java.util.stream.Collectors;
+<i class="no-highlight">14</i>&nbsp;
+<i class="no-highlight">15</i>&nbsp;@Repository
+<i class="no-highlight">16</i>&nbsp;public class CharacterRepositoryImpl implements CharacterRepository {
+<i class="no-highlight">17</i>&nbsp;  private final List&lt;CharacterDTO&gt; database;
+<i class="no-highlight">18</i>&nbsp;
+<b class="fc"><i class="no-highlight">19</i>&nbsp;  public CharacterRepositoryImpl() {</b>
+<b class="fc"><i class="no-highlight">20</i>&nbsp;    this.database = loadDataBase();</b>
+<i class="no-highlight">21</i>&nbsp;  }
+<i class="no-highlight">22</i>&nbsp;
+<i class="no-highlight">23</i>&nbsp;  @Override
+<i class="no-highlight">24</i>&nbsp;  public List&lt;CharacterDTO&gt; findAllByNameContains(String query) {
+<b class="fc"><i class="no-highlight">25</i>&nbsp;    return database.stream()</b>
+<b class="fc"><i class="no-highlight">26</i>&nbsp;        .filter(characterDTO -&gt; matchWith(query, characterDTO))</b>
+<b class="fc"><i class="no-highlight">27</i>&nbsp;        .collect(Collectors.toList());</b>
+<i class="no-highlight">28</i>&nbsp;  }
+<i class="no-highlight">29</i>&nbsp;
+<i class="no-highlight">30</i>&nbsp;  private boolean matchWith(String query, CharacterDTO characterDTO) {
+<b class="fc"><i class="no-highlight">31</i>&nbsp;    return characterDTO.getName().toUpperCase().contains(query.toUpperCase());</b>
+<i class="no-highlight">32</i>&nbsp;  }
+<i class="no-highlight">33</i>&nbsp;
+<i class="no-highlight">34</i>&nbsp;
+<i class="no-highlight">35</i>&nbsp;  private List&lt;CharacterDTO&gt; loadDataBase() {
+<b class="fc"><i class="no-highlight">36</i>&nbsp;    File file = null;</b>
+<i class="no-highlight">37</i>&nbsp;    try {
+<b class="fc"><i class="no-highlight">38</i>&nbsp;      file = ResourceUtils.getFile(&quot;classpath:starwars_characters.json&quot;);</b>
+<b class="nc"><i class="no-highlight">39</i>&nbsp;    } catch (FileNotFoundException e) {</b>
+<b class="nc"><i class="no-highlight">40</i>&nbsp;      e.printStackTrace();</b>
+<b class="fc"><i class="no-highlight">41</i>&nbsp;    }</b>
+<b class="fc"><i class="no-highlight">42</i>&nbsp;    ObjectMapper objectMapper = new ObjectMapper();</b>
+<b class="fc"><i class="no-highlight">43</i>&nbsp;    TypeReference&lt;List&lt;CharacterDTO&gt;&gt; typeRef = new TypeReference&lt;&gt;() {};</b>
+<b class="fc"><i class="no-highlight">44</i>&nbsp;    List&lt;CharacterDTO&gt; characters = null;</b>
+<i class="no-highlight">45</i>&nbsp;    try {
+<b class="fc"><i class="no-highlight">46</i>&nbsp;      characters = objectMapper.readValue(file, typeRef);</b>
+<b class="nc"><i class="no-highlight">47</i>&nbsp;    } catch (IOException e) {</b>
+<b class="nc"><i class="no-highlight">48</i>&nbsp;      e.printStackTrace();</b>
+<b class="fc"><i class="no-highlight">49</i>&nbsp;    }</b>
+<b class="fc"><i class="no-highlight">50</i>&nbsp;    return characters;</b>
+<i class="no-highlight">51</i>&nbsp;  }
+<i class="no-highlight">52</i>&nbsp;}
+</div>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+        var codeBlock = document.getElementById('sourceCode');
+
+        if (codeBlock) {
+            hljs.highlightBlock(codeBlock);
+        }
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2022-05-03 11:40</div>
+</div>
+</body>
+</html>
