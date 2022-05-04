@@ -3,12 +3,15 @@ package com.be.java.hisp.w156.be.java.hisp.w156.dto.request;
 import com.be.java.hisp.w156.be.java.hisp.w156.adapter.JsonAdapterDeserializer;
 import com.be.java.hisp.w156.be.java.hisp.w156.adapter.JsonAdapterSerializer;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 
 @AllArgsConstructor
@@ -16,14 +19,23 @@ import java.time.LocalDate;
 @Setter
 public class RequestPostDTO {
 
+    @NotNull(message = "El id no puede estar vacío.")
+    @Min(value = 1, message = "El id debe ser mayor a cero.")
     private Integer user_id;
 
     @JsonSerialize(using = JsonAdapterSerializer.class)
     @JsonDeserialize(using = JsonAdapterDeserializer.class)
+    @NotNull(message = "La fecha no puede estar vacía.")
+    @FutureOrPresent(message = "La fecha no puede ser anterior a hoy.")
     private LocalDate date;
 
     private Product detail;
+
+    @NotEmpty(message = "El campo no puede estar vacío.")
     private String category;
+
+    @NotNull(message = "El campo no puede estar vacío.")
+    @Max(value = 10000000, message = "El precio máximo por producto es de 10.000.000")
     private Double price;
 
 }
