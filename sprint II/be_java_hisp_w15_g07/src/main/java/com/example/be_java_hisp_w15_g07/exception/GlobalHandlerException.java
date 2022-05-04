@@ -38,7 +38,7 @@ public class GlobalHandlerException {
     ResponseEntity<ErrorDTO> validationsException (MethodArgumentNotValidException exception) {
         HashMap<String, List<String>> errors = getHashMapErrors(exception.getFieldErrors());
 
-        ErrorDTO errorDTO = new ErrorDTO("Algunos campos son inválidos", errors);
+        ErrorDTO errorDTO = new ErrorDTO("Petición inválida","Algunos campos son inválidos", errors);
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 

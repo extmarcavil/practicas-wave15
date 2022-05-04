@@ -25,8 +25,9 @@ public class NewPostDTO {
     @Positive(message = "El id debe ser mayor a cero")
     private Integer userId;
     @JsonFormat (pattern = "dd-MM-yyyy")
-    @NotBlank(message = "La fecha no puede estar vacia")
+    @NotNull(message = "La fecha no puede estar vacia")
     private LocalDate date;
+    @NotNull(message = "El campo no puede estar vacio")
     @Valid
     private ProductDTO detail;
     @NotNull(message = "El campo no puede estar vacio")
