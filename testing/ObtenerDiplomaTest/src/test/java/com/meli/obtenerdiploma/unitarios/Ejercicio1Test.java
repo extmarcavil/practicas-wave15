@@ -26,7 +26,7 @@ public class Ejercicio1Test {
 
     @Test
     void agregarUnAlumnoTest() {
-        StudentDTO student = newStudent(1l, "jose");
+        StudentDTO student = newStudent(1l, "Jose");
 
         sdao.save(student);
         Assertions.assertTrue(sdao.exists(student));
@@ -35,7 +35,7 @@ public class Ejercicio1Test {
 
     @Test
     void eliminarUnAlumnoQueExisteTest() {
-        StudentDTO student = newStudent(1l, "jose");
+        StudentDTO student = newStudent(1l, "Jose");
 
         sdao.save(student);
 
@@ -52,8 +52,8 @@ public class Ejercicio1Test {
 
     @Test
     void listarTodosLosAlumnosTest() {
-        StudentDTO student = newStudent(1l, "jose");
-        StudentDTO student2 = newStudent(2l, "pepe");
+        StudentDTO student = newStudent(1l, "Jose");
+        StudentDTO student2 = newStudent(2l, "Pepe");
 
         sdao.save(student);
         sdao.save(student2);

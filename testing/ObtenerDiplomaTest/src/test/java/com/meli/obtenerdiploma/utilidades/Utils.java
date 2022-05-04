@@ -12,7 +12,7 @@ public class Utils {
         subjects.add(new SubjectDTO("Matematica", 8.0));
         subjects.add(new SubjectDTO("Lengua", 8.0));
 
-        return new StudentDTO(id, nombre, "", 8.0, subjects);
+        return new StudentDTO(id, nombre, null, null, subjects);
     }
 
     public static StudentDTO newGoodStudent(long id, String nombre) {

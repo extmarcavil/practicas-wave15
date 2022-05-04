@@ -27,7 +27,7 @@ public class ObtenerDiplomaControllerTest {
     MockMvc mockMvc;
 
     @Test
-    @DisplayName("Testeando el obtenerDiplomaController")
+    @DisplayName("Testeando el analyzeScores")
     void test1() throws Exception {
         ObjectWriter writer =  new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
@@ -45,13 +45,12 @@ public class ObtenerDiplomaControllerTest {
         MockHttpServletRequestBuilder request = get("/analyzeScores/{studentId}", 2);
 
         // act & assert
-        MvcResult result = mockMvc
+        mockMvc
                 .perform(request)
                 //.andDo(MockMvcResultHandlers.print()) si falla lo imprime igual
                 .andExpectAll(
                         expectedStatus,
                         expectedJson,
-                        expectedContentType)
-                .andReturn();
+                        expectedContentType);
     }
 }
