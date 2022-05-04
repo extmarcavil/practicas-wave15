@@ -1,7 +1,7 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.ResponsePostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.RecentlyPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
@@ -35,7 +35,7 @@ public class ProductServiceImpl implements IProductService {
             Post postToSaved = Post.from(requestPostDto);
             User user = useRepository.getUser(requestPostDto.getUser_id());
             user.getPosts().add(postToSaved);
-            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getId());
+            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getPost_id());
             return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
         }
         throw new UserNotFoundException(requestPostDto.getUser_id());
