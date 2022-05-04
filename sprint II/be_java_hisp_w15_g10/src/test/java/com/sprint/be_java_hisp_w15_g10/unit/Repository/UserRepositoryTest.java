@@ -8,6 +8,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 class UserRepositoryTest {
@@ -45,9 +46,29 @@ class UserRepositoryTest {
 
     @Test
     void getAll() {
+        // arrange
+        TestUtils.createFollowedUser(userRepository);
+
+        //act
+        List<User> users = userRepository.getAll();
+
+        // assert
+        Assertions.assertFalse(users.isEmpty());
+        Assertions.assertEquals(users.size(),7);
     }
+
 
     @Test
     void add() {
+        // arrange
+        User user = new User(4, "José");
+        int initial_size = userRepository.getAll().size();
+        // act
+        userRepository.add(user);
+        int final_size = userRepository.getAll().size();
+        // assert
+        Assertions.assertNotEquals(initial_size, final_size);
+        Assertions.assertEquals(user, userRepository.getById(4).get());
+
     }
 }

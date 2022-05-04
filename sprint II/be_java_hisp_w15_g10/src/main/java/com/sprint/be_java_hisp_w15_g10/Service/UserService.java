@@ -22,10 +22,15 @@ public class UserService implements IUserService {
         this.modelMapper = modelMapper;
     }
 
+    private User getUserByIdOrThrow(int userID){
+        return userRepository.getById(userID)
+                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+    }
+
+
     @Override
     public UserWithFollowersCountDTO getUsersWithFollowersCount(int userID){
-            User user = userRepository.getById(userID)
-                    .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+            User user = getUserByIdOrThrow(userID);
             UserWithFollowersCountDTO userDTO = modelMapper.map(user, UserWithFollowersCountDTO.class);
             userDTO.setFollowers_count(user.getFollowers().size());
             return userDTO;
@@ -34,10 +39,8 @@ public class UserService implements IUserService {
     @Override
     public UnfollowUserDTO unfollowUser(int userId, int userIdToUnfollow){
 
-        User user = userRepository.getById(userId)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        User userToUnfollow = userRepository.getById(userIdToUnfollow)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        User user = getUserByIdOrThrow(userId);
+        User userToUnfollow = getUserByIdOrThrow(userIdToUnfollow);
 
         if(!user.getFollowed().contains(userToUnfollow)){
             throw new NotFollowException("Usted no sigue a: " +userToUnfollow.getUser_name());
@@ -50,10 +53,8 @@ public class UserService implements IUserService {
 
     @Override
     public FollowUserDTO followUser(int userId, int userIdToUnfollow){
-        User user = userRepository.getById(userId)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
-        User userToUnfollow = userRepository.getById(userIdToUnfollow)
-                .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
+        User user = getUserByIdOrThrow(userId);
+        User userToUnfollow = getUserByIdOrThrow(userIdToUnfollow);
 
         if(user.getFollowed().contains(userToUnfollow)){
             throw new FollowException("Usted ya sigue a: " +userToUnfollow.getUser_name());
@@ -66,7 +67,7 @@ public class UserService implements IUserService {
 
     @Override
     public VendedorsFollowedDTO getVendorsFollow(int userId, String order) {
-        User user = userRepository.getById(userId).get();
+        User user = getUserByIdOrThrow(userId);
         VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
         List<UserDTO> listUsers = new ArrayList<>();
 
@@ -88,7 +89,7 @@ public class UserService implements IUserService {
 
     @Override
     public FollowersDTO getFollowers(int userId, String order) {
-        User user = userRepository.getById(userId).get();
+        User user = getUserByIdOrThrow(userId);
         FollowersDTO vendedorsFollowedDTO = new FollowersDTO();
         List<UserDTO> listUsers = new ArrayList<>();
 
