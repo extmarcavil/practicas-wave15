@@ -64,6 +64,12 @@ public class MeliRepository implements IMeliRepository {
         return users.containsKey(userToFollow);
     }
 
+    /**
+     * Método creado para identificar si un usuario ya sigue a un vendedor o si un vendedor es seguido por un usuario.
+     * @param userId Id que identifica al usuario.
+     * @param sellerToUnfollow id que identifica al vendedor.
+     * @return Boolean
+     */
     @Override
     public Boolean following(Integer userId, Integer sellerToUnfollow) {
         User user = getUser(userId);
@@ -104,6 +110,11 @@ public class MeliRepository implements IMeliRepository {
         List<Publication> publications = new ArrayList<>();
 
         sellers1.forEach( s -> publications.addAll(s.getPublications()));
+
+        /*
+          Variable creada para obtener la fecha de dos semanas antes
+           a partir del dia de hoy(LocalDate.now())
+         */
         LocalDate twoWeeks = LocalDate.now().minus(2, ChronoUnit.WEEKS);
 
         return publications.stream().filter( p ->  p.getDate().isAfter(twoWeeks) ).collect(Collectors.toList());

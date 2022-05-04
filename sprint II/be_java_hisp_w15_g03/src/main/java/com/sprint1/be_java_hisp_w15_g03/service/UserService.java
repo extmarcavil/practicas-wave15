@@ -28,6 +28,12 @@ public class UserService implements IUserService {
         this.mapper = new ModelMapper();
     }
 
+    /**
+     * Método en el cual un usuario puede seguir a un vendedor.
+     * @param userId Id que identifica al usuario.
+     * @param sellerToFollow Id que identifica al vendor que sera seguido.
+     * @throws PersonNotFoundException el userId y/o sellerToFollow no existen en la base de datos.
+     */
     @Override
     public void followSeller(Integer userId, Integer sellerToFollow) {
         if (userRepository.hasUser(userId) && userRepository.hasSeller(sellerToFollow)) {
@@ -42,6 +48,12 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Método para obtener la cantidad de seguidores que tiene un vendedor específico.
+     * @param sellerId Id que identifica al vendedor.
+     * @return retorna un SellerCountDTO que contiene el nombre y id del vendedor como la cantidad de followers.
+     * @throws PersonNotFoundException el sellerId no existe.
+     */
     @Override
     public SellerCountDTO getFollowersCount(Integer sellerId) {
         if (userRepository.hasSeller(sellerId)) {
@@ -54,6 +66,14 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Método para obtener una lista de seguidores que tiene un vendedor específico
+     * la misma puede estar ordenada alfabéticamente o no.
+     * @param sellerId Id que identifica al vendedor.
+     * @param order referente al orden que se quiere designar la lista recibida, puede ser asc o desc.
+     * @return retorna un SellerFListDTO que contiene el nombre y id del vendedor como la lista de followers.
+     * @throws PersonNotFoundException el sellerId no existe.
+     */
     @Override
     public SellerFListDTO getFollowersList(Integer sellerId, String order) {
         if (userRepository.hasSeller(sellerId)) {
@@ -73,6 +93,14 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Método para obtener una lista de vendedores que sigue un usuario específico
+     * la misma puede estar ordenada alfabéticamente o no.
+     * @param userId Id que identifica a un usuario.
+     * @param order referente al orden que se quiere designar la lista recibida, puede ser asc o desc.
+     * @return retorna un UserListDTO que contiene un usuario y id del usuario como también la lista de followed.
+     * @throws PersonNotFoundException el userId no existe.
+     */
     @Override
     public UserListDTO getFollowedList(Integer userId, String order) {
         if (userRepository.hasUser(userId)) {
@@ -92,6 +120,11 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Método en el cual un usuario puede dejar de seguir a un vendedor.
+     * @param userId Id que identifica al usuario.
+     * @param sellerToUnfollow Id que identifica al vendedor.
+     */
     @Override
     public void unFollowSeller(Integer userId, Integer sellerToUnfollow) {
         if (userRepository.hasUser(userId) && userRepository.hasSeller(sellerToUnfollow)) {
@@ -105,6 +138,12 @@ public class UserService implements IUserService {
         }
     }
 
+    /**
+     * Método privado para ordenar una respectiva lista de personas por nombre en el orden solicitado.
+     * @param personList lista de personas a ser ordenadas.
+     * @param order referente al orden que se quiere designar la lista recibida, puede ser asc o desc.
+     * @return retorna una List<PersonDTO> ya ordenada.
+     */
     private List<PersonDTO> orderByName(List<PersonDTO> personList, String order){
         if(order != null){
             switch(order){

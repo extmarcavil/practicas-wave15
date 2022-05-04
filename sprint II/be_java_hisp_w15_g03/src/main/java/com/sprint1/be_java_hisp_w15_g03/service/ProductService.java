@@ -31,6 +31,14 @@ public class ProductService implements IProductService {
         this.modelMapper = new ModelMapper();
     }
 
+    /**
+     * Método para crear publicaciones.
+     * @param publication Se recibe un PublicationDTO que contiene los datos necesarios para crear una publicación.
+     * @throws CategoryNotFoundException la categoría que quiere agregar a la publicación no es válida.
+     * @throws PersonNotFoundException el vendedor no existe en la base de datos.
+     * @throws ProductDuplicatedException existe una inconsistencia en los datos del producto.
+     *                                    Es decir que ya existe, pero los datos no son los mismos a los que se reciben.
+     */
     @Override
     public void savePublication(PublicationDTO publication) {
 
@@ -64,6 +72,15 @@ public class ProductService implements IProductService {
         }
     }
 
+    /**
+     * Método que devuelve las ultimas publicaciones hasta dos semanas atras de los vendedores seguidos
+     * por un usuario específico.
+     * @param userId Id que identifica al usuario que solicita las publicaciones
+     * @param order Variable que designa el orden en el cual se devuelven las publicaciones.
+     *              Por defecto devuelve las mas recientes primero.
+     * @return retorna un SellerPListDTO que con un userId y una lista de publicaciones.
+     * @throws PersonNotFoundException el userId no existe en la base de datos.
+     */
     @Override
     public SellerPListDTO getLastPublication(int userId, String order) {
 
@@ -88,6 +105,12 @@ public class ProductService implements IProductService {
         return followedPublications;
     }
 
+    /**
+     * Método privado para ordenar una respectiva lista de publicaciones por fecha en el orden solicitado.
+     * @param publicationList lista de publicaciones la cual se quiere ordenar.
+     * @param order referente al orden que se quiere designar la lista recibida, puede ser asc o desc.
+     * @return retorna una List<PublicationRespDTO> ordenada.
+     */
     private List<PublicationRespDTO> orderByDate(List<PublicationRespDTO> publicationList, String order) {
 
         if (order != null) {
