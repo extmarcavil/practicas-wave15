@@ -155,7 +155,7 @@ ATENCION: order **date_asc** trae del post mas reciente al mas antiguo y
 
 ## Authors
 
--[@GomezRodrigoML](https://github.com/GomezRodrigoML)
+-[@]Nicolas Lopez Rezett(https://github.com/NicoLopez1203)
 
 ## Screenshots
 
