@@ -53,6 +53,9 @@ public class ProductService implements IProductService {
                     getUserPromoPost(userId));
     }
 
+
+    //----------Private----------//
+
     private List<Post> getUserPromoPost(Integer userId) {
         return postRepository
                 .getListOfPostOfUser(userId)
@@ -61,8 +64,6 @@ public class ProductService implements IProductService {
                 .collect(Collectors.toList());
     }
 
-
-    //----------Private----------//
 
     /**
      * Obtiene una lista completa de todos los post de los usuarios seguidos (pasado por Lista), de las últimas dos semanas.
