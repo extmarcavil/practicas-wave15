@@ -5,6 +5,7 @@ import com.sprint1.be_java_hisp_w15_g03.exception.RelationConflictException;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.service.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,6 +25,7 @@ public class UserServiceTest {
 
     //T-0001
     @Test
+    @DisplayName("Seguir a un vendedor correctamente.")
     void followSeller(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
@@ -39,6 +41,7 @@ public class UserServiceTest {
 
     //T-0001
     @Test
+    @DisplayName("Se intenta seguir a un vendedor con un usuario inexistente: PersonNotFoundException")
     void followSellerUserNotFoundException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
@@ -50,6 +53,7 @@ public class UserServiceTest {
 
     //T-0001
     @Test
+    @DisplayName("Se intenta seguir a un vendedor inexistente: PersonNotFoundException")
     void followSellerSellerNotFoundException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
@@ -62,6 +66,7 @@ public class UserServiceTest {
 
     //T-0001
     @Test
+    @DisplayName("Se intenta seguir a un vendedor al cual ya se sigue: RelationConflictException")
     void followSellerRelationConflictException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
@@ -75,6 +80,7 @@ public class UserServiceTest {
 
     //T-0002
     @Test
+    @DisplayName("Se deja de seguir a un vendedor correctamente")
     void unFollowSeller(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
@@ -90,6 +96,7 @@ public class UserServiceTest {
 
     //T-0002
     @Test
+    @DisplayName("Se intenta dejar de seguir a un vendedor con un usuario inexistente: PersonNotFoundException")
     void unFollowSellerUserNotFoundException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
@@ -101,6 +108,7 @@ public class UserServiceTest {
 
     //T-0002
     @Test
+    @DisplayName("Se intenta dejar de seguir a un vendedor con un vendedor inexistente: PersonNotFoundException")
     void unFollowSellerSellerNotFoundException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
@@ -113,6 +121,7 @@ public class UserServiceTest {
 
     //T-0002
     @Test
+    @DisplayName("Se intenta dejar de seguir a un vendedor que no se seguía: RelationConflictException")
     void unFollowSellerRelationConflictException(){
         //Arrange
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
