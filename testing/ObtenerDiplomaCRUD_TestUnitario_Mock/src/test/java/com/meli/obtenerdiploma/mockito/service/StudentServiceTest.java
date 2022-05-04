@@ -16,7 +16,9 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {
@@ -92,7 +94,7 @@ public class StudentServiceTest {
     @Test
     @DisplayName("Verificar que pueda eliminar un estudiante")
     void deleteTest(){
-        {
+
 
             StudentDTO studentTestDTO = new StudentDTO();
             studentTestDTO.setStudentName("Facundon");
@@ -111,9 +113,31 @@ public class StudentServiceTest {
             studentDAO.save(studentTestDTO);
 
             Assertions.assertTrue(studentDAO.delete(6L) ==  true);
-        }
+  }
 
 
+    @Test
+    @DisplayName("Obtengo la lista de todos los estudiantes")
+    void listAllStudiants(){
+
+        Set<StudentDTO> studentList = new HashSet<>();
+        List<SubjectDTO> subjectDTOS1 = new ArrayList<>();
+        subjectDTOS1.add(new SubjectDTO("Matematica", 9D));
+        subjectDTOS1.add(new SubjectDTO("Fisica", 7D));
+        subjectDTOS1.add(new SubjectDTO("Quimica", 6D));
+
+        List<SubjectDTO> subjectDTOS2 = new ArrayList<>();
+        subjectDTOS2.add(new SubjectDTO("Matematica", 10D));
+        subjectDTOS2.add(new SubjectDTO("Fisica", 8D));
+        subjectDTOS2.add(new SubjectDTO("Quimica", 4D));
+        StudentDTO stu1 = new StudentDTO(1L, "Juan", "", null, subjectDTOS1);
+        StudentDTO stu2 = new StudentDTO(2L, "Pedro", "", null, subjectDTOS2);
+        studentList.add(stu1);
+        studentList.add(stu2);
+
+        Mockito.when(studentRepository.findAll()).thenReturn(studentList);
+
+        Assertions.assertTrue(studentRepository.findAll() == studentList);
     }
 
 }
