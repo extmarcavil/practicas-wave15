@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.constraints.NotEmpty;
+
 @RestController
 @RequestMapping("users/{userId}")
 public class UserController {
@@ -31,10 +33,10 @@ public class UserController {
 
     ////////////////////US0003 - US0008////////////////////
     //Lucas - Luciano
-        @GetMapping("/followers/list")
-        public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
-            return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
-        }
+    @GetMapping("/followers/list")
+    public ResponseEntity<FollowerListDTO> listarSeguidos(@PathVariable int userId, @RequestParam(required = false) String order){
+        return new ResponseEntity<>(service.listFollowers(userId,order),HttpStatus.OK);
+    }
 
     ////////////////////US0004////////////////////
     //Nico - Nico
