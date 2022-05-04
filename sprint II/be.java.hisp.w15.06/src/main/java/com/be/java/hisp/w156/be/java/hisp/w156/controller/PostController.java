@@ -1,7 +1,7 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.RecentlyPostDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;

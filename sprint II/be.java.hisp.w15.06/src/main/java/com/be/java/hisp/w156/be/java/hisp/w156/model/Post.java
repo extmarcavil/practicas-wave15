@@ -12,7 +12,7 @@ import java.time.LocalDate;
 @Setter
 public class Post {
 
-    private Integer id;
+    private Integer post_id;
     private LocalDate date;
     private Product detail;
     private String category;

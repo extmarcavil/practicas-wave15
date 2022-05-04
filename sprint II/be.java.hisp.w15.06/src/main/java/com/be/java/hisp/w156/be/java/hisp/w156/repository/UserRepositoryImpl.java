@@ -21,8 +21,7 @@ public class UserRepositoryImpl implements IUserRepository {
         initData();
     }
 
-    @Override
-    public void initData() {
+    private void initData() {
         Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
         List<Post> posts = Stream.of(
                 new Post(1, LocalDate.of(2022, 4, 26), product, "100", 500.50),
