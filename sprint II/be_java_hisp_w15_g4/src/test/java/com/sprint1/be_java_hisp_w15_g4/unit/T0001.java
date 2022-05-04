@@ -23,7 +23,7 @@ public class T0001 {
 
     @Test
     @DisplayName("Permite continuar con normalidad")
-    void test1() {
+    void verificarFollowExistOK() {
         // Arrange
         int userId1 = 1;
         int userId2 = 2;
@@ -47,7 +47,7 @@ public class T0001 {
 
     @Test
     @DisplayName("Notifica la no existencia mediante una excepción")
-    void test2() {
+    void verificarFollowNotExistOK() {
         // Arrange
         int userId1 = 1;
         int userId2 = 2;
@@ -58,6 +58,6 @@ public class T0001 {
         Mockito.when(repo.findUser(userId1)).thenReturn(user);
 
         // Act & Assert
-        Assertions.assertThrows(IDNotFoundException.class, ()->service.follow(1,2));
+        Assertions.assertThrows(IDNotFoundException.class, () -> service.follow(1,2));
     }
 }
