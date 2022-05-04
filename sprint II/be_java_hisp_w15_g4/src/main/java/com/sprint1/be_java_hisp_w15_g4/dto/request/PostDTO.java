@@ -25,7 +25,14 @@ public class PostDTO {
     @NotNull(message = "La fecha no puede estar vacia.")
     @JsonFormat(pattern = "dd-MM-yyyy",shape = JsonFormat.Shape.STRING)
     private LocalDate date;
+
+    @Valid
     private ProductDTO detail;
+
+    @NotNull(message = "El campo no puede estar vacío.")
     private int category;
+
+    @NotNull(message = "El campo no puede estar vacío.")
+    @Max(value = 10000000, message = "El precio máximo por producto es de 10.000.000.")
     private double price;
 }
