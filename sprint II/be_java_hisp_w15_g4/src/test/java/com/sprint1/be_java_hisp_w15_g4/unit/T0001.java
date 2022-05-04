@@ -50,7 +50,6 @@ public class T0001 {
     void verificarFollowNotExistOK() {
         // Arrange
         int userId1 = 1;
-        int userId2 = 2;
 
         User user = new User(userId1, "nombre1");
 
