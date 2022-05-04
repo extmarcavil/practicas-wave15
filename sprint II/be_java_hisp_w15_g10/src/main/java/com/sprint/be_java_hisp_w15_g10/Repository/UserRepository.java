@@ -10,10 +10,8 @@ import java.util.Optional;
 @Repository
 public class UserRepository {
     private List<User> usuarios;
-    private PostRepository postRepository;
 
-    public UserRepository(PostRepository postRepository){
-        this.postRepository = postRepository;
+    public UserRepository(){
         usuarios = new ArrayList<User>();
 
         User user1 = new User(1, "Alejandro");
