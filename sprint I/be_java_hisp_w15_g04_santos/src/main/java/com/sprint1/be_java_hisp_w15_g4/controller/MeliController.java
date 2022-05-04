@@ -71,8 +71,8 @@ public class MeliController {
 
     // US0010
     @PostMapping("/products/promo-post")
-    public ResponseEntity<?> getPromoPosts(@RequestBody PostPromoDTO postPromoDTO) {
-        service.getPromoPosts(postPromoDTO);
+    public ResponseEntity<?> createPromoPosts(@RequestBody PostPromoDTO postPromoDTO) {
+        service.createPromoPosts(postPromoDTO);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 

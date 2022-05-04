@@ -131,7 +131,7 @@ public class SocialMeliService implements ISocialMeliService {
     }
 
     @Override
-    public void getPromoPosts(PostPromoDTO postPromoDTO) {
+    public void createPromoPosts(PostPromoDTO postPromoDTO) {
         Post newPromoPost = new Post();
         User user = getUser(postPromoDTO.getUser_id());
 

@@ -12,7 +12,7 @@ public interface ISocialMeliService {
     void createPost(PostDTO post); //Req 05: le llega una publicaciondto y devuelve un OK
     PostListDTO lastTwoWeeksPosts(int userID, String order); //Req 06: Devuelve una lista con los post de las últimas dos semanas de los seguidos de un usuario.
     void unfollow(int userID, int userIDToUnfollow); //Req 07
-    void getPromoPosts(PostPromoDTO postPromoDTO);
+    void createPromoPosts(PostPromoDTO postPromoDTO);
     PromoPostCountDTO getPromoPostBySeller(int user_id);
     PromoPostListDTO getPromoPostListByUser(int user_id);
 }
