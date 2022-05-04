@@ -70,21 +70,6 @@ public class UserRepository implements IUserRepository{
         post = new Post(LocalDate.of(2020, Month.JULY, 22), product, 5, 180000d, false, 0d);
         user4.newPost(post);
         database.put(user4.getUserId(), user4);
-        /*
-
-
-        product = new Product(6, "Celular", "Electronica", "Motorola", "Blanco", "");
-        post = new Post(6, 1, LocalDate.of(2021, Month.DECEMBER, 2), product, 6, 87000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(7, "Tostadora", "Electrodomesticos", "Volkswagen", "Blanco", "4 modos");
-        post = new Post(7, 3, LocalDate.of(2022, Month.APRIL, 3), product, 7, 20000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(8, "Pantalla 50", "Electrodomesticos", "TopHouse", "Plateado", "");
-        post = new Post(8, 2, LocalDate.of(2020, Month.APRIL, 10), product, 8, 68000d);
-        database.put(post.getPostId(), post);
-        */
     }
 
     /**
@@ -112,7 +97,6 @@ public class UserRepository implements IUserRepository{
     public void newPost(Integer userId, Post unPost){
         User user = this.findById(userId);
         user.newPost(unPost);
-        System.out.println(user.getPosts());
     }
 
     /**
@@ -169,18 +153,6 @@ public class UserRepository implements IUserRepository{
     public List<User> findFollowedOrderByNameDesc(Integer userId) {
         User u = findById(userId);
         return u.getFollowed().stream().sorted(Comparator.comparing(User::getUserName).reversed()).collect(Collectors.toList());
-    }
-
-    /**
-     * get promo products count by user id
-     *
-     * @param userId Integer
-     * @return {@link Long}
-     * @see Long
-     */
-    @Override
-    public Long getPromoProductsCount(Integer userId) {
-        return findById(userId).getPosts().stream().filter(Post::getHasPromo).count();
     }
 
 }

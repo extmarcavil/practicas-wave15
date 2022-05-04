@@ -1,4 +1,4 @@
-package com.example.be_java_hisp_w15_g07_ravelli.dto.response;
+package com.example.be_java_hisp_w15_g07.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class PromoPostDTO extends PostDTO{
-    private Boolean hasPromo;
-    private Double discount;
+public class ErrorDTO {
+    private String name;
+    private String description;
 }

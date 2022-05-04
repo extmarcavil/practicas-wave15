@@ -18,6 +18,4 @@ public interface IUserRepository {
     List<User> findFollowedOrderByNameAsc(Integer userId);
 
     List<User> findFollowedOrderByNameDesc(Integer userId);
-
-    Long getPromoProductsCount(Integer userId);
 }

@@ -1,7 +1,6 @@
 package com.example.be_java_hisp_w15_g07_ravelli.controller;
 
 
-import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoPostDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.PromoProductsCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserPromoPosts;
@@ -28,11 +27,26 @@ public class PostController {
         this.postService = postService;
     }
 
+    /**
+     * returns a List of products for one of the users followed
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Jeronimo Graff
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (@PathVariable Integer userId, @RequestParam(defaultValue = "date_asc") String order) {
         return new ResponseEntity<>(postService.getFollowedPosts(userId, order), HttpStatus.OK);
     }
 
+    /**
+     * add new user post
+     *
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @author Jeronimo Graff
+     */
     @PostMapping("/post")
     public ResponseEntity<?> newPost(@RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
@@ -48,8 +62,8 @@ public class PostController {
      * @author Tomas Ravelli
      */
     @PostMapping("/promo-post")
-    public ResponseEntity<?> newPostWithDiscount(@RequestBody NewPostDTO postDTO){
-        postService.newPost(postDTO);
+    public ResponseEntity<?> newPromoPost(@RequestBody NewPostDTO postDTO){
+        postService.newPromoPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -62,10 +76,18 @@ public class PostController {
      * @see PromoProductsCountDTO
      */
     @GetMapping("/promo-post/count")
-    public ResponseEntity<PromoProductsCountDTO> getPromoProductsCount (@RequestParam(name = "user_id") Integer userId) {
+    public ResponseEntity<PromoProductsCountDTO> getPromoPostCount (@RequestParam(name = "user_id") Integer userId) {
         return new ResponseEntity<>(postService.getPromoProductsCountByUserId(userId), HttpStatus.OK);
     }
 
+    /**
+     * get promo posts by user id
+     *
+     * @param userId Integer
+     * @return {@link ResponseEntity}
+     * @see ResponseEntity
+     * @see UserPromoPosts
+     */
     @GetMapping("/promo-post/list")
     public ResponseEntity<UserPromoPosts> getPromoPosts (@RequestParam(name = "user_id") Integer userId) {
         return new ResponseEntity<>(postService.getPromoPosts(userId), HttpStatus.OK);
