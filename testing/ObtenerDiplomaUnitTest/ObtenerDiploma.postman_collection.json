@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "342ee000-93e3-41cb-9b68-fa3bcadb1a71",
+		"name": "ObtenerDiploma",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{$server}}/analyzeScores",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$server}}/analyzeScores",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"analyzeScores"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{$server}}/students/listStudents",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$server}}/students/listStudents",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"students",
+						"listStudents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{$server}}/student/getStudent/1",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$server}}/student/getStudent/1",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"student",
+						"getStudent",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{$server}}/student/registerStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"id\": 188888,\n    \"studentName\": \"Mariano\",\n    \"subjects\": [\n      {\n        \"name\": \"Matemática\",\n        \"score\": 9\n      },\n      {\n        \"name\": \"Física\",\n        \"score\": 7\n      },\n      {\n        \"name\": \"Química\",\n        \"score\": 6\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$server}}/student/registerStudent",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"student",
+						"registerStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{$server}}/student/modifyStudent",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "  {\n    \"id\": 1,\n    \"studentName\": \"Juan Manuel\",\n    \"subjects\": [\n      {\n        \"name\": \"Matemática\",\n        \"score\": 9\n      },\n      {\n        \"name\": \"Física\",\n        \"score\": 7\n      },\n      {\n        \"name\": \"Química\",\n        \"score\": 6\n      }\n    ]\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{$server}}/student/modifyStudent",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"student",
+						"modifyStudent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{$sever}}/student/removeStudent/7",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{$server}}/student/removeStudent/7",
+					"host": [
+						"{{$server}}"
+					],
+					"path": [
+						"student",
+						"removeStudent",
+						"7"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "$server",
+			"value": "http://localhost:8080"
+		}
+	]
+}
