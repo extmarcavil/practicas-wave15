@@ -8,7 +8,6 @@ import lombok.Setter;
 import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Getter
 @Setter
