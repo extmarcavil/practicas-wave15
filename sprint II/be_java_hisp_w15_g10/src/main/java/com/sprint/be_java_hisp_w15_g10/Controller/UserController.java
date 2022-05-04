@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RequestMapping("users/")
@@ -36,7 +37,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<FollowersDTO> getUserFollowers(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order){
+    public ResponseEntity<FollowersDTO> getUserFollowers(@PathVariable int userId, @Pattern(regexp = "^name_(asc)$|(desc)$") @RequestParam(defaultValue = "name_asc") String order){
 
         return new ResponseEntity<FollowersDTO>(userService.getFollowers(userId, order), HttpStatus.OK);
     }
@@ -47,7 +48,7 @@ public class UserController {
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId, @RequestParam(defaultValue = "name_asc") String order) {
+    public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(@PathVariable int userId, @Pattern(regexp = "^name_(asc)$|(desc)$") @RequestParam(defaultValue = "name_asc") String order) {
         return new ResponseEntity<>(userService.getVendorsFollow(userId, order), HttpStatus.OK);
     }
 

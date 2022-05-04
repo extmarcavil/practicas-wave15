@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 @Service
@@ -26,7 +27,6 @@ public class UserService implements IUserService {
         return userRepository.getById(userID)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
     }
-
 
     @Override
     public UserWithFollowersCountDTO getUsersWithFollowersCount(int userID){
@@ -78,7 +78,7 @@ public class UserService implements IUserService {
             listUsers.add(userDTO);
         });
 
-        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+        if(order.equals("name_asc")) listUsers.sort(Comparator.comparing(UserDTO::getUser_name));
         else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
 
         vendedorsFollowedDTO.setFollowed(listUsers);

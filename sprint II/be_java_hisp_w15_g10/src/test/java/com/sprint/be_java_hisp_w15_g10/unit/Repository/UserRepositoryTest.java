@@ -53,8 +53,10 @@ class UserRepositoryTest {
         List<User> users = userRepository.getAll();
 
         // assert
-        Assertions.assertFalse(users.isEmpty());
-        Assertions.assertEquals(users.size(),7);
+        Assertions.assertAll(
+                ()->{Assertions.assertFalse(users.isEmpty());},
+                ()->{Assertions.assertEquals(users.size(),7);}
+        );
     }
 
 
@@ -67,8 +69,9 @@ class UserRepositoryTest {
         userRepository.add(user);
         int final_size = userRepository.getAll().size();
         // assert
-        Assertions.assertNotEquals(initial_size, final_size);
-        Assertions.assertEquals(user, userRepository.getById(4).get());
-
+        Assertions.assertAll(
+                ()->{Assertions.assertNotEquals(initial_size, final_size);},
+                ()->{Assertions.assertEquals(user, userRepository.getById(4).get());}
+        );
     }
 }

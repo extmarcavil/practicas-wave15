@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.Pattern;
 import java.util.List;
 
 @RequestMapping("products/")
@@ -35,7 +36,7 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<UserPostResponseDTO> getAllPostsByFollowerId(@PathVariable int userId, @RequestParam(defaultValue = "date_asc") String order){
+    public ResponseEntity<UserPostResponseDTO> getAllPostsByFollowerId(@PathVariable int userId, @Pattern(regexp = "^date_(asc)$|(desc)$") @RequestParam(defaultValue = "date_asc") String order){
         return new ResponseEntity<UserPostResponseDTO>(postService.getAllPostsByFollowerId(userId, order), HttpStatus.OK);
     }
 
