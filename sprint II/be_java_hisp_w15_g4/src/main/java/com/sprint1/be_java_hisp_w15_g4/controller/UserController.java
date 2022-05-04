@@ -1,7 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
-import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
+import com.sprint1.be_java_hisp_w15_g4.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("users/{userId}")
 public class UserController {
-    ISocialMeliService service;
+    IUserService service;
 
-    public UserController(ISocialMeliService service) {
+    public UserController(IUserService service) {
         this.service = service;
     }
 

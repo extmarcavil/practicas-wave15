@@ -2,7 +2,7 @@ package com.sprint1.be_java_hisp_w15_g4.controller;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.PostListDTO;
-import com.sprint1.be_java_hisp_w15_g4.service.ISocialMeliService;
+import com.sprint1.be_java_hisp_w15_g4.service.IProductService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    ISocialMeliService service;
+    IProductService service;
 
-    public ProductController(ISocialMeliService service) {
+    public ProductController(IProductService service) {
         this.service = service;
     }
     ////////////////////US0005////////////////////
