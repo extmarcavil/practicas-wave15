@@ -43,16 +43,6 @@ class UserServiceImplTest {
     }
 
     @Test
-    void whenTheUserToFollowDoestNotExist_thenAnExceptionIsThrown() {
-        Integer idToFollowNonexistent = 4;
-        when(repository.getUser(any())).thenThrow(new UserNotFoundException(idToFollowNonexistent));
-
-        assertThatThrownBy(() -> userService.follow(user.getId(), idToFollowNonexistent))
-                .isInstanceOf(UserNotFoundException.class)
-                .hasMessage("El usuario con ID: " + idToFollowNonexistent + " no fue encontrado");
-    }
-
-    @Test
     void whenTheUserToFollowExists_isAddedToList() {
         User otherUser = otherUser();
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -82,7 +72,7 @@ class UserServiceImplTest {
     }
 
     @Test
-    void whenTheUserToUnFollowExists_isAddedToList() {
+    void whenTheUserToUnFollowExists_isRemoveFromList() {
         User otherUser = otherUser();
         when(repository.getUser(user.getId())).thenReturn(user);
         when(repository.getUser(otherUser.getId())).thenReturn(otherUser);
