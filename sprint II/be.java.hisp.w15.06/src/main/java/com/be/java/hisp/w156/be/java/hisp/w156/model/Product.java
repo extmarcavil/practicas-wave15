@@ -1,12 +1,12 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.*;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Setter
 public class Product {
@@ -38,4 +38,16 @@ public class Product {
     @Size(max = 80, message = "La longitud no puede superar los 80 caracteres.")
     @Pattern(regexp = "[A-Za-z]",message = "El campo no puede poseer caracteres especiales.")
     private String notes;
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "product_id=" + product_id +
+                ", product_name='" + product_name + '\'' +
+                ", type='" + type + '\'' +
+                ", brand='" + brand + '\'' +
+                ", color='" + color + '\'' +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
 }

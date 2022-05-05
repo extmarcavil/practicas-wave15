@@ -19,4 +19,11 @@ public class User {
     private List<User> followers;
     private List<User> followed;
 
+    public User(Integer id, String name, List<User> followers) {
+        this.id = id;
+        this.name = name;
+        this.followers = followers;
+    }
 }
+
+
