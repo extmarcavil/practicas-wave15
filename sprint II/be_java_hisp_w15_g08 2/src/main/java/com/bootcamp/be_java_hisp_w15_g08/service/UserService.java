@@ -45,6 +45,9 @@ public class UserService implements IUserService{
                 .collect(toList());
 
         if(order!= null){
+            if (!order.equals("name_asc") && !order.equals("name_desc")) {
+                throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
+            }
             listDto = SortUsers.order(listDto,order);
         }
         FollowersListDTO followersListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);
@@ -59,6 +62,9 @@ public class UserService implements IUserService{
                 .map(user1 -> mapper.map(user1,UserDTO.class))
                 .collect(toList());
         if(order!= null){
+            if (!order.equals("name_asc") && !order.equals("name_desc")) {
+                throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
+            }
             listDto = SortUsers.order(listDto,order);
         }
         FollowersListDTO followedListDTO = new FollowersListDTO(user.getUserID(),user.getName(),listDto);

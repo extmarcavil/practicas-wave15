@@ -33,18 +33,13 @@ public class UserController {
 
     @GetMapping("/users/{userId}/followers/list")
     public ResponseEntity<FollowersListDTO> getFollowersList(@PathVariable Integer userId, @RequestParam(required = false) String order) {
-        if (order != null && !order.equals("name_asc") && !order.equals("name_desc")) {
-            throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
-        }
+
         FollowersListDTO followersListDTO = service.getFollowersList(userId, order);
         return new ResponseEntity<>(followersListDTO, HttpStatus.ACCEPTED);
     }
 
     @GetMapping("/users/{userId}/followed/list")
     public ResponseEntity<FollowersListDTO> getFollowedList(@PathVariable Integer userId, @RequestParam(required = false) String order) {
-        if (order != null && !order.equals("name_asc") && !order.equals("name_desc")) {
-            throw new IllegalArgumentException("Parametro incorrecto, verificar el parametro ingresado");
-        }
         FollowersListDTO followedListDTO = service.getFollowedList(userId, order);
         return new ResponseEntity<>(followedListDTO, HttpStatus.ACCEPTED);
     }

@@ -4,7 +4,11 @@ import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import org.springframework.stereotype.Repository;
+
+import java.awt.*;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
