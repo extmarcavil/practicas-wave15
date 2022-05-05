@@ -125,4 +125,23 @@ public class UserServiceTest {
         //assert
         assertEquals(expectedFollowersCount, result.getFollowersCount());
     }
+
+    @Test
+    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea 0 ")
+    public void returnsCorrectFollowersCount0(){
+        //arrange
+        Integer userId = 1;
+        User user1 = UserFactory.getUserOne();
+
+        int expectedFollowersCount = 0;
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user1);
+
+        //act
+        FollowersCountDTO result = service.followersCount(user1.getUserId());
+
+        //assert
+        assertEquals(expectedFollowersCount, result.getFollowersCount());
+    }
 }
