@@ -2,6 +2,7 @@ package com.bootcamp.be_java_hisp_w15_g08.service;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.*;
+import com.bootcamp.be_java_hisp_w15_g08.exception.FollowException;
 import com.bootcamp.be_java_hisp_w15_g08.model.Post;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
@@ -75,16 +76,23 @@ public class UserService implements IUserService{
 
     @Override
     public void  followUser(Integer idFollowed, Integer idFollower){
+        User userFollowed= repository.findUser(idFollowed);
+        User userFollower= repository.findUser(idFollower);
+        if(userFollowed.getFollowers().contains(userFollower)){
+            throw new FollowException("No puedes seguir denuevo a este usuario");
+        } else if (userFollowed.equals(userFollower)) {
+            throw new FollowException("No puedes seguirte a ti mismo");
+        }
         repository.followUser(idFollowed,idFollower);
     }
 
     @Override
     public void unFollowUser(Integer idFollowed, Integer idFollower){
+        User userFollowed= repository.findUser(idFollowed);
+        User userFollower= repository.findUser(idFollower);
+        if(!userFollowed.getFollowers().contains(userFollower)){
+            throw new FollowException("No puedes dejar de seguir a un usuario que no sigues");
+        }
         repository.unFollowUser(idFollowed,idFollower);
     }
-
-
-
-
-
 }

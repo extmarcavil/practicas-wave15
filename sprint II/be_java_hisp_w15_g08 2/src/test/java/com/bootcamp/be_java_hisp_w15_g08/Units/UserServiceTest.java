@@ -2,6 +2,7 @@ package com.bootcamp.be_java_hisp_w15_g08.Units;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersListDTO;
+import com.bootcamp.be_java_hisp_w15_g08.exception.FollowException;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
 import com.bootcamp.be_java_hisp_w15_g08.service.UserService;
@@ -15,6 +16,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.util.Assert;
+
+import java.util.ArrayList;
+
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -33,7 +38,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act
         FollowersListDTO result = service.getFollowedList(user1.getUserID(),order);
@@ -53,7 +58,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act
         FollowersListDTO result = service.getFollowedList(1234,order);
@@ -70,7 +75,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act y asert
        Assertions.assertThrows(IllegalArgumentException.class
@@ -85,7 +90,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act y asert
         Assertions.assertThrows(IllegalArgumentException.class
@@ -101,7 +106,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act
         FollowersListDTO actual = service.getFollowersList(user1.getUserID(),order);
@@ -119,7 +124,7 @@ public class UserServiceTest {
         User user1 = Util.user1();
 
         //Mock
-        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+        when(repository.findUser(user1.getUserID())).thenReturn(user1);
 
         //act
         FollowersListDTO actual = service.getFollowersList(user1.getUserID(),order);
@@ -128,10 +133,9 @@ public class UserServiceTest {
         Assertions.assertEquals(expected,actual);
     }
 
-
     @Test
     @DisplayName("Comprobar si la cantidad de followers son correctos")
-    public void getFollowersCount(){
+    public void getFollowersCount() {
         //arrange
         User user2 = Util.user2();
 
@@ -143,6 +147,73 @@ public class UserServiceTest {
 
 
         //asert
-        Assertions.assertEquals(followersCountDTO.getFollowers_count(),user2.getFollowers().size());
+        Assertions.assertEquals(followersCountDTO.getFollowers_count(), user2.getFollowers().size());
+    }
+
+    @Test
+    void VerifyThatUserToFollowExistAndReturn() {
+
+        User userToFollow = new User();
+        userToFollow.setUserID(1);
+        userToFollow.setName("Marcelo");
+
+        User userFollowed = new User();
+        userFollowed.setUserID(2);
+        userFollowed.setName("Seguido");
+
+        userFollowed.setFollowers(new ArrayList<>());
+        when(repository.findUser(userFollowed.getUserID())).thenReturn(userFollowed);
+        when(repository.findUser(userToFollow.getUserID())).thenReturn(userToFollow);
+
+        service.followUser(2,1);
+
+        Mockito.verify(repository,Mockito.atLeastOnce()).findUser(userFollowed.getUserID());
+        Mockito.verify(repository,Mockito.atLeastOnce()).findUser(userToFollow.getUserID());
+    }
+
+    @Test
+    void VerifyThatUserToUnfollowExist() {
+
+        User follower = new User();
+        follower.setUserID(1);
+        follower.setName("Seguidor");
+
+        User followed = new User();
+        followed.setUserID(2);
+        followed.setName("Seguido");
+
+        followed.setFollowers(new ArrayList<>());
+        followed.addFollower(follower);
+
+        when(repository.findUser(followed.getUserID())).thenReturn(followed);
+        when(repository.findUser(follower.getUserID())).thenReturn(follower);
+
+        service.unFollowUser(2,1);
+
+
+        Mockito.verify(repository,Mockito.atLeastOnce()).findUser(followed.getUserID());
+        Mockito.verify(repository,Mockito.atLeastOnce()).findUser(follower.getUserID());
+    }
+
+
+
+    @Test
+    void VerifyThatUserToUnfollowDoesntExistAndThrowsExcept(){
+
+        User follower = new User();
+        follower.setUserID(1);
+        follower.setName("Seguidor");
+
+        User followed = new User();
+        followed.setUserID(2);
+        followed.setName("Seguido");
+
+        followed.setFollowers(new ArrayList<>());
+
+
+        when(repository.findUser(followed.getUserID())).thenReturn(followed);
+        when(repository.findUser(follower.getUserID())).thenReturn(follower);
+
+        Assertions.assertThrows(FollowException.class,()-> service.unFollowUser(2,1));
     }
 }
