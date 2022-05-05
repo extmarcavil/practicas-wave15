@@ -58,4 +58,38 @@ public class UserControllerTest {
         assertThrows(UserNotFoundException.class, () -> controller.followUser(userId, queryId));
         verify(service, times(1)).followUser(anyInt(), anyInt());
     }
+
+    @Test
+    @DisplayName("T00002 - Verificar que el usuario a dejar de seguir exista")
+    public void findExistingUserToUnfollow(){
+        //arrange
+        Integer userId = 1;
+        Integer queryId = 2;
+        ResponseEntity<?> expected = new ResponseEntity(HttpStatus.OK);
+
+        //Mockito
+        doNothing().when(service).unfollowUser(userId, queryId);
+
+        //act
+        ResponseEntity<?> result = controller.unfollowUser(userId, queryId);
+
+        //assert
+        assertEquals(expected, result);
+        verify(service, times(1)).unfollowUser(anyInt(), anyInt());
+    }
+
+    @Test
+    @DisplayName("T00002 - Verificar que si el usuario a dejar de seguir no existe, lanza excepción")
+    public void throwExceptionWhenUserToUnfollowNotFound(){
+        //arrange
+        Integer userId = 1;
+        Integer queryId = -2;
+
+        //Mockito
+        doThrow(UserNotFoundException.class).when(service).unfollowUser(userId, queryId);
+
+        //act and assert
+        assertThrows(UserNotFoundException.class, () -> controller.unfollowUser(userId, queryId));
+        verify(service, times(1)).unfollowUser(anyInt(), anyInt());
+    }
 }

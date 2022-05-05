@@ -6,6 +6,7 @@ import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.IUserService;
 import com.example.be_java_hisp_w15_g07.service.UserService;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
+import org.assertj.core.api.NotThrownAssert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,6 +15,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -59,6 +62,42 @@ public class UserServiceTest {
 
         //act and assert
         assertThrows(UserNotFoundException.class, () -> service.followUser(userId, queryId));
+        verify(repository, times(2)).findById(anyInt());
+    }
+
+    @Test
+    @DisplayName("T00002 - Verificar que el usuario a dejar de seguir exista")
+    public void findExistingUserToUnfollow(){
+        //arrange
+        Integer userId = 1;
+        Integer queryId = 2;
+        User user1 = UserFactory.getUserOne();
+        User user2 = UserFactory.getUserTwo();
+        UserFactory.setFollowedList(user1, user2);
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user1);
+        when(repository.findById(queryId)).thenReturn(user2);
+
+        //act and assert
+        assertDoesNotThrow(() -> service.unfollowUser(userId, queryId));
+        verify(repository, times(2)).findById(anyInt());
+    }
+
+    @Test
+    @DisplayName("T00002 - Verificar que si el usuario a dejar de seguir no existe, lanza excepción")
+    public void throwExceptionWhenUserToUnfollowNotFound(){
+        //arrange
+        Integer userId = 1;
+        Integer queryId = -2;
+        User user1 = UserFactory.getUserOne();
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user1);
+        when(repository.findById(queryId)).thenThrow(UserNotFoundException.class);
+
+        //act and assert
+        assertThrows(UserNotFoundException.class, () -> service.unfollowUser(userId, queryId));
         verify(repository, times(2)).findById(anyInt());
     }
 }

@@ -20,7 +20,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T00001 - Verificar que el usuario a seguir exista")
+    @DisplayName("T00001/02 - Verificar que el usuario a seguir exista")
     public void findExistingUser(){
         //arrange
         Integer queryId = 1;
@@ -34,7 +34,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0001 - Verificar que si el usuario a seguir no existe, lanza excepción")
+    @DisplayName("T0001/02 - Verificar que si el usuario a seguir no existe, lanza excepción")
     public void throwsExceptionWhenUserNotFound(){
         //arrange
         Integer queryId = -1; //IDs are always positive
