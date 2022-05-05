@@ -5,12 +5,13 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
-import com.be.java.hisp.w156.be.java.hisp.w156.utils.PostFactory;
 import com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -20,12 +21,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.stream.Stream;
 
-import static com.be.java.hisp.w156.be.java.hisp.w156.utils.PostFactory.getListPostLast2Weeks;
+import static com.be.java.hisp.w156.be.java.hisp.w156.utils.PostFactory.*;
+import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.getUserWithPosts;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.Mockito.when;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ProductServiceImplTest {
@@ -69,7 +72,7 @@ class ProductServiceImplTest {
 
         Mockito.when(repository.getUser(userId)).thenReturn(getListPostLast2Weeks());
 
-        List<ResponsePostDTO> expected = PostFactory.getPosts();
+        List<ResponsePostDTO> expected = getPosts();
 
         //act
         ResponseEntity<RecentlyPostDTO> result = productService.getPostsLastTwoWeekById(userId, order);
@@ -77,4 +80,29 @@ class ProductServiceImplTest {
         //asset
         Assertions.assertArrayEquals(expected.toArray(), result.getBody().getPosts().toArray());
     }
+
+    @ParameterizedTest
+    @MethodSource("orderList")
+    @DisplayName("Verificar que la consulta de posts este ordenado ascendente y descendente")
+    void validatePostsAreOrderedCorrectlyByDateAsc(String order, List<ResponsePostDTO> listResponseDtoExpected) {
+        User userWithPostsOrdered = getUserWithPosts();
+        Integer userId = userWithPostsOrdered.getId();
+
+        when(repository.getUser(userId)).thenReturn(userWithPostsOrdered);
+
+        ResponseEntity<RecentlyPostDTO> result =
+                productService.getPostsLastTwoWeekById(userId, order);
+
+        List<ResponsePostDTO> postsDtoResult = result.getBody().getPosts();
+
+        assertThat(postsDtoResult).isEqualTo(listResponseDtoExpected);
+    }
+
+    public static Stream<Arguments> orderList() {
+        return Stream.of(
+                Arguments.of("date_asc", getPostsOrderByAsc()),
+                Arguments.of("date_desc", getPostsOrderByDesc())
+        );
+    }
+
 }

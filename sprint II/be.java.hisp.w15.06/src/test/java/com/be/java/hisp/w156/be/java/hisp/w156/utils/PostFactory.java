@@ -7,13 +7,14 @@ import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PostFactory {
 
-
+    private static final Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
 
     public static User getListPostLast2Weeks(){
         User user = new User();
@@ -23,13 +24,7 @@ public class PostFactory {
         followed.add(userSeller);
         user.setFollowed(followed);
 
-        Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
-        List<Post> posts = Stream.of(
-                new Post(1, LocalDate.now(), product, "100", 500.50),
-                new Post(1, LocalDate.now().minusDays(60), product, "100", 500.50),
-                new Post(1, LocalDate.now().minusDays(15), product, "100", 600.50)
-        ).collect(Collectors.toList());
-
+        List<Post> posts = generatePosts();
 
         userSeller.setPosts(posts);
 
@@ -37,12 +32,30 @@ public class PostFactory {
     }
 
     public static List<ResponsePostDTO> getPosts(){
-        Product product = new Product(1, "Silla Gamer", "Gamer", "Racer", "Red & Black", "Special Edition");
-        List<ResponsePostDTO> posts2 = Stream.of(
-                new Post(1, LocalDate.now(), product, "100", 500.50)
-                ).map(ResponsePostDTO::from).collect(Collectors.toList()) ;
+        return generatePosts().stream()
+                .map(ResponsePostDTO::from)
+                .collect(Collectors.toList());
+    }
 
-        return posts2;
+    public static List<ResponsePostDTO> getPostsOrderByAsc() {
+        return generatePosts().stream()
+                .map(ResponsePostDTO::from)
+                .sorted(Comparator.comparing(ResponsePostDTO::getDate))
+                .collect(Collectors.toList());
+    }
+
+    public static List<ResponsePostDTO> getPostsOrderByDesc() {
+        return generatePosts().stream()
+                .map(ResponsePostDTO::from)
+                .sorted(Comparator.comparing(ResponsePostDTO::getDate).reversed())
+                .collect(Collectors.toList());
+    }
+
+    public static List<Post> generatePosts() {
+        return Stream.of(
+                new Post(1, LocalDate.now().minusDays(1), product, "100", 500.50),
+                new Post(1, LocalDate.now(), product, "100", 500.50)
+        ).collect(Collectors.toList());
     }
 
 }

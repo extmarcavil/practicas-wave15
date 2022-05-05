@@ -2,9 +2,7 @@ package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserCountFollowersDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
-import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -22,13 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.*;
-
-import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.anUser;
-import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.otherUser;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -44,7 +38,6 @@ class UserServiceImplTest {
     @BeforeEach
     void setUp() {
         user = anUser();
-        repository.save(user);
     }
 
     @Test
