@@ -1,7 +1,11 @@
 package com.bootcamp.be_java_hisp_w15_g02.unit.service;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPostsSellerByUserIdDTO;
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
+import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
+import com.bootcamp.be_java_hisp_w15_g02.repository.IPostRepository;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
 import com.bootcamp.be_java_hisp_w15_g02.repository.UserRepository;
 import com.bootcamp.be_java_hisp_w15_g02.service.IUserService;
@@ -25,6 +29,7 @@ public class UserServiceTest {
 
     @Mock
     private IUserRepository userRepository;
+    @Mock
 
     @InjectMocks
     private UserService userService;
@@ -48,4 +53,6 @@ public class UserServiceTest {
 
         Assertions.assertEquals(countExpected, countResultDTO.getFollowersCount());
     }
+
+
 }

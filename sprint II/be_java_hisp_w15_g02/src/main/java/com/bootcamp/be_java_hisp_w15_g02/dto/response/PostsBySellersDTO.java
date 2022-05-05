@@ -2,6 +2,7 @@ package com.bootcamp.be_java_hisp_w15_g02.dto.response;
 
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.model.Product;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@Data
 public class PostsBySellersDTO {
     private int postId;
     private int userId;
