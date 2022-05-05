@@ -1,11 +1,10 @@
 package sprint1.socialmeli.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.stereotype.Service;
+import sprint1.socialmeli.dto.*;
 import sprint1.socialmeli.utils.PostConverter;
-import sprint1.socialmeli.dto.PostRequestDTO;
-import sprint1.socialmeli.dto.PostResponseDTO;
-import sprint1.socialmeli.dto.ResponsePostListDTO;
 import sprint1.socialmeli.exceptions.InvalidParamsException;
 import sprint1.socialmeli.exceptions.InvalidPostException;
 import sprint1.socialmeli.model.Post;
@@ -34,12 +33,33 @@ public class ProductService implements IProductService {
     }
 
     @Override
+    public Integer save(PromoPostRequestDTO post) {
+        Post newPost = new Post(post);
+        return postRepository.save(newPost);
+    }
+
+
+    @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         String sortOrder = setDefaultOrder(order);
         validateOrder(sortOrder);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
         return new ResponsePostListDTO(userFollowerID, sortDTOPosts(this.converter.createFromEntities(listOfPost), sortOrder));
+    }
+
+    @Override
+    public ResponsePromoPostCountDTO countPromoPostOfUser(int userId) {
+        User user = getUserFromRepositoryById(userId);
+        int contador = postRepository.countPromoPostOfUser(userId);
+        return new ResponsePromoPostCountDTO(user.getId(), user.getName(), contador);
+    }
+
+    @Override
+    public ResponsePostListOfUser listPostsOfUser(int userId) {
+        User user = getUserFromRepositoryById(userId);
+        List<Post> listOfPost = getPostsOfUser(userId);
+        return new ResponsePostListOfUser(user.getId(), user.getName(), this.converter.createFromEntities(listOfPost));
     }
 
     //----------Private----------//
@@ -125,5 +145,14 @@ public class ProductService implements IProductService {
                     "order=date_asc\n" +
                     "order=date_desc");
         }
+    }
+
+    /**
+     * Obtiene una lista de publicaciones realizadas por un usuario.
+     * @param userId
+     * @return lista de posteos.
+     */
+    private List<Post> getPostsOfUser(int userId){
+        return postRepository.getListOfPostOfUser(userId);
     }
 }

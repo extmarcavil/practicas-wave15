@@ -18,6 +18,7 @@ public class PostResponseDTO {
     private Integer category;
     private Double price;
 
+
     public PostResponseDTO(Post post) {
         this.postId = post.getPostId();
         this.date = post.getDate();
