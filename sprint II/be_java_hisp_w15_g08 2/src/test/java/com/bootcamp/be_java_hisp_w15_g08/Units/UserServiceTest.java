@@ -128,6 +128,7 @@ public class UserServiceTest {
         Assertions.assertEquals(expected,actual);
     }
 
+
     @Test
     @DisplayName("Comprobar si la cantidad de followers son correctos")
     public void getFollowersCount(){
@@ -144,5 +145,4 @@ public class UserServiceTest {
         //asert
         Assertions.assertEquals(followersCountDTO.getFollowers_count(),user2.getFollowers().size());
     }
-    
 }
