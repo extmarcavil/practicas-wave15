@@ -92,7 +92,7 @@ public class FollowsServiceTest {
                         () -> followsService.getListFollowers(1,"cualquiercosa"));
     }
 
-<<<<<<< HEAD
+
     // getListSellers
     @Test
     @DisplayName("Verificación de orden alfabetico ascendiente de vendedores")
@@ -147,12 +147,12 @@ public class FollowsServiceTest {
 
     @Test
     @DisplayName("Verificación lanzado de excepción sellers")
-    void verificarExcepcionOrdenAlfSellers(){
+    void verificarExcepcionOrdenAlfSellers() {
         Assertions
                 .assertThrows(
                         OrderNotValidException.class,
-                        () -> followsService.getListSellers(10,"cualquierotracosa"));
-=======
+                        () -> followsService.getListSellers(10, "cualquierotracosa"));
+    }
     // T001
 
     @Test
@@ -181,6 +181,6 @@ public class FollowsServiceTest {
         //act & assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .unFollow(expectedFollower.getUserId(),expectedSeller.getUserId()));
->>>>>>> ej1
+
     }
 }
