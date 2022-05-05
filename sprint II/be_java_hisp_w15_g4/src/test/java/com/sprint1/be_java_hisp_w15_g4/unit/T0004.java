@@ -28,19 +28,19 @@ public class T0004 {
 
     @Test
     @DisplayName("Verificar que la lista de seguidos se ordene de forma ascendete segun el nombre.")
-    void ordenamientoFollowersNameAscOk(){
+    void orderFollowersNameAscOk(){
 
         //arrange
         int userId1 = 1;
         //ordenamiento correcto.
-        String ordenamiento="name_asc";
+        String order="name_asc";
 
         User user = TestGenerator.userWithFollowers();
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
 
         //act
-        FollowerListDTO listDTO=service.listFollowers(1,ordenamiento);
+        FollowerListDTO listDTO=service.listFollowers(1,order);
 
         //assert
 
@@ -53,19 +53,19 @@ public class T0004 {
 
     @Test
     @DisplayName("Verificar que la lista de seguidores se ordene de forma ascendete segun el nombre.")
-    void ordenamientoFollowingNameAscOk(){
+    void orderFollowingNameAscOk(){
 
         //arrange
         int userId1 = 1;
         //ordenamiento correcto.
-        String ordenamiento="name_asc";
+        String order="name_asc";
 
         User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        FollowingListDTO listDTO=service.listFollowing(1,ordenamiento);
+        FollowingListDTO listDTO=service.listFollowing(1,order);
 
         //assert
 
@@ -78,19 +78,19 @@ public class T0004 {
 
     @Test
     @DisplayName("Verificar que la lista de seguidos se ordene de forma descendente segun el nombre.")
-    void ordenamientoFollowersNamedescOk(){
+    void orderFollowersNamedescOk(){
 
         //arrange
         int userId1 = 1;
         //ordenamiento correcto.
-        String ordenamiento="name_desc";
+        String order="name_desc";
 
         User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        FollowerListDTO listDTO=service.listFollowers(1,ordenamiento);
+        FollowerListDTO listDTO=service.listFollowers(1,order);
 
         //assert
 
@@ -103,19 +103,19 @@ public class T0004 {
 
     @Test
     @DisplayName("Verificar que la lista de seguidores se ordene de forma descendete segun el nombre.")
-    void ordenamientoFollowingNameDescOk(){
+    void orderFollowingNameDescOk(){
 
         //arrange
         int userId1 = 1;
         //ordenamiento correcto.
-        String ordenamiento="name_desc";
+        String order="name_desc";
 
         User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        FollowingListDTO listDTO=service.listFollowing(1,ordenamiento);
+        FollowingListDTO listDTO=service.listFollowing(1,order);
 
         //assert
 

@@ -27,40 +27,40 @@ public class T0003 {
 
     @Test
     @DisplayName("Verifica que name_asc es un ordenamiento correcto de la lista de seguidores.")
-    void ordenamientoFollowersNameAscOk(){
+    void orderFollowersNameAscOk(){
 
         //arrange
         //ordenamiento correcto.
-        String ordenamiento="name_asc";
+        String order="name_asc";
 
         User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        service.listFollowers(1,ordenamiento);
+        service.listFollowers(1,order);
     }
 
     @Test
     @DisplayName("Verifica que name_desc es un ordenamiento correcto de la lista de seguidores.")
-    void ordenamientoFollowersNameDescOk(){
+    void orderFollowersNameDescOk(){
 
         //arrange
         //ordenamiento correcto.
-        String ordenamiento="name_desc";
+        String order="name_desc";
 
         User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        service.listFollowers(1,ordenamiento);
+        service.listFollowers(1,order);
     }
 
 
     @Test
     @DisplayName("Verifica que se lanza una Excepcion al ingresar un ordenamiento incorrecto de la lista de Followers")
-    void ordenamientoFollowersNotOk(){
+    void orderFollowersNotOk(){
 
         //arrange
 
@@ -79,39 +79,39 @@ public class T0003 {
 
     @Test
     @DisplayName("Verifica que name_asc es un ordenamiento correcto de la lista de seguidos.")
-    void ordenamientoFollowingNameAscOk(){
+    void orderFollowingNameAscOk(){
         //arrange
         //ordenamiento correcto.
-        String ordenamiento="name_asc";
+        String order="name_asc";
 
         User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        service.listFollowing(1,ordenamiento);
+        service.listFollowing(1,order);
     }
 
     @Test
     @DisplayName("Verifica que name_asc es un ordenamiento correcto de la lista de seguidos.")
-    void ordenamientoFollowingsNameDescOk(){
+    void orderFollowingsNameDescOk(){
 
         //arrange
         //ordenamiento correcto.
-        String ordenamiento="name_desc";
+        String order="name_desc";
 
         User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
         //act
-        service.listFollowing(1,ordenamiento);
+        service.listFollowing(1,order);
     }
 
 
     @Test
     @DisplayName("Verifica que se lanza una Excepcion al ingresar un ordenamiento incorrecto de la lista de followings")
-    void ordenamientoFollowingsNotOk(){
+    void orderFollowingsNotOk(){
 
         //arrange
         User user = TestGenerator.userWithFollowings();

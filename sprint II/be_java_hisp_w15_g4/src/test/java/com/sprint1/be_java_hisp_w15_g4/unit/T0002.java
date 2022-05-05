@@ -22,8 +22,8 @@ public class T0002 {
     private UserService service;
 
     @Test
-    @DisplayName("Permite continuar con normalidad")
-    void verificarUnFollowExistOK() {
+    @DisplayName("Verifica si el usuari a dejar de seguir existe")
+    void verifyUnfollowExistOK() {
         // Arrange
         int userId1 = 1;
         int userId2 = 2;
@@ -50,7 +50,7 @@ public class T0002 {
 
     @Test
     @DisplayName("Notifica la no existencia mediante una excepción")
-    void verificarUnFollowNotExistOK() {
+    void verifyUnfollowNotExistOK() {
         // Arrange
         int userId1 = 1;
 

@@ -23,7 +23,7 @@ public class T0001 {
 
     @Test
     @DisplayName("Permite continuar con normalidad")
-    void verificarFollowExistOK() {
+    void verifyIfFollowExistOK() {
         // Arrange
         int userId1 = 1;
         int userId2 = 2;
@@ -47,7 +47,7 @@ public class T0001 {
 
     @Test
     @DisplayName("Notifica la no existencia mediante una excepción")
-    void verificarFollowNotExistOK() {
+    void verifyIfFollowNotExistOK() {
         // Arrange
         int userId1 = 1;
 
