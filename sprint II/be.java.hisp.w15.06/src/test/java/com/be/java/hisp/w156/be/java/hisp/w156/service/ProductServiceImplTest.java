@@ -37,6 +37,7 @@ class ProductServiceImplTest {
     private ProductServiceImpl productService;
 
     @Test
+    @DisplayName("Obtener excepción al verificar que el tipo de ordenamiento por fecha no es valido al ordenar lista de posts.")
     void whenPostDateOrderingIsNotValidThenReturnsException(){
         String order = "order";
 
@@ -49,6 +50,7 @@ class ProductServiceImplTest {
 
     @ParameterizedTest
     @ValueSource(strings = {"date_asc", "date_desc", ""})
+    @DisplayName("Verificar que el tipo de ordenamiento por fecha es valido. Se recibe status ok.")
     void whenPostDateOrderingIsValidThenReturnsStatusOk(String order){
         User user = UserFactory.anUser();
 
@@ -59,7 +61,7 @@ class ProductServiceImplTest {
 
 
     @Test
-    @DisplayName("Verificar  la consulta de publicaciones realizadas sean de las ultimas 2 semanas ")
+    @DisplayName("Verificar que la consulta de publicaciones realizadas sean de las ultimas 2 semanas.")
     public void whenGetPostsLastTwoWeekById(){
         //arrange
         int userId = 1;
