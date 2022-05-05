@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.unit.service;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
@@ -51,8 +52,12 @@ public class PostServiceTest {
         Mockito.when(followRepository.findFollowedByUserId(idUser)).thenReturn(Arrays.asList(user));
         Mockito.when(postRepository.getAllPostsByUserWithinTimespan(user,days)).thenReturn(PostFactory.createList(user));
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(idUser);
+        dto.setOrder(order);
+
         //act
-        PostListDTO result = postService.getPostsByFollowedUsers(idUser, order);
+        PostListDTO result = postService.getPostsByFollowedUsers(dto);
 
         //assert
         Assertions.assertEquals(expected.getUserId(), result.getUserId());
@@ -66,9 +71,12 @@ public class PostServiceTest {
         Long idUser= 1L;
         String order = "date_ascs";
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(idUser);
+        dto.setOrder(order);
         //act
         //assert
-        Assertions.assertThrows(InvalidArgumentException.class, () -> postService.getPostsByFollowedUsers(idUser, order));
+        Assertions.assertThrows(InvalidArgumentException.class, () -> postService.getPostsByFollowedUsers(dto));
     }
 
 
@@ -101,9 +109,12 @@ public class PostServiceTest {
                                    .sorted(comp)
                                    .collect(Collectors.toList());
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(id);
+        dto.setOrder(order);
 
         // Act
-        List<LocalDate> resultPosts = postService.getPostsByFollowedUsers(id, order)
+        List<LocalDate> resultPosts = postService.getPostsByFollowedUsers(dto)
                                               .getPosts().stream()
                                               .map(x-> LocalDate.parse(x.getDate()))
                                               .collect(Collectors.toList());

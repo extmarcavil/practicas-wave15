@@ -4,6 +4,9 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
@@ -59,8 +62,11 @@ public class UserServiceTest {
         Mockito.when(followRepository.save(u1, u2)).thenReturn(FollowFactory.create(u1, u2));
         ResponseDTO expected = ResponseDTOFactory.create("Followed!");
 
+        FollowRequestDTO dto = new FollowRequestDTO();
+        dto.setUserId(id1);
+        dto.setUserIdToFollow(id2);
         // Act
-        ResponseDTO result = userService.follow(id1, id2);
+        ResponseDTO result = userService.follow(dto);
 
         // Assert
         Mockito.verify(followRepository).save(u1, u2);
@@ -77,9 +83,12 @@ public class UserServiceTest {
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(u1));
         Mockito.when(userRepository.findById(36721L)).thenThrow(UserNotFoundException.class);
 
+        FollowRequestDTO dto = new FollowRequestDTO();
+        dto.setUserId(id1);
+        dto.setUserIdToFollow(id2);
         // Act
         // Assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.follow(id1, id2));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.follow(dto));
     }
 
     @Test
@@ -95,8 +104,11 @@ public class UserServiceTest {
         Mockito.doNothing().when(followRepository).unFollow(u1, u2);
         ResponseDTO expected = ResponseDTOFactory.create("Unfollowed");
 
+        FollowRequestDTO dto = new FollowRequestDTO();
+        dto.setUserId(id1);
+        dto.setUserIdToFollow(id2);
         // Act
-        ResponseDTO result = userService.unFollow(id1, id2);
+        ResponseDTO result = userService.unFollow(dto);
 
         // Assert
         Mockito.verify(followRepository).unFollow(u1, u2);
@@ -113,10 +125,13 @@ public class UserServiceTest {
         Mockito.when(userRepository.findById(1L)).thenReturn(Optional.of(u1));
         Mockito.when(userRepository.findById(123L)).thenThrow(UserNotFoundException.class);
 
+        FollowRequestDTO dto = new FollowRequestDTO();
+        dto.setUserId(id1);
+        dto.setUserIdToFollow(id2);
         // Act
 
         // Assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(id1, id2));
+        Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(dto));
     }
 
 
@@ -127,9 +142,12 @@ public class UserServiceTest {
         // Arrange
         Long id1 = 1L;
 
+        FollowRequestDTO dto = new FollowRequestDTO();
+        dto.setUserId(id1);
+        dto.setUserIdToFollow(id1);
         // Act
         // Assert
-        Assertions.assertThrows(OwnFollowingException.class, () -> userService.unFollow(id1, id1));
+        Assertions.assertThrows(OwnFollowingException.class, () -> userService.unFollow(dto));
     }
 
 
@@ -161,8 +179,12 @@ public class UserServiceTest {
 
         Mockito.when(followRepository.whoFollows(id)).thenReturn(follows);
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(id);
+        dto.setOrder(order);
+
         // Act
-        List<UserDTO> resultList = userService.whoFollowsMe(1L, order).getFollowers();
+        List<UserDTO> resultList = userService.whoFollowsMe(dto).getFollowers();
         List<String> resultFollowerNames = resultList.stream().map(UserDTO::getUserName).collect(Collectors.toList());
 
         // Assert
@@ -205,8 +227,12 @@ public class UserServiceTest {
 
         Mockito.when(followRepository.findFollowedByUserId(id)).thenReturn(followingList);
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(id);
+        dto.setOrder(order);
+
         // Act
-        List<UserDTO> resultList = userService.findAllFollowedByUserId(1L, order).getFollowed();
+        List<UserDTO> resultList = userService.findAllFollowedByUserId(dto).getFollowed();
 
         List<String> resultFollowerNames = resultList.stream().map(UserDTO::getUserName).collect(Collectors.toList());
 
@@ -239,8 +265,12 @@ public class UserServiceTest {
         Mockito.when(followRepository.whoFollows(id)).thenReturn(FollowersListFactory.createLista());
         Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(u1));
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(id);
+        dto.setOrder(order);
+
         //act
-        FollowersListDTO lista = userService.whoFollowsMe(id, order);
+        FollowersListDTO lista = userService.whoFollowsMe(dto);
 
         //assert
         Assertions.assertEquals(2L,lista.getFollowers().get(0).getUserId());
@@ -254,9 +284,13 @@ public class UserServiceTest {
         Long id= 1L;
         String order = "name_ascs";
 
+        WhoAndHowManyFollowsMeRequestDTO dto = new WhoAndHowManyFollowsMeRequestDTO();
+        dto.setUserId(id);
+        dto.setOrder(order);
+
         //act
         //assert
-        Assertions.assertThrows(InvalidArgumentException.class, () -> userService.whoFollowsMe(id, order));
+        Assertions.assertThrows(InvalidArgumentException.class, () -> userService.whoFollowsMe(dto));
     }
 
 
@@ -268,8 +302,11 @@ public class UserServiceTest {
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(UserFactory.createLuky()));
         Mockito.when(followRepository.whoFollows(userId)).thenReturn(FollowersListFactory.createLista());
 
+        UserIdDTO dto = new UserIdDTO();
+        dto.setUserId(userId);
+
         //act
-        FollowersCountDTO result = userService.wowManyFollowsMe(userId);
+        FollowersCountDTO result = userService.wowManyFollowsMe(dto);
 
         //assert
         Assertions.assertEquals(1,result.getFollowersCount());

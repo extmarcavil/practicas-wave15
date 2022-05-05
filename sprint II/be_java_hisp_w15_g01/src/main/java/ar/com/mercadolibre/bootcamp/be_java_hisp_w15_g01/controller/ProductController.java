@@ -45,12 +45,11 @@ public class ProductController {
      */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<PostListDTO> followed(@Valid WhoAndHowManyFollowsMeRequestDTO dto) {
-        Long userId = dto.getUserId();
-        String order = dto.getOrder();
-        log.info("Se recibio peticion de obtener todos los posts de las personas que sigue el id " + userId);
+
+        log.info("Se recibio peticion de obtener todos los posts de las personas que sigue el id " + dto.getUserId());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(service.getPostsByFollowedUsers(userId, order));
+                .body(service.getPostsByFollowedUsers(dto));
     }
 
 }

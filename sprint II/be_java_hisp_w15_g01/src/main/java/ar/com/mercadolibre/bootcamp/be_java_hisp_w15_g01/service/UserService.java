@@ -4,6 +4,9 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import org.springframework.http.ResponseEntity;
 
@@ -12,10 +15,8 @@ public interface UserService {
      * UserService
      * Accion de seguir a un vendedor
      *
-     * @param userId El usuario que quiere seguir a otro usuario
-     * @param userIdToFollow El usuario target al cual quieren seguir
      */
-    ResponseDTO follow(Long userId, long userIdToFollow);
+    ResponseDTO follow(FollowRequestDTO followRequestDTO);
 
     /**
      * UserService
@@ -32,7 +33,7 @@ public interface UserService {
      * @param userId El usuario a buscar
      * @param order El orden de los parametros
      */
-    FollowersListDTO whoFollowsMe(Long id, String order);
+    FollowersListDTO whoFollowsMe(WhoAndHowManyFollowsMeRequestDTO dto);
 
     /**
      * UserService
@@ -40,7 +41,7 @@ public interface UserService {
      *
      * @param userId El usuario a buscar
      */
-    FollowersCountDTO wowManyFollowsMe(Long userId);
+    FollowersCountDTO wowManyFollowsMe(UserIdDTO userId);
 
     /**
      * UserService
@@ -48,7 +49,7 @@ public interface UserService {
      *
      * @param userId El usuario a buscar
      */
-    FollowedListDTO findAllFollowedByUserId(Long userId, String order);
+    FollowedListDTO findAllFollowedByUserId(WhoAndHowManyFollowsMeRequestDTO dto);
 
     /**
      * UserController
@@ -57,6 +58,6 @@ public interface UserService {
      * @param userId El usuario que quiere dejar de seguir a otro usuario
      * @param userIdToUnfollow El usuario target al cual quieren dejar de seguir
      */
-    ResponseDTO unFollow(Long userId, long userIdToUnfollow);
+    ResponseDTO unFollow(FollowRequestDTO dto);
 
 }

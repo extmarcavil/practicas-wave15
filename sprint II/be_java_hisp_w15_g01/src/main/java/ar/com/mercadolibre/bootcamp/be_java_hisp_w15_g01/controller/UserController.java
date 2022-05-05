@@ -13,9 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
 import javax.validation.Valid;
-import javax.validation.constraints.Min;
 
 @RestController
 @RequestMapping("/users")
@@ -34,12 +32,11 @@ public class UserController {
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
     public ResponseEntity<ResponseDTO> follow(@Valid FollowRequestDTO dto) {
-        Long userId = dto.getUserId();
-        Long userIdToFollow = dto.getUserIdToFollow();
-        log.info("Se recibe peticion de seguir, id " + userId + " a id " + userIdToFollow);
+
+        log.info("Se recibe peticion de seguir, id " + dto.getUserId() + " a id " + dto.getUserIdToFollow());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.follow(userId, userIdToFollow));
+                .body(userService.follow(dto));
     }
 
     /**
@@ -50,11 +47,11 @@ public class UserController {
      */
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> wowManyFollowsMe( @Valid UserIdDTO userIdDTO) {
-        Long userId = userIdDTO.getUserId();
-        log.info("Se recibe peticion de cantidad de seguidores del id " + userId);
+
+        log.info("Se recibe peticion de cantidad de seguidores del id " + userIdDTO.getUserId());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.wowManyFollowsMe(userId));
+                .body(userService.wowManyFollowsMe(userIdDTO));
     }
 
     /**
@@ -63,12 +60,11 @@ public class UserController {
      */
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersListDTO> whoFollowsMe(@Valid WhoAndHowManyFollowsMeRequestDTO dto) {
-        Long userId = dto.getUserId();
-        String order = dto.getOrder();
-        log.info("Se recibe peticion de lista de seguidores del id " + userId);
+
+        log.info("Se recibe peticion de lista de seguidores del id " + dto.getUserId());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.whoFollowsMe(userId, order));
+                .body(userService.whoFollowsMe(dto));
 
     }
 
@@ -80,12 +76,11 @@ public class UserController {
      */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedListDTO> AllFollowedByUserId(@Valid WhoAndHowManyFollowsMeRequestDTO dto){
-        Long userId = dto.getUserId();
-        String order = dto.getOrder();
-        log.info("Se recibe peticion de lista de seguidos del id " + userId);
+
+        log.info("Se recibe peticion de lista de seguidos del id " + dto.getUserId());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.findAllFollowedByUserId(userId, order));
+                .body(userService.findAllFollowedByUserId(dto));
     }
 
     /**
@@ -95,12 +90,11 @@ public class UserController {
      */
     @PostMapping("{userId}/unfollow/{userIdToUnfollow}")
     public ResponseEntity<ResponseDTO> unFollow(@Valid FollowRequestDTO dto){
-        Long userId = dto.getUserId();
-        Long userIdToUnfollow = dto.getUserIdToFollow();
-        log.info("Se recibe peticion de dejar de seguir, id " + userId + " a id " + userIdToUnfollow);
+
+        log.info("Se recibe peticion de dejar de seguir, id " + dto.getUserId() + " a id " + dto.getUserIdToFollow());
         return ResponseEntity
                 .status(HttpStatus.OK)
-                .body(userService.unFollow(userId, userIdToUnfollow));
+                .body(userService.unFollow(dto));
     }
 
 }

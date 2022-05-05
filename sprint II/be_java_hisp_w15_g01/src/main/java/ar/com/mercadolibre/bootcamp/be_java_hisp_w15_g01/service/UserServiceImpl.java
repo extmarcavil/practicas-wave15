@@ -1,6 +1,9 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.*;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
@@ -32,7 +35,11 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public ResponseDTO follow(Long userId, long userIdToFollow) {
+    public ResponseDTO follow(FollowRequestDTO dto) {
+
+        Long userId = dto.getUserId();
+        Long userIdToFollow = dto.getUserIdToFollow();
+
         if (userId.equals(userIdToFollow)) {
             log.warning("El id " + userId + " intento seguirse a si mismo");
             throw new OwnFollowingException("Your cant follow yourself");
@@ -45,9 +52,9 @@ public class UserServiceImpl implements  UserService {
         }
         this.followRepository.save(follower, followed);
 
-        ResponseDTO dto = new ResponseDTO();
-        dto.setMessage("Followed!");
-        return dto;
+        ResponseDTO dtoResponse = new ResponseDTO();
+        dtoResponse.setMessage("Followed!");
+        return dtoResponse;
     }
 
     @Override
@@ -62,7 +69,9 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public FollowersListDTO whoFollowsMe(Long id, String order) {
+    public FollowersListDTO whoFollowsMe(WhoAndHowManyFollowsMeRequestDTO dto) {
+        Long id = dto.getUserId();
+        String order = dto.getOrder();
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
             log.warning("Se recibieron parametros inesperados: " + order);
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
@@ -80,28 +89,32 @@ public class UserServiceImpl implements  UserService {
             Collections.reverse(followers);
         }
 
-        FollowersListDTO dto = new FollowersListDTO();
-        dto.setUserId(user.getUserId());
-        dto.setUserName(user.getUserName());
-        dto.setFollowers(followers);
-        return dto;
+        FollowersListDTO dtoResponse = new FollowersListDTO();
+        dtoResponse.setUserId(user.getUserId());
+        dtoResponse.setUserName(user.getUserName());
+        dtoResponse.setFollowers(followers);
+        return dtoResponse;
     }
 
     @Override
-    public FollowersCountDTO wowManyFollowsMe(Long userId) {
+    public FollowersCountDTO wowManyFollowsMe(UserIdDTO dto) {
+        Long userId = dto.getUserId();
         User user = this.findById(userId);
         Integer followersCount = this.followRepository
                 .whoFollows(userId)
                 .size();
 
-        FollowersCountDTO dto = new FollowersCountDTO();
-        dto.setUserId(user.getUserId());
-        dto.setUserName(user.getUserName());
-        dto.setFollowersCount(followersCount);
-        return dto;
+        FollowersCountDTO dtoResponse = new FollowersCountDTO();
+        dtoResponse.setUserId(user.getUserId());
+        dtoResponse.setUserName(user.getUserName());
+        dtoResponse.setFollowersCount(followersCount);
+        return dtoResponse;
     }
 
-    public FollowedListDTO findAllFollowedByUserId(Long userId, String order) {
+    public FollowedListDTO findAllFollowedByUserId(WhoAndHowManyFollowsMeRequestDTO dto) {
+
+        Long userId = dto.getUserId();
+        String order = dto.getOrder();
         if (order != null && !order.equals("name_asc") && !order.equals("name_desc")){
             log.warning("Se recibieron parametros inesperados: " + order);
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
@@ -126,7 +139,9 @@ public class UserServiceImpl implements  UserService {
     }
 
     @Override
-    public ResponseDTO unFollow(Long userId, long userIdToUnfollow) {
+    public ResponseDTO unFollow(FollowRequestDTO dto) {
+        Long userId = dto.getUserId();
+        Long userIdToUnfollow = dto.getUserIdToFollow();
         if (userId.equals(userIdToUnfollow)) {
             log.warning("El usuario con id " + userId + " intento dejar de seguirse a si mismo");
             throw new OwnFollowingException("You can´t unfollow yourself");
