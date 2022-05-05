@@ -33,7 +33,6 @@ public class ProductService implements IProductService {
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
         order = checkOrderParam(order);
-        System.out.println(userFollowerID);
         List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
         ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
         return new ResponsePostListDTO(userFollowerID, sortPosts(listOfPost, order));
@@ -61,7 +60,6 @@ public class ProductService implements IProductService {
      */
     private List<User> getFollowedListOfAnUser(int userFollowerID) {
         User userFollower = getUserFromRepositoryById(userFollowerID);
-        System.out.println(userFollowerID);
         return userFollower.getListOfFollowed();
     }
 
