@@ -55,6 +55,7 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.badRequest().body(new ValidationErrorDTO(HttpStatus.BAD_REQUEST, errors));
     }
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<?> handleValidationExceptions(HttpMessageNotReadableException e){
