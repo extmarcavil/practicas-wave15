@@ -351,9 +351,8 @@ class UserServiceTest {
      * El test valida que la lista de retorno de usuarios que siguen a un usuario sea ordenada de forma descendente
      */
 
-
     @Test
-    @DisplayName("")
+    @DisplayName("Test obtener usuario de forma descendente")
     void getUserWithFollowersOrderASC() {
         // arrange
         User user = TestUtils.createUser(1, "Luis");

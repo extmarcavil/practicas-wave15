@@ -7,6 +7,7 @@ import com.sprint.be_java_hisp_w15_g10.Repository.ProductRepository;
 import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -23,7 +24,12 @@ class PostRepositoryTest {
         postRepository = new PostRepository(new CategoryRepository(), new ProductRepository());
     }
 
+    /**
+     * Valida que se pueda obtener el post dado un id específico
+     *
+     */
     @Test
+    @DisplayName("Test obtener post por id")
     void getPostById() {
         // arrange
         Post post1 = TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24));
@@ -41,8 +47,13 @@ class PostRepositoryTest {
         Assertions.assertEquals(oPost.get().isHas_promo(), post1.isHas_promo());
     }
 
+    /**
+     * Valida que dado un id invalido no se pueda obtener un Post
+     *
+     */
     @Test
-    void getInvalidUserById() {
+    @DisplayName("Test Post invalido")
+    void getInvalidPostById() {
         // arrange
         postRepository.add(TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24)));
 
@@ -53,7 +64,12 @@ class PostRepositoryTest {
         Assertions.assertTrue(oPost.isEmpty());
     }
 
+    /**
+     * Valida que se pueda obtener todos los posts
+     *
+     */
     @Test
+    @DisplayName("Test obtener todos los posts")
     void getAll() {
         // arrange
         postRepository.add(TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24)));
@@ -74,7 +90,12 @@ class PostRepositoryTest {
         );
     }
 
+    /**
+     * Valida que se pueda crear un post
+     *
+     */
     @Test
+    @DisplayName("Test crear un post")
     void add() {
         // arrange
         Post post = TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24));
