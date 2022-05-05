@@ -39,19 +39,16 @@ public class UserServiceTest {
     @BeforeEach
     void setUp() {
         Global.getListOfUsers();
-
     }
 
     @Test
     @DisplayName("Verify if the amount of followers is correct.")
     void verifyAmountOfFollowersIsCorrect() {
-        // arrange
-        List<User> listUsers = Global.getListOfUsers();
+        //Arrange
         int countExpected = Global.getUserByIdUtils(5).getFollowerList().size();
 
         Mockito.when(userRepository.getUserById(5)).thenReturn(Global.getUserByIdUtils(5));
-        //act and assert
-
+        //Act and Assert
         GetFollowersCountDTO countResultDTO = userService.getFollowersCount(5);
 
         Assertions.assertEquals(countExpected, countResultDTO.getFollowersCount());
@@ -63,6 +60,7 @@ public class UserServiceTest {
         //Arrange
         List<String> orderExpected = List.of("name_asc","name_desc");
         int userIdExpected = 5;
+        Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
         Mockito.when(userRepository.getUserById(5)).thenReturn(Global.getUserByIdUtils(5));
         //Act and Assert
         GetFollowedByUserDTO response = userService.getFollowedByUser(5,orderExpected.get(1));
@@ -73,21 +71,40 @@ public class UserServiceTest {
     @Test
     @DisplayName("Verify if order type exists with error.")
     void verifyOrderTypeExistsError(){
+        //Arrange
+        Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
         Mockito.when(userRepository.getUserById(5)).thenReturn(Global.getUserByIdUtils(5));
         //Act and Assert
         Assertions.assertThrows(OrderNotFoundException.class, () -> userService.getFollowedByUser(5,"no_name"));
     }
 
     @Test
+    @DisplayName("Verify if order followers is correct.")
     void verifyCorrectOrderByName(){
         //Arrange
         List<GetFollowersDTO> listExpected = Global.getListSorted("name_desc");
-
         User user = Global.getUserByIdUtils(5);
-        Mockito.when(userService.mapFollowDTO(user.getFollowerList())).thenReturn(listExpected);
+        Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
+        Mockito.when(userRepository.getUserById(5)).thenReturn(user);
+
         GetFollowersBySellerDTO response = userService.getFollowersBySeller(5,"name_desc");
 
         //Act and Assert
         Assertions.assertEquals(listExpected, response.getFollowers());
+    }
+
+    @Test
+    @DisplayName("Verify if order followers is incorrect.")
+    void verifyIncorrectOrderByName(){
+        //Arrange
+        List<GetFollowersDTO> listExpected = Global.getListSorted("");
+        User user = Global.getUserByIdUtils(5);
+        Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
+        Mockito.when(userRepository.getUserById(5)).thenReturn(user);
+
+        GetFollowersBySellerDTO response = userService.getFollowersBySeller(5,"name_desc");
+
+        //Act and Assert
+        Assertions.assertNotEquals(listExpected, response.getFollowers());
     }
 }

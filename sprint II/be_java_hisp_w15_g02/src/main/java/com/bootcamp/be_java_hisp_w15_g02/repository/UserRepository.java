@@ -25,7 +25,7 @@ public class UserRepository implements IUserRepository {
         listFollows.add(new Follow(4));
         listFollows.add(new Follow(5));
 
-        listFollows2.add(new Follow(5));
+        listFollows2.add(new Follow(4));
 
         listFollowers.add(new Follow(1));
         listFollowers.add(new Follow(3));
@@ -39,8 +39,8 @@ public class UserRepository implements IUserRepository {
         user4.setSeller(true);
         user5.setSeller(true);
         listUser.add(new User(1, "Martin", listFollows, new ArrayList<>()));
-        listUser.add(new User(2, "Leo", listFollows2, new ArrayList<>()));
-        listUser.add(new User(3, "Diana", listFollows, new ArrayList<>()));
+        listUser.add(new User(2, "Diana", listFollows2, new ArrayList<>()));
+        listUser.add(new User(3, "Leo", listFollows, new ArrayList<>()));
         listUser.add(user4);
         listUser.add(user5);
 

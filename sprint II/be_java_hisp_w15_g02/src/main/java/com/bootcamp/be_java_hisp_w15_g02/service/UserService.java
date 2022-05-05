@@ -6,6 +6,7 @@ import com.bootcamp.be_java_hisp_w15_g02.exception.FollowYourselfException;
 import com.bootcamp.be_java_hisp_w15_g02.exception.NotSellerException;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
+import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
@@ -152,7 +153,7 @@ public class UserService implements IUserService {
             listFollows.forEach(item -> {
                 var newDto = new GetFollowersDTO();
                 newDto.setUserId(item.getUserToFollow());
-                newDto.setUserName(userRepository.getUserById(item.getUserToFollow()).getUserName());
+                newDto.setUserName(userRepository.getListUser().stream().filter(u -> u.getUserId() == item.getUserToFollow()).findFirst().orElseThrow(UserNotFoundException::new).getUserName());
                 followsDto.add(newDto);
             });
         }
