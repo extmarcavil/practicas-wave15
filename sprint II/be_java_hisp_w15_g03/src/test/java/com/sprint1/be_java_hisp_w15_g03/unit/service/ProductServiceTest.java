@@ -33,13 +33,14 @@ public class ProductServiceTest {
     ProductService productService;
 
 
+
     //T-0005
     @Test
     @DisplayName("Tipo de ordenamiento por fecha valido")
-    public void getLastPublicationsOk(){
+    public void getLastPublicationsOk() {
 
         //arrange
-        Integer id= 1;
+        int id = 1;
         String order = "date_asc";
 
         Mockito.when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
@@ -56,15 +57,15 @@ public class ProductServiceTest {
     //T-0005
     @Test
     @DisplayName("Tipo de ordenamiento por fecha invalido")
-    public void getLastPublicationsInvalid(){
+    public void getLastPublicationsInvalid() {
 
         //arrange
-        Integer id= 1;
+        int id = 1;
         String order = "date";
 
         Mockito.when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
         Mockito.when(iMeliRepository.hasUser(id)).thenReturn(true);
-        
+
         //act & assert
         Assertions.assertThrows(OrderInvalidException.class, () -> productService.getLastPublication(id, order));
 
@@ -96,7 +97,7 @@ public class ProductServiceTest {
     public void getLastPublicationsOrderAscOk(){
 
         //arrange
-        Integer id= 1;
+        int id= 1;
         String order = "date_asc";
         Product product = new Product(1, "Mesa", null, null, null, null);
         Publication publication1 = new Publication(1, LocalDate.parse("2022-05-05"), Category.MESA, 300.0, product, null, null);
@@ -127,7 +128,7 @@ public class ProductServiceTest {
     public void getLastPublicationsOrderDescOk(){
 
         //arrange
-        Integer id= 1;
+        int id= 1;
         String order = "date_desc";
         Product product = new Product(1, "Mesa", null, null, null, null);
         Publication publication1 = new Publication(1, LocalDate.parse("2022-05-05"), Category.MESA, 300.0, product, null, null);

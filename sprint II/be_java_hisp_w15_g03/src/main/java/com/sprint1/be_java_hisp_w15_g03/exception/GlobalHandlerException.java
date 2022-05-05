@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -59,6 +60,12 @@ public class GlobalHandlerException {
 
         ErrorValidationDTO errorDTO = new ErrorValidationDTO("Some Input are Invalids", errors);
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<ErrorDTO> handleValidationExceptions(ConstraintViolationException e) {
+        ErrorDTO error = new ErrorDTO("ConstraintViolationException", e.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
     private HashMap<String, List<String>> getHashMapErrors ( List<FieldError> errors ) {

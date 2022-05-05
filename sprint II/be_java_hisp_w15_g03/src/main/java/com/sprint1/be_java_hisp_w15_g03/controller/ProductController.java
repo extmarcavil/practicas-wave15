@@ -29,7 +29,7 @@ public class ProductController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<SellerPListDTO> getLastPublications(@PathVariable @Min(0) int userId,
+    public ResponseEntity<SellerPListDTO> getLastPublications(@PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") int userId,
                                                               @RequestParam(required = false) String order) {
 
         return new ResponseEntity<>(productService.getLastPublication(userId, order), HttpStatus.OK);
