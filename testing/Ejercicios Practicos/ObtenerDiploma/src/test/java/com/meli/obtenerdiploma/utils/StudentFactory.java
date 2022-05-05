@@ -1,4 +1,4 @@
-package com.meli.obtenerdiploma.unit.utils;
+package com.meli.obtenerdiploma.utils;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.model.SubjectDTO;

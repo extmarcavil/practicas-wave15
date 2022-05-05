@@ -3,7 +3,7 @@ package com.meli.obtenerdiploma.unit.service;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.service.ObtenerDiplomaService;
-import com.meli.obtenerdiploma.unit.utils.StudentFactory;
+import com.meli.obtenerdiploma.utils.StudentFactory;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

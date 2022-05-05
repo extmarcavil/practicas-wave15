@@ -3,7 +3,7 @@ package com.meli.obtenerdiploma.unit.controller;
 import com.meli.obtenerdiploma.controller.ObtenerDiplomaController;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.service.IObtenerDiplomaService;
-import com.meli.obtenerdiploma.unit.utils.StudentFactory;
+import com.meli.obtenerdiploma.utils.StudentFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

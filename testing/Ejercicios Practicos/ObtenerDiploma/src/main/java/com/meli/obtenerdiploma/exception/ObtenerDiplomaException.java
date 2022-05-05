@@ -16,4 +16,5 @@ public class ObtenerDiplomaException extends RuntimeException {
         this.status = status;
     }
 
+
 }

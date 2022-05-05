@@ -13,7 +13,7 @@ public class StudentRepositoryTest {
     @Test
     void countStudent(){
         //act & assert
-        Assertions.assertEquals(3,repository.findAll().size());
+        Assertions.assertEquals(2,repository.findAll().size());
     }
 
     @Test

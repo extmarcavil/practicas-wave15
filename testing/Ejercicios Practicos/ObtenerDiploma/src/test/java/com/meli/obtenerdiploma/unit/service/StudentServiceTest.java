@@ -4,16 +4,14 @@ import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
 import com.meli.obtenerdiploma.service.StudentService;
-import com.meli.obtenerdiploma.unit.utils.StudentFactory;
+import com.meli.obtenerdiploma.utils.StudentFactory;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.mockito.stubbing.OngoingStubbing;
 
 import java.util.Set;
 

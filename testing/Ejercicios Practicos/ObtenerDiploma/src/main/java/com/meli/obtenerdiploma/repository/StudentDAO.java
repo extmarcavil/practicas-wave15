@@ -68,7 +68,9 @@ public class StudentDAO implements IStudentDAO {
        try {
            ret  = this.findById(stu.getId()) != null;
        }
-       catch (StudentNotFoundException e) {}
+       catch (StudentNotFoundException e) {
+
+       }
 
        return ret;
     }

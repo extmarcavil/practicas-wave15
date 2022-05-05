@@ -7,15 +7,15 @@
     "subjects": [
       {
         "name": "Matemática",
-        "score": 9.0
+        "score": 10.0
       },
       {
         "name": "Física",
-        "score": 9.0
+        "score": 10.0
       },
       {
         "name": "Química",
-        "score": 9.0
+        "score": 10.0
       }
     ]
   },
@@ -31,27 +31,11 @@
       },
       {
         "name": "Física",
-        "score": 7.0
+        "score": 6.0
       },
       {
         "name": "Química",
         "score": 6.0
-      }
-    ]
-  },
-  {
-    "id": 3,
-    "studentName": "Lucas",
-    "message": null,
-    "averageScore": null,
-    "subjects": [
-      {
-        "name": "Mate",
-        "score": 5.0
-      },
-      {
-        "name": "Fisica",
-        "score": 10.0
       }
     ]
   }
