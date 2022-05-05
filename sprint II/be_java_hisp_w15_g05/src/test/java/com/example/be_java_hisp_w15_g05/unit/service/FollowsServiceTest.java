@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.unit.service;
 
 import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
+import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
 import com.example.be_java_hisp_w15_g05.dto.UserDTO;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -30,11 +31,12 @@ public class FollowsServiceTest {
     @InjectMocks
     FollowsService followsService;
 
+    // Test getListFollowers
     @Test
     @DisplayName("Verificación de orden alfabetico ascendiente")
     void verificarCorrectoOrdenAlfabetico() {
         //arrange
-        User user = UsersFactory.createUser();
+        User user = UsersFactory.createUserWithFollowers();
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         //Crear lista ordenada
@@ -51,7 +53,7 @@ public class FollowsServiceTest {
     @DisplayName("Verificación de orden alfabetico descendiente")
     void verificarCorrectoOrdenDescAlfabetico() {
         //arrange
-        User user = UsersFactory.createUser();
+        User user = UsersFactory.createUserWithFollowers();
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         //Crear lista ordenada
@@ -68,23 +70,85 @@ public class FollowsServiceTest {
     @DisplayName("Verificación de orden alfabetico por defecto")
     void verificarCorrectoOrdenDefectoAlfabetico() {
         //arrange
-        User user = UsersFactory.createUser();
+        User user = UsersFactory.createUserWithFollowers();
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
         //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
 
         //act
-        ResListFollowersDTO resp = followsService.getListFollowers(1,"name_asc");
+        ResListFollowersDTO resp = followsService.getListFollowers(1,"");
 
         // assert
         Assertions.assertEquals(listaOrdenada,resp.getFollowers());
     }
     @Test
+    @DisplayName("Verificación lanzado de excepción")
     void verificarExcepcionOrdenAlf(){
         Assertions
                 .assertThrows(
                         OrderNotValidException.class,
                         () -> followsService.getListFollowers(1,"cualquiercosa"));
+    }
+
+    // getListSellers
+    @Test
+    @DisplayName("Verificación de orden alfabetico ascendiente de vendedores")
+    void correctoOrdenAlfabeticoSellers() {
+        //arrange
+        User user = UsersFactory.createUserWithFolloweds();
+        //mockear repo
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
+        //Crear lista ordenada
+        List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
+
+        //act
+        ResListSellersDTO resp = followsService.getListSellers(10,"name_asc");
+
+        // assert
+        Assertions.assertEquals(listaOrdenada,resp.getFollowed());
+    }
+
+    @Test
+    @DisplayName("Verificación de orden alfabetico descendiente de vendedores")
+    void correctoOrdenAlfabeticoSellersDesc() {
+        //arrange
+        User user = UsersFactory.createUserWithFolloweds();
+        //mockear repo
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
+        //Crear lista ordenada
+        List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfDesc();
+
+        //act
+        ResListSellersDTO resp = followsService.getListSellers(10,"name_desc");
+
+        // assert
+        Assertions.assertEquals(listaOrdenada,resp.getFollowed());
+    }
+
+    @Test
+    @DisplayName("Verificación de orden alfabetico por defecto de vendedores")
+    void correctoOrdenAlfabeticoSellersDefault() {
+        //arrange
+        User user = UsersFactory.createUserWithFolloweds();
+        //mockear repo
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
+        //Crear lista ordenada
+        List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
+
+        //act
+        ResListSellersDTO resp = followsService.getListSellers(10,"");
+
+        // assert
+        Assertions.assertEquals(listaOrdenada,resp.getFollowed());
+    }
+
+    @Test
+    @DisplayName("Verificación lanzado de excepción sellers")
+    void verificarExcepcionOrdenAlfSellers(){
+        Assertions
+                .assertThrows(
+                        OrderNotValidException.class,
+                        () -> followsService.getListSellers(10,"cualquierotracosa"));
     }
 }
