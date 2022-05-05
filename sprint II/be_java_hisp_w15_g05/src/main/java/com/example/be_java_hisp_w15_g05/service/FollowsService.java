@@ -47,15 +47,16 @@ public class FollowsService implements IFollowsService {
 
     @Override
     public ResListFollowersDTO getListFollowers(int userId, String order) {
-
         User user = validateUserExists(userId);
 
+        checkSortName(order);
+
         List<UserDTO> followers = getListUserDTO(user.getSeguidores());
+
 
         sortListByName(followers, order);
 
         return new ResListFollowersDTO(user.getUserId(), user.getName(), followers);
-
     }
 
     public ResCountFollowersDTO countFollowers(int userId) {
@@ -69,6 +70,7 @@ public class FollowsService implements IFollowsService {
     @Override
     public ResListSellersDTO getListSellers(int userId, String order) {
         User user = validateUserExists(userId);
+        checkSortName(order);
 
         List<UserDTO> followed = getListUserDTO(user.getSeguidos());
 
@@ -113,5 +115,11 @@ public class FollowsService implements IFollowsService {
             list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
         else
             list.sort(Comparator.comparing(UserDTO::getUserName));
+    }
+
+    private void checkSortName(String order){
+        if(!order.equals("name_asc") && !order.equals("name_desc") && !order.isEmpty())
+            throw new OrderNotValidException("El ordenamiento " + order + " no existe.");
+
     }
 }

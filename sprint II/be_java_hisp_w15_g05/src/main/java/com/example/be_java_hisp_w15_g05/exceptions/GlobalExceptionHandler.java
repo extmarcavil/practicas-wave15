@@ -14,7 +14,10 @@ import java.util.*;
 
 @ControllerAdvice(annotations = RestController.class)
 public class GlobalExceptionHandler {
-
+    @ExceptionHandler(OrderNotValidException.class)
+    public ResponseEntity<?> OrderNotValidException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    }
 
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<?> UserNotFoundException(Exception e) {

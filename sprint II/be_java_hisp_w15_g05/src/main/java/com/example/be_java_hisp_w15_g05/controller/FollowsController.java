@@ -60,7 +60,6 @@ public class FollowsController {
     }
 
     @GetMapping("/{userId}/followers/list")
-
     public ResponseEntity<ResListFollowersDTO> getListFollowers(
             @Positive(message =userIDPositive)
             @NotNull(message = userIDNotNull)
@@ -74,7 +73,6 @@ public class FollowsController {
             @Positive(message =userIDPositive)
             @NotNull(message = userIDNotNull)
             @PathVariable int userId,
-
             @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListSellers(userId, order), HttpStatus.OK);
     }
