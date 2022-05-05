@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g05.unit.service;
 import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.UserDTO;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
+import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g05.repository.UserRepository;
@@ -86,5 +87,18 @@ public class FollowsServiceTest {
                 .assertThrows(
                         OrderNotValidException.class,
                         () -> followsService.getListFollowers(1,"cualquiercosa"));
+    }
+
+    @Test
+    @DisplayName("validación de existencia de usuario a seguir")
+    void VerifyUserExistence() {
+
+        //arrange
+        User expectedSeller = new User(20, "Juan", true);
+        User expectedFollower = new User(30, "Miguel", false);
+
+        //act & assert
+        Assertions.assertThrows(UserNotFoundException.class, () -> followsService
+                .follow(expectedFollower.getUserId(),expectedSeller.getUserId()));
     }
 }
