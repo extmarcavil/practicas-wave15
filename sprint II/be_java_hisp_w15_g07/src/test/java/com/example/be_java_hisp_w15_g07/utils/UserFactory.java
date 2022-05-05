@@ -10,10 +10,20 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class UserFactory {
     public static User getUserOne(){
         return new User(1, "User 1");
+    }
+    public static User getUserOneWithFollowed(){
+        User user = new User(1, "User 1");
+        Set<User> followed = new TreeSet<>();
+        followed.add(getUserTwo());
+        followed.add(getUserThree());
+        user.setFollowed(followed);
+        return user;
     }
 
     public static UserFollowersDTO getUserOneDTO(){
@@ -68,25 +78,65 @@ public class UserFactory {
         return followersDTO;
     }
 
-    /**public static UserFollowedPostsDTO getUserTwoFollowedDTO(){
+    public static UserFollowedPostsDTO getUserTwoFollowedDTO(){
         UserFollowedPostsDTO user2 = new UserFollowedPostsDTO();
         ProductDTO product = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post = new PostDTO(10, LocalDate.of(2020, Month.APRIL, 10), product, 1, 60000d);
+        PostDTO post = new PostDTO(10, LocalDate.of(2022, Month.MAY, 2), product, 1, 60000d);
         user2.setPosts(Arrays.asList(post));
         user2.setUserID(2);
 
         return user2;
-    }*/
+    }
 
-    /** public static UserFollowedPostsDTO getUserThreeFollowedDTO(){
+     public static UserFollowedPostsDTO getUserThreeFollowedDTO(){
         UserFollowedPostsDTO user3 = new UserFollowedPostsDTO();
-        ProductDTO product = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post = new PostDTO(11, LocalDate.of(2020, Month.APRIL, 10), product, 1, 60000d);
+        ProductDTO product = new ProductDTO(1, "Televisor 32", "Electrodomesticos", "Samsung", "Blanco", "");
+        PostDTO post = new PostDTO(11, LocalDate.of(2022, Month.MAY, 4), product, 1, 60000d);
         user3.setPosts(Arrays.asList(post));
         user3.setUserID(3);
 
         return user3;
-    }*/
+    }
+
+    public static UserFollowedPostsDTO getUserOneFollowedDTOAsc(){
+        UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
+
+        ProductDTO product1 = new ProductDTO(1, "Televisor 32", "Electrodomesticos", "Samsung", "Blanco", "");
+        PostDTO post1 = new PostDTO(11, LocalDate.of(2022, Month.MAY, 2), product1, 1, 60000d);
+
+        ProductDTO product2 = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
+        PostDTO post2 = new PostDTO(10, LocalDate.of(2022, Month.MAY, 4), product2, 1, 60000d);
+
+        user1.setPosts(Arrays.asList(post1,post2));
+        user1.setUserID(1);
+
+        return user1;
+    }
+
+    public static User getUserOneComplete(){
+        User user = new User(1, "user 1");
+        Set<User> followed = new TreeSet<>();
+        followed.add(getUserTwo());
+        followed.add(getUserThree());
+        user.setFollowed(followed);
+
+        return user;
+    }
+
+    public static UserFollowedPostsDTO getUserOneFollowedDTODesc(){
+        UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
+
+        ProductDTO product1 = new ProductDTO(1, "Televisor 32", "Electrodomesticos", "Samsung", "Blanco", "");
+        PostDTO post1 = new PostDTO(11, LocalDate.of(2022, Month.MAY, 4), product1, 1, 60000d);
+
+        ProductDTO product2 = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
+        PostDTO post2 = new PostDTO(10, LocalDate.of(2022, Month.MAY, 2), product2, 1, 60000d);
+
+        user1.setPosts(Arrays.asList(post1,post2));
+        user1.setUserID(1);
+
+        return user1;
+    }
 
     public static FollowedDTO getFollowedDTOAsc(){
         FollowedDTO followedDTO = new FollowedDTO();
