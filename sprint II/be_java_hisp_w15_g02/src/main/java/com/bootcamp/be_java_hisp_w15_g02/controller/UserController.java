@@ -28,28 +28,37 @@ public class UserController {
     }
 
     @PostMapping("{userId}/follow/{userIdToFollow}")
-    public ResponseEntity<?> follow(@PathVariable(value = "userId") @NotNull @Min(1) Integer userId, @PathVariable("userIdToFollow") @Min(1) Integer userIdToFollow) {
+    public ResponseEntity<?> follow(@PathVariable(value = "userId") @NotNull(message = "El id no puede estar vacio")
+                                        @Min(value = 1, message = "El id debe ser mayor a 0") Integer userId,
+                                    @PathVariable("userIdToFollow") @NotNull(message = "El id no puede estar vacio")
+                                            @Min(value = 1, message = "El id debe ser mayor a 0") Integer userIdToFollow) {
         userService.follow(userId, userIdToFollow);
         return ResponseEntity.ok("Seguidor anadido");
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<GetFollowersCountDTO> getFollowersCountById(@PathVariable Integer userId){
+    public ResponseEntity<GetFollowersCountDTO> getFollowersCountById(@PathVariable @NotNull(message = "El id no puede estar vacio")
+                                                                          @Min (value = 1, message = "El id debe ser mayor a 0")Integer userId){
         return new ResponseEntity<>(userService.getFollowersCount(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
-    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable int userId, @RequestParam(required = false) String order){
+    public ResponseEntity<GetFollowersBySellerDTO> getFollowersBySeller(@PathVariable @NotNull(message = "El id no puede estar vacio")
+                                                                            @Min(value = 1, message = "El id debe ser mayor a 0") int userId, @RequestParam(required = false) String order){
         return new ResponseEntity<>(userService.getFollowersBySeller(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<GetFollowedByUserDTO> getFollowersByUser(@PathVariable int userId, @RequestParam(required = false) String order){
+    public ResponseEntity<GetFollowedByUserDTO> getFollowersByUser(@PathVariable @NotNull(message = "El id no puede estar vacio")
+                                                                       @Min(value = 1, message = "El id debe ser mayor a 0") int userId, @RequestParam(required = false) String order){
         return new ResponseEntity<>(userService.getFollowedByUser(userId, order), HttpStatus.OK);
     }
 
     @PostMapping("{userId}/unfollow/{userIdToUnFollow}")
-    public ResponseEntity<?> unFollow(@PathVariable int userId, @PathVariable int userIdToUnFollow) {
+    public ResponseEntity<?> unFollow(@PathVariable @NotNull(message = "El id no puede estar vacio")
+                                          @Min(value = 1, message = "El id debe ser mayor a 0") int userId,
+                                      @PathVariable @NotNull(message = "El id no puede estar vacio")
+                                      @Min(value = 1, message = "El id debe ser mayor a 0") int userIdToUnFollow) {
         userService.unFollow(userId, userIdToUnFollow);
         return ResponseEntity.ok("Dejo de seguir al user: " + userIdToUnFollow);
     }
