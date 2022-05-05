@@ -51,5 +51,7 @@ public class PostRepository implements  IPostRepository {
         listPost.add(new Post(3,4, LocalDate.parse("2022-04-21"),3,new Product(3,"iphone 11","electronic","apple","blue","iphone 256 GB"),9000));
         listPost.add(new Post(4,5, LocalDate.parse("2022-04-10"),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
         listPost.add(new Post(5,5, LocalDate.now(),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
+        listPost.add(new Post(6,5, LocalDate.parse("2022-05-03"),5,new Product(6,"cama","electronic","apple","white","cama grande"),6000));
+
     }
 }

@@ -1,9 +1,11 @@
 package com.bootcamp.be_java_hisp_w15_g02.dto.response;
 
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 public class GetPostsSellerByUserIdDTO {
     private int userId;
     private List<PostsBySellersDTO> posts;

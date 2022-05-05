@@ -1,10 +1,14 @@
 package com.bootcamp.be_java_hisp_w15_g02.unit.utils;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
+import com.bootcamp.be_java_hisp_w15_g02.model.Post;
+import com.bootcamp.be_java_hisp_w15_g02.model.Product;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -42,7 +46,44 @@ public class Global {
         return listUser;
     }
 
+    public static List<Post> getPosts() {
+        List<Post> posts = new ArrayList<>();
+        posts.add(new Post(4,5, LocalDate.parse("2022-04-10"),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
+        posts.add(new Post(5,5, LocalDate.now(),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
+        posts.add(new Post(6,5, LocalDate.parse("2022-05-03"),5,new Product(6,"cama","electronic","apple","white","cama grande"),6000));
+        return posts;
+    }
+
+    public static List<PostsBySellersDTO> getRecentPostsDesc() {
+        List<PostsBySellersDTO> posts = new ArrayList<>();
+        posts.add(
+                new PostsBySellersDTO(
+                        new Post(5,5, LocalDate.now(),5,
+                                new Product(5,"iphone XR","electronic","apple","white",
+                                        "iphone 128 GB"),5000)));
+        posts.add(new PostsBySellersDTO(
+                new Post(6,5, LocalDate.parse("2022-05-03"),5,
+                        new Product(6,"cama","electronic","apple","white","cama grande"),
+                        6000)));
+        return posts;
+    }
+
+    public static List<PostsBySellersDTO> getRecentPostsAsc() {
+        List<PostsBySellersDTO> posts = new ArrayList<>();
+        posts.add(new PostsBySellersDTO(
+                new Post(6,5, LocalDate.parse("2022-05-03"),5,
+                        new Product(6,"cama","electronic","apple","white","cama grande"),
+                        6000)));
+        posts.add(
+                new PostsBySellersDTO(
+                        new Post(5,5, LocalDate.now(),5,
+                                new Product(5,"iphone XR","electronic","apple","white",
+                                        "iphone 128 GB"),5000)));
+        return posts;
+    }
+
     public static User getUserByIdUtils(int userId){
+
         return getListOfUsers().stream().
                 filter(f -> f.getUserId() == userId)
                 .findFirst().orElseThrow(UserNotFoundException::new);
