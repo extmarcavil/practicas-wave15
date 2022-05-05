@@ -2,7 +2,6 @@ package com.example.be_java_hisp_w15_g05.unit.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
-import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g05.service.ProductsService;
@@ -38,7 +37,7 @@ public class ProductsServiceTest {
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
-        when(userRepository.getPostsTwoWeeks(10)).thenReturn(PostFactory.getListPosts());
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
 
         //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
@@ -58,7 +57,7 @@ public class ProductsServiceTest {
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
-        when(userRepository.getPostsTwoWeeks(10)).thenReturn(PostFactory.getListPosts());
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
 
         //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsDesc();
@@ -78,7 +77,7 @@ public class ProductsServiceTest {
         //mockear repo
         when(userRepository.findById(1)).thenReturn(Optional.of(user));
 
-        when(userRepository.getPostsTwoWeeks(10)).thenReturn(PostFactory.getListPosts());
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
 
         //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
@@ -96,5 +95,25 @@ public class ProductsServiceTest {
         Assertions.assertThrows(
                 OrderNotValidException.class,
                 () -> productsService.getPostFollowed(1, "cualquierorden"));
+    }
+
+    @Test
+    @DisplayName("Verificación correcto filtro de fecha")
+    void verificarCorrectoFiltroPorFecha() {
+        //arrange
+        User user = UsersFactory.createUserWithFollowed();
+        //mockear repo
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getPostsOutOfDate());
+
+        //Crear lista ordenada
+        List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
+
+        //act
+        ResPostListDTO resp = productsService.getPostFollowed(1, "");
+
+        // assert
+        Assertions.assertEquals(postsOrdenados, resp.getPosts());
     }
 }

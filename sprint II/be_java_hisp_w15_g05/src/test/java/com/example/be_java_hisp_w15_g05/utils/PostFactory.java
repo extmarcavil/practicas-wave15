@@ -21,31 +21,34 @@ public class PostFactory {
 
     public static List<Post> getListPosts(){
 
-        Post posteo = new Post(10, 20, LocalDate.of(2022, 4, 1), p1, 100, 202.00);
-        Post posteo2 = new Post(10, 21, LocalDate.of(2022, 4, 24), p2, 100, 202.00);
-        Post posteo3 = new Post(10, 22, LocalDate.of(2022, 4, 2), p1, 100, 202.00);
-        Post posteo4 = new Post(10, 23, LocalDate.of(2022, 4, 25), p2, 100, 202.00);
+        Post posteo = new Post(10, 20, LocalDate.of(2022, 5, 1), p1, 100, 202.00);
+        Post posteo3 = new Post(10, 22, LocalDate.of(2022, 5, 2), p1, 100, 202.00);
 
-        return (Arrays.asList(posteo, posteo2, posteo3, posteo4));
+        return (Arrays.asList(posteo, posteo3));
     }
 
     public static List<PostIdDTO> getListPostsDesc(){
 
-        PostIdDTO posteo = new PostIdDTO(20, LocalDate.of(2022, 4, 1), pDTO1, 100, 202.00);
-        PostIdDTO posteo2 = new PostIdDTO(22, LocalDate.of(2022, 4, 2), pDTO1, 100, 202.00);
-        PostIdDTO posteo3 = new PostIdDTO(21, LocalDate.of(2022, 4, 24), pDTO2, 100, 202.00);
-        PostIdDTO posteo4 = new PostIdDTO(23, LocalDate.of(2022, 4, 25), pDTO2, 100, 202.00);
+        PostIdDTO posteo = new PostIdDTO(20, LocalDate.of(2022, 5, 1), pDTO1, 100, 202.00);
+        PostIdDTO posteo2 = new PostIdDTO(22, LocalDate.of(2022, 5, 2), pDTO1, 100, 202.00);
 
-        return (Arrays.asList(posteo, posteo2, posteo3, posteo4));
+        return (Arrays.asList(posteo, posteo2));
     }
 
     public static List<PostIdDTO> getListPostsAsc(){
 
-        PostIdDTO posteo = new PostIdDTO(23, LocalDate.of(2022, 4, 25), pDTO2, 100, 202.00);
-        PostIdDTO posteo2 = new PostIdDTO(21, LocalDate.of(2022, 4, 24), pDTO2, 100, 202.00);
-        PostIdDTO posteo3 = new PostIdDTO(22, LocalDate.of(2022, 4, 2), pDTO1, 100, 202.00);
-        PostIdDTO posteo4 = new PostIdDTO(20, LocalDate.of(2022, 4, 1), pDTO1, 100, 202.00);
+        PostIdDTO posteo3 = new PostIdDTO(22, LocalDate.of(2022, 5, 2), pDTO1, 100, 202.00);
+        PostIdDTO posteo4 = new PostIdDTO(20, LocalDate.of(2022, 5, 1), pDTO1, 100, 202.00);
 
-        return (Arrays.asList(posteo, posteo2, posteo3, posteo4));
+        return (Arrays.asList(posteo3, posteo4));
+    }
+
+    public static List<Post> getPostsOutOfDate(){
+
+        Post posteo = new Post(10, 20, LocalDate.of(2022, 5, 1), p1, 100, 202.00);
+        Post posteo3 = new Post(10, 22, LocalDate.of(2022, 5, 2), p1, 100, 202.00);
+        Post posteo4 = new Post(10, 22, LocalDate.of(2021, 4, 2), p1, 100, 202.00);
+
+        return (Arrays.asList(posteo, posteo3,posteo4));
     }
 }

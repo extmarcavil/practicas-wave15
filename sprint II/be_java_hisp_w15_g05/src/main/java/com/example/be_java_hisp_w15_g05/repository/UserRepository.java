@@ -80,18 +80,11 @@ public class UserRepository implements IUserRepository {
         user.setSeller(true);
     }
 
-    public List<Post> getPostsTwoWeeks(int id){
+    public List<Post> getPostsById(int id){
 
         return posts.stream()
-                .filter(post -> post.getUserId() == id && inTwoWeeksRange(post.getDate()))
+                .filter(post -> post.getUserId() == id)
                 .collect(Collectors.toList());
-    }
-
-    private boolean inTwoWeeksRange(LocalDate fecha){
-
-        long differencesInDays = ChronoUnit.DAYS.between( fecha , LocalDate.now() );
-
-        return differencesInDays < 14 && differencesInDays >= 0;
     }
 
 }

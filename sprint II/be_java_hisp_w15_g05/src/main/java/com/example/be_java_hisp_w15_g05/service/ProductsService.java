@@ -18,6 +18,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -53,9 +54,9 @@ public class ProductsService implements IProductsService {
         // De un usuario se obtienen sus seguidos y los recorremos para obtener sus publicaciones de
         // las últimas dos semanas
         for( User usuario : user.getSeguidos()){
-            listadoPosteos.addAll(userRepository.getPostsTwoWeeks(usuario.getUserId()));
+            List<Post> postAux= filterPostsInTwoWeeks( userRepository.getPostsById(usuario.getUserId()) );
+            listadoPosteos.addAll(postAux);
         }
-
         sortListByDate(listadoPosteos, order);
 
         List<PostIdDTO> lista = modelMapper.map(listadoPosteos, new TypeToken<List<PostIdDTO>>() {}.getType());
@@ -92,5 +93,17 @@ public class ProductsService implements IProductsService {
         if(!order.equals("date_asc") && !order.equals("date_desc") && !order.isEmpty())
             throw new OrderNotValidException("El ordenamiento " + order + " no existe.");
 
+    }
+    private boolean inTwoWeeksRange(LocalDate fecha){
+        long differencesInDays = ChronoUnit.DAYS.between( fecha , LocalDate.now() );
+
+        return differencesInDays < 14 && differencesInDays >= 0;
+    }
+
+    private List<Post> filterPostsInTwoWeeks(List<Post> posts){
+       return   posts
+                .stream()
+                .filter(p -> inTwoWeeksRange(p.getDate()))
+                .collect(Collectors.toList());
     }
 }
