@@ -89,6 +89,8 @@ public class FollowsServiceTest {
                         () -> followsService.getListFollowers(1,"cualquiercosa"));
     }
 
+    // T001
+
     @Test
     @DisplayName("validación de existencia de usuario a seguir")
     void VerifyUserExistence() {
@@ -100,5 +102,20 @@ public class FollowsServiceTest {
         //act & assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .follow(expectedFollower.getUserId(),expectedSeller.getUserId()));
+    }
+
+    // T002
+
+    @Test
+    @DisplayName("validación de existencia de usuario a dejar de seguir")
+    void VerifyUserToUnfollowExistenceTestException() {
+
+        //arrange
+        User expectedSeller = new User(20, "Juan", true);
+        User expectedFollower = new User(30, "Miguel", false);
+
+        //act & assert
+        Assertions.assertThrows(UserNotFoundException.class, () -> followsService
+                .unFollow(expectedFollower.getUserId(),expectedSeller.getUserId()));
     }
 }

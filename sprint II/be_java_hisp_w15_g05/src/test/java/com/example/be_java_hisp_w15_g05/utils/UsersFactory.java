@@ -36,4 +36,9 @@ public class UsersFactory {
                 new UserDTO(notSeller2.getUserId(), notSeller2.getName())
         );
     }
+
+    public static User createFollower(){
+
+        return new User(15,"test user",false);
+    }
 }

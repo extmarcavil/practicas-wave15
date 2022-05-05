@@ -18,6 +18,7 @@ public class UserRepositoryTest {
         repository = new UserRepository();
     }
 
+    // T001
     @Test
     @DisplayName("validación de existencia de usuario a seguir")
     void VerifyUserExistence() {
@@ -31,6 +32,22 @@ public class UserRepositoryTest {
 
         //assert
         Assertions.assertTrue(expectedSeller.getSeguidores().contains(expectedFollower));
+    }
+
+    // T002
+    @Test
+    @DisplayName("validación de existencia de usuario a dejar de seguir")
+    void VerifyUserToUnFollowExistence() {
+
+        //arrange
+        User expectedSeller = new User(20, "Juan", true);
+        User expectedFollower = new User(30, "Miguel", false);
+
+        //act
+        repository.unFollow(expectedFollower, expectedSeller);
+
+        //assert
+        Assertions.assertFalse(expectedSeller.getSeguidores().contains(expectedFollower));
     }
 
 }
