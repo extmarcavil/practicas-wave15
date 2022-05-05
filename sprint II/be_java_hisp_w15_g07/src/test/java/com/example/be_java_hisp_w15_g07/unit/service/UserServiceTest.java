@@ -115,7 +115,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el tipo de ordenamiento alfabético ascendente es correcto")
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre")
     public void findFollowersOrderByNameAsc(){
         // Arrange
         Integer userId = 2;
@@ -137,7 +137,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el tipo de ordenamiento alfabético descendente es correcto")
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre")
     public void findFollowersOrderByNameDesc(){
         // Arrange
         Integer userId = 2;
@@ -208,7 +208,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el tipo de ordenamiento alfabético ascendente es correcto (followed)")
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre (followed)")
     public void findFollowedOrderByNameAsc(){
         // Arrange
         Integer userId = 1;
@@ -230,7 +230,7 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el tipo de ordenamiento alfabético descendente es correcto (followed)")
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre (followed)")
     public void findFollowedOrderByNameDesc(){
         // Arrange
         Integer userId = 1;

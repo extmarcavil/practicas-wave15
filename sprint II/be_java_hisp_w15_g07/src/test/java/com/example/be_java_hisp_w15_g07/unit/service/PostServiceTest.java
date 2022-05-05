@@ -2,7 +2,6 @@ package com.example.be_java_hisp_w15_g07.unit.service;
 
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
-import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.PostService;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
@@ -14,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.util.Assert;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -24,7 +22,7 @@ public class PostServiceTest {
     PostService service;
 
     @Test
-    @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha ascendente si existe")
+    @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha ascendente existe")
     public void getUserFollowedPostAscExists(){
         //Arrange
         Integer userId = 1;
@@ -41,7 +39,7 @@ public class PostServiceTest {
     }
 
     @Test
-    @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha descendente si existe")
+    @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha descendente existe")
     public void getUserFollowedPostDescExists(){
         //Arrange
         Integer userId = 1;
@@ -73,13 +71,30 @@ public class PostServiceTest {
         UserFollowedPostsDTO expected = UserFactory.getUserOneFollowedDTOAsc();
 
         //Mocks
-        Mockito.when(repository.findById(userId)).thenReturn(UserFactory.getUserOneComplete());
-        System.out.println(UserFactory.getUserOneComplete());
+        Mockito.when(repository.findById(userId)).thenReturn(UserFactory.getUserOneWithFollowed());
+
         //Act
         UserFollowedPostsDTO result = service.getFollowedPosts(userId, order);
 
         //Assert
         Assertions.assertEquals(expected, result);
+    }
 
+    @Test
+    @DisplayName("T0006 - Verificar el correcto ordenamiento descendente por fecha")
+    public void getUserFollowedPostDesc(){
+        //Arrange
+        Integer userId = 1;
+        String order = "date_desc";
+        UserFollowedPostsDTO expected = UserFactory.getUserOneFollowedDTODesc();
+
+        //Mocks
+        Mockito.when(repository.findById(userId)).thenReturn(UserFactory.getUserOneWithFollowed());
+
+        //Act
+        UserFollowedPostsDTO result = service.getFollowedPosts(userId, order);
+
+        //Assert
+        Assertions.assertEquals(expected, result);
     }
 }

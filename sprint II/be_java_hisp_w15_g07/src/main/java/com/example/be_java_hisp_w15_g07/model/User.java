@@ -75,19 +75,6 @@ public class User implements Comparable<User>{
 
     @Override
     public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", userName='" + userName + '\'' +
-                ", followers=" + followers +
-                ", followed=" + followed +
-                ", posts=" + posts +
-                '}';
-    }
-
-    /*@Override
-    public String toString() {
         return this.getUserName();
     }
-
-     */
 }

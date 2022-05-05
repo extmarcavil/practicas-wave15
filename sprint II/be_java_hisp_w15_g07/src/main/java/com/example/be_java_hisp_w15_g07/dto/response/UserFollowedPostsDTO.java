@@ -1,6 +1,5 @@
 package com.example.be_java_hisp_w15_g07.dto.response;
 
-import com.example.be_java_hisp_w15_g07.model.Post;
 import lombok.*;
 
 import java.util.List;
