@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import javax.validation.ConstraintViolationException;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +49,12 @@ public class GlobalHandlerException {
     @ExceptionHandler(FollowException.class)
     public ResponseEntity<ErrorDTO> handlerFollowUserException (FollowException exception ) {
         ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorDTO> handlerConstraintViolationException (ConstraintViolationException exception ) {
+        ErrorDTO errorDTO = new ErrorDTO("VALIDATION EXCEPTION", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
