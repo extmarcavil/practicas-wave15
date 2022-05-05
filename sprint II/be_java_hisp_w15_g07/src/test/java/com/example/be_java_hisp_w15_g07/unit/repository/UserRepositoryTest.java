@@ -24,7 +24,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T00001 - Verificar que el usuario a seguir exista")
+    @DisplayName("T0001 - Verificar que el usuario a seguir exista")
     public void findExistingUser(){
         //arrange
         Integer queryId = 1;
@@ -69,5 +69,53 @@ public class UserRepositoryTest {
 
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> repository.findFollowersOrderByNameAsc(userId));
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista (followed)")
+    public void findFollowedOrderByNameAsc(){
+        // Arrange
+        Integer userId = 1;
+        List<User> expected = Arrays.asList(UserFactory.getUserTwo(), UserFactory.getUserThree());
+
+        // Act
+        List<User> result = repository.findFollowedOrderByNameAsc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
+    public void findFollowedOrderByNameAscNotFound(){
+        // Arrange
+        Integer userId = -2;
+
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameAsc(userId));
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista (followed)")
+    public void findFollowedOrderByNameDesc(){
+        // Arrange
+        Integer userId = 1;
+        List<User> expected = Arrays.asList(UserFactory.getUserThree(), UserFactory.getUserTwo());
+
+        // Act
+        List<User> result = repository.findFollowedOrderByNameDesc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
+    public void findFollowedOrderByNameDescNotFound(){
+        // Arrange
+        Integer userId = -2;
+
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameDesc(userId));
     }
 }
