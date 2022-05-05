@@ -37,34 +37,6 @@ public class PostServiceTest {
     @InjectMocks
     private PostService service;
 
-    @Test
-    @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
-    public void returnRecentPostsUsersFollowed(){
-        //arrange
-        Integer userId = 1;
-        User user1 = UserFactory.getUserOne();
-        User user2 = UserFactory.getUserTwo();
-        for (Post post: PostFactory.getTwoPostsOneOutdated()) {
-            user2.newPost(post);
-        }
-        User user3 = UserFactory.getUserThree();
-        UserFactory.setFollowedList(user1, user2);
-        UserFactory.setFollowedList(user1, user3);
-        LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
-
-        //Mockito
-        when(repository.findById(userId)).thenReturn(user1);
-
-        //act
-        UserFollowedPostsDTO userFollowedPostsDTO = service.getFollowedPosts(userId, "date_asc");
-
-        // assert
-        assertEquals(1, userFollowedPostsDTO.getUserID());
-        for (PostDTO postDTO: userFollowedPostsDTO.getPosts()) {
-            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
-        }
-    }
-
 
     @Test
     @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha ascendente existe")
@@ -141,5 +113,34 @@ public class PostServiceTest {
 
         //Assert
         Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
+    public void returnRecentPostsUsersFollowed(){
+        //arrange
+        Integer userId = 1;
+        User user1 = UserFactory.getUserOne();
+        User user2 = UserFactory.getUserTwoWithPosts();
+        for (Post post: PostFactory.getTwoPostsOneOutdated()) {
+            user2.newPost(post);
+        }
+        User user3 = UserFactory.getUserThreeWithPost();
+        UserFactory.setFollowedList(user1, user2);
+        UserFactory.setFollowedList(user1, user3);
+        LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user1);
+
+        //act
+        UserFollowedPostsDTO userFollowedPostsDTO = service.getFollowedPosts(userId, "date_asc");
+
+        // assert
+        assertEquals(1, userFollowedPostsDTO.getUserID());
+        assertEquals(userFollowedPostsDTO.getPosts().size(), 5);
+        for (PostDTO postDTO: userFollowedPostsDTO.getPosts()) {
+            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
+        }
     }
 }

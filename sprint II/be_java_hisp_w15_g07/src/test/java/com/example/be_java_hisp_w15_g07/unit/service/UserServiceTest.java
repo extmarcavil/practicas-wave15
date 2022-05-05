@@ -1,27 +1,15 @@
 package com.example.be_java_hisp_w15_g07.unit.service;
 
 
-import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
-
 import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
-
 import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
-import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
-
-import com.example.be_java_hisp_w15_g07.service.IUserService;
-import com.example.be_java_hisp_w15_g07.service.PostService;
-
 import com.example.be_java_hisp_w15_g07.service.UserService;
-import com.example.be_java_hisp_w15_g07.utils.PostFactory;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
-
-import org.assertj.core.api.NotThrownAssert;
-import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -29,12 +17,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-
-import java.util.HashSet;
-
 import java.util.Arrays;
 import java.util.List;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -72,7 +56,6 @@ public class UserServiceTest {
         Integer userId = 1;
         Integer queryId = -2;
         User user1 = UserFactory.getUserOne();
-        User user2 = UserFactory.getUserTwo();
 
         //Mockito
         when(repository.findById(userId)).thenReturn(user1);
@@ -120,45 +103,6 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea correcta ")
-    public void returnsCorrectFollowersCount(){
-        //arrange
-        Integer userId = 2;
-        User user1 = UserFactory.getUserOne();
-        User user2 = UserFactory.getUserTwo();
-
-        int expectedFollowersCount = 2;
-
-        //Mockito
-        when(repository.findById(userId)).thenReturn(user2);
-
-        //act
-        FollowersCountDTO result = service.followersCount(user2.getUserId());
-
-        //assert
-        assertEquals(expectedFollowersCount, result.getFollowersCount());
-    }
-
-    @Test
-    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea 0 ")
-    public void returnsCorrectFollowersCount0(){
-        //arrange
-        Integer userId = 1;
-        User user1 = UserFactory.getUserOne();
-
-        int expectedFollowersCount = 0;
-
-        //Mockito
-        when(repository.findById(userId)).thenReturn(user1);
-
-        //act
-        FollowersCountDTO result = service.followersCount(user1.getUserId());
-
-        //assert
-        assertEquals(expectedFollowersCount, result.getFollowersCount());
-    }
-  
-    @Test
     @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético ascendente exista")
     public void findFollowersOrderByNameAscExists(){
         // Arrange
@@ -205,50 +149,6 @@ public class UserServiceTest {
     public void findFollowersOrderByNameBadRequest(){
         // Assert
         assertThrows(BadRequestException.class, () -> service.getFollowersList(1, "otro_ordenamiento"));
-    }
-
-    @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre")
-    public void findFollowersOrderByNameAsc(){
-        // Arrange
-        Integer userId = 2;
-        String order = "name_asc";
-        List<User> followers = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
-        FollowersDTO expected = UserFactory.getFollowersDTOAsc();
-
-        // Mock
-        when(repository.findFollowersOrderByNameAsc(userId)).thenReturn(followers);
-        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
-        when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
-        when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
-
-        // Act
-        FollowersDTO result = service.getFollowersList(userId, order);
-
-        // Assert
-        assertEquals(expected, result);
-    }
-
-    @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre")
-    public void findFollowersOrderByNameDesc(){
-        // Arrange
-        Integer userId = 2;
-        String order = "name_desc";
-        List<User> followers = Arrays.asList(UserFactory.getUserThree(), UserFactory.getUserOne());
-        FollowersDTO expected = UserFactory.getFollowersDTODesc();
-
-        // Mock
-        when(repository.findFollowersOrderByNameDesc(userId)).thenReturn(followers);
-        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
-        when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
-        when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
-
-        // Act
-        FollowersDTO result = service.getFollowersList(userId, order);
-
-        // Assert
-        assertEquals(expected, result);
     }
 
     @Test
@@ -301,6 +201,51 @@ public class UserServiceTest {
     }
 
     @Test
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre")
+    public void findFollowersOrderByNameAsc(){
+        // Arrange
+        Integer userId = 2;
+        String order = "name_asc";
+        List<User> followers = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
+        FollowersDTO expected = UserFactory.getFollowersDTOAsc();
+
+        // Mock
+        when(repository.findFollowersOrderByNameAsc(userId)).thenReturn(followers);
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
+        when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
+
+        // Act
+        FollowersDTO result = service.getFollowersList(userId, order);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre")
+    public void findFollowersOrderByNameDesc(){
+        // Arrange
+        Integer userId = 2;
+        String order = "name_desc";
+        List<User> followers = Arrays.asList(UserFactory.getUserThree(), UserFactory.getUserOne());
+        FollowersDTO expected = UserFactory.getFollowersDTODesc();
+
+        // Mock
+        when(repository.findFollowersOrderByNameDesc(userId)).thenReturn(followers);
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
+        when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
+
+        // Act
+        FollowersDTO result = service.getFollowersList(userId, order);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+
+    @Test
     @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre (followed)")
     public void findFollowedOrderByNameAsc(){
         // Arrange
@@ -343,4 +288,43 @@ public class UserServiceTest {
         // Assert
         assertEquals(expected, result);
     }
+
+    @Test
+    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea correcta")
+    public void returnsCorrectFollowersCount(){
+        //arrange
+        Integer userId = 2;
+        User user2 = UserFactory.getUserTwo();
+
+        int expectedFollowersCount = 2;
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user2);
+
+        //act
+        FollowersCountDTO result = service.followersCount(user2.getUserId());
+
+        //assert
+        assertEquals(expectedFollowersCount, result.getFollowersCount());
+    }
+
+    @Test
+    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea 0 ")
+    public void returnsCorrectFollowersCount0(){
+        //arrange
+        Integer userId = 1;
+        User user1 = UserFactory.getUserOne();
+
+        int expectedFollowersCount = 0;
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user1);
+
+        //act
+        FollowersCountDTO result = service.followersCount(user1.getUserId());
+
+        //assert
+        assertEquals(expectedFollowersCount, result.getFollowersCount());
+    }
+
 }

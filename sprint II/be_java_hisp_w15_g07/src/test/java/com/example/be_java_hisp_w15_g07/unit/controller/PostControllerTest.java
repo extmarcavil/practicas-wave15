@@ -1,34 +1,22 @@
 package com.example.be_java_hisp_w15_g07.unit.controller;
 
 import com.example.be_java_hisp_w15_g07.controller.PostController;
-
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
+import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
 import com.example.be_java_hisp_w15_g07.utils.PostFactory;
-
-import com.example.be_java_hisp_w15_g07.controller.UserController;
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
-import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
-import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
-import com.example.be_java_hisp_w15_g07.service.IPostService;
-import com.example.be_java_hisp_w15_g07.service.IUserService;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
 import org.junit.jupiter.api.Assertions;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-
-
 import org.mockito.Mockito;
-
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
 
 import java.time.LocalDate;
 
@@ -44,26 +32,6 @@ public class PostControllerTest {
 
     @InjectMocks
     PostController controller;
-
-    @Test
-    @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
-    public void returnRecentPostsUsersFollowed(){
-        //arrange
-        Integer userId = 1;
-        LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
-
-        //Mockito
-        when(service.getFollowedPosts(userId, "date_asc")).thenReturn(new UserFollowedPostsDTO(1, PostFactory.getPostsDTO()));
-
-        //act
-        ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(1, "date_asc");
-
-        // assert
-        assertEquals(HttpStatus.OK, result.getStatusCode());
-        for (PostDTO postDTO: result.getBody().getPosts()) {
-            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
-        }
-    }
   
     @Test
     @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha ascendente existe")
@@ -165,5 +133,26 @@ public class PostControllerTest {
                 () -> Assertions.assertEquals(expected.getStatusCode(), result.getStatusCode()),
                 () -> Assertions.assertEquals(expectedBody, result.getBody())
         );
+    }
+
+    @Test
+    @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
+    public void returnRecentPostsUsersFollowed(){
+        //arrange
+        Integer userId = 1;
+        LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
+
+        //Mockito
+        when(service.getFollowedPosts(userId, "date_asc")).thenReturn(new UserFollowedPostsDTO(1, PostFactory.getPostsDTO()));
+
+        //act
+        ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(1, "date_asc");
+
+        // assert
+        assertEquals(HttpStatus.OK, result.getStatusCode());
+        assertEquals(PostFactory.getPostsDTO().size(), result.getBody().getPosts().size());
+        for (PostDTO postDTO: result.getBody().getPosts()) {
+            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
+        }
     }
 }

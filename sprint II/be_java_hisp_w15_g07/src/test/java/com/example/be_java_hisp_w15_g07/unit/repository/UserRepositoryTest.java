@@ -9,11 +9,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserRepositoryTest {
     private IUserRepository repository;
@@ -25,7 +25,6 @@ public class UserRepositoryTest {
 
     @Test
     @DisplayName("T00001/02 - Verificar que el usuario a seguir exista")
-
     public void findExistingUser(){
         //arrange
         Integer queryId = 1;
@@ -49,21 +48,7 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista")
-    public void findFollowersOrderByNameAsc(){
-        // Arrange
-        Integer userId = 2;
-        List<User> expected = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
-
-        // Act
-        List<User> result = repository.findFollowersOrderByNameAsc(userId);
-
-        // Assert
-        assertEquals(expected, result);
-    }
-
-    @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario.")
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario, ascendente.")
     public void findFollowersOrderByNameAscNotFound(){
         // Arrange
         Integer userId = -2;
@@ -73,17 +58,13 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista (followed)")
-    public void findFollowedOrderByNameAsc(){
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario, descendente.")
+    public void findFollowersOrderByNameDescNotFound(){
         // Arrange
-        Integer userId = 1;
-        List<User> expected = Arrays.asList(UserFactory.getUserTwo(), UserFactory.getUserThree());
+        Integer userId = -2;
 
-        // Act
-        List<User> result = repository.findFollowedOrderByNameAsc(userId);
-
-        // Assert
-        assertEquals(expected, result);
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> repository.findFollowersOrderByNameDesc(userId));
     }
 
     @Test
@@ -97,7 +78,45 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista (followed)")
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
+    public void findFollowedOrderByNameDescNotFound(){
+        // Arrange
+        Integer userId = -2;
+
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameDesc(userId));
+    }
+
+    @Test
+    @DisplayName("T0004 - Verificar que el ordenamiento alfabético es correcto")
+    public void findFollowersOrderByNameAsc(){
+        // Arrange
+        Integer userId = 2;
+        List<User> expected = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
+
+        // Act
+        List<User> result = repository.findFollowersOrderByNameAsc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0004 - Verificar que el ordenamiento alfabético sea correcto (followed)")
+    public void findFollowedOrderByNameAsc(){
+        // Arrange
+        Integer userId = 1;
+        List<User> expected = Arrays.asList(UserFactory.getUserTwo(), UserFactory.getUserThree());
+
+        // Act
+        List<User> result = repository.findFollowedOrderByNameAsc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0004 - Verificar que el ordenamiento alfabético descendente sea correcto(followed)")
     public void findFollowedOrderByNameDesc(){
         // Arrange
         Integer userId = 1;
@@ -108,15 +127,5 @@ public class UserRepositoryTest {
 
         // Assert
         assertEquals(expected, result);
-    }
-
-    @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
-    public void findFollowedOrderByNameDescNotFound(){
-        // Arrange
-        Integer userId = -2;
-
-        // Act and Assert
-        assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameDesc(userId));
     }
 }

@@ -7,11 +7,6 @@ import com.example.be_java_hisp_w15_g07.model.Product;
 import com.example.be_java_hisp_w15_g07.model.User;
 
 import java.time.LocalDate;
-import java.time.Month;
-
-import java.util.HashSet;
-import java.util.Set;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -19,6 +14,9 @@ import java.util.TreeSet;
 
 
 public class UserFactory {
+
+    private static LocalDate now = LocalDate.now();
+
     public static User getUserOne(){
         return new User(1, "User 1");
     }
@@ -31,10 +29,10 @@ public class UserFactory {
         UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
 
         ProductDTO product1 = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post1 = new PostDTO(1, LocalDate.of(2022, Month.MAY, 4), product1, 1, 60000d);
+        PostDTO post1 = new PostDTO(1, now.minusDays(1), product1, 1, 60000d);
 
         ProductDTO product2 = new ProductDTO(2, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post2 = new PostDTO(2, LocalDate.of(2022, Month.MAY, 5), product2, 1, 60000d);
+        PostDTO post2 = new PostDTO(2, now, product2, 1, 60000d);
 
         user1.setPosts(Arrays.asList(post1, post2));
         user1.setUserID(1);
@@ -46,10 +44,10 @@ public class UserFactory {
         UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
 
         ProductDTO product1 = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post1 = new PostDTO(1, LocalDate.of(2022, Month.MAY, 4), product1, 1, 60000d);
+        PostDTO post1 = new PostDTO(1, now.minusDays(1), product1, 1, 60000d);
 
         ProductDTO product2 = new ProductDTO(2, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        PostDTO post2 = new PostDTO(2, LocalDate.of(2022, Month.MAY, 5), product2, 1, 60000d);
+        PostDTO post2 = new PostDTO(2, now, product2, 1, 60000d);
 
         user1.setPosts(Arrays.asList(post2, post1));
         user1.setUserID(1);
@@ -76,7 +74,7 @@ public class UserFactory {
 
         // Add post
         Product product = new Product(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        Post post = new Post(LocalDate.of(2022, Month.MAY, 4), product, 1, 60000d);
+        Post post = new Post(now.minusDays(1), product, 1, 60000d);
         user2.newPost(post);
 
         // Add follower
@@ -95,11 +93,11 @@ public class UserFactory {
 
         // Add post
         Product product = new Product(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        Post post = new Post(LocalDate.of(2022, Month.MAY, 4), product, 1, 60000d);
+        Post post = new Post(now.minusDays(1), product, 1, 60000d);
         user2.newPost(post);
 
         Product product2 = new Product(2, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
-        Post post2 = new Post(LocalDate.of(2022, Month.MAY, 5), product2, 1, 60000d);
+        Post post2 = new Post(now, product2, 1, 60000d);
         user2.newPost(post2);
 
         // Add follower
