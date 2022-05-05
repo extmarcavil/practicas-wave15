@@ -4,6 +4,7 @@ import com.sprint.be_java_hisp_w15_g10.Controller.UserController;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
 import com.sprint.be_java_hisp_w15_g10.Service.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -22,7 +23,12 @@ class UserControllerTest {
     @InjectMocks
     UserController userController;
 
+    /**
+     * Valida que se pueda obtener la lista de usuarios que sigen al usuario y retorne una respuesta de exito
+     *
+     */
     @Test
+    @DisplayName("Test obtener el conteo de seguidores de un usuario")
     void getUserWitFollowersCount() {
         // arrange
         UserWithFollowersCountDTO userWithFollowersCountDTO = new UserWithFollowersCountDTO(1,"Luis", 6);
@@ -37,7 +43,12 @@ class UserControllerTest {
         );
     }
 
+    /**
+     * Valida que se pueda dejar de seguir a un usuario y retorne una respuesta de exito
+     *
+     */
     @Test
+    @DisplayName("Test dejar dee seguir a usuario")
     void unfollowUser() {
         // arrange
         UnfollowUserDTO unfollowUserDTO =new UnfollowUserDTO("Se ha dejado de seguir al usuario: Luis");
@@ -52,7 +63,12 @@ class UserControllerTest {
         );
     }
 
+    /**
+     * Valida que se puedan obtener los usuarios que sigue un usuario y retorne una respuesta de exito
+     *
+     */
     @Test
+    @DisplayName("TEst obtener los seguidores de un usuario")
     void getUserFollowers() {
         // arrange
         FollowersDTO followersDTO = new FollowersDTO();
@@ -67,7 +83,12 @@ class UserControllerTest {
         );
     }
 
+    /**
+     * Valida que se pueda seguir a un usuario y retorne una respuesta de exito
+     *
+     */
     @Test
+    @DisplayName("Test seguir usuario")
     void followUser() {
         // arrange
         FollowUserDTO followUserDTO = new FollowUserDTO();
@@ -82,7 +103,13 @@ class UserControllerTest {
         );
     }
 
+    /**
+     * Valida que se puedan obtener los usuarios que siguen al vendendor, verificando que se haya llamado al menos una vez
+     * el metodo getVendors y retorne una respuesta de exito
+     *
+     */
     @Test
+    @DisplayName("Test obtener vendedores")
     void getVendorsFollow() {
         // arrange
         VendedorsFollowedDTO vendedorsFollowedDTO = new VendedorsFollowedDTO();
