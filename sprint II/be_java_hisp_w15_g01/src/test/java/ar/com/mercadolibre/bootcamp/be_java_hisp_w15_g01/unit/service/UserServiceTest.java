@@ -132,10 +132,14 @@ public class UserServiceTest {
 
         List<String> expectedFollowerNames;
 
-        if (order.equals("name_desc"))
-            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        Comparator<String> comp;
+
+        if(order.equals("name_desc"))
+            comp = Comparator.reverseOrder();
         else
-            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(String::compareTo).collect(Collectors.toList());
+            comp = Comparator.naturalOrder();
+
+        expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(comp).collect(Collectors.toList());
 
         Mockito.when(followRepository.whoFollows(id)).thenReturn(follows);
 
