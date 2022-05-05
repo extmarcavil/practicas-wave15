@@ -46,9 +46,11 @@ public class PostService implements IPostService{
     }
 
     public PostCreatedDTO createPost(PostCreateDTO postCreateDTO){
+
         Category category = categoryRepository
                 .getById(postCreateDTO.getCategory_id())
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
+
 
         Post post = modelMapper.map(postCreateDTO, Post.class);
         post.setPost_id(postRepository.nextIndex());
