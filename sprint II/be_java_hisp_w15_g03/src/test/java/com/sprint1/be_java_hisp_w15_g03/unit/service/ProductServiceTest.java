@@ -1,22 +1,23 @@
 package com.sprint1.be_java_hisp_w15_g03.unit.service;
 
 import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.PublicationRespDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerPListDTO;
+import com.sprint1.be_java_hisp_w15_g03.exception.CategoryNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
+import com.sprint1.be_java_hisp_w15_g03.exception.ProductDuplicatedException;
 import com.sprint1.be_java_hisp_w15_g03.model.Category;
 import com.sprint1.be_java_hisp_w15_g03.model.Product;
 import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.service.ProductService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -44,14 +45,14 @@ public class ProductServiceTest {
     public void getLastPublicationsOk() {
 
         //arrange
-        int id = 1;
         String order = "date_asc";
 
-        when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
-        when(iMeliRepository.hasUser(id)).thenReturn(true);
+        // Mock
+        when(iMeliRepository.getLastPublications(anyInt())).thenReturn(new ArrayList<>());
+        when(iMeliRepository.hasUser(anyInt())).thenReturn(true);
 
         //act
-        SellerPListDTO result = productService.getLastPublication(id, order);
+        SellerPListDTO result = productService.getLastPublication(1, order);
 
         //assert
         assertNotNull(result);
@@ -60,18 +61,17 @@ public class ProductServiceTest {
 
     //T-0005
     @Test
-    @DisplayName("Tipo de ordenamiento por fecha invalido")
+    @DisplayName("Tipo de ordenamiento por fecha invalido: OrderInvalidException")
     public void getLastPublicationsInvalid() {
-
         //arrange
-        int id = 1;
         String order = "date";
 
-        when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
-        when(iMeliRepository.hasUser(id)).thenReturn(true);
+        //Mock
+        when(iMeliRepository.getLastPublications(anyInt())).thenReturn(new ArrayList<>());
+        when(iMeliRepository.hasUser(anyInt())).thenReturn(true);
 
         //act & assert
-        assertThrows(OrderInvalidException.class, () -> productService.getLastPublication(id, order));
+        assertThrows(OrderInvalidException.class, () -> productService.getLastPublication(1, order));
 
     }
 
@@ -79,16 +79,12 @@ public class ProductServiceTest {
     @Test
     @DisplayName("Tipo de ordenamiento por fecha null")
     public void getLastPublicationsOrderNullOk() {
-
-        //arrange
-        Integer id = 1;
-        String order = null;
-
-        when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
-        when(iMeliRepository.hasUser(id)).thenReturn(true);
+        //Mock
+        when(iMeliRepository.getLastPublications(anyInt())).thenReturn(new ArrayList<>());
+        when(iMeliRepository.hasUser(anyInt())).thenReturn(true);
 
         //act
-        SellerPListDTO result = productService.getLastPublication(id, order);
+        SellerPListDTO result = productService.getLastPublication(1, null);
 
         //assert
         assertNotNull(result);
@@ -99,9 +95,7 @@ public class ProductServiceTest {
     @Test
     @DisplayName("Tipo de ordenamiento verificar ordenamiento ascendente correcto")
     public void getLastPublicationsOrderAscOk() {
-
         //arrange
-        int id = 1;
         String order = "date_asc";
         Product product = new Product(1, "Mesa", null, null, null, null);
         Publication publication1 = new Publication(1, LocalDate.now(), Category.MESA, 300.0, product, null, null);
@@ -113,12 +107,12 @@ public class ProductServiceTest {
         PublicationRespDTO publicationDTO2 = new PublicationRespDTO(2, LocalDate.now().minus(1, ChronoUnit.WEEKS), 2, 300.0, productDTO);
         List<PublicationRespDTO> publicationsInOrder = Arrays.asList(publicationDTO2, publicationDTO1);
 
-
-        when(iMeliRepository.getLastPublications(id)).thenReturn(publications);
-        when(iMeliRepository.hasUser(id)).thenReturn(true);
+        // Mock
+        when(iMeliRepository.getLastPublications(anyInt())).thenReturn(publications);
+        when(iMeliRepository.hasUser(anyInt())).thenReturn(true);
 
         //act
-        SellerPListDTO result = productService.getLastPublication(id, order);
+        SellerPListDTO result = productService.getLastPublication(1, order);
 
         //assert
         assertAll(
@@ -132,9 +126,7 @@ public class ProductServiceTest {
     @Test
     @DisplayName("Tipo de ordenamiento verificar ordenamiento descendente correcto")
     public void getLastPublicationsOrderDescOk() {
-
         //arrange
-        int id = 1;
         String order = "date_desc";
         Product product = new Product(1, "Mesa", null, null, null, null);
         Publication publication1 = new Publication(1, LocalDate.now(), Category.MESA, 300.0, product, null, null);
@@ -146,12 +138,12 @@ public class ProductServiceTest {
         PublicationRespDTO publicationDTO2 = new PublicationRespDTO(2, LocalDate.now().minus(1, ChronoUnit.WEEKS), 2, 300.0, productDTO);
         List<PublicationRespDTO> publicationsInOrder = Arrays.asList(publicationDTO1, publicationDTO2);
 
-
-        when(iMeliRepository.getLastPublications(id)).thenReturn(publications);
-        when(iMeliRepository.hasUser(id)).thenReturn(true);
+        // Mock
+        when(iMeliRepository.getLastPublications(anyInt())).thenReturn(publications);
+        when(iMeliRepository.hasUser(anyInt())).thenReturn(true);
 
         //act
-        SellerPListDTO result = productService.getLastPublication(id, order);
+        SellerPListDTO result = productService.getLastPublication(1, order);
 
         //assert
         assertAll(
@@ -162,13 +154,11 @@ public class ProductServiceTest {
     }
 
 
-
     //T-0005
     @Test
     @DisplayName("Tipo de ordenamiento por fecha valido con usuario inexistente")
     public void getLastPublicationsPersonNotFound() {
-
-
+        // Mock
         when(iMeliRepository.hasUser(anyInt())).thenReturn(false);
 
         //act & assert
@@ -176,6 +166,72 @@ public class ProductServiceTest {
 
     }
 
-    //TODO: hacer test de save publications
+    // Extra
+    @Test
+    @DisplayName("Verificar que la publicación se crea correctamente. ")
+    void savePublicationOk() {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO(1, "Mesa", null, null, null, null);
+        PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, 2, 300.0);
 
+        // Mock
+        when(iMeliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(iMeliRepository.hasProduct(anyInt())).thenReturn(false);
+
+        // Act
+        productService.savePublication(publicationDTO);
+
+        // Assert
+        assertAll(
+                () -> verify(iMeliRepository, atLeastOnce()).addProduct(any(Product.class)),
+                () -> verify(iMeliRepository, atLeastOnce()).savePublication(anyInt(), any(Publication.class))
+        );
+    }
+
+    // Extra
+    @Test
+    @DisplayName("Verificar que la publicación tenga una categoría invalida: CategoryNotFoundException ")
+    void savePublicationCategoryNotFoundException() {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO(1, "Mesa", null, null, null, null);
+        PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, null, 300.0);
+
+        // Act & Assert
+        assertThrows(CategoryNotFoundException.class, () -> productService.savePublication(publicationDTO));
+
+    }
+
+    // Extra
+    @Test
+    @DisplayName("Verificar que la publicación tenga un vendedor inexistente: PersonNotFoundException ")
+    void savePublicationPersonNotFoundException() {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO(1, "Mesa", null, null, null, null);
+        PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, 2, 300.0);
+
+        // Mock
+        when(iMeliRepository.hasSeller(anyInt())).thenReturn(false);
+
+        // Act & Assert
+        assertThrows(PersonNotFoundException.class, () -> productService.savePublication(publicationDTO));
+
+    }
+
+    // Extra
+    @Test
+    @DisplayName("Verificar que la publicación no puede tener un producto duplicado: ProductDuplicatedException ")
+    void savePublicationProductDuplicatedException() {
+        // Arrange
+        ProductDTO productDTO = new ProductDTO(1, "Mesa", null, null, null, null);
+        PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, 2, 300.0);
+
+        // Mock
+        when(iMeliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(iMeliRepository.hasProduct(anyInt())).thenReturn(true);
+        when(iMeliRepository.getProduct(anyInt())).thenReturn(new Product());
+
+        // Act & Assert
+        assertThrows(ProductDuplicatedException.class, () -> productService.savePublication(publicationDTO));
+
+    }
 }

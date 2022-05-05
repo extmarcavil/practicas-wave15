@@ -186,6 +186,25 @@ Ordenamiento alfabético ascendente y descendente para la US 6.
 | 0009 | GET    | /products/followed/{userId}/list?order=date_asc <br />/products/followed/{userId}/list?order=date_desc |
 
 
+## Validaciones
+
+| Dato/Parámetro | ¿Obligatorio? | Validación                                                                                                                                            | Mensaje de error                                                                                                                                      |
+|----------------|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| user_id        | Si            | - Que el campo no esté vacío. <br /> - Mayor 0                                                                                                        | - El  id no puede estar vacío.<br /> - El id debe ser mayor a cero                                                                                    |
+| id_post        | Si            | - Que el campo no esté vacío. <br /> - Mayor 0                                                                                                        | - El  id_post no puede estar vacío.<br /> - El id_post debe ser mayor a cero                                                                          |
+| date           | Si            | - Que el campo no esté vacío.                                                                                                                         | - La fecha no puede estar vacía.                                                                                                                      |
+| product_name   | Si            | - Que el campo no esté vacío. <br /> - Longitud máxima de 40 caracteres.<br /> - Que no posea caracteres especiales (%, &, $, etc), permite espacios. | - El campo no puede estar vacío. <br /> - Longitud máxima no puede superar los 40 caracteres.<br /> - El campo no puede poseer caracteres especiales. |
+| type           | Si            | - Que el campo no esté vacío. <br /> - Longitud máxima de 15 caracteres.<br /> - Que no posea caracteres especiales (%, &, $, etc), permite espacios. | - El campo no puede estar vacío. <br /> - Longitud máxima no puede superar los 15 caracteres.<br /> - El campo no puede poseer caracteres especiales. |
+| brand          | Si            | - Que el campo no esté vacío. <br /> - Longitud máxima de 25 caracteres.<br /> - Que no posea caracteres especiales (%, &, $, etc), permite espacios. | - El campo no puede estar vacío. <br /> - Longitud máxima no puede superar los 25 caracteres.<br /> - El campo no puede poseer caracteres especiales. |
+| color          | Si            | - Que el campo no esté vacío. <br /> - Longitud máxima de 15 caracteres.<br /> - Que no posea caracteres especiales (%, &, $, etc), permite espacios. | - El campo no puede estar vacío. <br /> - Longitud máxima no puede superar los 15 caracteres.<br /> - El campo no puede poseer caracteres especiales. |
+| notes          | NO            | - Longitud máxima de 80 caracteres.<br /> - Que no posea caracteres especiales (%, &, $, etc), permite espacios.                                      | - Longitud máxima no puede superar los 80 caracteres.<br /> - El campo no puede poseer caracteres especiales.                                         |
+| category       | Si            | - Que el campo no esté vacío.                                                                                                                         | - El campo no puede estar vacío.                                                                                                                      |
+| price          | Si            | - Que el campo no esté vacío.  <br /> - El precio máximo puede ser 10.000.000.                                                                        | - El campo no puede estar vacío. <br/> - El precio máximo por producto es de 10.000.000                                                               |
+
+
+
+
+
 ## Excepciones
 
 #### CategoryNotFoundException:

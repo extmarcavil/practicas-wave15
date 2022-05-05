@@ -5,7 +5,6 @@ import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.MeliRepository;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -112,8 +111,10 @@ public class MeliRepositoryTest {
 
         seller.getFollowers().add(user);
 
-        Publication publication1 = new Publication(1, LocalDate.now(), Category.MESA, 300.0, null, null, null);
-        Publication publication2 = new Publication(2, LocalDate.now().minus(3, ChronoUnit.WEEKS), Category.MESA, 300.0, null, null, null);
+        Publication publication1 = new Publication(1, LocalDate.now(), Category.MESA, 300.0, null,
+                null, null);
+        Publication publication2 = new Publication(2, LocalDate.now().minus(3, ChronoUnit.WEEKS),
+                Category.MESA, 300.0, null, null, null);
 
         seller = meliRepository.addSeller(seller);
         user = meliRepository.addUser(user);
@@ -130,5 +131,44 @@ public class MeliRepositoryTest {
                 () -> assertTrue(publications.get(0).getDate()
                         .isAfter(LocalDate.now().minus(2, ChronoUnit.WEEKS)))
         );
+    }
+
+    // Extra
+    @Test
+    @DisplayName("Verificación de que un usuario siga a un vendedor o si un vendedor es seguido por un usuario")
+    void followingTrue() {
+        Seller seller = new Seller();
+        seller.setFollowers(new ArrayList<>());
+        seller.setUserName("Garbarino");
+
+        User user = new User();
+        user.setFollowed(new ArrayList<>());
+        user.getFollowed().add(seller);
+        user.setUserName("Maria");
+
+        seller.getFollowers().add(user);
+
+        seller = meliRepository.addSeller(seller);
+        user = meliRepository.addUser(user);
+
+        assertTrue(meliRepository.following(user.getUserId(), seller.getUserId()));
+    }
+
+    // Extra
+    @Test
+    @DisplayName("Verificación de que un usuario siga a un vendedor o si un vendedor es seguido por un usuario")
+    void followingFalse() {
+        Seller seller = new Seller();
+        seller.setFollowers(new ArrayList<>());
+        seller.setUserName("Garbarino");
+
+        User user = new User();
+        user.setFollowed(new ArrayList<>());
+        user.setUserName("Maria");
+
+        seller = meliRepository.addSeller(seller);
+        user = meliRepository.addUser(user);
+
+        assertFalse(meliRepository.following(user.getUserId(), seller.getUserId()));
     }
 }

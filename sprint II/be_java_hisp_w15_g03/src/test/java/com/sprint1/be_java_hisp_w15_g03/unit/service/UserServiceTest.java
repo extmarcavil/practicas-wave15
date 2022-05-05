@@ -9,7 +9,6 @@ import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.service.UserService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -394,9 +393,8 @@ public class UserServiceTest {
 
     //T-0007
     @Test
-    @DisplayName("Verificar cantidad de seguidores con vendedor que no existe")
+    @DisplayName("Verificar cantidad de seguidores con vendedor que no existe: PersonNotFoundException")
     void getFollowersCountNotOk(){
-
         //Mock
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
 
@@ -404,7 +402,5 @@ public class UserServiceTest {
         assertThrows(PersonNotFoundException.class, () -> userService.getFollowersCount(1));
 
     }
-
-
 
 }

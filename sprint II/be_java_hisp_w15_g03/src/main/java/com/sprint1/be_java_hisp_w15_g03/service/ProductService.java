@@ -56,8 +56,7 @@ public class ProductService implements IProductService {
 
         if (repository.hasSeller(publication.getUserId())) {
 
-            if (repository.hasProduct(product.getProductId()))
-            {
+            if (repository.hasProduct(product.getProductId())) {
                 if( !repository.getProduct(product.getProductId()).equals(product)){
                     throw new ProductDuplicatedException("El producto existente no concuerda con los datos enviados.");
                 }
