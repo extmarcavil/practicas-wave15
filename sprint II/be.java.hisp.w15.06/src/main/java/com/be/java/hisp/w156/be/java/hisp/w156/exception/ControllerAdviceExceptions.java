@@ -24,7 +24,7 @@ public class ControllerAdviceExceptions {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     ResponseEntity<ErrorDTO> notReadableException ( HttpMessageNotReadableException exception ) {
-        ErrorDTO errorDTO = new ErrorDTO("HttpMessageNotReadableException", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("HttpMessageNotReadableException", exception.getRootCause().getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 

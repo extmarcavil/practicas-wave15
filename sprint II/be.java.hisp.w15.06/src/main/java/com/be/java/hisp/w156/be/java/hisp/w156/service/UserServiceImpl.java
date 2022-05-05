@@ -5,6 +5,7 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowedDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFollowedException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserAlreadyFollowsTheUserException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserCantFollowHimselfException;
@@ -70,7 +71,7 @@ public class UserServiceImpl implements IUserService {
         followers.remove(user);
         userToUnfollow.setFollowers(followers);
 
-        String message = String.format("The id user: %s had unfollow user %s", userId, userToUnfollow);
+        String message = String.format("The id user: %s had unfollow user %s", userId, userToUnfollow.getId());
         return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.OK);
     }
 
@@ -87,6 +88,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<UserFollowersDTO> getFollowers(Integer id, String order) {
+
+        validateAlphabeticalOrdering(order);
+
         User userSeller = this.userRepository.getUser(id);
         List<UserDTO> followers = new ArrayList<>();
         if(userSeller.getFollowers() != null) {
@@ -109,6 +113,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public ResponseEntity<UserFollowedDTO> getFollowed(Integer id, String order) {
+
+        validateAlphabeticalOrdering(order);
+
         User user = this.userRepository.getUser(id);
         List<UserDTO> followed = new ArrayList<>();
         if(user.getFollowed() != null) {
@@ -127,6 +134,11 @@ public class UserServiceImpl implements IUserService {
 
         return new ResponseEntity<>(userFollowedDTO, HttpStatus.OK);
 
+    }
+
+    private void validateAlphabeticalOrdering(String order) {
+        if (!(order.equals("name_asc") || order.equals("name_desc") || order.isEmpty()))
+            throw new InvalidOrderException();
     }
 
 }

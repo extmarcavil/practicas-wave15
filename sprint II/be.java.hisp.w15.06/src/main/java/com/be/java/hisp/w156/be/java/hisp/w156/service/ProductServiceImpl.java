@@ -4,6 +4,7 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.request.RequestPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
@@ -44,6 +45,8 @@ public class ProductServiceImpl implements IProductService {
     @Override
     public ResponseEntity<RecentlyPostDTO> getPostsLastTwoWeekById(Integer id, String order) {
 
+        validateDateOrdering(order);
+
         List<ResponsePostDTO> posts = useRepository.getUser(id).getFollowed().stream()
                .flatMap(user -> user.getPosts().stream()
                        .filter(post -> byLastTwoWeek(post.getDate())))
@@ -61,5 +64,10 @@ public class ProductServiceImpl implements IProductService {
     private boolean byLastTwoWeek(LocalDate date) {
         long days = ChronoUnit.DAYS.between(date, LocalDate.now());
         return days <= 14;
+    }
+
+    private void validateDateOrdering(String order) {
+        if (!(order.equals("date_asc") || order.equals("date_desc") || order.isEmpty()))
+            throw new InvalidOrderException();
     }
 }

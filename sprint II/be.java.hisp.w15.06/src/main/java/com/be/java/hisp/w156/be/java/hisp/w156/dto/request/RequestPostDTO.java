@@ -1,19 +1,16 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.dto.request;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.adapter.JsonAdapterDeserializer;
-import com.be.java.hisp.w156.be.java.hisp.w156.adapter.JsonAdapterSerializer;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Product;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 
+@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -23,8 +20,9 @@ public class RequestPostDTO {
     @Min(value = 1, message = "El id debe ser mayor a cero.")
     private Integer user_id;
 
-    @JsonSerialize(using = JsonAdapterSerializer.class)
-    @JsonDeserialize(using = JsonAdapterDeserializer.class)
+    //@JsonSerialize(using = JsonAdapterSerializer.class)
+    //@JsonDeserialize(using = JsonAdapterDeserializer.class)
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     @NotNull(message = "La fecha no puede estar vacía.")
     @FutureOrPresent(message = "La fecha no puede ser anterior a hoy.")
     private LocalDate date;

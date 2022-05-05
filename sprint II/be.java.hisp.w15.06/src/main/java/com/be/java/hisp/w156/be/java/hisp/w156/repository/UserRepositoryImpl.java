@@ -60,4 +60,9 @@ public class UserRepositoryImpl implements IUserRepository {
     public boolean existsById(Integer id) {
         return users.stream().anyMatch(user -> user.getId().equals(id));
     }
+
+    @Override
+    public void save(User user) {
+        this.users.add(user);
+    }
 }
