@@ -15,12 +15,12 @@ import javax.validation.constraints.Min;
 @RestController
 @RequestMapping("/products")
 @Validated
-public class PostController {
+public class ProductController {
 
     private final IProductService productService;
 
     @Autowired
-    public PostController(IProductService productService) {
+    public ProductController(IProductService productService) {
         this.productService = productService;
     }
 
