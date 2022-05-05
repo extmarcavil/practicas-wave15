@@ -2,11 +2,15 @@ package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserCountFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,7 +27,7 @@ import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.otherUse
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class UserServiceImplTest {
@@ -122,5 +126,39 @@ class UserServiceImplTest {
         String response = userService.getCountFollowers(user.getId()).getBody().getUser_name();
 
         assertThat(response).isEqualTo(user.getName());
+    }
+
+    @Test
+    void whenFollowersAlphabeticalOrderingIsNotValidThenReturnsException(){
+        String order = "order";
+
+        assertThatThrownBy(() -> userService.getFollowers(user.getId(), order))
+                .isInstanceOf(InvalidOrderException.class)
+                .hasMessage("El tipo de ordenamiento no es valido.");
+    }
+
+    @Test
+    void whenFollowedAlphabeticalOrderingIsNotValidThenReturnsException(){
+        String order = "order";
+
+        assertThatThrownBy(() -> userService.getFollowed(user.getId(), order))
+                .isInstanceOf(InvalidOrderException.class)
+                .hasMessage("El tipo de ordenamiento no es valido.");
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"name_asc", "name_desc", ""})
+    void whenFollowersAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){
+        when(repository.getUser(user.getId())).thenReturn(user);
+
+        assertThat(userService.getFollowers(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    @ParameterizedTest
+    @ValueSource(strings = {"name_asc", "name_desc", ""})
+    void whenFollowedAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){
+        when(repository.getUser(user.getId())).thenReturn(user);
+
+        assertThat(userService.getFollowed(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 }
