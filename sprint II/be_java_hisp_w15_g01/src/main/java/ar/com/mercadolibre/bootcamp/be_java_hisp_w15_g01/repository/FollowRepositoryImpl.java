@@ -42,7 +42,6 @@ public class FollowRepositoryImpl implements FollowRepository {
                 .stream()
                 .filter(f -> f.getFollowing().getUserId().equals(id))
                 .collect(Collectors.toList());
-
     }
 
     @Override
@@ -63,6 +62,4 @@ public class FollowRepositoryImpl implements FollowRepository {
                 .orElseThrow(()-> new NotFollowedException("The user don´t follow this seller"));
         follows.remove(follow);
     }
-
-
 }

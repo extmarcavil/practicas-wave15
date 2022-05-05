@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public class UserRepositoryImpl implements UserRepository {
     private List<User> users;
-    private UserRepositoryImpl() {
+    public UserRepositoryImpl() {
         this.users = new ArrayList<>();
 
         User u1 = new User(1L, "Lukf");

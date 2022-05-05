@@ -1,9 +1,11 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.unit.service;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.OwnFollowingException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
@@ -116,6 +118,21 @@ public class UserServiceTest {
         // Assert
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(id1, id2));
     }
+
+
+
+    @Test
+    @DisplayName("Un usuario no puede dejar de seguirse a si mismo")
+    public void testExceptionOwnFollowedExcepcion() {
+        // Arrange
+        Long id1 = 1L;
+
+        // Act
+        // Assert
+        Assertions.assertThrows(OwnFollowingException.class, () -> userService.unFollow(id1, id1));
+    }
+
+
 
     private void test_04_sortedFollowerList(String order) {
         // Arrange
@@ -243,5 +260,19 @@ public class UserServiceTest {
     }
 
 
+    @Test
+    @DisplayName("Cantidad de followers correcta")
+    public void test_007CorrectCountFollowers(){
+        //arrange
+        Long userId = 1L;
+        Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(UserFactory.createLuky()));
+        Mockito.when(followRepository.whoFollows(userId)).thenReturn(FollowersListFactory.createLista());
+
+        //act
+        FollowersCountDTO result = userService.wowManyFollowsMe(userId);
+
+        //assert
+        Assertions.assertEquals(1,result.getFollowersCount());
+    }
 
 }
