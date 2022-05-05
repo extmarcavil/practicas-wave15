@@ -38,6 +38,20 @@ public class Util {
         user1.setFollowers(list);
         return user1;
     }
+
+    public static User user2(){
+        User user2 = new User(1234,"Fulano Opitz");
+        List<User> list = Arrays.asList(
+                new User(1235,"Klaus Pacheco")
+                ,new User(1236,"Homer Thompson")
+                ,new User(1237,"Mister Json")
+                ,new User(1237,"Pacheco Json")
+        );
+        user2.setFollowers(list);
+        return user2;
+    }
+
+
     public static FollowersListDTO asc_List(){
         FollowersListDTO ascList = new FollowersListDTO();
         ascList.setUser_id(1234);

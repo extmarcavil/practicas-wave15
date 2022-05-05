@@ -1,5 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g08.Units;
 
+import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersCountDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersListDTO;
 import com.bootcamp.be_java_hisp_w15_g08.model.User;
 import com.bootcamp.be_java_hisp_w15_g08.repository.IUserRepository;
@@ -97,6 +98,23 @@ public class UserServiceTest {
 
         //asert
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Comprobar si la cantidad de followers son correctos")
+    public void getFollowersCount(){
+        //arrange
+        User user2 = Util.user2();
+
+        //Mock
+        Mockito.when(repository.findUser(user2.getUserID())).thenReturn(user2);
+
+        //act
+        FollowersCountDTO followersCountDTO = service.countFollers(user2.getUserID());
+
+
+        //asert
+        Assertions.assertEquals(followersCountDTO.getFollowers_count(),user2.getFollowers().size());
     }
 
 
