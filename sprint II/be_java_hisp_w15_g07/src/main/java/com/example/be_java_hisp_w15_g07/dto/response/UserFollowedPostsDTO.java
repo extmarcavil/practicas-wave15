@@ -9,8 +9,8 @@ import java.util.List;
 @EqualsAndHashCode
 @ToString
 public class UserFollowedPostsDTO {
-    public Integer userID;
-    public List<PostDTO> posts;
+    private Integer userID;
+    private List<PostDTO> posts;
 
     public UserFollowedPostsDTO() {
     }

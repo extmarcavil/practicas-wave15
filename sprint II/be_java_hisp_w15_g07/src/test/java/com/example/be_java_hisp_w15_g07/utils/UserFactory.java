@@ -8,10 +8,15 @@ import com.example.be_java_hisp_w15_g07.model.User;
 
 import java.time.LocalDate;
 import java.time.Month;
+
+import java.util.HashSet;
+import java.util.Set;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
+
 
 public class UserFactory {
     public static User getUserOne(){
@@ -109,7 +114,20 @@ public class UserFactory {
     }
 
     public static User getUserThree(){
-        return new User(3, "User 3");
+      return new User(3, "User 3");
+    }
+  
+    public static User getUserThreeWithPost(){
+        User user2 = new User(3, "User 3");
+        for(Post p: PostFactory.getThreePostsOneOutdated()){
+            user2.newPost(p);
+        }
+        return user2;
+    }
+
+    public static void setFollowedList(User user, User userToFollow){
+        user.getFollowed().add(userToFollow);
+        userToFollow.getFollowers().add(user);
     }
 
     public static UserFollowersDTO getUserThreeDTO(){

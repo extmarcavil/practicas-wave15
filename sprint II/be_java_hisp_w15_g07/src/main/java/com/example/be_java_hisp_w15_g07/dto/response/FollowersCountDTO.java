@@ -1,7 +1,7 @@
 package com.example.be_java_hisp_w15_g07.dto.response;
 
-import lombok.*;
 
+import lombok.*;
 import java.io.Serializable;
 
 @Getter
