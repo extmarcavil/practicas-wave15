@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class PostRepository {
@@ -25,7 +26,7 @@ public class PostRepository {
         List<Product> productList = productRepository.getAll();
         List<Category> categoryList = categoryRepository.getAll();
 
-        Post post1 = new Post(index++, productList.get(0), LocalDate.of(2022, 04, 25), categoryList.get(0), 1.09, false, 0);
+        Post post1 = new Post(index++, productList.get(0), LocalDate.of(2022, 4, 25), categoryList.get(0), 1.09, false, 0);
         Post post2 = new Post(index++, productList.get(1), LocalDate.now(), categoryList.get(1), 2.10, true, 0.5);
         Post post3 = new Post(index++, productList.get(2), LocalDate.now(), categoryList.get(2), 1.99, false, 0);
         Post post4 = new Post(index++, productList.get(3), LocalDate.now(), categoryList.get(0), 3.00, true, 0.4);
@@ -45,6 +46,12 @@ public class PostRepository {
 
     public void add(Post post){
         postList.add(post);
+    }
+
+    public Optional<Post> getById(int id){
+        return postList.stream()
+                .filter(post -> post.getPost_id()==id)
+                .findFirst();
     }
 
     public int nextIndex(){return index++;}

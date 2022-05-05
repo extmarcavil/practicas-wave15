@@ -4,7 +4,6 @@ import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -70,7 +69,7 @@ class UserRepositoryTest {
         int final_size = userRepository.getAll().size();
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertNotEquals(initial_size, final_size);},
+                ()->{Assertions.assertEquals(initial_size + 1, final_size);},
                 ()->{Assertions.assertEquals(user, userRepository.getById(4).get());}
         );
     }

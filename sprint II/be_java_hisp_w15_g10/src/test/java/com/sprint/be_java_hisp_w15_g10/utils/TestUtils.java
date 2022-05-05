@@ -1,12 +1,37 @@
 package com.sprint.be_java_hisp_w15_g10.utils;
 
+import com.sprint.be_java_hisp_w15_g10.Model.Category;
+import com.sprint.be_java_hisp_w15_g10.Model.Post;
+import com.sprint.be_java_hisp_w15_g10.Model.Product;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
+import com.sprint.be_java_hisp_w15_g10.Repository.CategoryRepository;
+import com.sprint.be_java_hisp_w15_g10.Repository.PostRepository;
+import com.sprint.be_java_hisp_w15_g10.Repository.ProductRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 public class TestUtils {
+
+    public static Category createCategory(){
+        return new Category(4, "Tecnología");
+    }
+
+    public static Product createProduct(){
+        return new Product(6, "Mouse", "Gamer", "Huawei", "Negro","últimos productos");
+
+    }
+
+    public static Post createPost(PostRepository postRepository, LocalDate date){
+        return new Post(postRepository.nextIndex(),
+                new Product(6, "Mouse", "Gamer", "Huawei", "Negro","últimos productos"),
+                date,
+                new Category(4, "Tecnología"),
+                2.10,
+                true,
+                0.5);
+    }
+
     public static User createFollowedUser(UserRepository userRepository){
         User user1 = new User(4,"Luis");
         User user2 = new User(5,"David");

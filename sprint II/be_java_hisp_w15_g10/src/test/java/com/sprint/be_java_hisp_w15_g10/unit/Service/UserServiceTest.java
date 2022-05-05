@@ -1,6 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.unit.Service;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
+import com.sprint.be_java_hisp_w15_g10.Exception.FollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.NotFollowException;
 import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundException;
 import com.sprint.be_java_hisp_w15_g10.Model.User;
@@ -49,7 +50,8 @@ class UserServiceTest {
         Assertions.assertAll(
                 ()->{Assertions.assertEquals(userWithFollowersCountDTO.getUser_name(), "Luis");},
                 ()->{Assertions.assertEquals(userWithFollowersCountDTO.getUser_id(), 1);},
-                ()->{Assertions.assertEquals(userWithFollowersCountDTO.getFollowers_count(),5);}
+                ()->{Assertions.assertEquals(userWithFollowersCountDTO.getFollowers_count(),5);},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
 
@@ -59,7 +61,10 @@ class UserServiceTest {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getUsersWithFollowersCount(1));
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getUsersWithFollowersCount(1));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+        );
     }
 
     /**
@@ -69,11 +74,13 @@ class UserServiceTest {
     @DisplayName("Validar que lanza excepción al dejar de seguir a usuario inexitente")
     void unfollowUserUnknownUser() {
         // arrange
-        Optional<User> oUser = Optional.empty();
-        Mockito.when(userRepository.getById(Mockito.anyInt())).thenReturn(oUser);
+        Mockito.when(userRepository.getById(Mockito.anyInt())).thenReturn(Optional.empty());
         //act
         // assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.unfollowUser(1, 2));
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.unfollowUser(1, 2));},
+                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+        );
     }
 
     /**
@@ -93,7 +100,9 @@ class UserServiceTest {
         // assert
         Assertions.assertAll(
                 ()->{Assertions.assertEquals(unfollowUserDTO.getMessage(),"Se ha dejado de seguir al usuario: " + vendedor.getUser_name());},
-                ()->{Assertions.assertFalse(cliente.getFollowed().contains(vendedor));}
+                ()->{Assertions.assertFalse(cliente.getFollowed().contains(vendedor));},
+                ()->{Assertions.assertFalse(vendedor.getFollowers().contains(cliente));},
+                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
         );
     }
 
@@ -109,11 +118,62 @@ class UserServiceTest {
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(cliente));
         Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
         // act & assert
-        Assertions.assertThrows(NotFollowException.class, ()->userServiceMock.unfollowUser(1,2));
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(NotFollowException.class, ()->userServiceMock.unfollowUser(1,2));},
+                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+        );
+    }
+
+    //T-0001 Service
+    @Test
+    @DisplayName("Validando que el usuario a seguir existe")
+    void followUserTest() {
+        //Arrange
+        User cliente = TestUtils.createUser(1, "Luis");
+        User vendedor = TestUtils.createUser(2, "David");
+        Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(cliente));
+        Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
+
+        //Act
+        FollowUserDTO msj = userServiceMock.followUser(1, 2);
+
+        //Assert
+        Assertions.assertAll(
+                ()->{Assertions.assertEquals("Se ha comenzado a seguir al usuario: David", msj.getMessage());},
+                ()->{Assertions.assertTrue(cliente.getFollowed().contains(vendedor));},
+                ()->{Assertions.assertTrue(vendedor.getFollowers().contains(cliente));},
+                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
+        );
+    }
+
+    //T-0001 Service
+    @Test
+    @DisplayName("Notificando la no existencia del usuario a seguir lanzando la excepcion")
+    void followUserInexistsTest() {
+        //Arrange
+        Mockito.when(userRepository.getById(Mockito.anyInt())).thenReturn(Optional.empty());
+        //Act & Assert
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(UserNotFoundException.class, () ->userServiceMock.followUser(1, 10));},
+                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+        );
     }
 
     @Test
-    void followUser() {
+    @DisplayName(" Test unfollow Unfollowed User")
+    void followFollowedUser() {
+        // arrange
+        User cliente = TestUtils.createUser(1, "Luis");
+        User vendedor = TestUtils.createUser(2, "David");
+        TestUtils.followUser(cliente, vendedor);
+        Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(cliente));
+        Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
+        // act & assert
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(FollowException.class, ()->userServiceMock.followUser(1,2));},
+                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
+        );
+
     }
 
     @Test
@@ -121,7 +181,10 @@ class UserServiceTest {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getVendorsFollow(1, ""));
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getVendorsFollow(1, ""));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+        );
     }
 
     @Test
@@ -142,7 +205,8 @@ class UserServiceTest {
                         .equals(vendedorsFollowedDTO.getFollowed()
                                 .stream()
                                 .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));}
+                                .collect(Collectors.toList())));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
 
@@ -164,7 +228,8 @@ class UserServiceTest {
                         .equals(vendedorsFollowedDTO.getFollowed()
                                 .stream()
                                 .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));}
+                                .collect(Collectors.toList())));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
 
@@ -173,7 +238,10 @@ class UserServiceTest {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
-        Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getFollowers(1, ""));
+        Assertions.assertAll(
+                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getFollowers(1, ""));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+        );
     }
 
     @Test
@@ -194,7 +262,8 @@ class UserServiceTest {
                         .equals(followersDTO.getFollowers()
                                 .stream()
                                 .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));}
+                                .collect(Collectors.toList())));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
 
@@ -216,8 +285,8 @@ class UserServiceTest {
                         .equals(followersDTO.getFollowers()
                                 .stream()
                                 .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));}
+                                .collect(Collectors.toList())));},
+                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
-
 }
