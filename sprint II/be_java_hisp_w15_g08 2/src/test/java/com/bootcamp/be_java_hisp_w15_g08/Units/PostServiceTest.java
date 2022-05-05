@@ -13,6 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.util.Assert;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -81,6 +82,42 @@ public class PostServiceTest {
 
         //Assert
         Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Comprobar si existe el date_asc")
+    public void date_asc() {
+        //arrange
+        String order = "date_asc";
+        User user1 = Util.user1();
+
+        //Mock
+        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+
+        //act
+        PostListDTO result = service.getSellersLastsPosts(user1.getUserID(), order);
+
+        //asert
+        Assert.isInstanceOf(PostListDTO.class, result);
+    }
+
+    @Test
+    @DisplayName("Comprobar si existe el date_asc")
+    public void date_desc() {
+        //arrange
+        String order = "date_asc";
+        User user1 = Util.user1();
+
+        //Mock
+        Mockito.when(repository.findUser(user1.getUserID())).thenReturn(user1);
+
+        //act
+        PostListDTO result = service.getSellersLastsPosts(user1.getUserID(), order);
+
+
+        //asert
+
+        Assert.isInstanceOf(PostListDTO.class, result);
     }
 
 }
