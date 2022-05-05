@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g07.model;
 
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 import java.util.*;
 
