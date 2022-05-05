@@ -70,7 +70,7 @@ public class UserServiceImpl implements IUserService {
         followers.remove(user);
         userToUnfollow.setFollowers(followers);
 
-        String message = String.format("The id user: %s had unfollow user %s", userId, userToUnfollow);
+        String message = String.format("The id user: %s had unfollow user %s", userId, userToUnfollow.getId());
         return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.OK);
     }
 
