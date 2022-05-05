@@ -1,6 +1,8 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.unit.service;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
@@ -8,6 +10,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostReposito
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserServiceImpl;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.FollowFactory;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.FollowersListFactory;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.ResponseDTOFactory;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.UserFactory;
 import org.junit.jupiter.api.Assertions;
@@ -105,4 +108,40 @@ public class UserServiceTest {
         // Assert
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(id1, id2));
     }
+
+
+
+
+    @Test
+    @DisplayName("Parametro de ordenamiento alfabetico existente, sigue ejecucion")
+    public void test_003(){
+        //arrange
+        Long id = 1L;
+        String order = "name_asc";
+        User u1 = UserFactory.createLuky();
+        Mockito.when(followRepository.whoFollows(id)).thenReturn(FollowersListFactory.createLista());
+        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(u1));
+
+        //act
+        FollowersListDTO lista = userService.whoFollowsMe(id, order);
+
+        //assert
+        Assertions.assertEquals(2L,lista.getFollowers().get(0).getUserId());
+    }
+
+
+    @Test
+    @DisplayName("Parametro de ordenamiento no existente, arroja excepcion InvalidArgumentException")
+    public void test_003NotValidParameter(){
+        //arrange
+        Long id= 1L;
+        String order = "name_ascs";
+
+        //act
+        //assert
+        Assertions.assertThrows(InvalidArgumentException.class, () -> userService.whoFollowsMe(id, order));
+    }
+
+
+
 }
