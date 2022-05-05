@@ -1,5 +1,7 @@
 package Utils;
 
+import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.model.Post;
 import com.sprint1.be_java_hisp_w15_g4.model.Product;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -26,6 +28,19 @@ public class TestGenerator {
         post.setCategory(1);
         post.setPrice(100.0);
         post.setDetail(new Product());
+
+        return post;
+    }
+
+    public static PostDTO GeneratePostsDTO(int userId, String date) {
+
+        PostDTO post = new PostDTO();
+
+        post.setUser_id(userId);
+        post.setDate(LocalDate.parse(date));
+        post.setCategory(1);
+        post.setPrice(100.0);
+        post.setDetail(new ProductDTO());
 
         return post;
     }
