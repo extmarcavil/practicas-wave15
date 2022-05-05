@@ -1,6 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g4.exception;
 
 import com.sprint1.be_java_hisp_w15_g4.dto.response.ErrorDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.IdNotPositiveErrorDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.ValidationErrorDTO;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -60,5 +62,19 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<?> handleValidationExceptions(HttpMessageNotReadableException e){
         return ResponseEntity.badRequest().body(new ErrorDTO(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST));
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    ResponseEntity<IdNotPositiveErrorDTO> handleConstraintViolationException(ConstraintViolationException e) {
+        Map<String, String> errors = new HashMap<>();
+
+        e.getConstraintViolations().forEach(fieldError -> {
+            String[] splitted = fieldError.getPropertyPath().toString().split("\\.");
+            String name = splitted[1];
+            errors.put(name, fieldError.getMessage());
+        });
+
+        return ResponseEntity.badRequest().body(new IdNotPositiveErrorDTO(HttpStatus.BAD_REQUEST, errors));
     }
 }

@@ -18,8 +18,6 @@ public class PostDTO {
     @Positive(message = "El id debe ser mayor a cero.")
     private int user_id;
 
-    @NotNull(message = "La post_id no puede estar vacia.")
-    @Positive(message = "El post_id debe ser mayor a cero.")
     private int post_id;
 
     @NotNull(message = "La fecha no puede estar vacia.")
