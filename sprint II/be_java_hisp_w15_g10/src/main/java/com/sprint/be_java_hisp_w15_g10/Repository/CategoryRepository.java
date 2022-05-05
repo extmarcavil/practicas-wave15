@@ -10,7 +10,7 @@ import java.util.Optional;
 @Repository
 public class CategoryRepository {
 
-    private List<Category> categoryList;
+    private final List<Category> categoryList;
 
     public CategoryRepository(){
         categoryList = new ArrayList<Category>();

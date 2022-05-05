@@ -12,9 +12,9 @@ import java.util.Optional;
 
 @Repository
 public class PostRepository {
-    private List<Post> postList;
-    private CategoryRepository categoryRepository;
-    private ProductRepository productRepository;
+    private final List<Post> postList;
+    private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
     private int index;
 
     public PostRepository(CategoryRepository categoryRepository, ProductRepository productRepository){

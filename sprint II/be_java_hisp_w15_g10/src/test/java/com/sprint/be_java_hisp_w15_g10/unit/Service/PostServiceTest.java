@@ -72,8 +72,12 @@ class PostServiceTest {
     }
 
 
+    /**
+     * Valida que se pueda crear una categoria
+     */
+
     @Test
-    @DisplayName("Creando un Post")
+    @DisplayName("Test creacion de una categoria")
     void createPostTest() {
         //Arrange
         doReturn(Optional.of(category1))
@@ -105,8 +109,12 @@ class PostServiceTest {
 
     }
 
+    /**
+     * valida que se pueda lanzar una Excepcion cuando la categoría no existe
+     *
+     */
     @Test
-    @DisplayName("Lanzando Excepcion cuando la categoría no existe ")
+    @DisplayName("Test de lanzamiento de excepcion cuando la categoria no existe")
     void createPostThrowsExceptionCategoryNotFoundTest() {
         //Arrange
 
@@ -118,8 +126,12 @@ class PostServiceTest {
 
     }
 
+    /**
+     * Valida que se pueda lanzar una Excepcion cuando el usuario no existe
+     *
+     */
     @Test
-    @DisplayName("Lanzando Excepcion cuando el usuario no existe ")
+    @DisplayName("Test excepcion cuando el usuario no existe")
     void createPostThrowsExceptionUserNotFoundTest() {
         //Arrange
         doReturn(Optional.of(category1))
@@ -137,8 +149,12 @@ class PostServiceTest {
 
     }
 
+    /**
+     * Valida que se puedan traer todos los productos
+     *
+     */
     @Test
-    @DisplayName("Comprobando que trae todos los productos ")
+    @DisplayName("Test obtener todos los productos")
     void getAllProducts() {
         //Arrange
         ProductResponseDTO prdTo = new ProductResponseDTO();
@@ -161,8 +177,12 @@ class PostServiceTest {
         );
     }
 
+    /**
+     * Valida que se puedan traer todos los productos con menor fecha dentro de dos semanas
+     *
+     */
     @Test
-    @DisplayName("Comprobando que trae todos los productos con fecha menor a dos semanas ")
+    @DisplayName("Test obtener todos los productos con menor fecha dentro de dos semanas")
     void getAllPostsByFollowerId() {
         // arrange
         TestUtils.addFollowed(user, 4);
@@ -184,8 +204,12 @@ class PostServiceTest {
 
     }
 
+    /**
+     * valida que pueda traer todos los posts
+     *
+     */
     @Test
-    @DisplayName("Comprobando que trae todos los posts ")
+    @DisplayName("Test obtener todos los post")
     void getAllPost() {
         //Arrange
         PostResponseDTO prDTO = new PostResponseDTO();

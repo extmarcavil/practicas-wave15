@@ -17,20 +17,45 @@ import java.util.List;
 
 public class TestUtils {
 
-    public static Category createCategory(){
+    /**
+     * Metodo que crea una nueva categoria  para el uso en los tests
+     *
+     * @return {@link Category}
+     * @see Category
+     */
+    public static Category createCategory() {
         return new Category(4, "Tecnología");
     }
 
-    public static Product createProduct(){
-        return new Product(6, "Mouse", "Gamer", "Huawei", "Negro","últimos productos");
+    /**
+     * metodo que crea un producto basico para su uso en los test
+     *
+     * @return {@link Product}
+     * @see Product
+     */
+    public static Product createProduct() {
+        return new Product(6, "Mouse", "Gamer", "Huawei", "Negro", "últimos productos");
 
     }
-    public static Product createProduct2(){
-        return new Product(7, "Pantalón", "Teen", "Jeff", "Negro","Para toda ocasión");
+
+    /**
+     * Metodo que crea un producto basico con distintos atributos para su uso en los test
+     *
+     * @return {@link Product}
+     * @see Product
+     */
+    public static Product createProduct2() {
+        return new Product(7, "Pantalón", "Teen", "Jeff", "Negro", "Para toda ocasión");
 
     }
 
-    public static PostCreateDTO createPostCreateDTO(){
+    /**
+     * Metodo que crea un postCreateDTO para el uso en los tests
+     *
+     * @return {@link PostCreateDTO}
+     * @see PostCreateDTO
+     */
+    public static PostCreateDTO createPostCreateDTO() {
         PostCreateDTO postCreateDTO = new PostCreateDTO();
         postCreateDTO.setCategory_id(1);
         postCreateDTO.setDate(LocalDate.now());
@@ -40,7 +65,15 @@ public class TestUtils {
         return postCreateDTO;
     }
 
-    public static Post createPost(PostRepository postRepository, LocalDate date){
+    /**
+     * Metodo que crea un post con distintos atributos y lo agrega al repositorio
+     *
+     * @param postRepository postRepository
+     * @param date
+     * @return {@link Post}
+     * @see Post
+     */
+    public static Post createPost(PostRepository postRepository, LocalDate date) {
         return new Post(postRepository.nextIndex(),
                 createProduct(),
                 date,
@@ -49,7 +82,15 @@ public class TestUtils {
                 true,
                 0.5);
     }
-    public static Post createPost2(PostRepository postRepository, LocalDate date){
+
+    /**
+     * Metodo que crea un post y lo agrega al repositorio
+     *
+     * @param postRepository postRepository
+     * @param date
+     * @return {@link Post}
+     */
+    public static Post createPost2(PostRepository postRepository, LocalDate date) {
         return new Post(postRepository.nextIndex(),
                 createProduct2(),
                 date,
@@ -59,11 +100,18 @@ public class TestUtils {
                 0.5);
     }
 
-    public static User createFollowedUser(UserRepository userRepository){
-        User user1 = new User(4,"Luis");
-        User user2 = new User(5,"David");
-        User user3 = new User(6,"Alfredo");
-        User user4 = new User(7,"Raúl");
+    /**
+     * Metodo que usuarios que se siguen a si mismos para el uso en los tests
+     *
+     * @param userRepository userRepository
+     * @return {@link User}
+     * @see User
+     */
+    public static User createFollowedUser(UserRepository userRepository) {
+        User user1 = new User(4, "Luis");
+        User user2 = new User(5, "David");
+        User user3 = new User(6, "Alfredo");
+        User user4 = new User(7, "Raúl");
         user1.agregarSeguidor(user2);
         user1.agregarSeguidor(user3);
         user1.agregarSeguidor(user4);
@@ -77,21 +125,41 @@ public class TestUtils {
         return user1;
     }
 
-    public static User createUser(int i, String name){
+    /**
+     * Metodo que crea un usuario basico para su uso en los test
+     *
+     * @param i
+     * @param name
+     * @return {@link User}
+     */
+    public static User createUser(int i, String name) {
         return new User(i, name);
     }
 
-    public static void followUser(User cliente, User vendedor){
+
+    /**
+     * Metodo que crea dos entidades y hace que una siga a la otra para el uso en los tests
+     *
+     * @param cliente  cliente
+     * @param vendedor vendedor
+     */
+    public static void followUser(User cliente, User vendedor) {
         cliente.seguirUsuario(vendedor);
         vendedor.agregarSeguidor(cliente);
     }
 
-    public static void addFollowers(User user, int id){
-        User user1 = createUser(id+1, "David");
-        User user2 = createUser(id+2, "Jorge");
-        User user3 = createUser(id+3, "Jesus");
-        User user4 = createUser(id+4, "Daniel");
-        User user5 = createUser(id+5, "Alfredo");
+    /**
+     * Metodo que agrega seguidores a un usuario dado
+     *
+     * @param user
+     * @param id   id
+     */
+    public static void addFollowers(User user, int id) {
+        User user1 = createUser(id + 1, "David");
+        User user2 = createUser(id + 2, "Jorge");
+        User user3 = createUser(id + 3, "Jesus");
+        User user4 = createUser(id + 4, "Daniel");
+        User user5 = createUser(id + 5, "Alfredo");
         followUser(user1, user);
         followUser(user2, user);
         followUser(user3, user);
@@ -99,7 +167,13 @@ public class TestUtils {
         followUser(user5, user);
     }
 
-    public static List<Post> addFollowedPosts(User user){
+    /**
+     * Metodo que agrega posts validos a los seguidores de un usuario
+     *
+     * @param user
+     * @return {@link List}
+     */
+    public static List<Post> addFollowedPosts(User user) {
 
         List<User> followed = user.getFollowed();
 
@@ -128,12 +202,18 @@ public class TestUtils {
         return validPosts;
     }
 
-    public static void addFollowed(User user, int id){
-        User user1 = createUser(id+1, "David");
-        User user2 = createUser(id+2, "Jorge");
-        User user3 = createUser(id+3, "Jesus");
-        User user4 = createUser(id+4, "Daniel");
-        User user5 = createUser(id+5, "Alfredo");
+    /**
+     * Metodo que agrega seguidores a un usuario para su utilizacion en los test
+     *
+     * @param user
+     * @param id   id
+     */
+    public static void addFollowed(User user, int id) {
+        User user1 = createUser(id + 1, "David");
+        User user2 = createUser(id + 2, "Jorge");
+        User user3 = createUser(id + 3, "Jesus");
+        User user4 = createUser(id + 4, "Daniel");
+        User user5 = createUser(id + 5, "Alfredo");
         followUser(user, user1);
         followUser(user, user2);
         followUser(user, user3);

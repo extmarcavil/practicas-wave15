@@ -5,6 +5,7 @@ import com.sprint.be_java_hisp_w15_g10.Repository.CategoryRepository;
 import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -16,11 +17,15 @@ class CategoryRepositoryTest {
     CategoryRepository categoryRepository;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         categoryRepository = new CategoryRepository();
     }
 
+    /**
+     * Metodo que valida si hay una categoria valida con el id especificado
+     */
     @Test
+    @DisplayName("Test de categoria valida con id")
     void getValidCategoryById() {
         // arrange
         Category category = TestUtils.createCategory();
@@ -33,7 +38,11 @@ class CategoryRepositoryTest {
         Assertions.assertEquals(oCategory.get(), category);
     }
 
+    /**
+     * Metodo que valida si hay una categoria invvalida con el id especificado
+     */
     @Test
+    @DisplayName("Test de categoria invalida con id")
     void getInvalidUserById() {
         // arrange
         categoryRepository.add(TestUtils.createCategory());
@@ -45,7 +54,11 @@ class CategoryRepositoryTest {
         Assertions.assertTrue(category.isEmpty());
     }
 
+    /**
+     * Metodo que valida si se pueden obtener todas las categorias del repositorio
+     */
     @Test
+    @DisplayName("Test obtener todas las categorias")
     void getAll() {
         // arrange
         categoryRepository.add(TestUtils.createCategory());
@@ -55,12 +68,20 @@ class CategoryRepositoryTest {
 
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(categories.isEmpty());},
-                ()->{Assertions.assertEquals(categories.size(),4);}
+                () -> {
+                    Assertions.assertFalse(categories.isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(categories.size(), 4);
+                }
         );
     }
 
+    /**
+     * Metodo que validad si se puede agregar correctamente una categoria
+     */
     @Test
+    @DisplayName("Test agregar categoria")
     void add() {
         // arrange
         Category category = TestUtils.createCategory();
@@ -71,8 +92,12 @@ class CategoryRepositoryTest {
         int final_size = categoryRepository.getAll().size();
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(initial_size + 1, final_size);},
-                ()->{Assertions.assertEquals(category, categoryRepository.getById(4).get());}
+                () -> {
+                    Assertions.assertEquals(initial_size + 1, final_size);
+                },
+                () -> {
+                    Assertions.assertEquals(category, categoryRepository.getById(4).get());
+                }
         );
     }
 }

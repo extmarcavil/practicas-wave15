@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public class UserRepository {
-    private List<User> usuarios;
+    private final List<User> usuarios;
 
     public UserRepository() {
         usuarios = new ArrayList<User>();

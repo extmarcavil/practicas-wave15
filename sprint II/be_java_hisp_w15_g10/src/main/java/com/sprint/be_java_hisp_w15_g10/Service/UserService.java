@@ -51,6 +51,7 @@ public class UserService implements IUserService {
         return new UnfollowUserDTO("Se ha dejado de seguir al usuario: "+userToUnfollow.getUser_name());
     }
 
+
     @Override
     public FollowUserDTO followUser(int userId, int userIdToUnfollow){
         User user = getUserByIdOrThrow(userId);

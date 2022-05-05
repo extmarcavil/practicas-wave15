@@ -7,11 +7,11 @@ import java.util.List;
 
 @Getter
 public class User {
-    private int user_id;
-    private String user_name;
-    private List<User> followers;
-    private List<User> followed;
-    private List<Post> posts;
+    private final int user_id;
+    private final String user_name;
+    private final List<User> followers;
+    private final List<User> followed;
+    private final List<Post> posts;
 
     public User(int user_id, String user_name) {
         this.user_id = user_id;

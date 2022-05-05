@@ -9,7 +9,7 @@ import java.util.Optional;
 
 @Repository
 public class ProductRepository {
-    private List<Product> productList;
+    private final List<Product> productList;
 
     public ProductRepository(){
         productList = new ArrayList<Product>();
@@ -24,7 +24,7 @@ public class ProductRepository {
         productList.add(product3);
         productList.add(product4);
         productList.add(product5);
-    };
+    }
 
     public List<Product> getAll(){
         return productList;

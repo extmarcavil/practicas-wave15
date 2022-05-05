@@ -34,8 +34,9 @@ class UserServiceTest {
      * Test para el metodo @link{UserService#getUsersWithFollowersCount(int)}
      * el test se realiza con un usuario que existe en la base de datos y arroja una respuesta con el usuario encontrado.
      */ 
+
     @Test
-    @DisplayName("Test User With Followers Count")
+    @DisplayName("Test Usuario conteo de consegidores")
     void getUsersWithFollowersCount() {
         // arrange
         User user = TestUtils.createUser(1, "Luis");
@@ -47,14 +48,24 @@ class UserServiceTest {
         UserWithFollowersCountDTO userWithFollowersCountDTO = userServiceMock.getUsersWithFollowersCount(1);
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(userWithFollowersCountDTO.getUser_name(), "Luis");},
-                ()->{Assertions.assertEquals(userWithFollowersCountDTO.getUser_id(), 1);},
-                ()->{Assertions.assertEquals(userWithFollowersCountDTO.getFollowers_count(),5);},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertEquals(userWithFollowersCountDTO.getUser_name(), "Luis");
+                },
+                () -> {
+                    Assertions.assertEquals(userWithFollowersCountDTO.getUser_id(), 1);
+                },
+                () -> {
+                    Assertions.assertEquals(userWithFollowersCountDTO.getFollowers_count(), 5);
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
+
+
     /**
-     * V que se arroja una excepcion cuando el usuario no existe en la base de datos.
+     * Valida que se tire la excepción cuando el usuario no tenga seguidores
      */
     @Test
     @DisplayName("Test Invalid User With Followers Count")
@@ -63,8 +74,12 @@ class UserServiceTest {
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getUsersWithFollowersCount(1));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getUsersWithFollowersCount(1));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
@@ -72,15 +87,19 @@ class UserServiceTest {
      * Valida que el método del servicio unFollowUser regrese una excepción cuando no encuentre al usuario indicado en los parámetros.
      */
     @Test
-    @DisplayName("Validar que lanza excepción al dejar de seguir a usuario inexitente")
+    @DisplayName("Test dejar de seguir usuario invalido")
     void unfollowUserUnknownUser() {
         // arrange
         Mockito.when(userRepository.getById(Mockito.anyInt())).thenReturn(Optional.empty());
         //act
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.unfollowUser(1, 2));},
-                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.unfollowUser(1, 2));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
@@ -88,7 +107,7 @@ class UserServiceTest {
      * Valida que el método unfollowUser regrese un unfollowUseDTO
      */
     @Test
-    @DisplayName("Validar que el cliente deje de seguir al vendedor")
+    @DisplayName("Test dejar de seguir usuario")
     void unfollowUser() {
         // arrange
         User cliente = TestUtils.createUser(1, "Luis");
@@ -97,13 +116,21 @@ class UserServiceTest {
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(cliente));
         Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
         //act
-        UnfollowUserDTO unfollowUserDTO = userServiceMock.unfollowUser(1,2);
+        UnfollowUserDTO unfollowUserDTO = userServiceMock.unfollowUser(1, 2);
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(unfollowUserDTO.getMessage(),"Se ha dejado de seguir al usuario: " + vendedor.getUser_name());},
-                ()->{Assertions.assertFalse(cliente.getFollowed().contains(vendedor));},
-                ()->{Assertions.assertFalse(vendedor.getFollowers().contains(cliente));},
-                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertEquals(unfollowUserDTO.getMessage(), "Se ha dejado de seguir al usuario: " + vendedor.getUser_name());
+                },
+                () -> {
+                    Assertions.assertFalse(cliente.getFollowed().contains(vendedor));
+                },
+                () -> {
+                    Assertions.assertFalse(vendedor.getFollowers().contains(cliente));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());
+                }
         );
     }
 
@@ -120,8 +147,12 @@ class UserServiceTest {
         Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
         // act & assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(NotFollowException.class, ()->userServiceMock.unfollowUser(1,2));},
-                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(NotFollowException.class, () -> userServiceMock.unfollowUser(1, 2));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
@@ -140,28 +171,45 @@ class UserServiceTest {
 
         //Assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals("Se ha comenzado a seguir al usuario: David", msj.getMessage());},
-                ()->{Assertions.assertTrue(cliente.getFollowed().contains(vendedor));},
-                ()->{Assertions.assertTrue(vendedor.getFollowers().contains(cliente));},
-                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertEquals("Se ha comenzado a seguir al usuario: David", msj.getMessage());
+                },
+                () -> {
+                    Assertions.assertTrue(cliente.getFollowed().contains(vendedor));
+                },
+                () -> {
+                    Assertions.assertTrue(vendedor.getFollowers().contains(cliente));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());
+                }
         );
     }
 
-    //T-0001 Service
+    /**
+     * valida que se lance la excepción cuando el usuario a seguir no existe
+     */ //T-0001 Service
     @Test
-    @DisplayName("Notificando la no existencia del usuario a seguir lanzando la excepcion")
+    @DisplayName("Test ")
     void followUserInexistsTest() {
         //Arrange
         Mockito.when(userRepository.getById(Mockito.anyInt())).thenReturn(Optional.empty());
         //Act & Assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(UserNotFoundException.class, () ->userServiceMock.followUser(1, 10));},
-                ()->{Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.followUser(1, 10));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.atLeast(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
+    /**
+     * valida que se pueda dejar de seguir a un usuario que no se sigue y lance la excepción
+     */
     @Test
-    @DisplayName(" Test unfollow Unfollowed User")
+    @DisplayName(" Test dejar de seguir un seguidor que no se sigue")
     void followFollowedUser() {
         // arrange
         User cliente = TestUtils.createUser(1, "Luis");
@@ -171,138 +219,212 @@ class UserServiceTest {
         Mockito.when(userRepository.getById(2)).thenReturn(Optional.of(vendedor));
         // act & assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(FollowException.class, ()->userServiceMock.followUser(1,2));},
-                ()->{Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(FollowException.class, () -> userServiceMock.followUser(1, 2));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(2)).getById(Mockito.anyInt());
+                }
         );
 
     }
 
+    /**
+     * Valida que dado un id invalido de usuario, se lance la excepción al tratar de obtener los seguidores
+     */
     @Test
-    @DisplayName("Test de la lista de usuarios seguidos")
+    @DisplayName("Test de obtener los seguidores de un usuario con id invalido")
     void getInvalidUserFollowedUsers() {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getVendorsFollow(1, ""));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getVendorsFollow(1, ""));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
+
      /**
      * El test valida que la lista de retorno de usuarios seguidos sea ordenada de forma descendente
      */
     @Test
     @DisplayName("Test de validacion de ordenamiento ascendente de usuarios seguidos")
+
     void getUserFollowedUsersOrderASC() {
         // arrange
-        User user = TestUtils.createUser(1,"Luis");
+        User user = TestUtils.createUser(1, "Luis");
         TestUtils.addFollowed(user, 1);
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(user));
         // act
         VendedorsFollowedDTO vendedorsFollowedDTO = userServiceMock.getVendorsFollow(1, "name_asc");
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(vendedorsFollowedDTO.getFollowed().isEmpty());},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getFollowed().size(), 5);},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getUserName(), user.getUser_name());},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getUserId(), user.getUser_id());},
-                ()->{Assertions.assertTrue( List.of("Alfredo", "Daniel", "David", "Jesus", "Jorge")
-                        .equals(vendedorsFollowedDTO.getFollowed()
-                                .stream()
-                                .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertFalse(vendedorsFollowedDTO.getFollowed().isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getFollowed().size(), 5);
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getUserName(), user.getUser_name());
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getUserId(), user.getUser_id());
+                },
+                () -> {
+                    Assertions.assertTrue(List.of("Alfredo", "Daniel", "David", "Jesus", "Jorge")
+                            .equals(vendedorsFollowedDTO.getFollowed()
+                                    .stream()
+                                    .map(UserDTO::getUser_name)
+                                    .collect(Collectors.toList())));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
+
     /**
-     * El test valida que la lista de retorno de usuarios seguidos sea ordenada de forma descendente
+     * Valida que se se puedan obtener los seguidores de un usuario en orden descendente
      */
     @Test
-    @DisplayName("Test de validacion de ordenamiento descendente de usuarios seguidos")
+    @DisplayName("Test obtener seguidores de usuario en orden ascendente")
     void getUserFollowedUsersOrderDESC() {
         // arrange
-        User user = TestUtils.createUser(1,"Luis");
+        User user = TestUtils.createUser(1, "Luis");
         TestUtils.addFollowed(user, 1);
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(user));
         // act
         VendedorsFollowedDTO vendedorsFollowedDTO = userServiceMock.getVendorsFollow(1, "name_desc");
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(vendedorsFollowedDTO.getFollowed().isEmpty());},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getFollowed().size(), 5);},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getUserName(), user.getUser_name());},
-                ()->{Assertions.assertEquals(vendedorsFollowedDTO.getUserId(), user.getUser_id());},
-                ()->{Assertions.assertTrue( List.of("Jorge", "Jesus", "David", "Daniel", "Alfredo")
-                        .equals(vendedorsFollowedDTO.getFollowed()
-                                .stream()
-                                .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertFalse(vendedorsFollowedDTO.getFollowed().isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getFollowed().size(), 5);
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getUserName(), user.getUser_name());
+                },
+                () -> {
+                    Assertions.assertEquals(vendedorsFollowedDTO.getUserId(), user.getUser_id());
+                },
+                () -> {
+                    Assertions.assertTrue(List.of("Jorge", "Jesus", "David", "Daniel", "Alfredo")
+                            .equals(vendedorsFollowedDTO.getFollowed()
+                                    .stream()
+                                    .map(UserDTO::getUser_name)
+                                    .collect(Collectors.toList())));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
+
     /**
-     * 
+     * Valida que se dado un id inexistente se retorne una excepcion
      */
     @Test
+    @DisplayName("Test obtener seguidores de usuario con id invalido")
     void getInvalidUserWithFollowers() {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
         // act & assert
         Assertions.assertAll(
-                ()->{Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getFollowers(1, ""));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertThrows(UserNotFoundException.class, () -> userServiceMock.getFollowers(1, ""));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
-     /**
+
+    /**
      * El test valida que la lista de retorno de usuarios que siguen a un usuario sea ordenada de forma descendente
      */
+
+
     @Test
+    @DisplayName("")
     void getUserWithFollowersOrderASC() {
         // arrange
-        User user = TestUtils.createUser(1,"Luis");
+        User user = TestUtils.createUser(1, "Luis");
         TestUtils.addFollowers(user, 1);
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(user));
         // act
         FollowersDTO followersDTO = userServiceMock.getFollowers(1, "name_asc");
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(followersDTO.getFollowers().isEmpty());},
-                ()->{Assertions.assertEquals(followersDTO.getFollowers().size(), 5);},
-                ()->{Assertions.assertEquals(followersDTO.getUserName(), user.getUser_name());},
-                ()->{Assertions.assertEquals(followersDTO.getUserId(), user.getUser_id());},
-                ()->{Assertions.assertTrue( List.of("Alfredo", "Daniel", "David", "Jesus", "Jorge")
-                        .equals(followersDTO.getFollowers()
-                                .stream()
-                                .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertFalse(followersDTO.getFollowers().isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getFollowers().size(), 5);
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getUserName(), user.getUser_name());
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getUserId(), user.getUser_id());
+                },
+                () -> {
+                    Assertions.assertTrue(List.of("Alfredo", "Daniel", "David", "Jesus", "Jorge")
+                            .equals(followersDTO.getFollowers()
+                                    .stream()
+                                    .map(UserDTO::getUser_name)
+                                    .collect(Collectors.toList())));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
 
-     /**
-     * El test valida que la lista de retorno de usuarios que siguen a un usuario sea ordenada de forma descendente
+
+    /**
+     * Valida que se puedan obtener el usuario con sus seguidores ordenados por nombre descendente
      */
     @Test
+    @DisplayName("Test seguidores de usuario en orden descendente")
     void getUserWithFollowersOrderDESC() {
         // arrange
-        User user = TestUtils.createUser(1,"Luis");
+        User user = TestUtils.createUser(1, "Luis");
         TestUtils.addFollowers(user, 1);
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.of(user));
         // act
         FollowersDTO followersDTO = userServiceMock.getFollowers(1, "name_desc");
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(followersDTO.getFollowers().isEmpty());},
-                ()->{Assertions.assertEquals(followersDTO.getFollowers().size(), 5);},
-                ()->{Assertions.assertEquals(followersDTO.getUserName(), user.getUser_name());},
-                ()->{Assertions.assertEquals(followersDTO.getUserId(), user.getUser_id());},
-                ()->{Assertions.assertTrue( List.of("Jorge", "Jesus", "David", "Daniel", "Alfredo")
-                        .equals(followersDTO.getFollowers()
-                                .stream()
-                                .map(UserDTO::getUser_name)
-                                .collect(Collectors.toList())));},
-                ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
+                () -> {
+                    Assertions.assertFalse(followersDTO.getFollowers().isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getFollowers().size(), 5);
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getUserName(), user.getUser_name());
+                },
+                () -> {
+                    Assertions.assertEquals(followersDTO.getUserId(), user.getUser_id());
+                },
+                () -> {
+                    Assertions.assertTrue(List.of("Jorge", "Jesus", "David", "Daniel", "Alfredo")
+                            .equals(followersDTO.getFollowers()
+                                    .stream()
+                                    .map(UserDTO::getUser_name)
+                                    .collect(Collectors.toList())));
+                },
+                () -> {
+                    Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());
+                }
         );
     }
 }
