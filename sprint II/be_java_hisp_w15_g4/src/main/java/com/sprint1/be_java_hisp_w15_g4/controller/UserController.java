@@ -4,9 +4,13 @@ import com.sprint1.be_java_hisp_w15_g4.dto.response.*;
 import com.sprint1.be_java_hisp_w15_g4.service.IUserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.PositiveOrZero;
 
 @RestController
 @RequestMapping("users/{userId}")
@@ -19,7 +23,8 @@ public class UserController {
 
     ////////////////////US0001////////////////////
     @PostMapping("/follow/{userIdToFollow}")
-    public ResponseEntity<?> followUser(@PathVariable int userId, @PathVariable int userIdToFollow) {
+    public ResponseEntity<?> followUser(@PathVariable int userId,
+                                        @PathVariable int userIdToFollow) {
         service.follow(userId, userIdToFollow);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
