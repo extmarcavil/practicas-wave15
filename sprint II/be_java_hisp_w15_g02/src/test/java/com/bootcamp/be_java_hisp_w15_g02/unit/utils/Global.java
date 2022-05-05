@@ -1,10 +1,12 @@
 package com.bootcamp.be_java_hisp_w15_g02.unit.utils;
 
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Global {
@@ -44,5 +46,46 @@ public class Global {
         return getListOfUsers().stream().
                 filter(f -> f.getUserId() == userId)
                 .findFirst().orElseThrow(UserNotFoundException::new);
+    }
+
+    public static List<GetFollowersDTO> getListSorted(String order){
+        List<GetFollowersDTO> followsDto = new ArrayList<>();
+        User user = getUserByIdUtils(5);
+        List<Follow> listFollows = user.getFollowerList();
+
+        listFollows.forEach(item -> {
+            var newDto = new GetFollowersDTO();
+            newDto.setUserId(item.getUserToFollow());
+            newDto.setUserName(getUserByIdUtils(item.getUserToFollow()).getUserName());
+            followsDto.add(newDto);
+        });
+
+        return followsDto;
+    }
+
+    public void test(){
+        String order = "";
+        GetFollowersDTO listFollow1 = new GetFollowersDTO();
+        listFollow1.setUserId(1);
+        listFollow1.setUserName("Martin");
+
+        GetFollowersDTO listFollow2 = new GetFollowersDTO();
+        listFollow2.setUserId(2);
+        listFollow2.setUserName("Leo");
+
+        GetFollowersDTO listFollow3 = new GetFollowersDTO();
+        listFollow3.setUserId(3);
+        listFollow3.setUserName("Diana");
+
+        List<GetFollowersDTO> listFollowDTO = new ArrayList<>();
+        listFollowDTO.add(listFollow1);
+        listFollowDTO.add(listFollow2);
+        listFollowDTO.add(listFollow3);
+
+        if (order.equals("name_asc"))
+            listFollowDTO.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+        else if (order.equals("name_desc"))
+            listFollowDTO.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+
     }
 }

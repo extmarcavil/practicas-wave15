@@ -145,7 +145,7 @@ public class UserService implements IUserService {
      * @param listFollows List of followers
      * @return List of Followers DTO
      */
-    private List<GetFollowersDTO> mapFollowDTO(List<Follow> listFollows){
+    public List<GetFollowersDTO> mapFollowDTO(List<Follow> listFollows){
         List<GetFollowersDTO> followsDto = new ArrayList<>();
 
         if (listFollows != null) {
