@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g05.unit.service;
 
+import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
 import com.example.be_java_hisp_w15_g05.dto.UserDTO;
@@ -181,6 +182,22 @@ public class FollowsServiceTest {
         //act & assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .unFollow(expectedFollower.getUserId(),expectedSeller.getUserId()));
+
+    }
+    //T0007
+    @Test
+    @DisplayName("Validar cantidad de usuarios seguidores")
+    void VerifyQuantityFollowers() {
+
+        //arrange
+        User user = UsersFactory.createUserWithFolloweds();
+        Mockito.when(userRepository.findById(90)).thenReturn(Optional.of(user));
+        ResCountFollowersDTO userDTO = new ResCountFollowersDTO(user.getUserId(),user.getName(),user.getSeguidores().size());
+
+        //act
+        ResCountFollowersDTO resultFollow = followsService.countFollowers(user.getUserId());
+        //assert
+        Assertions.assertEquals(userDTO.getFollowers_count(), resultFollow.getFollowers_count());
 
     }
 }
