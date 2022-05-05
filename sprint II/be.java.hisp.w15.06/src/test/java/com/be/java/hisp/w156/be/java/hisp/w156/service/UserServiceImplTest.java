@@ -8,6 +8,7 @@ import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -47,6 +48,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName(" Poder realizar la acción de “Follow” (seguir) a un determinado vendedor, ")
     void whenTheUserToFollowExists_isAddedToList() {
         User otherUser = otherUser();
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -62,6 +64,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName(" Poder realizar la acción de “Follow” (seguir) a un determinado vendedor, se cumple con status ok ")
     void whenTheUserToFollowExists_theResponseEntityIsReturnedWithStatus200() {
         User otherUser = otherUser();
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -76,6 +79,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Verificar que el usuario a dejar de seguir exista.")
     void whenTheUserToUnFollowExists_isRemoveFromList() {
         User otherUser = otherUser();
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -93,6 +97,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Verificar que el usuario a dejar de seguir exista, se cumple")
     void whenTheUserToUnFollowExists_theResponseEntityIsReturnedWithStatus200(){
         User userWithAFollower = anUserUnFollower();
         ArrayList<User> listUsers = new ArrayList<>();
@@ -109,6 +114,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Verificar que la cantidad de seguidores de un determinado usuario sea correcta.")
     void whenTheUserHasFollowersThenNumbersFollowersIsCorrect(){
         user.setFollowers(List.of(otherUser(),anUserUnFollower()));
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -119,6 +125,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Verificar que la cantidad de seguidores de un determinado usuario sea correcta con el name")
     void whenTheUserHasFollowersThenCheckNameIsTheSame(){
         user.setFollowers(List.of(otherUser(),anUserUnFollower()));
         when(repository.getUser(user.getId())).thenReturn(user);
@@ -129,6 +136,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Dar excepcion a verificar que el tipo de ordenamiento alfabético exista para los seguidores")
     void whenFollowersAlphabeticalOrderingIsNotValidThenReturnsException(){
         String order = "order";
 
@@ -138,6 +146,7 @@ class UserServiceImplTest {
     }
 
     @Test
+    @DisplayName("Lanzar excepcion a verificar que el tipo de ordenamiento alfabetico exista para los seguidos")
     void whenFollowedAlphabeticalOrderingIsNotValidThenReturnsException(){
         String order = "order";
 
@@ -146,6 +155,7 @@ class UserServiceImplTest {
                 .hasMessage("El tipo de ordenamiento no es valido.");
     }
 
+    @DisplayName("Verificar el correcto ordenamiento ascendente y descendente por nombre para followers")
     @ParameterizedTest
     @ValueSource(strings = {"name_asc", "name_desc", ""})
     void whenFollowersAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){
@@ -154,6 +164,7 @@ class UserServiceImplTest {
         assertThat(userService.getFollowers(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
+    @DisplayName("Verificar el correcto ordenamiento ascendente y descendente por nombre para followeds")
     @ParameterizedTest
     @ValueSource(strings = {"name_asc", "name_desc", ""})
     void whenFollowedAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){

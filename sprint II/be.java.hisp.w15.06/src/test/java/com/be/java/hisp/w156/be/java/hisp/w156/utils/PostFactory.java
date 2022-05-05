@@ -1,4 +1,4 @@
-package com.be.java.hisp.w156.be.java.hisp.w156.util;
+package com.be.java.hisp.w156.be.java.hisp.w156.utils;
 
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class PostLasTwoWeeksByIdFactory {
+public class PostFactory {
 
 
 
