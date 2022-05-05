@@ -9,8 +9,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
-@ToString
 public class Post {
+
     private int post_id;
     private Product detail;
     private LocalDate date;
@@ -19,8 +19,5 @@ public class Post {
     private boolean has_promo;
     private double discount;
 
-    public Post(){
-        has_promo = false;
-        discount = 0.0;
-    }
+
 }

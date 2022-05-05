@@ -19,21 +19,26 @@ class PostRepositoryTest {
     PostRepository postRepository;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         postRepository = new PostRepository(new CategoryRepository(), new ProductRepository());
     }
 
     @Test
-    void getValidCategoryById() {
+    void getPostById() {
         // arrange
-        Post category = TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24));
-        postRepository.add(category);
+        Post post1 = TestUtils.createPost(postRepository, LocalDate.of(2022, 4, 24));
+        postRepository.add(post1);
 
         //act
-        Optional<Post> oPost = postRepository.getById(category.getPost_id());
+        Optional<Post> oPost = postRepository.getById(post1.getPost_id());
 
         // assert
-        Assertions.assertEquals(oPost.get(), category);
+        Assertions.assertEquals(oPost.get().getDetail(), post1.getDetail());
+        Assertions.assertEquals(oPost.get().getDate(), post1.getDate());
+        Assertions.assertEquals(oPost.get().getCategory(), post1.getCategory());
+        Assertions.assertEquals(oPost.get().getDiscount(), post1.getDiscount());
+        Assertions.assertEquals(oPost.get().getPrice(), post1.getPrice());
+        Assertions.assertEquals(oPost.get().isHas_promo(), post1.isHas_promo());
     }
 
     @Test
@@ -60,8 +65,12 @@ class PostRepositoryTest {
 
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(posts.isEmpty());},
-                ()->{Assertions.assertEquals(posts.size(),8);}
+                () -> {
+                    Assertions.assertFalse(posts.isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(posts.size(), 8);
+                }
         );
     }
 
@@ -75,8 +84,12 @@ class PostRepositoryTest {
         int final_size = postRepository.getAll().size();
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(initial_size + 1, final_size);},
-                ()->{Assertions.assertEquals(post, postRepository.getById(post.getPost_id()).get());}
+                () -> {
+                    Assertions.assertEquals(initial_size + 1, final_size);
+                },
+                () -> {
+                    Assertions.assertEquals(post, postRepository.getById(post.getPost_id()).get());
+                }
         );
     }
 }

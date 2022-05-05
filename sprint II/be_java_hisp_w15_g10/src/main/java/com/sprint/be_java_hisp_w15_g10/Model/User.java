@@ -6,9 +6,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 public class User {
     private int user_id;
     private String user_name;
@@ -16,7 +13,7 @@ public class User {
     private List<User> followed;
     private List<Post> posts;
 
-    public User(int user_id, String user_name){
+    public User(int user_id, String user_name) {
         this.user_id = user_id;
         this.user_name = user_name;
         this.followers = new ArrayList<>();
@@ -24,13 +21,23 @@ public class User {
         this.posts = new ArrayList<>();
     }
 
-    public void seguirUsuario(User user){ followed.add(user); }
+    public void seguirUsuario(User user) {
+        followed.add(user);
+    }
 
-    public void agregarSeguidor(User user){ followers.add(user); }
+    public void agregarSeguidor(User user) {
+        followers.add(user);
+    }
 
-    public void agregarPost(Post post){ posts.add(post); }
+    public void agregarPost(Post post) {
+        posts.add(post);
+    }
 
-    public void dejarDeSeguir(User user){ followed.remove(user); }
+    public void dejarDeSeguir(User user) {
+        followed.remove(user);
+    }
 
-    public void eliminarSeguidor(User user){ followers.remove(user); }
+    public void eliminarSeguidor(User user) {
+        followers.remove(user);
+    }
 }

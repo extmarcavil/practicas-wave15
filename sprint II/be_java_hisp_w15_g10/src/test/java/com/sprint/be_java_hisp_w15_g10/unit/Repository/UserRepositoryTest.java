@@ -15,7 +15,7 @@ class UserRepositoryTest {
     UserRepository userRepository;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         userRepository = new UserRepository();
     }
 
@@ -28,7 +28,11 @@ class UserRepositoryTest {
         Optional<User> user = userRepository.getById(4);
 
         // assert
-        Assertions.assertEquals(user.get(), user_followed);
+        Assertions.assertAll(
+                () -> Assertions.assertEquals("Luis", user.get().getUser_name()),
+                () -> Assertions.assertEquals(user.get(), user_followed),
+                () -> Assertions.assertEquals(user.get().getFollowed(), user_followed.getFollowed())
+        );
     }
 
     @Test
@@ -53,8 +57,12 @@ class UserRepositoryTest {
 
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(users.isEmpty());},
-                ()->{Assertions.assertEquals(users.size(),7);}
+                () -> {
+                    Assertions.assertFalse(users.isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(users.size(), 7);
+                }
         );
     }
 
@@ -69,8 +77,12 @@ class UserRepositoryTest {
         int final_size = userRepository.getAll().size();
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(initial_size + 1, final_size);},
-                ()->{Assertions.assertEquals(user, userRepository.getById(4).get());}
+                () -> {
+                    Assertions.assertEquals(initial_size + 1, final_size);
+                },
+                () -> {
+                    Assertions.assertEquals(user, userRepository.getById(4).get());
+                }
         );
     }
 }

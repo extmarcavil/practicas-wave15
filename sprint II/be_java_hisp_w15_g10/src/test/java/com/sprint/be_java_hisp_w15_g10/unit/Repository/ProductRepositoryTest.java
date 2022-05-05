@@ -16,12 +16,12 @@ class ProductRepositoryTest {
     ProductRepository productRepository;
 
     @BeforeEach
-    void setUp(){
+    void setUp() {
         productRepository = new ProductRepository();
     }
 
     @Test
-    void getValidCategoryById() {
+    void getValidProductById() {
         // arrange
         Product product = TestUtils.createProduct();
         productRepository.add(product);
@@ -31,6 +31,11 @@ class ProductRepositoryTest {
 
         // assert
         Assertions.assertEquals(oProduct.get(), product);
+        Assertions.assertEquals(oProduct.get().getProduct_name(), product.getProduct_name());
+        Assertions.assertEquals(oProduct.get().getType(), product.getType());
+        Assertions.assertEquals(oProduct.get().getColor(), product.getColor());
+        Assertions.assertEquals(oProduct.get().getBrand(), product.getBrand());
+        Assertions.assertEquals(oProduct.get().getNotes(), product.getNotes());
     }
 
     @Test
@@ -54,8 +59,12 @@ class ProductRepositoryTest {
 
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertFalse(products.isEmpty());},
-                ()->{Assertions.assertEquals(products.size(),6);}
+                () -> {
+                    Assertions.assertFalse(products.isEmpty());
+                },
+                () -> {
+                    Assertions.assertEquals(products.size(), 6);
+                }
         );
     }
 
@@ -70,8 +79,12 @@ class ProductRepositoryTest {
         int final_size = productRepository.getAll().size();
         // assert
         Assertions.assertAll(
-                ()->{Assertions.assertEquals(initial_size + 1, final_size);},
-                ()->{Assertions.assertEquals(product, productRepository.getById(6).get());}
+                () -> {
+                    Assertions.assertEquals(initial_size + 1, final_size);
+                },
+                () -> {
+                    Assertions.assertEquals(product, productRepository.getById(6).get());
+                }
         );
     }
 }
