@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g05.service;
 import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
+import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -44,6 +45,7 @@ public class ProductsService implements IProductsService {
     }
 
     public ResPostListDTO getPostFollowed(int id, String order){
+        checkSortDate(order);
         User user = validateUserExists(id);
 
         List<Post> listadoPosteos = new ArrayList<>();
@@ -84,5 +86,11 @@ public class ProductsService implements IProductsService {
             list.sort(Comparator.comparing(Post::getDate));
         else
             list.sort(Comparator.comparing(Post::getDate).reversed());
+    }
+
+    private void checkSortDate(String order){
+        if(!order.equals("date_asc") && !order.equals("date_desc") && !order.isEmpty())
+            throw new OrderNotValidException("El ordenamiento " + order + " no existe.");
+
     }
 }
