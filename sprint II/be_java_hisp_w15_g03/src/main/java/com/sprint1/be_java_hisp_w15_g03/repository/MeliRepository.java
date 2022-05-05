@@ -93,7 +93,6 @@ public class MeliRepository implements IMeliRepository {
         cantPublicacion+=1;
         p.setPostId(cantPublicacion);
         sellers.get(userId).getPublications().add(p);
-        System.out.println(sellers.get(userId));
 
     }
 

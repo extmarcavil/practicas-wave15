@@ -1,6 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g03.unit.service;
 
 import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.RelationConflictException;
@@ -19,6 +20,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -54,7 +56,7 @@ public class UserServiceTest {
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
 
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class,
+        assertThrows(PersonNotFoundException.class,
                 () -> userService.followSeller(1, 1));
     }
 
@@ -67,7 +69,7 @@ public class UserServiceTest {
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
 
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class,
+        assertThrows(PersonNotFoundException.class,
                 () -> userService.followSeller(1, 1));
     }
 
@@ -81,7 +83,7 @@ public class UserServiceTest {
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(true);
 
         //Act Assert
-        Assertions.assertThrows(RelationConflictException.class,
+        assertThrows(RelationConflictException.class,
                 () -> userService.followSeller(1, 1));
     }
 
@@ -109,7 +111,7 @@ public class UserServiceTest {
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
 
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class,
+        assertThrows(PersonNotFoundException.class,
                 () -> userService.unFollowSeller(1, 1));
     }
 
@@ -122,7 +124,7 @@ public class UserServiceTest {
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
 
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class,
+        assertThrows(PersonNotFoundException.class,
                 () -> userService.unFollowSeller(1, 1));
     }
 
@@ -136,7 +138,7 @@ public class UserServiceTest {
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(false);
 
         //Act Assert
-        Assertions.assertThrows(RelationConflictException.class,
+        assertThrows(RelationConflictException.class,
                 () -> userService.unFollowSeller(1, 1));
     }
 
@@ -154,7 +156,7 @@ public class UserServiceTest {
         when(meliRepository.getSeller(anyInt())).thenReturn(seller);
 
         //Act Assert
-        Assertions.assertDoesNotThrow(() -> userService.getFollowersList(seller.getUserId(), "name_asc"));
+        assertDoesNotThrow(() -> userService.getFollowersList(seller.getUserId(), "name_asc"));
     }
 
     //T-0003
@@ -170,7 +172,7 @@ public class UserServiceTest {
         when(meliRepository.hasSeller(anyInt())).thenReturn(true);
         when(meliRepository.getSeller(anyInt())).thenReturn(seller);
         //Act Assert
-        Assertions.assertThrows(OrderInvalidException.class, () -> userService.getFollowersList(seller.getUserId(), "no_existe"));
+        assertThrows(OrderInvalidException.class, () -> userService.getFollowersList(seller.getUserId(), "no_existe"));
     }
 
     //T-0003
@@ -186,7 +188,7 @@ public class UserServiceTest {
         when(meliRepository.getUser(anyInt())).thenReturn(user);
 
         //Act Assert
-        Assertions.assertDoesNotThrow(() -> userService.getFollowedList(user.getUserId(), "name_asc"));
+        assertDoesNotThrow(() -> userService.getFollowedList(user.getUserId(), "name_asc"));
     }
 
     //T-0003
@@ -202,7 +204,7 @@ public class UserServiceTest {
         when(meliRepository.getUser(anyInt())).thenReturn(user);
 
         //Act Assert
-        Assertions.assertThrows(OrderInvalidException.class, () -> userService.getFollowedList(user.getUserId(), "no_existe"));
+        assertThrows(OrderInvalidException.class, () -> userService.getFollowedList(user.getUserId(), "no_existe"));
     }
 
     //T-0004
@@ -232,9 +234,9 @@ public class UserServiceTest {
         List<PersonDTO> response = userService.getFollowersList(seller.getUserId(), "name_asc").getFollowers();
 
         // Assert
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(response.get(0).getUserName(), user1.getUserName()),
-                () -> Assertions.assertEquals(response.get(1).getUserName(), user.getUserName())
+        assertAll(
+                () -> assertEquals(response.get(0).getUserName(), user1.getUserName()),
+                () -> assertEquals(response.get(1).getUserName(), user.getUserName())
         );
     }
 
@@ -265,9 +267,9 @@ public class UserServiceTest {
         List<PersonDTO> response = userService.getFollowersList(seller.getUserId(), "name_desc").getFollowers();
 
         // Assert
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(response.get(0).getUserName(), user1.getUserName()),
-                () -> Assertions.assertEquals(response.get(1).getUserName(), user.getUserName())
+        assertAll(
+                () -> assertEquals(response.get(0).getUserName(), user1.getUserName()),
+                () -> assertEquals(response.get(1).getUserName(), user.getUserName())
         );
     }
 
@@ -298,9 +300,9 @@ public class UserServiceTest {
         List<PersonDTO> response = userService.getFollowedList(user.getUserId(), "name_asc").getFollowed();
 
         // Assert
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(response.get(0).getUserName(), seller1.getUserName()),
-                () -> Assertions.assertEquals(response.get(1).getUserName(), seller.getUserName())
+        assertAll(
+                () -> assertEquals(response.get(0).getUserName(), seller1.getUserName()),
+                () -> assertEquals(response.get(1).getUserName(), seller.getUserName())
         );
     }
 
@@ -331,9 +333,9 @@ public class UserServiceTest {
         List<PersonDTO> response = userService.getFollowedList(user.getUserId(), "name_desc").getFollowed();
 
         // Assert
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(response.get(0).getUserName(), seller1.getUserName()),
-                () -> Assertions.assertEquals(response.get(1).getUserName(), seller.getUserName())
+        assertAll(
+                () -> assertEquals(response.get(0).getUserName(), seller1.getUserName()),
+                () -> assertEquals(response.get(1).getUserName(), seller.getUserName())
         );
     }
 
@@ -344,7 +346,7 @@ public class UserServiceTest {
         // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class, () -> userService.getFollowedList(1, "name_asc"));
+        assertThrows(PersonNotFoundException.class, () -> userService.getFollowedList(1, "name_asc"));
     }
 
     // Extra
@@ -354,7 +356,55 @@ public class UserServiceTest {
         // Mock
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
         //Act Assert
-        Assertions.assertThrows(PersonNotFoundException.class, () -> userService.getFollowersList(1, "name_desc"));
+        assertThrows(PersonNotFoundException.class, () -> userService.getFollowersList(1, "name_desc"));
     }
+
+
+    //T-0007
+    @Test
+    @DisplayName("Verificar que la cantiodad de seguidores de un usuario sea correcta")
+    void getFollowersCountOk(){
+        //arrange
+        Seller seller = new Seller();
+        seller.setUserName("Netflix");
+        seller.setUserId(43);
+        List<User> users = new ArrayList<>();
+        User user = new User();
+        user.setUserId(123);
+        user.setUserName("Andres");
+        User user1 = new User();
+        user1.setUserId(321);
+        user1.setUserName("Carlos");
+        users.add(user);
+        users.add(user1);
+        seller.setFollowers(users);
+
+        //Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(meliRepository.getSeller(anyInt())).thenReturn(seller);
+
+
+        //act
+        SellerCountDTO sellerCount = userService.getFollowersCount(seller.getUserId());
+
+        //assert
+        assertEquals(sellerCount.getFollowersCount(), seller.getFollowers().size());
+
+    }
+
+    //T-0007
+    @Test
+    @DisplayName("Verificar cantidad de seguidores con vendedor que no existe")
+    void getFollowersCountNotOk(){
+
+        //Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(false);
+
+        //act & assert
+        assertThrows(PersonNotFoundException.class, () -> userService.getFollowersCount(1));
+
+    }
+
+
 
 }
