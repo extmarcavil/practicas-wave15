@@ -1,7 +1,4 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils;
-
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
-import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
@@ -26,4 +23,13 @@ public class PostFactory {
         return Arrays.asList(p1);
     }
 
+    public static Post create(User user, LocalDate date, Integer category, Float price) {
+        Post f = new Post();
+        f.setUser(user);
+        f.setDate(date);
+        f.setDetail(ProductFactory.create());
+        f.setCategory(category);
+        f.setPrice(price);
+        return f;
+    }
 }

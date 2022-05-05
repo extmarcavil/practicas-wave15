@@ -25,8 +25,7 @@ public class ProductController {
         this.service = service;
     }
 
-
-    /**
+    /**git chec
      * ProductController
      * Crea una publicacion
      *

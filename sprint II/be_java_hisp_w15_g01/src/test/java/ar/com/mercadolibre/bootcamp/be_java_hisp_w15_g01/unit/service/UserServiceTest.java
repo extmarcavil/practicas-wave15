@@ -6,6 +6,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
@@ -25,6 +26,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -38,6 +41,7 @@ public class UserServiceTest {
     private FollowRepository followRepository;
     @InjectMocks
     private UserServiceImpl userService;
+
 
     @Test
     @DisplayName("Un usuario puede seguir a otro service")
@@ -108,6 +112,7 @@ public class UserServiceTest {
         Mockito.when(userRepository.findById(123L)).thenThrow(UserNotFoundException.class);
 
         // Act
+
         // Assert
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(id1, id2));
     }
@@ -128,10 +133,14 @@ public class UserServiceTest {
 
         List<String> expectedFollowerNames;
 
-        if (order.equals("name_desc"))
-            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        Comparator<String> comp;
+
+        if(order.equals("name_desc"))
+            comp = Comparator.reverseOrder();
         else
-            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(String::compareTo).collect(Collectors.toList());
+            comp = Comparator.naturalOrder();
+
+        expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(comp).collect(Collectors.toList());
 
         Mockito.when(followRepository.whoFollows(id)).thenReturn(follows);
 
@@ -168,10 +177,14 @@ public class UserServiceTest {
 
         List<String> expectedFollowingNames;
 
+        Comparator<String> comp;
+
         if(order.equals("name_desc"))
-            expectedFollowingNames = followingList.stream().map(User::getUserName).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+            comp = Comparator.reverseOrder();
         else
-            expectedFollowingNames = followingList.stream().map(User::getUserName).sorted(String::compareTo).collect(Collectors.toList());
+            comp = Comparator.naturalOrder();
+
+        expectedFollowingNames = followingList.stream().map(User::getUserName).sorted(comp).collect(Collectors.toList());
 
         Mockito.when(followRepository.findFollowedByUserId(id)).thenReturn(followingList);
 
