@@ -30,7 +30,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 
 @Slf4j
 @Service
-public class PostService implements IPostService{
+public class PostService implements IPostService {
     private final ModelMapper modelMapper;
     private final UserRepository userRepository;
     private final PostRepository postRepository;
@@ -45,23 +45,23 @@ public class PostService implements IPostService{
         this.productRepository = productRepository;
     }
 
-    public PostCreatedDTO createPost(PostCreateDTO postCreateDTO){
+    public PostCreatedDTO createPost(PostCreateDTO postCreateDTO) {
 
         Category category = categoryRepository
                 .getById(postCreateDTO.getCategory_id())
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
 
-
         Post post = modelMapper.map(postCreateDTO, Post.class);
+
         post.setPost_id(postRepository.nextIndex());
         post.setCategory(category);
         User user = userRepository.getById(postCreateDTO.getUser_id())
                 .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
 
         Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
-        if(product.isEmpty()){
+        if (product.isEmpty()) {
             productRepository.add(post.getDetail());
-        }else {
+        } else {
             post.setDetail(product.get());
         }
         postRepository.add(post);
@@ -73,27 +73,27 @@ public class PostService implements IPostService{
     public List<ProductResponseDTO> getAllProducts() {
         List<Product> products = productRepository.getAll();
         List<ProductResponseDTO> productResponseDTOS = products.stream()
-                .map(product ->  modelMapper.map(product, ProductResponseDTO.class))
+                .map(product -> modelMapper.map(product, ProductResponseDTO.class))
                 .collect(Collectors.toList());
         return productResponseDTOS;
     }
 
     @Override
-    public UserPostResponseDTO getAllPostsByFollowerId(int userId, String order){
+    public UserPostResponseDTO getAllPostsByFollowerId(int userId, String order) {
         User user = userRepository.getById(userId)
                 .orElseThrow(() -> new UserNotFoundException("El usuario no fue encontrado"));
         List<User> followed = user.getFollowed();
         List<Post> posts = new ArrayList<>();
 
         followed.forEach(follow -> {
-            follow.getPosts().forEach(post ->{
+            follow.getPosts().forEach(post -> {
                 long dias = DAYS.between(post.getDate(), LocalDate.now());
-                if(dias <= 15) posts.add(post);
+                if (dias <= 15) posts.add(post);
             });
         });
 
-        if(order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
-        else if(order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
+        if (order.equals("date_asc")) posts.sort((post1, post2) -> post1.getDate().compareTo(post2.getDate()));
+        else if (order.equals("date_desc")) posts.sort((post1, post2) -> post2.getDate().compareTo(post2.getDate()));
 
         UserPostResponseDTO userPostResponseDTO = new UserPostResponseDTO(userId,
                 posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList()));
@@ -102,13 +102,14 @@ public class PostService implements IPostService{
     }
 
     @Override
-    public List<PostResponseDTO> getAllPosts(){
+    public List<PostResponseDTO> getAllPosts() {
         List<Post> posts = postRepository.getAll();
-        List<PostResponseDTO> responseDTOS =posts.stream().map(post -> modelMapper.map(post, PostResponseDTO.class)).collect(Collectors.toList());
+        List<PostResponseDTO> responseDTOS = posts.stream()
+                .map(post -> modelMapper.map(post, PostResponseDTO.class))
+                .collect(Collectors.toList());
 
         return responseDTOS;
     }
-
 
 
 }
