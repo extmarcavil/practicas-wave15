@@ -9,6 +9,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class UserRepositoryTest {
@@ -41,5 +45,29 @@ public class UserRepositoryTest {
 
         //act and assert
         assertThrows(UserNotFoundException.class, () -> repository.findById(queryId));
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético exista")
+    public void findFollowersOrderByNameAsc(){
+        // Arrange
+        Integer userId = 2;
+        List<User> expected = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
+
+        // Act
+        List<User> result = repository.findFollowersOrderByNameAsc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario.")
+    public void findFollowersOrderByNameAscNotFound(){
+        // Arrange
+        Integer userId = -2;
+
+        // Act and Assert
+        assertThrows(UserNotFoundException.class, () -> repository.findFollowersOrderByNameAsc(userId));
     }
 }
