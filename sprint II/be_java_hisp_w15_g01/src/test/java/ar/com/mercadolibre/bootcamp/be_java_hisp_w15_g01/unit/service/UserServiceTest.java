@@ -1,7 +1,10 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.unit.service;
 
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.UserDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.UserNotFoundException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
@@ -20,7 +23,8 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Optional;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -105,4 +109,89 @@ public class UserServiceTest {
         // Assert
         Assertions.assertThrows(UserNotFoundException.class, () -> userService.unFollow(id1, id2));
     }
+
+    private void test_04_sortedFollowerList(String order) {
+        // Arrange
+        Long id = 1L;
+        User u1 = UserFactory.createLuky();
+        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(u1));
+
+        List<Follow> follows = new ArrayList<>();
+
+        User u2 = UserFactory.createJesu();
+        User u3 = UserFactory.createGonza();
+
+        follows.add(FollowFactory.create(u2, u1));
+        follows.add(FollowFactory.create(u3, u1));
+
+        List<String> expectedFollowerNames;
+
+        if (order.equals("name_desc"))
+            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        else
+            expectedFollowerNames = follows.stream().map(x -> x.getFollower().getUserName()).sorted(String::compareTo).collect(Collectors.toList());
+
+        Mockito.when(followRepository.whoFollows(id)).thenReturn(follows);
+
+        // Act
+        List<UserDTO> resultList = userService.whoFollowsMe(1L, order).getFollowers();
+        List<String> resultFollowerNames = resultList.stream().map(UserDTO::getUserName).collect(Collectors.toList());
+
+        // Assert
+        Assertions.assertEquals(expectedFollowerNames, resultFollowerNames);
+    }
+
+    @Test
+    @DisplayName("Verificar ordenamiento alfabético ascendente de seguidores")
+    public void test_04_ascSortedFollowerList() {
+        test_04_sortedFollowerList("name_asc");
+    }
+
+    @Test
+    @DisplayName("Verificar ordenamiento alfabético descendente de seguidores")
+    public void test_04_descSortedFollowerList() {
+        test_04_sortedFollowerList("name_desc");
+    }
+
+    private void test_04_sortedFollowingList(String order) {
+        // Arrange
+        Long id = 1L;
+        User u1 = UserFactory.createLuky();
+        Mockito.when(userRepository.findById(id)).thenReturn(Optional.of(u1));
+
+        User u2 = UserFactory.createJesu();
+        User u3 = UserFactory.createGonza();
+
+        List<User> followingList = List.of(u2, u3);
+
+        List<String> expectedFollowingNames;
+
+        if(order.equals("name_desc"))
+            expectedFollowingNames = followingList.stream().map(User::getUserName).sorted(Comparator.reverseOrder()).collect(Collectors.toList());
+        else
+            expectedFollowingNames = followingList.stream().map(User::getUserName).sorted(String::compareTo).collect(Collectors.toList());
+
+        Mockito.when(followRepository.findFollowedByUserId(id)).thenReturn(followingList);
+
+        // Act
+        List<UserDTO> resultList = userService.findAllFollowedByUserId(1L, order).getFollowed();
+
+        List<String> resultFollowerNames = resultList.stream().map(UserDTO::getUserName).collect(Collectors.toList());
+
+        // Assert
+        Assertions.assertEquals(expectedFollowingNames, resultFollowerNames);
+    }
+
+    @Test
+    @DisplayName("Verificar ordenamiento alfabético ascendente de seguidos")
+    public void test_04_ascSortedFollowingList() {
+        test_04_sortedFollowingList("name_asc");
+    }
+
+    @Test
+    @DisplayName("Verificar ordenamiento alfabético descendente de seguidos")
+    public void test_04_descSortedFollowingList() {
+        test_04_sortedFollowingList("name_desc");
+    }
+
 }

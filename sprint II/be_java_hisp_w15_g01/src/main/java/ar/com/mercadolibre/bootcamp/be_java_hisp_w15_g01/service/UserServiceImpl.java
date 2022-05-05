@@ -68,6 +68,7 @@ public class UserServiceImpl implements  UserService {
             throw new InvalidArgumentException("Invalid sorting Parameter. Must be name_desc or name_asc");
         }
         User user = this.findById(id);
+
         List<UserDTO> followers = this.followRepository
                 .whoFollows(id)
                 .stream()
