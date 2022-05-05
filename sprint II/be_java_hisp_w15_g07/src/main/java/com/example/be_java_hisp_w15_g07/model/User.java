@@ -6,6 +6,8 @@ import java.util.*;
 
 @Setter
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Comparable<User>{
 
     private Integer userId;
@@ -65,7 +67,6 @@ public class User implements Comparable<User>{
         User user = (User) o;
         return userId.equals(user.getUserId());
     }
-
 
     @Override
     public int compareTo(User user) {
