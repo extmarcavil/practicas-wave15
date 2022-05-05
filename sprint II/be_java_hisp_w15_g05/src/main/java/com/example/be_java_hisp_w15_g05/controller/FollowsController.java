@@ -18,8 +18,8 @@ import javax.validation.constraints.Positive;
 @Validated
 public class FollowsController {
     private IFollowsService userService;
-    private static final String userIDNotNull= "El  id no puede estar vacío.";
-    private static final String userIDPositive="El id debe ser mayor a cero";
+    protected static final String userIDNotNull= "El  id no puede estar vacío.";
+    protected static final String userIDPositive="El id debe ser mayor a cero";
 
     public FollowsController(IFollowsService userService) {
 
@@ -39,25 +39,43 @@ public class FollowsController {
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unFollow(@Valid @PathVariable int userId, @Valid @PathVariable int userIdToUnfollow) {
+    public ResponseEntity unFollow(
+            @Positive(message =userIDPositive)
+            @NotNull(message = userIDNotNull)
+            @PathVariable int userId,
+            @Positive(message =userIDPositive)
+            @NotNull(message = userIDNotNull)
+            @PathVariable int userIdToUnfollow) {
 
         return new ResponseEntity<>(userService.unFollow(userId, userIdToUnfollow), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/count")
-    public ResponseEntity<ResCountFollowersDTO> countFollowers(@Valid @PathVariable int userId) {
+    public ResponseEntity<ResCountFollowersDTO> countFollowers(
+            @Positive(message =userIDPositive)
+            @NotNull(message = userIDNotNull)
+            @PathVariable int userId) {
 
         return new ResponseEntity<>(userService.countFollowers(userId), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followers/list")
 
-    public ResponseEntity<ResListFollowersDTO> getListFollowers(@Valid @PathVariable int userId,@RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResListFollowersDTO> getListFollowers(
+            @Positive(message =userIDPositive)
+            @NotNull(message = userIDNotNull)
+            @PathVariable int userId,
+            @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListFollowers(userId, order), HttpStatus.OK);
     }
 
     @GetMapping("/{userId}/followed/list")
-    public ResponseEntity<ResListSellersDTO> getListFollowed(@Valid @PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResListSellersDTO> getListFollowed(
+            @Positive(message =userIDPositive)
+            @NotNull(message = userIDNotNull)
+            @PathVariable int userId,
+
+            @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(userService.getListSellers(userId, order), HttpStatus.OK);
     }
 

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.ConstraintViolationException;
 import java.util.*;
 
 @ControllerAdvice(annotations = RestController.class)
@@ -64,6 +65,12 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    ResponseEntity<ErrorDTO> pathVariableException( ConstraintViolationException exception){
+        ErrorDTO errorDTO = new ErrorDTO("Some Input are Invalids", exception.getMessage());
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
     private HashMap<String, List<String>> getHashMapErrors ( List<FieldError> errors ) {
         HashMap<String, List<String>> errorsList = new HashMap<>();
 
@@ -82,7 +89,12 @@ public class GlobalExceptionHandler {
             if (errorsList.containsKey(e.getField())) {
                 errorFields = errorsList.get(field);
             }
-            errorFields.add(msg);
+
+            // evitar que se agregen dos veces el mismo mensaje
+            if(!errorFields.contains(msg)){
+                errorFields.add(msg);
+            }
+
             /* actualizamos la lista de errores de un campo */
             errorsList.put(field, errorFields);
         });

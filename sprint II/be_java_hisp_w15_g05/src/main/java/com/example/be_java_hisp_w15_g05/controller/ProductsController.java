@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 
 @RestController
 @RequestMapping("/products")
@@ -29,7 +32,11 @@ public class ProductsController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<ResPostListDTO> queryPost(@Valid @PathVariable int userId, @RequestParam(required = false, defaultValue = "") String order) {
+    public ResponseEntity<ResPostListDTO> queryPost(
+            @Positive(message = FollowsController.userIDPositive)
+            @NotNull(message = FollowsController.userIDNotNull)
+            @PathVariable int userId,
+            @RequestParam(required = false, defaultValue = "") String order) {
         return new ResponseEntity<>(productsService.getPostFollowed(userId, order), HttpStatus.OK);
 
     }
