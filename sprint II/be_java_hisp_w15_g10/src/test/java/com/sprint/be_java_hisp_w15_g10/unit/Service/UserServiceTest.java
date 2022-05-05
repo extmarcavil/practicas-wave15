@@ -35,6 +35,10 @@ class UserServiceTest {
     @InjectMocks
     UserService userServiceMock;
 
+    /**
+     * Test para el metodo @link{UserService#getUsersWithFollowersCount(int)}
+     * el test se realiza con un usuario que existe en la base de datos y arroja una respuesta con el usuario encontrado.
+     */ 
     @Test
     @DisplayName("Test User With Followers Count")
     void getUsersWithFollowersCount() {
@@ -54,7 +58,9 @@ class UserServiceTest {
                 ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
-
+    /**
+     * V que se arroja una excepcion cuando el usuario no existe en la base de datos.
+     */
     @Test
     @DisplayName("Test Invalid User With Followers Count")
     void getInvalidUsersWithFollowersCount() {
@@ -177,6 +183,7 @@ class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Test de la lista de usuarios seguidos")
     void getInvalidUserFollowedUsers() {
         // arrange
         Mockito.when(userRepository.getById(1)).thenReturn(Optional.empty());
@@ -186,8 +193,11 @@ class UserServiceTest {
                 ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
-
+     /**
+     * El test valida que la lista de retorno de usuarios seguidos sea ordenada de forma descendente
+     */
     @Test
+    @DisplayName("Test de validacion de ordenamiento ascendente de usuarios seguidos")
     void getUserFollowedUsersOrderASC() {
         // arrange
         User user = TestUtils.createUser(1,"Luis");
@@ -209,8 +219,11 @@ class UserServiceTest {
                 ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
-
+    /**
+     * El test valida que la lista de retorno de usuarios seguidos sea ordenada de forma descendente
+     */
     @Test
+    @DisplayName("Test de validacion de ordenamiento descendente de usuarios seguidos")
     void getUserFollowedUsersOrderDESC() {
         // arrange
         User user = TestUtils.createUser(1,"Luis");
@@ -232,7 +245,9 @@ class UserServiceTest {
                 ()->{Mockito.verify(userRepository, Mockito.times(1)).getById(Mockito.anyInt());}
         );
     }
-
+    /**
+     * 
+     */
     @Test
     void getInvalidUserWithFollowers() {
         // arrange
@@ -244,6 +259,9 @@ class UserServiceTest {
         );
     }
 
+     /**
+     * El test valida que la lista de retorno de usuarios que siguen a un usuario sea ordenada de forma descendente
+     */
     @Test
     void getUserWithFollowersOrderASC() {
         // arrange
@@ -267,6 +285,9 @@ class UserServiceTest {
         );
     }
 
+     /**
+     * El test valida que la lista de retorno de usuarios que siguen a un usuario sea ordenada de forma descendente
+     */
     @Test
     void getUserWithFollowersOrderDESC() {
         // arrange
