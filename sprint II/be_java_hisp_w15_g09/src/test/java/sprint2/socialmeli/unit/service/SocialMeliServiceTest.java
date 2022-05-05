@@ -1,5 +1,4 @@
 package sprint2.socialmeli.unit.service;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -11,19 +10,17 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.verification.VerificationMode;
 import sprint2.socialmeli.dto.user.ResponseFollowersCountDTO;
+import sprint2.socialmeli.dto.user.ResponseFollowedListDTO;
 import sprint2.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint2.socialmeli.dto.user.UserDTO;
-import sprint2.socialmeli.exceptions.InvalidParamsException;
-import sprint2.socialmeli.model.User;
 import sprint2.socialmeli.exceptions.InvalidFollower;
+import sprint2.socialmeli.exceptions.InvalidParamsException;
 import sprint2.socialmeli.exceptions.UserNotFound;
+import sprint2.socialmeli.model.User;
 import sprint2.socialmeli.repository.ISocialMeliRepository;
-import sprint2.socialmeli.service.ProductService;
 import sprint2.socialmeli.service.SocialMeliService;
 import sprint2.socialmeli.utils.UserFactory;
 import java.util.List;
-
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 
@@ -33,16 +30,8 @@ public class SocialMeliServiceTest{
     @Mock
     ISocialMeliRepository mockSocialMeliRepository;
 
-    @Mock
-    ProductService productService;
-
     @InjectMocks
     SocialMeliService socialMeliService;
-
-    @BeforeEach
-    public void setUp(){
-        //socialMeliRepository = new SocialMeliRepository();
-    }
 
     // T-0001
     @Test
@@ -138,48 +127,73 @@ public class SocialMeliServiceTest{
         verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
-    // T-0003
+    // T-0003 - LISTA FOLLOWERS
     @Test
-    @DisplayName("Verificar que el orden name_desc existe y no lanza error ")
-    public void test03AssertThatIfNameDescParameterIsGivenNotThrowException(){
-        assertThatIfAParamInGivenNotThrowException("name_desc");
+    @DisplayName("Verificar que el orden name_desc existe y no lanza error en una lista de seguidores")
+    public void test03AssertThatIfNameDescParameterIsGivenNotThrowExceptionOnAFollowerList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollower("name_desc");
     }
 
     @Test
-    @DisplayName("Verificar que el orden name_asc existe y no lanza error ")
-    public void test03AssertThatIfNameAscParameterIsGivenNotThrowException(){
-        assertThatIfAParamInGivenNotThrowException("name_asc");
+    @DisplayName("Verificar que el orden name_asc existe y no lanza error en una lista de seguidores")
+    public void test03AssertThatIfNameAscParameterIsGivenNotThrowExceptionOnAFollowerList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollower("name_asc");
     }
 
     @Test
-    @DisplayName("Verificar que el orden null existe y no lanza error ")
-    public void test03AssertThatIfNullParameterIsGivenNotThrowException(){
-        assertThatIfAParamInGivenNotThrowException(null);
+    @DisplayName("Verificar que el orden null existe y no lanza error en una lista de seguidores")
+    public void test03AssertThatIfNullParameterIsGivenNotThrowExceptionOnAFollowerList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollower(null);
     }
 
     @Test
-    @DisplayName("Verificar que al pasar un orden no valido lanza un error InvalidParamsException ")
-    public void test03AssertThatIfAnInvalidOrderIsGivenShouldThrowAnException(){
-        assertThatIfAParamInGivenThrowException("Invalid");
+    @DisplayName("Verificar que al pasar un orden no valido lanza un error InvalidParamsException en una lista de seguidores")
+    public void test03AssertThatIfAnInvalidOrderIsGivenShouldThrowAnExceptionOnAFollowerList(){
+        assertThatIfAParamInGivenThrowExceptionInFollower("Invalid");
     }
 
-    //T-0004
+    // T0003 - LISTA FOLLOWED
+
     @Test
-    @DisplayName("Verificar que al mandar el parametro name_asc la lista queda ordenada ascendente")
-    public void test04XX(){
+    @DisplayName("Verificar que el orden name_desc existe y no lanza error en una lista de seguidos")
+    public void test03AssertThatIfNameDescParameterIsGivenNotThrowExceptionOnAFollowedList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollowed("name_desc");
+    }
+
+    @Test
+    @DisplayName("Verificar que el orden name_asc existe y no lanza error en una lista de seguidos")
+    public void test03AssertThatIfNameAscParameterIsGivenNotThrowExceptionOnAFollowedList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollowed("name_asc");
+    }
+
+    @Test
+    @DisplayName("Verificar que el orden null existe y no lanza error en una lista de seguidos")
+    public void test03AssertThatIfNullParameterIsGivenNotThrowExceptionOnAFollowedList(){
+        assertThatIfAParamInGivenNotThrowExceptionInFollowed(null);
+    }
+
+    @Test
+    @DisplayName("Verificar que al pasar un orden no valido lanza un error InvalidParamsException en una lista de seguidos")
+    public void test03AssertThatIfAnInvalidOrderIsGivenShouldThrowAnExceptionOnAFollowedList(){
+        assertThatIfAParamInGivenThrowExceptionInFollowed("Invalid");
+    }
+
+    //T-0004 FOLLOWERS
+    @Test
+    @DisplayName("Verificar que al mandar el parametro name_asc la lista de seguidores queda ordenada ascendente")
+    public void test04CheckAscOrderOnFollowerList(){
         assertOrderOfFollowerUserList("name_asc", 0,1 , 2);
     }
 
     @Test
-    @DisplayName("Verificar que al mandar el parametro name_desc la lista queda ordenada descendente")
-    public void test04XXX(){
+    @DisplayName("Verificar que al mandar el parametro name_desc la lista de seguidores queda ordenada descendente")
+    public void test04CheckDescOrderOnFollowerList(){
         assertOrderOfFollowerUserList("name_desc", 2, 1, 0);
     }
 
-    //T-0004
     @Test
-    @DisplayName("Verificar que al mandar null, por defecto la lista queda ordenada ascendente")
-    public void test04XXXX(){
+    @DisplayName("Verificar que al mandar null, por defecto la lista de seguidores queda ordenada ascendente")
+    public void test04CheckDefaultOrderOnFollowerList(){
         assertOrderOfFollowerUserList(null, 0,1 , 2);
     }
 
@@ -206,6 +220,25 @@ public class SocialMeliServiceTest{
         ResponseFollowersCountDTO user = socialMeliService.countFollowers(2);
         // assert
         Assertions.assertEquals(2, user.getFollowersCount());
+    }
+
+    // T-0004 FOLLOWED
+    @Test
+    @DisplayName("Verificar que al mandar el parametro name_asc la lista de seguidos queda ordenada ascendente")
+    public void test04CheckAscOrderOnFollowedList(){
+        assertOrderOfFollowedUserList("name_asc", 0,1 , 2);
+    }
+
+    @Test
+    @DisplayName("Verificar que al mandar el parametro name_desc la lista de seguidos queda ordenada descendente")
+    public void test04CheckDescOrderOnFollowedList(){
+        assertOrderOfFollowedUserList("name_desc", 2,1 , 0);
+    }
+
+    @Test
+    @DisplayName("Verificar que al mandar null, por defecto la lista de seguidos queda ordenada ascendente")
+    public void test04CheckDefaultOrderOnFollowedList(){
+        assertOrderOfFollowedUserList(null, 0,1 , 2);
     }
 
     // ---------------------- Private ---------------------------------
@@ -245,14 +278,16 @@ public class SocialMeliServiceTest{
         Mockito.verify(mockSocialMeliRepository, times).findUserById(Mockito.any(Integer.class));
     }
 
-    private void assertThatIfAParamInGivenThrowException(String invalidParam) {
+    //-- FOLLOWER
+
+    private void assertThatIfAParamInGivenThrowExceptionInFollower(String invalidParam) {
         //Arrange
         int testId = mockFindUserByID(UserFactory.createAnUser());
         //Act + Assert
         Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowers(testId, invalidParam));
     }
 
-    private void assertThatIfAParamInGivenNotThrowException(String validOrder) {
+    private void assertThatIfAParamInGivenNotThrowExceptionInFollower(String validOrder) {
         //Arrange
         int testId = mockFindUserByID(UserFactory.createAnUser());
         //Act + Assert
@@ -280,6 +315,45 @@ public class SocialMeliServiceTest{
                 () -> Assertions.assertEquals(aSortedList.get(i).getUserName(), ATheFollowerUser.getName()),
                 () -> Assertions.assertEquals(aSortedList.get(i1).getUserName(), BTheFollowerUser.getName()),
                 () -> Assertions.assertEquals(aSortedList.get(i2).getUserName(), CTheFollowerUser.getName())
+        );
+    }
+
+    //-- FOLLOWED
+    private void assertThatIfAParamInGivenThrowExceptionInFollowed(String invalidParam) {
+        //Arrange
+        int testId = mockFindUserByID(UserFactory.createAnUser());
+        //Act + Assert
+        Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowed(testId, invalidParam));
+    }
+
+    private void assertThatIfAParamInGivenNotThrowExceptionInFollowed(String validOrder) {
+        //Arrange
+        int testId = mockFindUserByID(UserFactory.createAnUser());
+        //Act + Assert
+        Assertions.assertDoesNotThrow(() -> socialMeliService.listFollowed(testId, validOrder));
+    }
+
+    private void assertOrderOfFollowedUserList(String validOrder, int i, int i1 , int i2) {
+        //Arrange
+        User AInfluencer = UserFactory.createAnUserWithName("A");
+        User BInfluencer = UserFactory.createAnUserWithName("B");
+        User CInfluencer = UserFactory.createAnUserWithName("C");
+
+        User aFollowerUser = UserFactory.createAnUser();
+
+        aFollowerUser.follow(AInfluencer);
+        aFollowerUser.follow(BInfluencer);
+        aFollowerUser.follow(CInfluencer);
+
+        int testId = mockFindUserByID(aFollowerUser);
+
+        ResponseFollowedListDTO aDtoWithTheList = socialMeliService.listFollowed(testId, validOrder);
+        List<UserDTO> aSortedList = aDtoWithTheList.getFollowed();
+
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(aSortedList.get(i).getUserName(), AInfluencer.getName()),
+                () -> Assertions.assertEquals(aSortedList.get(i1).getUserName(), BInfluencer.getName()),
+                () -> Assertions.assertEquals(aSortedList.get(i2).getUserName(), CInfluencer.getName())
         );
     }
 
