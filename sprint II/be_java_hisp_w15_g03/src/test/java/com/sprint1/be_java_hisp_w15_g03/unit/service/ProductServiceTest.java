@@ -26,13 +26,12 @@ public class ProductServiceTest {
     ProductService productService;
 
 
-
     @Test
     @DisplayName("Tipo de ordenamiento por fecha valido")
-    public void getLastPublicationsOk(){
+    public void getLastPublicationsOk() {
 
         //arrange
-        Integer id= 1;
+        int id = 1;
         String order = "date_asc";
 
         Mockito.when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
@@ -48,15 +47,15 @@ public class ProductServiceTest {
 
     @Test
     @DisplayName("Tipo de ordenamiento por fecha invalido")
-    public void getLastPublicationsInvalid(){
+    public void getLastPublicationsInvalid() {
 
         //arrange
-        Integer id= 1;
+        int id = 1;
         String order = "date";
 
         Mockito.when(iMeliRepository.getLastPublications(id)).thenReturn(new ArrayList<>());
         Mockito.when(iMeliRepository.hasUser(id)).thenReturn(true);
-        
+
         //act & assert
         Assertions.assertThrows(OrderInvalidException.class, () -> productService.getLastPublication(id, order));
 

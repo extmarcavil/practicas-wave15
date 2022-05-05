@@ -1,7 +1,11 @@
 package com.sprint1.be_java_hisp_w15_g03.unit.service;
 
+import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
+import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.RelationConflictException;
+import com.sprint1.be_java_hisp_w15_g03.model.Seller;
+import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.service.UserService;
 import org.junit.jupiter.api.Assertions;
@@ -11,6 +15,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -26,8 +33,8 @@ public class UserServiceTest {
     //T-0001
     @Test
     @DisplayName("Seguir a un vendedor correctamente.")
-    void followSeller(){
-        //Arrange
+    void followSeller() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(true);
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(false);
@@ -42,8 +49,8 @@ public class UserServiceTest {
     //T-0001
     @Test
     @DisplayName("Se intenta seguir a un vendedor con un usuario inexistente: PersonNotFoundException")
-    void followSellerUserNotFoundException(){
-        //Arrange
+    void followSellerUserNotFoundException() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
 
         //Act Assert
@@ -54,8 +61,8 @@ public class UserServiceTest {
     //T-0001
     @Test
     @DisplayName("Se intenta seguir a un vendedor inexistente: PersonNotFoundException")
-    void followSellerSellerNotFoundException(){
-        //Arrange
+    void followSellerSellerNotFoundException() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
 
@@ -67,8 +74,8 @@ public class UserServiceTest {
     //T-0001
     @Test
     @DisplayName("Se intenta seguir a un vendedor al cual ya se sigue: RelationConflictException")
-    void followSellerRelationConflictException(){
-        //Arrange
+    void followSellerRelationConflictException() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(true);
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(true);
@@ -81,8 +88,8 @@ public class UserServiceTest {
     //T-0002
     @Test
     @DisplayName("Se deja de seguir a un vendedor correctamente")
-    void unFollowSeller(){
-        //Arrange
+    void unFollowSeller() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(true);
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(true);
@@ -97,8 +104,8 @@ public class UserServiceTest {
     //T-0002
     @Test
     @DisplayName("Se intenta dejar de seguir a un vendedor con un usuario inexistente: PersonNotFoundException")
-    void unFollowSellerUserNotFoundException(){
-        //Arrange
+    void unFollowSellerUserNotFoundException() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(false);
 
         //Act Assert
@@ -109,8 +116,8 @@ public class UserServiceTest {
     //T-0002
     @Test
     @DisplayName("Se intenta dejar de seguir a un vendedor con un vendedor inexistente: PersonNotFoundException")
-    void unFollowSellerSellerNotFoundException(){
-        //Arrange
+    void unFollowSellerSellerNotFoundException() {
+        // Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(false);
 
@@ -122,8 +129,8 @@ public class UserServiceTest {
     //T-0002
     @Test
     @DisplayName("Se intenta dejar de seguir a un vendedor que no se seguía: RelationConflictException")
-    void unFollowSellerRelationConflictException(){
-        //Arrange
+    void unFollowSellerRelationConflictException() {
+        //Mock
         when(meliRepository.hasUser(anyInt())).thenReturn(true);
         when(meliRepository.hasSeller(anyInt())).thenReturn(true);
         when(meliRepository.following(anyInt(), anyInt())).thenReturn(false);
@@ -132,4 +139,222 @@ public class UserServiceTest {
         Assertions.assertThrows(RelationConflictException.class,
                 () -> userService.unFollowSeller(1, 1));
     }
+
+    //T-0003
+    @Test
+    @DisplayName("En lista de followers verificar que el tipo de ordenamiento alfabético exista.")
+    void getFollowersList() {
+        //Arrange
+        Seller seller = new Seller();
+        seller.setUserName("Netflix");
+        seller.setUserId(43);
+        seller.setFollowers(new ArrayList<>());
+        // Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(meliRepository.getSeller(anyInt())).thenReturn(seller);
+
+        //Act Assert
+        Assertions.assertDoesNotThrow(() -> userService.getFollowersList(seller.getUserId(), "name_asc"));
+    }
+
+    //T-0003
+    @Test
+    @DisplayName("En lista de followers verificar que el tipo de ordenamiento alfabético no exista: OrderInvalidException.")
+    void getFollowersListOrderInvalidException() {
+        //Arrange
+        Seller seller = new Seller();
+        seller.setUserName("Netflix");
+        seller.setUserId(43);
+        seller.setFollowers(new ArrayList<>());
+        // Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(meliRepository.getSeller(anyInt())).thenReturn(seller);
+        //Act Assert
+        Assertions.assertThrows(OrderInvalidException.class, () -> userService.getFollowersList(seller.getUserId(), "no_existe"));
+    }
+
+    //T-0003
+    @Test
+    @DisplayName("En lista de followed verificar que el tipo de ordenamiento alfabético exista.")
+    void getFollowedList() {
+        User user = new User();
+        user.setUserName("Jose");
+        user.setUserId(43);
+        user.setFollowed(new ArrayList<>());
+        // Mock
+        when(meliRepository.hasUser(anyInt())).thenReturn(true);
+        when(meliRepository.getUser(anyInt())).thenReturn(user);
+
+        //Act Assert
+        Assertions.assertDoesNotThrow(() -> userService.getFollowedList(user.getUserId(), "name_asc"));
+    }
+
+    //T-0003
+    @Test
+    @DisplayName("En lista de followed verificar que el tipo de ordenamiento alfabético no exista: OrderInvalidException.")
+    void getFollowedListOrderInvalidException() {
+        User user = new User();
+        user.setUserName("Jose");
+        user.setUserId(43);
+        user.setFollowed(new ArrayList<>());
+        // Mock
+        when(meliRepository.hasUser(anyInt())).thenReturn(true);
+        when(meliRepository.getUser(anyInt())).thenReturn(user);
+
+        //Act Assert
+        Assertions.assertThrows(OrderInvalidException.class, () -> userService.getFollowedList(user.getUserId(), "no_existe"));
+    }
+
+    //T-0004
+    @Test
+    @DisplayName("En lista de followers verificar que el tipo de ordenamiento ascendente alfabético sea correcto.")
+    void getFollowersListAsc() {
+        //Arrange
+        Seller seller = new Seller();
+        seller.setUserName("Netflix");
+        seller.setUserId(43);
+        List<User> users = new ArrayList<>();
+        User user = new User();
+        user.setUserId(123);
+        user.setUserName("Carlos");
+        User user1 = new User();
+        user1.setUserId(321);
+        user1.setUserName("Andres");
+        users.add(user);
+        users.add(user1);
+        seller.setFollowers(users);
+
+        // Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(meliRepository.getSeller(anyInt())).thenReturn(seller);
+
+        //Act
+        List<PersonDTO> response = userService.getFollowersList(seller.getUserId(), "name_asc").getFollowers();
+
+        // Assert
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(response.get(0).getUserName(), user1.getUserName()),
+                () -> Assertions.assertEquals(response.get(1).getUserName(), user.getUserName())
+        );
+    }
+
+    //T-0004
+    @Test
+    @DisplayName("En lista de followers verificar que el tipo de ordenamiento descendiente alfabético sea correcto.")
+    void getFollowersListDesc() {
+        //Arrange
+        Seller seller = new Seller();
+        seller.setUserName("Netflix");
+        seller.setUserId(43);
+        List<User> users = new ArrayList<>();
+        User user = new User();
+        user.setUserId(123);
+        user.setUserName("Andres");
+        User user1 = new User();
+        user1.setUserId(321);
+        user1.setUserName("Carlos");
+        users.add(user);
+        users.add(user1);
+        seller.setFollowers(users);
+
+        // Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(true);
+        when(meliRepository.getSeller(anyInt())).thenReturn(seller);
+
+        //Act
+        List<PersonDTO> response = userService.getFollowersList(seller.getUserId(), "name_desc").getFollowers();
+
+        // Assert
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(response.get(0).getUserName(), user1.getUserName()),
+                () -> Assertions.assertEquals(response.get(1).getUserName(), user.getUserName())
+        );
+    }
+
+    //T-0004
+    @Test
+    @DisplayName("En lista de followed verificar el correcto ordenamiento ascendente por nombre.")
+    void getFollowedListAsc() {
+        //Arrange
+        User user = new User();
+        user.setUserName("Carlos");
+        user.setUserId(43);
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller = new Seller();
+        seller.setUserId(123);
+        seller.setUserName("Netflix");
+        Seller seller1 = new Seller();
+        seller1.setUserId(321);
+        seller1.setUserName("Amazon");
+        sellers.add(seller);
+        sellers.add(seller1);
+        user.setFollowed(sellers);
+
+        // Mock
+        when(meliRepository.hasUser(anyInt())).thenReturn(true);
+        when(meliRepository.getUser(anyInt())).thenReturn(user);
+
+        //Act
+        List<PersonDTO> response = userService.getFollowedList(user.getUserId(), "name_asc").getFollowed();
+
+        // Assert
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(response.get(0).getUserName(), seller1.getUserName()),
+                () -> Assertions.assertEquals(response.get(1).getUserName(), seller.getUserName())
+        );
+    }
+
+    //T-0004
+    @Test
+    @DisplayName("En lista de followed verificar el correcto ordenamiento descendente por nombre.")
+    void getFollowedListDesc() {
+        //Arrange
+        User user = new User();
+        user.setUserName("Carlos");
+        user.setUserId(43);
+        List<Seller> sellers = new ArrayList<>();
+        Seller seller = new Seller();
+        seller.setUserId(123);
+        seller.setUserName("Amazon");
+        Seller seller1 = new Seller();
+        seller1.setUserId(321);
+        seller1.setUserName("Netflix");
+        sellers.add(seller);
+        sellers.add(seller1);
+        user.setFollowed(sellers);
+
+        // Mock
+        when(meliRepository.hasUser(anyInt())).thenReturn(true);
+        when(meliRepository.getUser(anyInt())).thenReturn(user);
+
+        //Act
+        List<PersonDTO> response = userService.getFollowedList(user.getUserId(), "name_desc").getFollowed();
+
+        // Assert
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(response.get(0).getUserName(), seller1.getUserName()),
+                () -> Assertions.assertEquals(response.get(1).getUserName(), seller.getUserName())
+        );
+    }
+
+    // Extra
+    @Test
+    @DisplayName("En lista de followed verificar que el tipo de ordenamiento alfabético exista con usuario inexistente: PersonNotFoundException.")
+    void getFollowedListPersonNotFoundException() {
+        // Mock
+        when(meliRepository.hasUser(anyInt())).thenReturn(false);
+        //Act Assert
+        Assertions.assertThrows(PersonNotFoundException.class, () -> userService.getFollowedList(1, "name_asc"));
+    }
+
+    // Extra
+    @Test
+    @DisplayName("En lista de followers verificar que el tipo de ordenamiento alfabético exista con usuario inexistente: PersonNotFoundException.")
+    void getFollowersListPersonNotFoundException() {
+        // Mock
+        when(meliRepository.hasSeller(anyInt())).thenReturn(false);
+        //Act Assert
+        Assertions.assertThrows(PersonNotFoundException.class, () -> userService.getFollowersList(1, "name_desc"));
+    }
+
 }
