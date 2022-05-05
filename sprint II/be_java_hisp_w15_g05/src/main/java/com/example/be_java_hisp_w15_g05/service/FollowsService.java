@@ -47,12 +47,11 @@ public class FollowsService implements IFollowsService {
 
     @Override
     public ResListFollowersDTO getListFollowers(int userId, String order) {
-        User user = validateUserExists(userId);
-
         checkSortName(order);
 
-        List<UserDTO> followers = getListUserDTO(user.getSeguidores());
+        User user = validateUserExists(userId);
 
+        List<UserDTO> followers = getListUserDTO(user.getSeguidores());
 
         sortListByName(followers, order);
 
@@ -69,8 +68,9 @@ public class FollowsService implements IFollowsService {
 
     @Override
     public ResListSellersDTO getListSellers(int userId, String order) {
-        User user = validateUserExists(userId);
         checkSortName(order);
+
+        User user = validateUserExists(userId);
 
         List<UserDTO> followed = getListUserDTO(user.getSeguidos());
 

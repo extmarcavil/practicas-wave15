@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g05.dto;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -10,6 +11,7 @@ import javax.validation.constraints.Size;
 
 @Getter
 @Setter
+@Data
 public class UserDTO {
 
     @Min(value = 1, message = "El ID del usuario no puede ser menor a 0")
