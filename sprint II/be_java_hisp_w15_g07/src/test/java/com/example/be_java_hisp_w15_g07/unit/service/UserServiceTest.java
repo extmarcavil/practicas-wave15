@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g07.unit.service;
 
+import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
 import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
@@ -99,5 +100,26 @@ public class UserServiceTest {
         //act and assert
         assertThrows(UserNotFoundException.class, () -> service.unfollowUser(userId, queryId));
         verify(repository, times(2)).findById(anyInt());
+    }
+
+    @Test
+    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea correcta ")
+    public void returnsCorrectFollowersCount(){
+        //arrange
+        Integer userId = 2;
+        User user1 = UserFactory.getUserOne();
+        User user2 = UserFactory.getUserTwo();
+        UserFactory.setFollowedList(user1, user2);
+
+        int expectedFollowersCount = 1;
+
+        //Mockito
+        when(repository.findById(userId)).thenReturn(user2);
+
+        //act
+        FollowersCountDTO result = service.followersCount(user2.getUserId());
+
+        //assert
+        assertEquals(expectedFollowersCount, result.getFollowersCount());
     }
 }
