@@ -161,4 +161,8 @@ class UserServiceImplTest {
 
         assertThat(userService.getFollowed(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
     }
+
+
+
+
 }
