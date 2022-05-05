@@ -2,6 +2,9 @@ package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils;
 
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class UserFactory {
     public static User createLuky() {
         return new User(1L, "Lukf");
@@ -25,5 +28,9 @@ public class UserFactory {
 
     public static User createMigue() {
         return new User(6L, "MBarraza");
+    }
+
+    public static List<User> listaUsuarios(){
+        return Arrays.asList(createLuky());
     }
 }
