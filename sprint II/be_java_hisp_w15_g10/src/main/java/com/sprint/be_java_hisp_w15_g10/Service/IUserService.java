@@ -1,7 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.Service;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
-import com.sprint.be_java_hisp_w15_g10.Model.User;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.VendedorsFollowedDTO;
 
 public interface IUserService {
