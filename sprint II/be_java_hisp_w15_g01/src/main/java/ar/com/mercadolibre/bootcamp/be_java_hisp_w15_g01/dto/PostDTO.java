@@ -29,7 +29,7 @@ public class PostDTO {
     @Pattern(regexp = Constants.DATE_REGEX, message = Constants.DATE_FORMAT)
     private String date;
 
-    @NotNull
+    @NotNull(message = Constants.DETAIL_NOT_NULL)
     @Valid
     private ProductDTO detail;
 

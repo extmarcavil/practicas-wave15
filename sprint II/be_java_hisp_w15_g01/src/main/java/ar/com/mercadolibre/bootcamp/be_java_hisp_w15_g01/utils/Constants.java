@@ -44,4 +44,6 @@ public class Constants {
 
     public static final String ORDER_REGEX = "name_asc|name_desc|date_asc|date_desc";
     public static final String ORDER_MESSAGE = "No es un parametro de ordenamiento valido";
+
+    public static final String DETAIL_NOT_NULL = "El detalle del producto no puede ser nulo";
 }
