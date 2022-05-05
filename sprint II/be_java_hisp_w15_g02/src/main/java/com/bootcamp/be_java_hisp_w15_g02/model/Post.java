@@ -1,14 +1,15 @@
 package com.bootcamp.be_java_hisp_w15_g02.model;
 
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class Post {
     private int postId;
     private int userId;
-    private LocalDate date;
+    @NotNull private LocalDate date;
     private int category;
     private Product detail;
-    private double price;
+    private Double price;
     private boolean hasPromo;
     private double discount;
 
