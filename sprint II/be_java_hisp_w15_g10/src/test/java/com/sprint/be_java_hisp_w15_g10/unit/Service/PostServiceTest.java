@@ -2,9 +2,9 @@ package com.sprint.be_java_hisp_w15_g10.unit.Service;
 
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
-import com.sprint.be_java_hisp_w15_g10.DTO.Response.*;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
-import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
 import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.Product;
@@ -14,7 +14,6 @@ import com.sprint.be_java_hisp_w15_g10.Repository.PostRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.ProductRepository;
 import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import com.sprint.be_java_hisp_w15_g10.Service.PostService;
-import com.sprint.be_java_hisp_w15_g10.Service.UserService;
 import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,7 +22,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
@@ -33,9 +31,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static com.sun.tools.doclint.Entity.times;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.Mockito.*;
 
