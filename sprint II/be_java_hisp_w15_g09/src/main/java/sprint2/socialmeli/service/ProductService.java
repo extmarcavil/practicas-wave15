@@ -32,10 +32,10 @@ public class ProductService implements IProductService {
 
     @Override
     public ResponsePostListDTO get2WeeksProductsOfFollowed(int userFollowerID, String order) {
-        order = checkOrderParam(order);
-        List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);
-        ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);
-        return new ResponsePostListDTO(userFollowerID, sortPosts(listOfPost, order));
+        order = checkOrderParam(order);  // no llama al repo
+        List<User> listOfFollowedUsers = getFollowedListOfAnUser(userFollowerID);     // llama a repo y esta mockeado
+        ArrayList<Post> listOfPost = getPostsOfLast2Week(listOfFollowedUsers);       // llama a repo y esta mockeado
+        return new ResponsePostListDTO(userFollowerID, sortPosts(listOfPost, order));    // no llama repo
     }
 
     //----------Private----------//
@@ -111,7 +111,7 @@ public class ProductService implements IProductService {
     private static String checkOrderParam(String order) {
         if (order == null)
             return "date_asc";
-        if (!(order.equals("date_asc") || order.equals("date_desc"))) {
+        if (!(order.equalsIgnoreCase("date_asc") || order.equalsIgnoreCase("date_desc"))) {
             throw new InvalidParamsException("Los parámetros ingresados son incorrectos. Este endpoint admite solo:\n" +
                     "order=date_asc\n" +
                     "order=date_desc");

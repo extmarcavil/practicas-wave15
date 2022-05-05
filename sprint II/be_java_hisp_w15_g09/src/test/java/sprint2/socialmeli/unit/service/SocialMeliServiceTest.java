@@ -10,6 +10,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.verification.VerificationMode;
+import sprint2.socialmeli.dto.user.ResponseFollowersCountDTO;
 import sprint2.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint2.socialmeli.dto.user.UserDTO;
 import sprint2.socialmeli.exceptions.InvalidParamsException;
@@ -17,9 +18,13 @@ import sprint2.socialmeli.model.User;
 import sprint2.socialmeli.exceptions.InvalidFollower;
 import sprint2.socialmeli.exceptions.UserNotFound;
 import sprint2.socialmeli.repository.ISocialMeliRepository;
+import sprint2.socialmeli.service.ProductService;
 import sprint2.socialmeli.service.SocialMeliService;
 import sprint2.socialmeli.utils.UserFactory;
 import java.util.List;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -27,6 +32,9 @@ public class SocialMeliServiceTest{
 
     @Mock
     ISocialMeliRepository mockSocialMeliRepository;
+
+    @Mock
+    ProductService productService;
 
     @InjectMocks
     SocialMeliService socialMeliService;
@@ -175,6 +183,31 @@ public class SocialMeliServiceTest{
         assertOrderOfFollowerUserList(null, 0,1 , 2);
     }
 
+    @Test
+    @DisplayName(" verifica que la cantidad de seguidores de un usuario sea correcto")
+    public void verifyFollowersByUserDos () {
+
+        // arrange
+        User alan = new User(2, "Alan Gimenez");
+        User nico = new User (1, "Nicolas Kazandjian");
+        User lorena = new User (3, "Lorena Bitencur");
+        when(mockSocialMeliRepository.existUser(1)).thenReturn(true);
+        when(mockSocialMeliRepository.existUser(2)).thenReturn(true);
+        when(mockSocialMeliRepository.existUser(3)).thenReturn(true);
+        when(mockSocialMeliRepository.findUserById(1)).thenReturn(nico);
+        when(mockSocialMeliRepository.findUserById(2)).thenReturn(alan);
+        when(mockSocialMeliRepository.findUserById(3)).thenReturn(lorena);
+        /*mockFindUserByID(alan);
+        mockFindUserByID(nico);
+        mockFindUserByID(lorena);*/
+        socialMeliService.follow(1, 2);
+        socialMeliService.follow(3, 2);
+        // act
+        ResponseFollowersCountDTO user = socialMeliService.countFollowers(2);
+        // assert
+        Assertions.assertEquals(2, user.getFollowersCount());
+    }
+
     // ---------------------- Private ---------------------------------
 
     private void mockTwoUsersAndOneAsFollower(Integer followerId, Integer followedId) {
@@ -270,4 +303,11 @@ public class SocialMeliServiceTest{
     }
 
 
+
+    private boolean controlParametroOrder (String validOrder) {
+        if(validOrder == "date_asc" || validOrder == "date_desc") {
+            return true;
+        };
+        return false;
+    }
 }
