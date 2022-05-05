@@ -21,7 +21,8 @@ public class UserController {
     private IUserService userService;
 
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    ResponseEntity<HttpStatus> followSeller(@PathVariable @Min(0) Integer userId, @PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userIdToFollow) {
+    ResponseEntity<HttpStatus> followSeller(@PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userId,
+                                            @PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userIdToFollow) {
         userService.followSeller(userId, userIdToFollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
@@ -44,7 +45,8 @@ public class UserController {
     }
 
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    ResponseEntity<HttpStatus> unFollowSeller(@PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userId, @PathVariable @Min(0) Integer userIdToUnfollow){
+    ResponseEntity<HttpStatus> unFollowSeller(@PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userId,
+                                              @PathVariable @Min(value = 1, message = "El id debe ser mayor a cero.") Integer userIdToUnfollow){
         userService.unFollowSeller(userId, userIdToUnfollow);
         return new ResponseEntity<>(HttpStatus.OK);
     }
