@@ -9,10 +9,7 @@ import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.PostService;
 import com.example.be_java_hisp_w15_g07.utils.PostFactory;
 
-import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
-import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
-import com.example.be_java_hisp_w15_g07.service.PostService;
 
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
 import org.junit.jupiter.api.Assertions;
@@ -22,6 +19,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
@@ -37,7 +35,7 @@ public class PostServiceTest {
     private IUserRepository repository;
 
     @InjectMocks
-    private PostService postService;
+    private PostService service;
 
     @Test
     @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
@@ -58,7 +56,7 @@ public class PostServiceTest {
         when(repository.findById(userId)).thenReturn(user1);
 
         //act
-        UserFollowedPostsDTO userFollowedPostsDTO = postService.getFollowedPosts(userId, "date_asc");
+        UserFollowedPostsDTO userFollowedPostsDTO = service.getFollowedPosts(userId, "date_asc");
 
         // assert
         assertEquals(1, userFollowedPostsDTO.getUserID());

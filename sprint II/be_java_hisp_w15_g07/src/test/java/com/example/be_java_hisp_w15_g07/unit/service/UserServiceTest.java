@@ -126,9 +126,8 @@ public class UserServiceTest {
         Integer userId = 2;
         User user1 = UserFactory.getUserOne();
         User user2 = UserFactory.getUserTwo();
-        UserFactory.setFollowedList(user1, user2);
 
-        int expectedFollowersCount = 1;
+        int expectedFollowersCount = 2;
 
         //Mockito
         when(repository.findById(userId)).thenReturn(user2);
