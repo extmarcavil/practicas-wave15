@@ -11,7 +11,7 @@ import java.util.Optional;
 public class UserRepository {
     private List<User> usuarios;
 
-    public UserRepository(){
+    public UserRepository() {
         usuarios = new ArrayList<User>();
 
         User user1 = new User(1, "Alejandro");
@@ -22,15 +22,6 @@ public class UserRepository {
         usuarios.add(user2);
         usuarios.add(user3);
 
-//        user1.agregarSeguidor(user3);
-//
-//
-//        user1.agregarSeguidor(user2);
-//
-//        user1.seguirUsuario(user3);
-//        user3.seguirUsuario(user1);
-//
-//        user3.agregarPost(postRepository.getAll().get(0));
     }
 
     public Optional<User> getById(int id) {
@@ -38,12 +29,12 @@ public class UserRepository {
                 .filter(user -> user.getUser_id() == id)
                 .findFirst();
     }
- 
-    public List<User> getAll(){
+
+    public List<User> getAll() {
         return usuarios;
     }
 
-    public void add(User user){
+    public void add(User user) {
         usuarios.add(user);
     }
 

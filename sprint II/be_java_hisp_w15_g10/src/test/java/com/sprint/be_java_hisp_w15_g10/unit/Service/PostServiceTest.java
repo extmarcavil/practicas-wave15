@@ -5,6 +5,7 @@ import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.PostResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Response.ProductResponseDTO;
 import com.sprint.be_java_hisp_w15_g10.Exception.CategoryNotFoundPostException;
+import com.sprint.be_java_hisp_w15_g10.Exception.UserNotFoundPostException;
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
 import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.Product;
