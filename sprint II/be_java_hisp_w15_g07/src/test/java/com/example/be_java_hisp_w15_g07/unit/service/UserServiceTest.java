@@ -2,10 +2,13 @@ package com.example.be_java_hisp_w15_g07.unit.service;
 
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
+import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.IUserService;
+import com.example.be_java_hisp_w15_g07.service.PostService;
 import com.example.be_java_hisp_w15_g07.service.UserService;
+import com.example.be_java_hisp_w15_g07.utils.PostFactory;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
 import org.assertj.core.api.NotThrownAssert;
 import org.junit.jupiter.api.Assertions;

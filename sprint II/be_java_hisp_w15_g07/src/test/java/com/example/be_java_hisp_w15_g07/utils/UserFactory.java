@@ -22,12 +22,16 @@ public class UserFactory {
         return user2;
     }
 
+    public static User getUserThree(){
+        User user2 = new User(3, "User 3");
+        for(Post p: PostFactory.getThreePostsOneOutdated()){
+            user2.newPost(p);
+        }
+        return user2;
+    }
+
     public static void setFollowedList(User user, User userToFollow){
-        Set<User> followed = new HashSet<>();
-        followed.add(userToFollow);
-        user.setFollowed(followed);
-        Set<User> follower = new HashSet<>();
-        follower.add(user);
-        userToFollow.setFollowers(follower);
+        user.getFollowed().add(userToFollow);
+        userToFollow.getFollowers().add(user);
     }
 }
