@@ -1,10 +1,10 @@
 package com.bootcamp.be_java_hisp_w15_g08.dto.request;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
-@Getter
-@Setter
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class DetailDTO {
     private int  product_id;
     private String product_name;
