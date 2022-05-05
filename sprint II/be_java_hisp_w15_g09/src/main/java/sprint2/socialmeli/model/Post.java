@@ -28,21 +28,11 @@ public class Post {
         detail = new Product(post.getDetail());
         category = post.getCategory();
         price = post.getPrice();
-        isAValidPost();
     }
 
     public boolean hasUserID(int IDToMatch) {
         return userId.equals(IDToMatch);
     }
 
-    private void isAValidPost(){
-        if (    this.userId == null     ||
-                this.date == null       ||
-                this.detail== null      ||
-                this.category == null   ||
-                this.price == null      ){
-            throw new InvalidPostException("El post contiene campos incompletos.");
-        }
-    }
 
 }

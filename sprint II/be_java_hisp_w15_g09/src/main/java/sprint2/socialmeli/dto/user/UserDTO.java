@@ -12,8 +12,6 @@ import javax.validation.constraints.Positive;
 @Setter
 @AllArgsConstructor
 public class UserDTO {
-    @NotNull(message = "El  id no puede estar vacío")
-    @Positive(message = "El id debe ser mayor a cero")
     private Integer userId;
     private String userName;
 

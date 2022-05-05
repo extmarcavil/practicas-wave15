@@ -13,8 +13,6 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class ResponsePostDTO {
-    @NotBlank(message = "El id_post no puede estar vacío.")
-    @Positive(message = "El id_post debe ser mayor a cero")
     protected Integer postId;
     @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     protected LocalDate date;
