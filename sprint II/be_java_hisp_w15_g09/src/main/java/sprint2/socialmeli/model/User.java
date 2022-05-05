@@ -1,5 +1,6 @@
 package sprint2.socialmeli.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import sprint2.socialmeli.dto.user.UserDTO;
@@ -8,8 +9,8 @@ import sprint2.socialmeli.exceptions.InvalidFollower;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+
+@Data
 public class User {
 
     Integer id;
