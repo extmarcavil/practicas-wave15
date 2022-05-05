@@ -59,26 +59,24 @@ class PostServiceTest {
     private Product product1;
     private Product product2;
     private Post post1;
+    private Post post2;
     private User user;
     private PostCreateDTO postCreateDTO;
 
     @BeforeEach
     void setup() {
-        category1 = new Category(1, "categoria");
-        product1 = new Product(1, "Pantalón", "Old", "Jeff", "Rojo", "");
-        product2 = new Product(2, "Camisa", "Old", "Jeff", "Rojo", "");
-        post1 = new Post(1, product1, LocalDate.now(), category1, 0.9, false, 0);
+        category1 = TestUtils.createCategory();
+        product1 = TestUtils.createProduct();
+        product2 = TestUtils.createProduct2();
+        post1 = TestUtils.createPost(postRepository, LocalDate.now());
+        post2 = TestUtils.createPost2(postRepository, LocalDate.now());
         user = TestUtils.createUser(4, "Luis");
-        postCreateDTO = new PostCreateDTO();
-        postCreateDTO.setCategory_id(1);
-        postCreateDTO.setDate(LocalDate.now());
-        postCreateDTO.setUser_id(4);
-        postCreateDTO.setPrice(1D);
-        postCreateDTO.setDetail(new ProductRequestDTO(1, "Pantalón", "Old", "Jeff", "Rojo", ""));
+        postCreateDTO = TestUtils.createPostCreateDTO();
     }
 
-    @DisplayName("Creando un Post")
+
     @Test
+    @DisplayName("Creando un Post")
     void createPostTest() {
         //Arrange
         doReturn(Optional.of(category1))
@@ -110,23 +108,46 @@ class PostServiceTest {
 
     }
 
-    @DisplayName("Lanzando Excepcion cuando el postCreateDTO esta null ")
     @Test
-    void createPostThrowsExceptionTest() {
+    @DisplayName("Lanzando Excepcion cuando la categoría no existe ")
+    void createPostThrowsExceptionCategoryNotFoundTest() {
         //Arrange
 
         //Act & Assert
-        assertThrows(CategoryNotFoundPostException.class, () -> postServiceMock.createPost(postCreateDTO));
-        verify(categoryRepository).getById(anyInt());
+        Assertions.assertAll(
+                () -> assertThrows(CategoryNotFoundPostException.class, () -> postServiceMock.createPost(postCreateDTO)),
+                () -> verify(categoryRepository).getById(anyInt())
+        );
+
     }
 
     @Test
+    @DisplayName("Lanzando Excepcion cuando el usuario no existe ")
+    void createPostThrowsExceptionUserNotFoundTest() {
+        //Arrange
+        doReturn(Optional.of(category1))
+                .when(categoryRepository)
+                .getById(anyInt());
+
+        when(modelMapper
+                .map(postCreateDTO, Post.class))
+                .thenReturn(post1);
+        //Act & Assert
+        Assertions.assertAll(
+                () -> assertThrows(UserNotFoundPostException.class, () -> postServiceMock.createPost(postCreateDTO)),
+                () -> verify(categoryRepository).getById(anyInt())
+        );
+
+    }
+
+    @Test
+    @DisplayName("Comprobando que trae todos los productos ")
     void getAllProducts() {
         //Arrange
         ProductResponseDTO prdTo = new ProductResponseDTO();
         List<Product> products = new ArrayList<>();
         products.add(product1);
-        products.add(product1);
+        products.add(product2);
 
         when(productRepository.getAll()).thenReturn(products);
         when(modelMapper.map(product1, ProductResponseDTO.class)).thenReturn(prdTo);
@@ -134,15 +155,17 @@ class PostServiceTest {
         //Act
         List<ProductResponseDTO> list = postServiceMock.getAllProducts();
         //Assert
-        assertFalse(list.isEmpty());
-        assertNotNull(list);
-        assertEquals(2, list.size());
-        verify(productRepository).getAll();
-        verify(modelMapper, times(2)).map(product1, ProductResponseDTO.class);
-
+        Assertions.assertAll(
+                () -> assertFalse(list.isEmpty()),
+                () -> assertNotNull(list),
+                () -> assertEquals(2, list.size()),
+                () -> verify(productRepository).getAll(),
+                () -> verify(modelMapper, times(1)).map(product1, ProductResponseDTO.class)
+        );
     }
 
     @Test
+    @DisplayName("Comprobando que trae todos los productos con fecha menor a dos semanas ")
     void getAllPostsByFollowerId() {
         // arrange
         TestUtils.addFollowed(user, 4);
@@ -162,5 +185,29 @@ class PostServiceTest {
                 }
         );
 
+    }
+
+    @Test
+    @DisplayName("Comprobando que trae todos los posts ")
+    void getAllPost() {
+        //Arrange
+        PostResponseDTO prDTO = new PostResponseDTO();
+        List<Post> posts = new ArrayList<>();
+        posts.add(post1);
+        posts.add(post2);
+
+        when(postRepository.getAll()).thenReturn(posts);
+        when(modelMapper.map(post1, PostResponseDTO.class)).thenReturn(prDTO);
+
+        //Act
+        List<PostResponseDTO> list = postServiceMock.getAllPosts();
+        //Assert
+        Assertions.assertAll(
+                () -> assertFalse(list.isEmpty()),
+                () -> assertNotNull(list),
+                () -> assertEquals(2, list.size()),
+                () -> verify(postRepository).getAll(),
+                () -> verify(modelMapper, times(1)).map(post1, PostResponseDTO.class)
+        );
     }
 }

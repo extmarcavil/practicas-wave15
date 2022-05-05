@@ -1,5 +1,7 @@
 package com.sprint.be_java_hisp_w15_g10.utils;
 
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
+import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
 import com.sprint.be_java_hisp_w15_g10.Model.Category;
 import com.sprint.be_java_hisp_w15_g10.Model.Post;
 import com.sprint.be_java_hisp_w15_g10.Model.Product;
@@ -23,12 +25,35 @@ public class TestUtils {
         return new Product(6, "Mouse", "Gamer", "Huawei", "Negro","últimos productos");
 
     }
+    public static Product createProduct2(){
+        return new Product(7, "Pantalón", "Teen", "Jeff", "Negro","Para toda ocasión");
+
+    }
+
+    public static PostCreateDTO createPostCreateDTO(){
+        PostCreateDTO postCreateDTO = new PostCreateDTO();
+        postCreateDTO.setCategory_id(1);
+        postCreateDTO.setDate(LocalDate.now());
+        postCreateDTO.setUser_id(4);
+        postCreateDTO.setPrice(1D);
+        postCreateDTO.setDetail(new ProductRequestDTO(1, "Pantalón", "Old", "Jeff", "Rojo", ""));
+        return postCreateDTO;
+    }
 
     public static Post createPost(PostRepository postRepository, LocalDate date){
         return new Post(postRepository.nextIndex(),
-                new Product(6, "Mouse", "Gamer", "Huawei", "Negro","últimos productos"),
+                createProduct(),
                 date,
-                new Category(4, "Tecnología"),
+                createCategory(),
+                2.10,
+                true,
+                0.5);
+    }
+    public static Post createPost2(PostRepository postRepository, LocalDate date){
+        return new Post(postRepository.nextIndex(),
+                createProduct2(),
+                date,
+                createCategory(),
                 2.10,
                 true,
                 0.5);
