@@ -1,0 +1,3 @@
+[{"id":1,"studentName":"Pedro","message":"buen alumno","averageScore":7.0,"subjects":[{"name":"Filosofía","score":10.0},{"name":"Dibujo","score":8.0}]}
+,{"id":2,"studentName":"Julio","message":"buen alumno","averageScore":7.0,"subjects":[{"name":"Filosofía","score":10.0},{"name":"Dibujo","score":8.0}]}
+]

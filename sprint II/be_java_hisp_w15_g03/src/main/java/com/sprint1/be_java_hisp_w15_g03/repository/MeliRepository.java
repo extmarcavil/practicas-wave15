@@ -1,6 +1,9 @@
 package com.sprint1.be_java_hisp_w15_g03.repository;
 
-import com.sprint1.be_java_hisp_w15_g03.model.*;
+import com.sprint1.be_java_hisp_w15_g03.model.Product;
+import com.sprint1.be_java_hisp_w15_g03.model.Publication;
+import com.sprint1.be_java_hisp_w15_g03.model.Seller;
+import com.sprint1.be_java_hisp_w15_g03.model.User;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
@@ -135,33 +138,5 @@ public class MeliRepository implements IMeliRepository {
         seller.setUserId(sellers.size() + 1);
         sellers.put(seller.getUserId(), seller);
         return seller;
-    }
-
-    public void loadDataTest(RepoData repoData) {
-        repoData.getUsers().forEach( u -> {
-            MeliRepository.users.put(u.getUserId(), u);
-        });
-
-        repoData.getSellers().forEach( s -> {
-            MeliRepository.sellers.put(s.getUserId(), s);
-        });
-
-        repoData.getPublications().forEach( p -> {
-            MeliRepository.products.put(p.getDetail().getProductId(), p.getDetail());
-        });
-    }
-
-    public void removeDataTest(RepoData repoData) {
-        repoData.getUsers().forEach( u -> {
-            MeliRepository.users.remove(u.getUserId());
-        });
-
-        repoData.getSellers().forEach( s -> {
-            MeliRepository.sellers.remove(s.getUserId());
-        });
-
-        repoData.getPublications().forEach( p -> {
-            MeliRepository.products.remove(p.getDetail().getProductId());
-        });
     }
 }
