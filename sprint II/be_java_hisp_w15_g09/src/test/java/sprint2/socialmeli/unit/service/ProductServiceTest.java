@@ -37,59 +37,63 @@ public class ProductServiceTest {
 
 
     // T-0006
-
     @Test
-    @DisplayName("Verificar que el feed de un usuario esté ordenado de manera ascendente (post más nuevo al más viejo)")
-    public void test06xxx (){
-        //ARRANGE
-        User a = UserFactory.createAnUser();
-        User b = UserFactory.createAnUser();
-        User c = UserFactory.createAnUser();
-        User user = UserFactory.createAnUser();
-
-        user.follow(a);
-        user.follow(b);
-        user.follow(c);
-
-        RequestPostDTO postA = new RequestPostDTO(a.getId(), "01-05-2022", new ProductDTO(), 1, 10000D);
-        RequestPostDTO postB = new RequestPostDTO(b.getId(), "02-05-2022", new ProductDTO(), 1, 10000D);
-        RequestPostDTO postC = new RequestPostDTO(c.getId(), "03-05-2022", new ProductDTO(), 1, 10000D);
-
-        Post postAA = new Post(postA);
-        Post postBB = new Post(postB);
-        Post postCC = new Post(postC);
-
-        ArrayList<Post> aSortedPostOfA = new ArrayList<>(Arrays.asList(postAA)) ;
-        ArrayList<Post> aSortedPostOfB = new ArrayList<>(Arrays.asList(postBB)) ;
-        ArrayList<Post> aSortedPostOfC = new ArrayList<>(Arrays.asList(postCC)) ;
-
-        // Mock
-        int testId = mockFindUserByID(user, user.getId());
-        Mockito.when(mockPostRepository.getListOfPostOfUser(a.getId())).thenReturn(aSortedPostOfA);
-        Mockito.when(mockPostRepository.getListOfPostOfUser(b.getId())).thenReturn(aSortedPostOfB);
-        Mockito.when(mockPostRepository.getListOfPostOfUser(c.getId())).thenReturn(aSortedPostOfC);
-
-        //ACT
-        ResponsePostListDTO aDtoList = productService.get2WeeksProductsOfFollowed(testId, "date_asc");
-        List<ResponsePostDTO> aSortedList = aDtoList.getPosts();
-
-        //ASSERTION
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(aSortedList.get(0).getDate(), postAA.getDate()),
-                () -> Assertions.assertEquals(aSortedList.get(1).getDate(), postBB.getDate()),
-                () -> Assertions.assertEquals(aSortedList.get(2).getDate(), postCC.getDate())
-        );
+    @DisplayName("Verificar que el feed de un usuario esté ordenado de manera ascendente (post más viejo al más nuevo)")
+    public void test06CheckAscOrderOfFeed(){
+        assertOrderOfFeed("date_asc", 0, 1,2);
     }
 
+    @Test
+    @DisplayName("Verificar que el feed de un usuario esté ordenado de manera descendente (post más nuevo al más viejo)")
+    public void test06CheckDescOrderOfFeed(){
+        assertOrderOfFeed("date_desc", 2, 1, 0);
+    }
 
-    private int mockFindUserByID(User aMockUser, int testId) {
-        Mockito
-                .when(
-                        this.mockSocialMeliRepository.findUserById(testId))
-                .thenReturn(
-                        aMockUser
-                );
-        return testId;
+    @Test
+    @DisplayName("Verificar que el feed de un usuario esté ordenado de manera por defecto (ascendente)")
+    public void test06CheckDefaultOrderOfFeed(){
+        assertOrderOfFeed(null, 0, 1,2);
+    }
+
+    private void assertOrderOfFeed(String validOrder, int i, int i1, int i2) {
+        // ARRANGE
+        User aFollowedSeller1 = UserFactory.createAnUser();
+        User aFollowedSeller2 = UserFactory.createAnUser();
+        User aFollowedSeller3 = UserFactory.createAnUser();
+        User aFollowerClient = UserFactory.createAnUser();
+
+        aFollowerClient.follow(aFollowedSeller1);
+        aFollowerClient.follow(aFollowedSeller2);
+        aFollowerClient.follow(aFollowedSeller3);
+
+        RequestPostDTO postDTOOfSeller1 = new RequestPostDTO(aFollowedSeller1.getId(), "01-05-2022", new ProductDTO(), 1, 10000D);
+        RequestPostDTO postDTOOfSeller2 = new RequestPostDTO(aFollowedSeller2.getId(), "02-05-2022", new ProductDTO(), 1, 10000D);
+        RequestPostDTO postDTOOfSeller3 = new RequestPostDTO(aFollowedSeller3.getId(), "03-05-2022", new ProductDTO(), 1, 10000D);
+
+        Post postOfSeller1 = new Post(postDTOOfSeller1);
+        Post postOfSeller2 = new Post(postDTOOfSeller2);
+        Post postOfSeller3 = new Post(postDTOOfSeller3);
+
+        ArrayList<Post> postsOfSeller1 = new ArrayList<>(Arrays.asList(postOfSeller1));
+        ArrayList<Post> postsOfSeller2 = new ArrayList<>(Arrays.asList(postOfSeller2));
+        ArrayList<Post> postsOfSeller3 = new ArrayList<>(Arrays.asList(postOfSeller3));
+
+        // MOCK
+        Mockito.when(this.mockSocialMeliRepository.findUserById(aFollowerClient.getId())).thenReturn(aFollowerClient);
+        Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller1.getId())).thenReturn(postsOfSeller1);
+        Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller2.getId())).thenReturn(postsOfSeller2);
+        Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller3.getId())).thenReturn(postsOfSeller3);
+
+        // ACT
+        ResponsePostListDTO aDtoList = productService.get2WeeksProductsOfFollowed(aFollowerClient.getId(), validOrder);
+        List<ResponsePostDTO> aSortedList = aDtoList.getPosts();
+
+        // ASSERTION
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(aSortedList.get(i).getDate(), postOfSeller1.getDate()),
+                () -> Assertions.assertEquals(aSortedList.get(i1).getDate(), postOfSeller2.getDate()),
+                () -> Assertions.assertEquals(aSortedList.get(i2).getDate(), postOfSeller3.getDate())
+        );
     }
 
 }
