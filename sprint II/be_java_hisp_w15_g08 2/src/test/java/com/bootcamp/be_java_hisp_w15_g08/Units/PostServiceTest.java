@@ -24,7 +24,7 @@ public class PostServiceTest {
     ProductService service;
 
     @Test
-    @DisplayName("Verificacion de filtadro de fecha y orden ascendente")
+    @DisplayName("orden ascendente")
     public void getSellersLastsPosts(){
 
         //Arrange
@@ -44,13 +44,33 @@ public class PostServiceTest {
     }
 
     @Test
-    @DisplayName("Verificacion de filtadro de fecha y orden descendente")
+    @DisplayName("orden descendente")
     public void getSellersLastsPosts2(){
 
         //Arrange
         PostListDTO expected = Util.listaDePostOrdenadaYFiltradaDesc();
         User user = Util.user1();
         String order = "date_desc";
+
+        //Mock
+        Mockito.when(repository.findUser(user.getUserID())).thenReturn(user);
+
+        //Act
+        PostListDTO actual = service.getSellersLastsPosts(user.getUserID(),order);
+
+
+        //Assert
+        Assertions.assertEquals(expected,actual);
+    }
+
+    @Test
+    @DisplayName("Verificacion de filtadro de fecha")
+    public void getSellersLastsPosts3(){
+
+        //Arrange
+        PostListDTO expected = Util.listaDePostFiltrada();
+        User user = Util.user1();
+        String order = null;
 
         //Mock
         Mockito.when(repository.findUser(user.getUserID())).thenReturn(user);
