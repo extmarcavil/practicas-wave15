@@ -1,8 +1,7 @@
 package com.example.be_java_hisp_w15_g05.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
@@ -12,6 +11,9 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
 public class PostIdDTO {
     @Min(value = 1, message = "El ID del post no puede ser menor a 0")
     @NotNull(message = "El ID del post no puede estar vacio")

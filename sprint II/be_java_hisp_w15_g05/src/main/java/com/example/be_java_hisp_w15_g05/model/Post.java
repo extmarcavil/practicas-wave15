@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
@@ -11,6 +8,7 @@ import java.time.LocalDate;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class Post {
 
     private int userId;

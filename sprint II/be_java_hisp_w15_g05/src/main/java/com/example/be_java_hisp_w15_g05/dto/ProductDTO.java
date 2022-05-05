@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -14,6 +11,7 @@ import javax.validation.constraints.Size;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
+@Data
 public class ProductDTO {
 
     @Min(value = 1, message = "El ID del post no puede ser menor a 0")

@@ -31,6 +31,14 @@ public class UsersFactory {
         return user;
     }
 
+    public static User createUserWithFollowed() {
+        User user = new User(90,"test user",true);
+
+        user.seguir(user1);
+
+        return user;
+    }
+
     public static List<UserDTO> listaOrdenadaAlfAsc(){
         return Arrays.asList(
                 new UserDTO(user2.getUserId(), user2.getName()),
