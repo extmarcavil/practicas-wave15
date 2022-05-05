@@ -1,5 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.unit;
 
+import Utils.TestGenerator;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentExcepcion;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
@@ -29,20 +30,10 @@ public class T0003 {
     void ordenamientoFollowersNameAscOk(){
 
         //arrange
-        int userId1 = 1;
         //ordenamiento correcto.
         String ordenamiento="name_asc";
 
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
@@ -55,20 +46,10 @@ public class T0003 {
     void ordenamientoFollowersNameDescOk(){
 
         //arrange
-        int userId1 = 1;
         //ordenamiento correcto.
         String ordenamiento="name_desc";
 
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
@@ -82,18 +63,8 @@ public class T0003 {
     void ordenamientoFollowersNotOk(){
 
         //arrange
-        int userId1 = 1;
 
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowers();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
@@ -110,20 +81,10 @@ public class T0003 {
     @DisplayName("Verifica que name_asc es un ordenamiento correcto de la lista de seguidos.")
     void ordenamientoFollowingNameAscOk(){
         //arrange
-        int userId1 = 1;
         //ordenamiento correcto.
         String ordenamiento="name_asc";
 
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
@@ -136,20 +97,10 @@ public class T0003 {
     void ordenamientoFollowingsNameDescOk(){
 
         //arrange
-        int userId1 = 1;
         //ordenamiento correcto.
         String ordenamiento="name_desc";
 
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
@@ -163,18 +114,7 @@ public class T0003 {
     void ordenamientoFollowingsNotOk(){
 
         //arrange
-        int userId1 = 1;
-
-        User user = new User(userId1, "nombre1");
-        User user2 = new User(2, "nombre2");
-        User user3 = new User(3, "lombre2");
-        User user4 = new User(4, "aombre2");
-
-        user.setFollowers(List.of(
-                user2,
-                user3,
-                user4
-        ));
+        User user = TestGenerator.userWithFollowings();
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
