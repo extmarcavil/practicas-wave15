@@ -54,4 +54,9 @@ public class UsersFactory {
                 new UserDTO(user2.getUserId(), user2.getName())
         );
     }
+
+    public static User createFollower(){
+
+        return new User(15,"test user",false);
+    }
 }
