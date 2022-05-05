@@ -1,9 +1,6 @@
 package com.example.be_java_hisp_w15_g05.unit.service;
 
-import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListFollowersDTO;
-import com.example.be_java_hisp_w15_g05.dto.ResListSellersDTO;
-import com.example.be_java_hisp_w15_g05.dto.UserDTO;
+import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.User;
@@ -155,34 +152,94 @@ public class FollowsServiceTest {
                         () -> followsService.getListSellers(10, "cualquierotracosa"));
     }
     // T001
-
     @Test
     @DisplayName("validación de existencia de usuario a seguir")
     void VerifyUserExistence() {
 
         //arrange
-        User expectedSeller = new User(20, "Juan", true);
-        User expectedFollower = new User(30, "Miguel", false);
+
+        User userVendor = UsersFactory.createUserWithFollowed();
+        User userFollow = UsersFactory.createFollower();
+
+        //mock
+        Mockito.when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
+        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        Mockito.doNothing().when(userRepository).follow(userFollow,userVendor);
+
+        //act
+
+        ResFollowPostDTO response = followsService
+                .follow(userFollow.getUserId(),userVendor.getUserId());
+
+        Mockito.verify(userRepository,Mockito
+                .times(1))
+                .follow(userFollow,userVendor);
+
+        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " seguido con éxito");
+        //act & assert
+        Assertions.assertEquals(result,response);
+
+    }
+
+    @Test
+    @DisplayName("validación de existencia de excepcion cuando no encuentra el usuario a seguir")
+    void VerifyUserExistenceException() {
+
+        User userFollow = UsersFactory.createFollower();
+
+        //mock
+        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        Mockito.when(userRepository.findById(30)).thenReturn(Optional.empty());
 
         //act & assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
-                .follow(expectedFollower.getUserId(),expectedSeller.getUserId()));
+                .follow(userFollow.getUserId(),30));
     }
 
     // T002
-
     @Test
     @DisplayName("validación de existencia de usuario a dejar de seguir")
-    void VerifyUserToUnfollowExistenceTestException() {
+    void VerifyUserExistenceToUnfollow() {
 
         //arrange
-        User expectedSeller = new User(20, "Juan", true);
-        User expectedFollower = new User(30, "Miguel", false);
+
+        User userVendor = UsersFactory.createUserWithFollowed();
+        User userFollow = UsersFactory.createFollower();
+        userFollow.seguir(userVendor);
+        userVendor.agregarSeguidor(userFollow);
+
+        //mock
+        Mockito.when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
+        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        Mockito.doNothing().when(userRepository).unFollow(userFollow,userVendor);
+
+        //act
+
+        ResFollowPostDTO response = followsService
+                .unFollow(userFollow.getUserId(),userVendor.getUserId());
+
+        Mockito.verify(userRepository,Mockito
+                .times(1))
+                .unFollow(userFollow,userVendor);
+
+        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " dejado de seguir");
+        //act & assert
+        Assertions.assertEquals(result,response);
+
+    }
+    @Test
+    @DisplayName("validación de existencia de excepcion cuando no encuentra el usuario a dejar de seguir")
+    void VerifySellerExistenceException() {
+
+        User userFollow = UsersFactory.createFollower();
+
+        //mock
+        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        Mockito.when(userRepository.findById(30)).thenReturn(Optional.empty());
 
         //act & assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
-                .unFollow(expectedFollower.getUserId(),expectedSeller.getUserId()));
-
+                .unFollow(userFollow.getUserId(),30));
     }
     //T0007
     @Test
