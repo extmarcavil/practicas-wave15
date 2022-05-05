@@ -9,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.verification.VerificationMode;
 import sprint2.socialmeli.dto.user.ResponseFollowersListDTO;
 import sprint2.socialmeli.dto.user.UserDTO;
 import sprint2.socialmeli.exceptions.InvalidParamsException;
@@ -41,16 +42,10 @@ public class SocialMeliServiceTest{
     public void test01UserToFollowExists() {
         Integer followerId = 1;
         Integer followedId = 2;
-        User followerUser = new User(followerId, "Lorena Maciel");
-        User followedUser = new User(followedId, "Gonzalo Murias");
-
-        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+        mockTwoUsers(followerId, followedId);
 
         Assertions.assertDoesNotThrow(() -> socialMeliService.follow(followerId, followedId));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     @Test
@@ -59,15 +54,10 @@ public class SocialMeliServiceTest{
         Integer followerId = 1;
         Integer followedId = 200;
         String expectedMessage = "Usuario con id: " + followedId + " no fue encontrado";
-        User followerUser = new User(followerId, "Lorena Maciel");
-
-        Mockito.when(mockSocialMeliRepository.existUser(followerId)).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.existUser(followedId)).thenReturn(false);
+        mockAFollowerUserWhenFollowedDoesNotExist(followerId, followedId);
 
         Assertions.assertThrows(UserNotFound.class, () -> socialMeliService.follow(followerId, followedId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.atMostOnce()).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.atMostOnce());
     }
 
     @Test
@@ -75,14 +65,10 @@ public class SocialMeliServiceTest{
     public void testUserCanNotFollowThemselves() {
         Integer userId = 1;
         String expectedMessage = "El usuario no puede seguirse a si mismo";
-        User user = new User(userId, "Lorena Maciel");
-
-        Mockito.when(mockSocialMeliRepository.existUser(userId)).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(userId)).thenReturn(user);
+        mockAnUser(userId);
 
         Assertions.assertThrows(InvalidFollower.class, () -> socialMeliService.follow(userId, userId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     @Test
@@ -91,17 +77,10 @@ public class SocialMeliServiceTest{
         Integer followerId = 1;
         Integer followedId = 2;
         String expectedMessage = "El usuario no puede seguir a alguien que ya sigue";
-        User followerUser = new User(followerId, "Lorena Maciel");
-        User followedUser = new User(followedId, "Gonzalo Murias");
-        followerUser.getListOfFollowed().add(followedUser);
-
-        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+        mockTwoUsersAndOneAsFollower(followerId, followedId);
 
         Assertions.assertThrows(InvalidFollower.class, () -> socialMeliService.follow(followerId, followedId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     // T-0002
@@ -110,17 +89,10 @@ public class SocialMeliServiceTest{
     public void test02UserToUnfollowExists() {
         Integer followerId = 1;
         Integer followedId = 2;
-        User followerUser = new User(followerId, "Lorena Maciel");
-        User followedUser = new User(followedId, "Gonzalo Murias");
-        followerUser.getListOfFollowed().add(followedUser);
-
-        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+        mockTwoUsersAndOneAsFollower(followerId, followedId);
 
         Assertions.assertDoesNotThrow(() -> socialMeliService.unfollow(followerId, followedId));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     @Test
@@ -129,15 +101,10 @@ public class SocialMeliServiceTest{
         Integer followerId = 1;
         Integer followedId = 200;
         String expectedMessage = "Usuario con id: " + followedId + " no fue encontrado";
-        User followerUser = new User(followerId, "Lorena Maciel");
-
-        Mockito.when(mockSocialMeliRepository.existUser(followerId)).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.existUser(followedId)).thenReturn(false);
+        mockAFollowerUserWhenFollowedDoesNotExist(followerId, followedId);
 
         Assertions.assertThrows(UserNotFound.class, () -> socialMeliService.unfollow(followerId, followedId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.atMostOnce()).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.atMostOnce());
     }
 
     @Test
@@ -145,14 +112,10 @@ public class SocialMeliServiceTest{
     public void testUserCanNotUnfollowThemselves() {
         Integer userId = 1;
         String expectedMessage = "El usuario no puede dejar de seguirse a si mismo";
-        User user = new User(userId, "Lorena Maciel");
-
-        Mockito.when(mockSocialMeliRepository.existUser(userId)).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(userId)).thenReturn(user);
+        mockAnUser(userId);
 
         Assertions.assertThrows(InvalidFollower.class, () -> socialMeliService.unfollow(userId, userId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     @Test
@@ -161,16 +124,10 @@ public class SocialMeliServiceTest{
         Integer followerId = 1;
         Integer followedId = 2;
         String expectedMessage = "El usuario no puede dejar de seguir a alguien que no sigue";
-        User followerUser = new User(followerId, "Lorena Maciel");
-        User followedUser = new User(followedId, "Gonzalo Murias");
-
-        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
-        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
-        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+        mockTwoUsers(followerId, followedId);
 
         Assertions.assertThrows(InvalidFollower.class, () -> socialMeliService.unfollow(followerId, followedId),expectedMessage);
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
-        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).findUserById(Mockito.any(Integer.class));
+        verifyInvocationsOfExistsAndFindById(Mockito.times(2));
     }
 
     // T-0003
@@ -218,8 +175,42 @@ public class SocialMeliServiceTest{
         assertOrderOfFollowerUserList(null, 0,1 , 2);
     }
 
-
     // ---------------------- Private ---------------------------------
+
+    private void mockTwoUsersAndOneAsFollower(Integer followerId, Integer followedId) {
+        User followerUser = UserFactory.createAnUserWithId(followerId);
+        User followedUser = UserFactory.createAnUserWithId(followedId);
+        followerUser.getListOfFollowed().add(followedUser);
+
+        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
+        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
+        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+    }
+
+    private void mockAFollowerUserWhenFollowedDoesNotExist(Integer followerId, Integer followedId) {
+        mockAnUser(followerId);
+        Mockito.when(mockSocialMeliRepository.existUser(followedId)).thenReturn(false);
+    }
+
+    private void mockAnUser(Integer userId) {
+        User user = UserFactory.createAnUserWithId(userId);
+        Mockito.when(mockSocialMeliRepository.existUser(userId)).thenReturn(true);
+        Mockito.when(mockSocialMeliRepository.findUserById(userId)).thenReturn(user);
+    }
+
+    private void mockTwoUsers(Integer followerId, Integer followedId) {
+        User followerUser = UserFactory.createAnUserWithId(followerId);
+        User followedUser = UserFactory.createAnUserWithId(followedId);
+
+        Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
+        Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
+        Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
+    }
+
+    private void verifyInvocationsOfExistsAndFindById(VerificationMode times) {
+        Mockito.verify(mockSocialMeliRepository, Mockito.times(2)).existUser(Mockito.any(Integer.class));
+        Mockito.verify(mockSocialMeliRepository, times).findUserById(Mockito.any(Integer.class));
+    }
 
     private void assertThatIfAParamInGivenThrowException(String invalidParam) {
         //Arrange
@@ -277,8 +268,6 @@ public class SocialMeliServiceTest{
                 );
         return testId;
     }
-
-
 
 
 }

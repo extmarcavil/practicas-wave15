@@ -12,4 +12,5 @@ public class UserFactory {
     static public User createAnUserWithName(String name){
         return new User(idCounter++,name);
     }
+    static public User createAnUserWithId (Integer id) { return new User(id, "Test User"); }
 }

@@ -21,17 +21,14 @@ public class SocialMeliRepositoryTest {
     @DisplayName("Comprobar que encuentra un usuario por Id")
     void testSearchUserById() {
         Integer id = 1;
-        User expected = new User(id, "Lorena Maciel");
-        User result = socialMeliRepository.findUserById(id);
-        Assertions.assertEquals(expected, result);
+        Assertions.assertEquals(new User(id, "Lorena Maciel"), socialMeliRepository.findUserById(id));
     }
 
     @Test
     @DisplayName("Comprobar que no encuentra un usuario por Id y devuelve null")
     void testSearchUserByIdReturnsNullWhenUserNotFound() {
         Integer id = -1;
-        User result = socialMeliRepository.findUserById(id);
-        Assertions.assertEquals(null, result);
+        Assertions.assertNull( socialMeliRepository.findUserById(id));
     }
 
     @Test
