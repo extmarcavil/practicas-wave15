@@ -1,9 +1,11 @@
 package com.bootcamp.be_java_hisp_w15_g02.unit.service;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPostsSellerByUserIdDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
+import com.bootcamp.be_java_hisp_w15_g02.model.Product;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IPostRepository;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
@@ -20,6 +22,7 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @SpringBootTest
@@ -143,5 +146,47 @@ public class PostServiceTest {
 
         // act & assert
         Assertions.assertThrows(OrderNotFoundException.class, () -> postService.getListPostByFollowIdUser(userIdExist, validOrder));
+    }
+
+    @Test
+    @DisplayName("Las fechas de las publicaciones son posteriores a hace dos semanas")
+    void testPost2WeeksIsCorrect() {
+        String validOrder = "date_asc";
+        int userIdExist = 1;
+        User user = Global.getUserByIdUtils(userIdExist);
+        List<Post> posts = Global.getPosts();
+        Mockito.when(userRepository.getUserById(userIdExist)).thenReturn(user);
+        List<Follow> followList = user.getFollowList();
+        for (Follow f : followList) {
+            Mockito.when(postRepository.postsByUser(f.getUserToFollow())).thenReturn(posts);
+        }
+        GetPostsSellerByUserIdDTO postList = postService.getListPostByFollowIdUser(userIdExist, validOrder);
+        boolean isNot2week = postList.getPosts().stream().filter(f -> f.getDate().isBefore(LocalDate.now().minusWeeks(2))).count() > 0;
+        // act & assert
+        Assertions.assertFalse(isNot2week);
+    }
+
+    @Test
+    @DisplayName("Las fechas de las publicaciones son previas a hace dos semanas")
+    void testPost2WeeksIsNotCorrect() {
+        String validOrder = "date_asc";
+        int userIdExist = 1;
+        User user = Global.getUserByIdUtils(userIdExist);
+        List<Post> posts = Global.getPosts();
+        Mockito.when(userRepository.getUserById(userIdExist)).thenReturn(user);
+        List<Follow> followList = user.getFollowList();
+        for (Follow f : followList) {
+            Mockito.when(postRepository.postsByUser(f.getUserToFollow())).thenReturn(posts);
+        }
+        GetPostsSellerByUserIdDTO postList = postService.getListPostByFollowIdUser(userIdExist, validOrder);
+        PostsBySellersDTO badPost =
+                new PostsBySellersDTO(
+                        new Post(5,5, LocalDate.now().minusWeeks(3),5,
+                                new Product(5,"iphone XR","electronic","apple","white",
+                                        "iphone 128 GB"),5000));
+        postList.getPosts().add(badPost);
+        boolean isNot2week = postList.getPosts().stream().filter(f -> f.getDate().isBefore(LocalDate.now().minusWeeks(2))).count() > 0;
+        // act & assert
+        Assertions.assertTrue(isNot2week);
     }
 }
