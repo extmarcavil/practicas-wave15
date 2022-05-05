@@ -29,6 +29,7 @@ public class ProductsServiceTest {
     @InjectMocks
     ProductsService productsService;
 
+    // T005 - T006
     @Test
     @DisplayName("Verificación de fecha ascendiente")
     void verificarCorrectoOrdenAscFecha() {
@@ -97,6 +98,7 @@ public class ProductsServiceTest {
                 () -> productsService.getPostFollowed(1, "cualquierorden"));
     }
 
+    // T008
     @Test
     @DisplayName("Verificación correcto filtro de fecha")
     void verificarCorrectoFiltroPorFecha() {

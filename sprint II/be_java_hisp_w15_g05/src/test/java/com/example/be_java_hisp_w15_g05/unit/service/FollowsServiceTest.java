@@ -30,7 +30,7 @@ public class FollowsServiceTest {
     @InjectMocks
     FollowsService followsService;
 
-    // Test getListFollowers
+    // T003 - T004
     @Test
     @DisplayName("Verificación de orden alfabetico ascendiente")
     void verificarCorrectoOrdenAlfabetico() {
@@ -81,6 +81,7 @@ public class FollowsServiceTest {
         // assert
         Assertions.assertEquals(listaOrdenada,resp.getFollowers());
     }
+
     @Test
     @DisplayName("Verificación lanzado de excepción")
     void verificarExcepcionOrdenAlf(){
@@ -90,8 +91,6 @@ public class FollowsServiceTest {
                         () -> followsService.getListFollowers(1,"cualquiercosa"));
     }
 
-
-    // getListSellers
     @Test
     @DisplayName("Verificación de orden alfabetico ascendiente de vendedores")
     void correctoOrdenAlfabeticoSellers() {
@@ -151,7 +150,8 @@ public class FollowsServiceTest {
                         OrderNotValidException.class,
                         () -> followsService.getListSellers(10, "cualquierotracosa"));
     }
-    // T001
+
+    // T001 - Follow
     @Test
     @DisplayName("validación de existencia de usuario a seguir")
     void VerifyUserExistence() {
@@ -196,7 +196,7 @@ public class FollowsServiceTest {
                 .follow(userFollow.getUserId(),30));
     }
 
-    // T002
+    // T002 - Unfollow
     @Test
     @DisplayName("validación de existencia de usuario a dejar de seguir")
     void VerifyUserExistenceToUnfollow() {
@@ -241,7 +241,8 @@ public class FollowsServiceTest {
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .unFollow(userFollow.getUserId(),30));
     }
-    //T0007
+
+    //T0007 - Count
     @Test
     @DisplayName("Validar cantidad de usuarios seguidores")
     void VerifyQuantityFollowers() {
@@ -253,6 +254,7 @@ public class FollowsServiceTest {
 
         //act
         ResCountFollowersDTO resultFollow = followsService.countFollowers(user.getUserId());
+
         //assert
         Assertions.assertEquals(userDTO.getFollowers_count(), resultFollow.getFollowers_count());
 
