@@ -26,7 +26,7 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(RelationConflictException.class)
     ResponseEntity<ErrorDTO> handlerExceptionRelationNotFound(RelationConflictException relationNotFound){
-        ErrorDTO errorDTO = new ErrorDTO("Fallo en ralacion esperada", relationNotFound.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("Fallo en relacion esperada", relationNotFound.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
 

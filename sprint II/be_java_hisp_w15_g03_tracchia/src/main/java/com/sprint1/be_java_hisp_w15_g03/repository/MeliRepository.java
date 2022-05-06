@@ -16,9 +16,9 @@ import java.util.stream.Collectors;
 @Repository
 public class MeliRepository implements IMeliRepository {
 
-    private  static HashMap<Integer, User> users;
-    private  static HashMap<Integer, Seller> sellers;
-    private  static HashMap<Integer, Product> products;
+    private final static HashMap<Integer, User> users;
+    private final static HashMap<Integer, Seller> sellers;
+    private final static HashMap<Integer, Product> products;
     private static int cantPublicacion;
     static {
         users = new HashMap<>();
