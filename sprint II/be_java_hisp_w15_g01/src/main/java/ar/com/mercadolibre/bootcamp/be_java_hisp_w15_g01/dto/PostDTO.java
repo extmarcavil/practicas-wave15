@@ -21,7 +21,7 @@ public class PostDTO {
     @Min(value = Constants.ID_VALUE, message = Constants.ID_NOT_ZERO)
     private Long userId;
 
-    @NotNull(message = Constants.ID_NOT_NULL)
+    //@NotNull(message = Constants.ID_NOT_NULL)
     @Min(value = Constants.ID_VALUE, message = Constants.ID_NOT_ZERO)
     private Long postId;
 
