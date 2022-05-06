@@ -21,11 +21,6 @@ public class ErrorDTO {
         this.message = message;
     }
 
-    public ErrorDTO ( String name, List<String> listErrors ) {
-        this.name       = name;
-        this.listErrors = listErrors;
-    }
-
     public ErrorDTO ( String name, HashMap<String, List<String>> errors ) {
         this.name         = name;
         this.errors       = errors;

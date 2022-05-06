@@ -28,7 +28,7 @@ public class ProductsController {
 
     @PostMapping("/post")
     public ResponseEntity<ResCreatePostDTO> createPost(@Valid @RequestBody PostDTO postDTO) {
-        return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.OK);
+        return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.CREATED);
     }
 
     @GetMapping("/followed/{userId}/list")

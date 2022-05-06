@@ -1,8 +1,7 @@
 package com.example.be_java_hisp_w15_g05.unit.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
-import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
-import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
+import com.example.be_java_hisp_w15_g05.exceptions.*;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g05.repository.UserRepository;
@@ -258,5 +257,54 @@ public class FollowsServiceTest {
         //assert
         Assertions.assertEquals(userDTO.getFollowers_count(), resultFollow.getFollowers_count());
 
+    }
+
+    // Adicionales
+    @Test
+    @DisplayName("Usuario no es vendedor")
+    void VerifyUserNotSellerException() {
+        User notSeller = UsersFactory.createFollower();
+
+        //mock
+        Mockito.when(userRepository.findById(notSeller.getUserId())).thenReturn(Optional.of(notSeller));
+        // Puedo enviar el mismo ya que la validacion de vendedor se realiza primero
+        //act & assert
+        Assertions.assertThrows(UserNotSellerException.class, () -> followsService
+                .follow(notSeller.getUserId(),notSeller.getUserId()));
+    }
+
+    @Test
+    @DisplayName("El usuario ya sigue al vendedor")
+    void VerifyUserAlreadyFollowed() {
+        //creo los usuarios y hago que se suigan
+        User notSeller = UsersFactory.createFollower();
+        User vendor = UsersFactory.createUserWithFollowers();
+        vendor.agregarSeguidor(notSeller);
+        notSeller.seguir(vendor);
+        //mock
+        Mockito.when(userRepository.findById(notSeller.getUserId())).thenReturn(Optional.of(notSeller));
+        Mockito.when(userRepository.findById(vendor.getUserId())).thenReturn(Optional.of(vendor));
+        // Puedo enviar el mismo ya que la validacion de vendedor se realiza primero
+        //act & assert
+        Assertions.assertThrows(UserAlreadyFollowedException.class, () -> followsService
+                .follow(notSeller.getUserId(),vendor.getUserId()));
+    }
+
+    @Test
+    @DisplayName("No se puede dejar de seguir, porque no lo sigue")
+    void VerifyUserCantUnfollow() {
+        //creo los usuarios y hago que se suigan
+        User notSeller = UsersFactory.createFollower();
+        User vendor = UsersFactory.createUserWithFollowers();
+        notSeller.dejarDeSeguir(vendor);
+        vendor.eliminarSeguidor(notSeller);
+
+        //mock
+        Mockito.when(userRepository.findById(notSeller.getUserId())).thenReturn(Optional.of(notSeller));
+        Mockito.when(userRepository.findById(vendor.getUserId())).thenReturn(Optional.of(vendor));
+        // Puedo enviar el mismo ya que la validacion de vendedor se realiza primero
+        //act & assert
+        Assertions.assertThrows(UserNotFollowingException.class, () -> followsService
+                .unFollow(notSeller.getUserId(),vendor.getUserId()));
     }
 }

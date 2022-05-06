@@ -2,7 +2,6 @@ package com.example.be_java_hisp_w15_g05.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
-import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.Post;
@@ -38,7 +37,6 @@ public class ProductsService implements IProductsService {
 
         User user = validateUserExists(post.getUserId());
         validateDate(post.getDate());
-        validatePrice(post.getPrice());
 
         userRepository.createPost(user, post);
 
@@ -70,11 +68,6 @@ public class ProductsService implements IProductsService {
 
         if(period > 1 )
             throw new InvalidDateException("La fecha de la publicacion debe ser a partir de hoy.");
-    }
-
-    private void validatePrice (double price){
-        if(price < 0)
-            throw new InvalidPriceException("El precio del producto debe ser mayor a 0.");
     }
 
     private User validateUserExists(Integer userId) {
