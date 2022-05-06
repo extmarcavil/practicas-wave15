@@ -10,12 +10,6 @@ public interface IProductsService {
     ResCreatePostDTO createPost(PostDTO postDTO);
 
     /**
-     * @param postPromoDTO payload con la info enviada por el usuario
-     * @return ResCreatePostDTO el cual solo contiene un mensaje informativo
-     */
-    ResCreatePostDTO createPromoPost(PostPromoDTO postPromoDTO);
-
-    /**
      * ATENCION: orden date_asc trae del post mas reciente al mas antiguo
      * y date_desc trae del post mas antiguo al mas reciente
      *
@@ -24,6 +18,13 @@ public interface IProductsService {
      * @return ResPostListDTO el cual contiene el id del cliente y la lista de post de las ultimas dos semanas
      */
     ResPostListDTO getPostFollowed(int id, String order);
+
+    /**
+     * @param postPromoDTO payload con la info enviada por el usuario
+     * @return ResCreatePostDTO el cual solo contiene un mensaje informativo
+     */
+    ResCreatePostDTO createPromoPost(PostPromoDTO postPromoDTO);
+
 
     /**
      * @param id id del seller.
