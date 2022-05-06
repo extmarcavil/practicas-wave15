@@ -38,7 +38,6 @@ public class PostIntegrationTest {
     @DisplayName("Test crear Post nulo")
     void createPostNullIntegrationTest() throws Exception {
 
-
         //Arrange
         ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
