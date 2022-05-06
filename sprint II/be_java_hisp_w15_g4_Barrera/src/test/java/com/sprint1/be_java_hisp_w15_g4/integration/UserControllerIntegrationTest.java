@@ -26,7 +26,6 @@ public class UserControllerIntegrationTest {
     MockMvc mockMvc;
 
     ////////////////////US0002////////////////////
-    //La letra al comienzo del nombre del metodo es para definir el orden en que se realizan (no puede hacer andar la anotattion @order)
     @Test
     @Order(1)
     @DisplayName("Verifica que se estan cotando los seguidores del usuario correcto")
