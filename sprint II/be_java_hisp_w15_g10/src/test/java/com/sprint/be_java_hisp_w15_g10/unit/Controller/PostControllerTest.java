@@ -23,6 +23,7 @@ import java.util.List;
 class PostControllerTest {
     @Mock
     PostService postService;
+
     @InjectMocks
     PostController postController;
 
