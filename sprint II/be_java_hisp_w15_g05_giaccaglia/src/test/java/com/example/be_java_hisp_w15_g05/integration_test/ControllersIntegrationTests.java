@@ -23,7 +23,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class FollowsControllerIntegrationTest {
+public class ControllersIntegrationTests {
 
     @Autowired
     MockMvc mockMvc;
