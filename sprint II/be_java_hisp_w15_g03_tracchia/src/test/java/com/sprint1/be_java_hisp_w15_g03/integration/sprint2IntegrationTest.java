@@ -340,7 +340,7 @@ public class sprint2IntegrationTest {
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+        ProductDTO product = new ProductDTO(2,"mesa","no se","algo",
                 "Blanco","lala");
         PublicationDTO post = new PublicationDTO(3, LocalDate.now(),product,0,50.0);
 
