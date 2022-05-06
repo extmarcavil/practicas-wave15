@@ -11,6 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostCreateDTO {
 
     @Min(value = 1, message = "El id debe ser mayor a cero")
