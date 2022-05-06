@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="12262d35-eb7d-4246-ad86-42d74f2c011c" name="Changes" comment="" />
+    <list default="true" id="12262d35-eb7d-4246-ad86-42d74f2c011c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -30,15 +32,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
-    &quot;spring.configuration.checksum&quot;: &quot;9cc3b4c399e7c5a16e3370ead849d700&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/Users/alejaguilar/Desktop/practicas-wave15/sprint II/be_java_hisp_w15_g10/target/test-classes/com/sprint/be_java_hisp_w15_g10",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "spring.configuration.checksum": "9cc3b4c399e7c5a16e3370ead849d700"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/target/test-classes/com/sprint/be_java_hisp_w15_g10" />
+    </key>
+  </component>
   <component name="RunManager" selected="JUnit.com.sprint.be_java_hisp_w15_g10.unit in be_java_hisp_w15_g10">
     <configuration name="All in be_java_hisp_w15_g10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="be_java_hisp_w15_g10" />
@@ -105,7 +113,9 @@
       <workItem from="1651694514493" duration="940000" />
       <workItem from="1651756349185" duration="1169000" />
       <workItem from="1651770522251" duration="9221000" />
-      <workItem from="1651783940794" duration="5607000" />
+      <workItem from="1651783940794" duration="5924000" />
+      <workItem from="1651803799167" duration="60000" />
+      <workItem from="1651803872549" duration="462000" />
     </task>
     <servers />
   </component>
