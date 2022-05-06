@@ -16,7 +16,7 @@ ProductControllerTest ->
 - test_integration_createPost()
 - test_integration_createPostSadPath()
 
-
+[ANALISIS DE COVERAGE JACOCO](http://htmlpreview.github.io/?https://github.com/extmarcavil/practicas-wave15/blob/sinnott_gonzalo/sprint%20II/be_java_hisp_w15_g01_sinnott_gonzalo/jacoco/index.html)
 
 # Project: Sprint 1
 # Introduccion

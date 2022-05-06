@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FollowRepositoryImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository</a> &gt; <span class="el_source">FollowRepositoryImpl.java</span></div><h1>FollowRepositoryImpl.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.AlreadyFollowerExcepcion;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.NotFollowedException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Follow;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Repository
+public class FollowRepositoryImpl implements FollowRepository {
+    private final List&lt;Follow&gt; follows;
+
+<span class="fc" id="L17">    public FollowRepositoryImpl() {</span>
+<span class="fc" id="L18">        this.follows = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L19">    }</span>
+
+    @Override
+    public Follow save(User follower, User following) {
+<span class="pc bpc" id="L23" title="1 of 2 branches missed.">        if(existByFollowerAndFollowed(follower, following)){</span>
+<span class="nc" id="L24">            throw new AlreadyFollowerExcepcion();</span>
+        }
+<span class="fc" id="L26">        Follow follow = new Follow();</span>
+<span class="fc" id="L27">        follow.setFollower(follower);</span>
+<span class="fc" id="L28">        follow.setFollowing(following);</span>
+<span class="fc" id="L29">        follows.add(follow);</span>
+<span class="fc" id="L30">        return follow;</span>
+    }
+
+    @Override
+    public Boolean existByFollowerAndFollowed(User follower, User followed) {
+<span class="fc bfc" id="L35" title="All 4 branches covered.">        return follows.stream().anyMatch(f -&gt; f.getFollowing().equals(followed) &amp;&amp; f.getFollower().equals(follower));</span>
+    }
+
+
+    @Override
+    public List&lt;Follow&gt; whoFollows(Long id) {
+<span class="fc" id="L41">        return follows</span>
+<span class="fc" id="L42">                .stream()</span>
+<span class="fc" id="L43">                .filter(f -&gt; f.getFollowing().getUserId().equals(id))</span>
+<span class="fc" id="L44">                .collect(Collectors.toList());</span>
+    }
+
+    @Override
+    public List&lt;User&gt; findFollowedByUserId(Long id) {
+<span class="fc" id="L49">       List&lt;User&gt; followed = follows.stream()</span>
+<span class="fc" id="L50">               .filter(x-&gt;x.getFollower().getUserId().equals(id))</span>
+<span class="fc" id="L51">               .map(a-&gt;a.getFollowing())</span>
+<span class="fc" id="L52">               .collect(Collectors.toList());</span>
+
+<span class="fc" id="L54">       return followed;</span>
+    }
+
+    @Override
+    public void unFollow(User follower, User following) {
+<span class="fc" id="L59">        Follow follow = follows.stream()</span>
+<span class="pc bnc" id="L60" title="All 4 branches missed.">                .filter(u -&gt; u.getFollower().getUserId().equals(follower.getUserId()) &amp;&amp; u.getFollowing().getUserId().equals(following.getUserId()))</span>
+<span class="fc" id="L61">                .findAny()</span>
+<span class="pc" id="L62">                .orElseThrow(()-&gt; new NotFollowedException(&quot;The user don´t follow this seller&quot;));</span>
+<span class="nc" id="L63">        follows.remove(follow);</span>
+<span class="nc" id="L64">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
