@@ -153,9 +153,7 @@ public class UserControllerTest {
         ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
 
         // arrange
-        String postJason = writer
-                                .writeValueAsString(getPost())
-                                .replace("[2022,5,2]", "\"02-05-2022\"");
+        String postJason = writer.writeValueAsString(getPost());
 
         // act & assert
         mockMvc
@@ -175,9 +173,7 @@ public class UserControllerTest {
         post.setUser_id(-1);
         post.getDetail().setColor("color llllllllll");
 
-        String postJason = writer
-                .writeValueAsString(post)
-                .replace("[2022,5,2]", "\"02-05-2022\"");
+        String postJason = writer.writeValueAsString(post);
 
         Map<String, List<String>> errors = new HashMap<>();
         errors.put("user_id",Arrays.asList("El id debe ser mayor a cero."));
@@ -206,7 +202,7 @@ public class UserControllerTest {
         PostDTO post = new PostDTO();
         post.setUser_id(1);
         post.setPost_id(1);
-        post.setDate(LocalDate.of(2022,5,2));
+        post.setDate(LocalDate.now());
         post.setDetail(product);
         post.setCategory(1);
         post.setPrice(1.55);
