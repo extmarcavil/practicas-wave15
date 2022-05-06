@@ -144,7 +144,7 @@ public class PostServiceTest {
     }
 
     @Test
-    @DisplayName("TBONUS - Verificar la carga de un Post")
+    @DisplayName("TBONUS - Verificar la carga de un Post ")
     public void addTestNewPost(){
         //arrange
         User userX = UserFactory.getUserOne();
