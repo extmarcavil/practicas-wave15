@@ -5,6 +5,7 @@ import com.sprint.be_java_hisp_w15_g10.Repository.UserRepository;
 import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -19,7 +20,12 @@ class UserRepositoryTest {
         userRepository = new UserRepository();
     }
 
+    /**
+     * Valida que dado un id valido, se obtenga un usuario con ese id
+     *
+     */
     @Test
+    @DisplayName("Test usuario valido por id")
     void getValidUserById() {
         // arrange
         User user_followed = TestUtils.createFollowedUser(userRepository);
@@ -35,7 +41,12 @@ class UserRepositoryTest {
         );
     }
 
+    /**
+     * Valida que dado un id invalido,no haya un usuario con ese id
+     *
+     */
     @Test
+    @DisplayName("Test usuario invalido por id")
     void getInvalidUserById() {
         // arrange
         TestUtils.createFollowedUser(userRepository);
@@ -47,7 +58,12 @@ class UserRepositoryTest {
         Assertions.assertTrue(user.isEmpty());
     }
 
+    /**
+     * Validaque se puedan obtener todos los usuarios
+     *
+     */
     @Test
+    @DisplayName("Test de obtener todos los usuarios")
     void getAll() {
         // arrange
         TestUtils.createFollowedUser(userRepository);
@@ -67,7 +83,12 @@ class UserRepositoryTest {
     }
 
 
+    /**
+     * Valida que se pueda crear un usuario y que se pueda agregar al repositorio
+     *
+     */
     @Test
+    @DisplayName("Test de agregar un usuario")
     void add() {
         // arrange
         User user = new User(4, "José");
