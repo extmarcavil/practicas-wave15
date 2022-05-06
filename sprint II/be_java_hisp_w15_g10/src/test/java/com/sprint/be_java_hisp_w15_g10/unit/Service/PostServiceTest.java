@@ -103,7 +103,6 @@ class PostServiceTest {
         //Act
         String message = postServiceMock.createPost(postCreateDTO).getMessage();
 
-        ProductRequestDTO productRequestDTO = new ProductRequestDTO(1, "Pantalón", "Old", "Jeff", "Rojo", "");
         //Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(1, postCreateDTO.getCategory_id()),
