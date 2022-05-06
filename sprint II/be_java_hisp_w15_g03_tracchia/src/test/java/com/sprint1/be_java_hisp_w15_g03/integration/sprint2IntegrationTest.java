@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import utils.UtilsTest;
+
 import java.time.LocalDate;
 import java.util.Collections;
 import java.util.stream.Collectors;
@@ -331,13 +332,13 @@ public class sprint2IntegrationTest {
     @DisplayName("Verifico el guardado de una publicacion correcta")
     public void savePublicationOk() throws Exception {
 
-        ObjectWriter writer =  new ObjectMapper()
+        ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(2,"mesa","no se","algo",
-                "Blanco","lala");
-        PublicationDTO post = new PublicationDTO(3, LocalDate.now(),product,0,50.0);
+        ProductDTO product = new ProductDTO(2, "mesa", "no se", "algo",
+                "Blanco", "lala");
+        PublicationDTO post = new PublicationDTO(3, LocalDate.now(), product, 0, 50.0);
 
         String payload = writer.writeValueAsString(post);
 
@@ -352,13 +353,13 @@ public class sprint2IntegrationTest {
     @DisplayName("Verifico el fallo en caso de un seller id invalido")
     public void savePublicationSellerNotFound() throws Exception {
 
-        ObjectWriter writer =  new ObjectMapper()
+        ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
-                "Blanco","lala");
-        PublicationDTO post = new PublicationDTO(30, LocalDate.now(),product,0,50.0);
+        ProductDTO product = new ProductDTO(1, "mesa", "no se", "algo",
+                "Blanco", "lala");
+        PublicationDTO post = new PublicationDTO(30, LocalDate.now(), product, 0, 50.0);
 
         String payload = writer.writeValueAsString(post);
 
@@ -373,20 +374,20 @@ public class sprint2IntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
+                .andExpectAll(expectedBody, expectedContentType, status().isNotFound());
     }
 
     @Test
     @DisplayName("Verifico el fallo en caso de una categoria invalida")
     public void savePublicationCategoryInvalid() throws Exception {
 
-        ObjectWriter writer =  new ObjectMapper()
+        ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(2,"mesa","no se","algo",
-                "Blanco","lala");
-        PublicationDTO post = new PublicationDTO(30, LocalDate.now(),product,100,50.0);
+        ProductDTO product = new ProductDTO(2, "mesa", "no se", "algo",
+                "Blanco", "lala");
+        PublicationDTO post = new PublicationDTO(30, LocalDate.now(), product, 100, 50.0);
 
         String payload = writer.writeValueAsString(post);
 
@@ -401,20 +402,20 @@ public class sprint2IntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
+                .andExpectAll(expectedBody, expectedContentType, status().isNotFound());
     }
 
     @Test
     @DisplayName("Verifico el fallo en caso de un producto diferente con el mismo ID")
     public void savePublicationProductInvalid() throws Exception {
 
-        ObjectWriter writer =  new ObjectMapper()
+        ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
-                "Blanco","lala");
-        PublicationDTO post = new PublicationDTO(4, LocalDate.now(),product,0,50.0);
+        ProductDTO product = new ProductDTO(1, "mesa", "no se", "algo",
+                "Blanco", "lala");
+        PublicationDTO post = new PublicationDTO(4, LocalDate.now(), product, 0, 50.0);
 
         String payload = writer.writeValueAsString(post);
 
@@ -429,7 +430,7 @@ public class sprint2IntegrationTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(payload))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedBody,expectedContentType,status().isConflict());
+                .andExpectAll(expectedBody, expectedContentType, status().isConflict());
     }
 
     //---------------- US 06 ----------------
@@ -453,15 +454,15 @@ public class sprint2IntegrationTest {
 
         sellerPListDTO.setPosts(Collections.singletonList(publicationDTO));
 
-        ObjectWriter writer =  new ObjectMapper()
+        ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
         ResultMatcher expectedBody = content().json(writer.writeValueAsString(sellerPListDTO));
         ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
 
-        mockMVC.perform(get("/products/followed/{userId}/list",6))
+        mockMVC.perform(get("/products/followed/{userId}/list", 6))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(status().isOk(),expectedBody,expectedContentType);
+                .andExpectAll(status().isOk(), expectedBody, expectedContentType);
     }
 }
