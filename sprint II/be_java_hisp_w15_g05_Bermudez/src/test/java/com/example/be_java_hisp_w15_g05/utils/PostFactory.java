@@ -5,6 +5,7 @@ import com.example.be_java_hisp_w15_g05.dto.PostIdDTO;
 import com.example.be_java_hisp_w15_g05.dto.ProductDTO;
 import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.Product;
+import com.example.be_java_hisp_w15_g05.model.User;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -50,5 +51,13 @@ public class PostFactory {
         Post posteo4 = new Post(10, 22, LocalDate.of(2021, 4, 2), p1, 100, 202.00);
 
         return (Arrays.asList(posteo, posteo3,posteo4));
+    }
+    public static PostDTO createPost(){
+
+        return new PostDTO(1, LocalDate.of(2022, 5, 6), pDTO2, 100, 202.00);
+    }
+
+    public static ProductDTO getpDTO2() {
+        return pDTO2;
     }
 }
