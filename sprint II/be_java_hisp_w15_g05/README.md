@@ -202,24 +202,6 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
     Verificación correcto filtro de fecha
 ```
 
-## Integration Tests
-
-```http
-  integrationTestCountFollowers()
-    Test Integración de cantidad de seguidores (get)
-```
-
-```http
-  integrationTestCreatePost()
-    Test Integración para crear un post (post)
-```
-
-```http
-  integrationTestCreatePostError()
-    Test Integración para crear un post con error (post)
-```
-#### Con los presentes tests se alcanza un line coverage de 77%.
-
 ## Authors
 
 -[@GomezRodrigoML](https://github.com/GomezRodrigoML)
