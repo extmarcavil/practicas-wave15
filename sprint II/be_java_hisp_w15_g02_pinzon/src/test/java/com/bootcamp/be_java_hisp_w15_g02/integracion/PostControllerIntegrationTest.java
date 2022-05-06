@@ -64,7 +64,7 @@ public class PostControllerIntegrationTest {
 
     @Test
     @DisplayName("Test for validate if the list of post that have a user is correct")
-    @Disabled
+    @Disabled("Al correr todos los test falla este por que se agregan posts que no se validan aqui.")
     public void validateListPostFollowedByUser() throws Exception {
         // arrange
         ObjectWriter writer = new ObjectMapper().registerModule(new JavaTimeModule()).setDateFormat(new SimpleDateFormat("yyyy-MM-dd")).writer();
