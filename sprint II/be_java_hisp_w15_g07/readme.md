@@ -1,6 +1,6 @@
-#SocialMeli
-##Quality
-###Tests unitarios (Parte A)
+# SocialMeli
+## Quality
+### Tests unitarios (Parte A)
 - [x] **T-0001:** Verificar que el usuario a seguir exista. (US-0001)
 - [x] **T-0002:** Verificar que el usuario a dejar de seguir exista. (US-0007)
 - [x] **T-0003:** Verificar que el tipo de ordenamiento alfabético exista (US-0008)
