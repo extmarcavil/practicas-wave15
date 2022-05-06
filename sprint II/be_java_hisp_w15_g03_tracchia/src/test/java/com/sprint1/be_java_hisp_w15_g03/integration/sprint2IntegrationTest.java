@@ -6,7 +6,9 @@ import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.ErrorDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
+import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.MeliRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -54,7 +56,7 @@ public class sprint2IntegrationTest {
     @DisplayName("Verifico que un usuario pueda seguir a un vendedor existente")
     public void followSellerOk() throws Exception {
 
-        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 4, 4))
+        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 5,4 ))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
@@ -103,7 +105,10 @@ public class sprint2IntegrationTest {
         ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
         ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
 
-        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 3, 3))
+        int sellerId = utils.getSellers().get(0).getUserId();
+        int userId = utils.getSellers().get(0).getUserId();
+
+        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", userId, sellerId))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(expectedStatus, expectedBody, expectedContentType);
     }
@@ -112,7 +117,8 @@ public class sprint2IntegrationTest {
     @DisplayName("Verifico que no se pueda utilizar un id 0")
     public void followSellerIdZero() throws Exception {
 
-        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 0, 3))
+        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 0,
+                utils.getSellers().get(0).getUserId()))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(status().isBadRequest());
     }
@@ -187,7 +193,7 @@ public class sprint2IntegrationTest {
         ResultMatcher expectedBody = content().json(writer.writeValueAsString(sellerList));
         ResultMatcher expectedStatus = status().isOk();
 
-        mockMVC.perform(get("/users/{userId}/followers/list", 3))
+        mockMVC.perform(get("/users/{userId}/followers/list", seller.getUserId()))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(expectedStatus,expectedBody);
     }
@@ -208,8 +214,77 @@ public class sprint2IntegrationTest {
                 .andExpectAll(expectedStatus,expectedBody,expectedContentType);
     }
 
+    //---------------- US 04 ----------------
+
+    @Test
+    @DisplayName("Verifico que se obtenga la lista de vendedores a los que sigue un usuario")
+    void getFollowedListOk() throws Exception {
+
+        ModelMapper mapper = new ModelMapper();
+        User user = utils.getUsers().get(0);
+
+        UserListDTO userList = new UserListDTO();
+        userList.setUserId(user.getUserId());
+        userList.setUserName(user.getUserName());
+        userList.setFollowed(user.getFollowed()
+                .stream()
+                .map( (m)-> mapper.map(m,PersonDTO.class))
+                .collect(Collectors.toList()));
+
+        ObjectWriter writer = new ObjectMapper()
+                .writer();
+        ResultMatcher expectedStatus = status().isOk();
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(userList));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
 
 
+        mockMVC.perform(get("/users/{userId}/followed/list", user.getUserId()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+
+    }
+
+    @Test
+    @DisplayName("Verifico que la cantidad sea 0 si un usuario no sigue a ningun vendedor")
+    public void getFollowedListNoSellers() throws Exception
+    {
+        ModelMapper mapper = new ModelMapper();
+        User user = utils.getUsers().get(2);
+
+        UserListDTO userList = new UserListDTO();
+        userList.setUserId(user.getUserId());
+        userList.setUserName(user.getUserName());
+        userList.setFollowed(user.getFollowed()
+                .stream()
+                .map( (m)-> mapper.map(m,PersonDTO.class))
+                .collect(Collectors.toList()));
+
+        ObjectWriter writer = new ObjectMapper()
+                .writer();
+        ResultMatcher expectedStatus = status().isOk();
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(userList));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+        mockMVC.perform(get("/users/{userId}/followed/list", user.getUserId()))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+    }
+
+    @Test
+    @DisplayName("Verifico un usuario invalido en getFollowedList")
+    public void getFollowedListUserNotFound() throws Exception
+    {
+        ErrorDTO error = new ErrorDTO("Entidad no encontrada", "El usuario con el id: 20 no existe");
+        ObjectWriter writer = new ObjectMapper()
+                .writer();
+        ResultMatcher expectedStatus = status().isNotFound();
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+        mockMVC.perform(get("/users/{userId}/followed/list", 20))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+    }
 
 
 

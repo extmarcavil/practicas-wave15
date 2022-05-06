@@ -49,6 +49,10 @@ public class UtilsTest {
        //El userID 3 sigue al sellerID 3
        users.get(0).getFollowed().add(sellers.get(0));
        sellers.get(0).getFollowers().add(users.get(0));
+
+       //El userID 4 sigue al sellerID 4
+       users.get(1).getFollowed().add(sellers.get(1));
+       sellers.get(1).getFollowers().add(users.get(1));
    }
 
 
