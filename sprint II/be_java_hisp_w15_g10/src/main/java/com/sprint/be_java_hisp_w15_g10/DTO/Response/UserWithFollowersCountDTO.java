@@ -5,6 +5,7 @@ import lombok.*;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class UserWithFollowersCountDTO {
     private int user_id;
     private String user_name;
