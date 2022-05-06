@@ -19,6 +19,7 @@ public class PostFactory {
 
     private static ProductDTO pDTO1= new ProductDTO(10, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
     private static ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
+    private static ProductDTO pDTO3 = new ProductDTO(90, "Tecl%ado", "Tecn$ologia", "Cor$air", "Blanco y negro", "Bluetooth");
 
 
     public static List<Post> getListPosts(){
@@ -76,5 +77,9 @@ public class PostFactory {
         posts.add(postIdDTO3);
 
         return posts;
+    }
+
+    public static PostDTO invalidPost(){
+        return new PostDTO (1,LocalDate.of(2022, 5, 6),pDTO3,100,202.02);
     }
 }

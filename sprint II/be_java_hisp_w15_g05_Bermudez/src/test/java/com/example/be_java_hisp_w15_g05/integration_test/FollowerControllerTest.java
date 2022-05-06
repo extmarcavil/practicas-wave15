@@ -4,6 +4,7 @@ import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -24,6 +25,7 @@ public class FollowerControllerTest {
     MockMvc mockMvc;
 
     @Test
+    @DisplayName(" Integracion - Un usuario sigue a otro.")
     void followTest() throws Exception {
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -37,6 +39,7 @@ public class FollowerControllerTest {
                 .andExpect(expectedStatus);
     }
     @Test
+    @DisplayName(" Excepcion de usuario ya siguiendo al usuario a seguir.")
     void alreadyFollowingException() throws Exception {
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -50,6 +53,7 @@ public class FollowerControllerTest {
                 .andExpect(expectedStatus);
     }
     @Test
+    @DisplayName(" Excepcion de usuario a seguir no es vendedor.")
     void notVendorFollowingException() throws Exception {
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -64,6 +68,7 @@ public class FollowerControllerTest {
     }
 
     @Test
+    @DisplayName("Integracion - Dejar de seguir un usuario.")
     void unfollowTest() throws Exception {
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -76,6 +81,7 @@ public class FollowerControllerTest {
         mockMvc.perform(request).andDo(MockMvcResultHandlers.print()).andExpect(expectedStatus);
     }
     @Test
+    @DisplayName("Excepcion el usuario no seguia al vendedor.")
     void notFollowingException() throws Exception {
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -90,6 +96,7 @@ public class FollowerControllerTest {
     }
 
     @Test
+    @DisplayName("Integracion cantidad de seguidores.")
     void countFollowers() throws Exception {
         ObjectWriter writer =  new ObjectMapper()
                 .registerModule(new JavaTimeModule())

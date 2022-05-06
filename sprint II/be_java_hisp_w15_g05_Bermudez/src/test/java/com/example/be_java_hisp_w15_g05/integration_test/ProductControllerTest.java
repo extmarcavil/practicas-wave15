@@ -2,6 +2,7 @@ package com.example.be_java_hisp_w15_g05.integration_test;
 
 
 import com.example.be_java_hisp_w15_g05.dto.*;
+import com.example.be_java_hisp_w15_g05.exceptions.ErrorDTO;
 import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.utils.PostFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -95,6 +96,7 @@ public class ProductControllerTest {
     }
 
     @Test
+    @DisplayName("Integracion - Obtener los post del vendedor a seguir.")
     void getFollowedVendorPosts() throws Exception {
         ObjectWriter writer =  new ObjectMapper()
                 .registerModule(new JavaTimeModule())
@@ -123,5 +125,39 @@ public class ProductControllerTest {
                 );
 
 
+    }
+
+    @Test
+    @DisplayName("Integracion del ExceptionGlobalHandler sobre listado de validaciones.")
+    void invalidArgumentsGlobalHandler() throws Exception {
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+
+        // arrange
+        PostDTO post = PostFactory.invalidPost();
+        ErrorDTO errorDTO = new ErrorDTO();
+
+        String postPayload = writer.writeValueAsString(post);
+        String expectedBody = writer.writeValueAsString(errorDTO);
+
+        // Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(expectedBody);
+        ResultMatcher expectedContent = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(postPayload);
+
+        // act & assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        expectedJson,
+                        expectedContent
+                );
     }
 }
