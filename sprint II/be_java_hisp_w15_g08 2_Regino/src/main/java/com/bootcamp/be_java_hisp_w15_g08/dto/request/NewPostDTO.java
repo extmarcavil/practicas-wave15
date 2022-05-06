@@ -1,13 +1,13 @@
 package com.bootcamp.be_java_hisp_w15_g08.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class NewPostDTO {
     private int postID;
     private Integer user_id;
