@@ -10,16 +10,12 @@ import com.sprint1.be_java_hisp_w15_g03.model.Product;
 import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.repository.IMeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.repository.MeliRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 
@@ -29,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class ProductControllerIntegrationTest {
+public class ProductControllerIntegrationTests {
     @Autowired
     MockMvc mockMvc;
 
@@ -44,7 +40,7 @@ public class ProductControllerIntegrationTest {
 
     //Inicializacion de variables y seteo del repositorio con los datos necesarios para los tests
     @BeforeAll
-    public static void setUpWriter() {
+    public static void setUp() {
         writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule())
                 .writer();
@@ -57,8 +53,11 @@ public class ProductControllerIntegrationTest {
         product = new Product(2, "Estufa", "", null, null, null);
         meliRepository.savePublication(1, new Publication(1, LocalDate.now(), Category.MESA, 300.0, product, null, null));
         meliRepository.followSeller(1, 1);
+    }
 
-
+    @AfterAll
+    public static void borrowSetUp() {
+        meliRepository.unFollowSeller(1,1);
     }
 
     @Test
