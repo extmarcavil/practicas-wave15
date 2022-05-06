@@ -6,10 +6,9 @@ import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
-import com.sprint1.be_java_hisp_w15_g03.dto.response.ErrorDTO;
-import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
-import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
-import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.*;
+import com.sprint1.be_java_hisp_w15_g03.model.Category;
+import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.MeliRepository;
@@ -27,7 +26,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import utils.UtilsTest;
 
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -44,6 +46,7 @@ public class sprint2IntegrationTest {
     MeliRepository repository;
 
     UtilsTest utils;
+    private PublicationDTO publicationDTO;
 
     @BeforeEach
     void setup() {
@@ -288,7 +291,7 @@ public class sprint2IntegrationTest {
                 .andExpectAll(expectedStatus, expectedBody, expectedContentType);
     }
 
-    //---------------- US 05 ----------------
+    //---------------- US 07 ----------------
 
     @Test
     @DisplayName("Verifico que un usuario pueda dejar de seguir a un vendedor")
@@ -327,7 +330,7 @@ public class sprint2IntegrationTest {
                 .andExpectAll(status().isNotFound(), expectedBody, expectedContentType);
     }
 
-    //---------------- US 06 ----------------
+    //---------------- US 05 ----------------
 
     @Test
     @DisplayName("Verifico el guardado de una publicacion correcta")
@@ -406,4 +409,36 @@ public class sprint2IntegrationTest {
                 .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
     }
 
+    //---------------- US 06 ----------------
+
+    @Test
+    @DisplayName("Verifico el listado de las publicaciones realizadas por los vendedores que sigue un usuario")
+    public void getLastPublicationOk() throws Exception {
+
+        ModelMapper m = new ModelMapper();
+
+        SellerPListDTO sellerPListDTO = new SellerPListDTO();
+        sellerPListDTO.setUserId(6);
+
+        Publication p = utils.getSellers().get(2).getPublications().get(0);
+        PublicationRespDTO publicationDTO = new PublicationRespDTO();
+        publicationDTO.setCategory(p.getCategory().ordinal());
+        publicationDTO.setDate(p.getDate());
+        publicationDTO.setPrice(p.getPrice());
+        publicationDTO.setDetail(m.map(p.getDetail(), ProductDTO.class));
+        publicationDTO.setPostId(p.getPostId());
+
+        sellerPListDTO.setPosts(Collections.singletonList(publicationDTO));
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(sellerPListDTO));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+        mockMVC.perform(get("/products/followed/{userId}/list",6))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(status().isOk(),expectedBody,expectedContentType);
+    }
 }
