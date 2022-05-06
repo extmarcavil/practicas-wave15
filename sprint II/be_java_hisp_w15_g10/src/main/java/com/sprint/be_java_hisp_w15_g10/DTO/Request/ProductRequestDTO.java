@@ -7,9 +7,7 @@ import lombok.*;
 import javax.validation.constraints.*;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@ToString
 public class ProductRequestDTO {
 
 
