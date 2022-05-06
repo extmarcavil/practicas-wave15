@@ -56,7 +56,7 @@ public class sprint2IntegrationTest {
     @DisplayName("Verifico que un usuario pueda seguir a un vendedor existente")
     public void followSellerOk() throws Exception {
 
-        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 5,4 ))
+        mockMVC.perform(post("/users/{userId}/follow/{userIdToFollow}", 5, 4))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(status().isOk());
     }
@@ -185,7 +185,7 @@ public class sprint2IntegrationTest {
         sellerList.setFollowers(seller
                 .getFollowers()
                 .stream()
-                .map((m)->maper.map(m, PersonDTO.class))
+                .map((m) -> maper.map(m, PersonDTO.class))
                 .collect(Collectors.toList()));
 
         ObjectWriter writer = new ObjectMapper()
@@ -195,7 +195,7 @@ public class sprint2IntegrationTest {
 
         mockMVC.perform(get("/users/{userId}/followers/list", seller.getUserId()))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus,expectedBody);
+                .andExpectAll(expectedStatus, expectedBody);
     }
 
     @Test
@@ -211,7 +211,7 @@ public class sprint2IntegrationTest {
 
         mockMVC.perform(get("/users/{userId}/followers/list", 15))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+                .andExpectAll(expectedStatus, expectedBody, expectedContentType);
     }
 
     //---------------- US 04 ----------------
@@ -228,7 +228,7 @@ public class sprint2IntegrationTest {
         userList.setUserName(user.getUserName());
         userList.setFollowed(user.getFollowed()
                 .stream()
-                .map( (m)-> mapper.map(m,PersonDTO.class))
+                .map((m) -> mapper.map(m, PersonDTO.class))
                 .collect(Collectors.toList()));
 
         ObjectWriter writer = new ObjectMapper()
@@ -240,14 +240,13 @@ public class sprint2IntegrationTest {
 
         mockMVC.perform(get("/users/{userId}/followed/list", user.getUserId()))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+                .andExpectAll(expectedStatus, expectedBody, expectedContentType);
 
     }
 
     @Test
     @DisplayName("Verifico que la cantidad sea 0 si un usuario no sigue a ningun vendedor")
-    public void getFollowedListNoSellers() throws Exception
-    {
+    public void getFollowedListNoSellers() throws Exception {
         ModelMapper mapper = new ModelMapper();
         User user = utils.getUsers().get(2);
 
@@ -256,7 +255,7 @@ public class sprint2IntegrationTest {
         userList.setUserName(user.getUserName());
         userList.setFollowed(user.getFollowed()
                 .stream()
-                .map( (m)-> mapper.map(m,PersonDTO.class))
+                .map((m) -> mapper.map(m, PersonDTO.class))
                 .collect(Collectors.toList()));
 
         ObjectWriter writer = new ObjectMapper()
@@ -267,13 +266,12 @@ public class sprint2IntegrationTest {
 
         mockMVC.perform(get("/users/{userId}/followed/list", user.getUserId()))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+                .andExpectAll(expectedStatus, expectedBody, expectedContentType);
     }
 
     @Test
     @DisplayName("Verifico un usuario invalido en getFollowedList")
-    public void getFollowedListUserNotFound() throws Exception
-    {
+    public void getFollowedListUserNotFound() throws Exception {
         ErrorDTO error = new ErrorDTO("Entidad no encontrada", "El usuario con el id: 20 no existe");
         ObjectWriter writer = new ObjectMapper()
                 .writer();
@@ -283,11 +281,47 @@ public class sprint2IntegrationTest {
 
         mockMVC.perform(get("/users/{userId}/followed/list", 20))
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus,expectedBody,expectedContentType);
+                .andExpectAll(expectedStatus, expectedBody, expectedContentType);
     }
 
+    //---------------- US 05 ----------------
 
+    @Test
+    @DisplayName("Verifico que un usuario pueda dejar de seguir a un vendedor")
+    public void unfollowSeller() throws Exception {
+        mockMVC.perform(post("/users/{userId}/unfollow/{userIdToUnfollow}", 3, 3))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(status().isOk());
+    }
 
+    @Test
+    @DisplayName("Verifico el fallo en caso de que un usuario no siga a un vendedor y quiera dejar de seguirlo")
+    public void unfollowSellerNotRelation() throws Exception {
+        ErrorDTO error = new ErrorDTO("Fallo en relacion esperada", "El usuario: 5 no sigue al vendedor: 3");
+        ObjectWriter writer = new ObjectMapper()
+                .writer();
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+        mockMVC.perform(post("/users/{userId}/unfollow/{userIdToUnfollow}", 5, 3))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(status().isNotFound(), expectedBody, expectedContentType);
+    }
+
+    @Test
+    @DisplayName("Verifico el fallo en caso de que un usuario no exista")
+    public void unfollowSellerUserNotFound() throws Exception {
+        ErrorDTO error = new ErrorDTO("Entidad no encontrada",
+                "El vendedor o el usuario no existen");
+        ObjectWriter writer = new ObjectMapper()
+                .writer();
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+        mockMVC.perform(post("/users/{userId}/unfollow/{userIdToUnfollow}", 30, 3))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(status().isNotFound(), expectedBody, expectedContentType);
+    }
 
 
 }
