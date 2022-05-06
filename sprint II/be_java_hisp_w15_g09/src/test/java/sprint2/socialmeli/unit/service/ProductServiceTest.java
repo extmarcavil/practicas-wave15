@@ -13,7 +13,6 @@ import sprint2.socialmeli.dto.post.response.ResponsePostDTO;
 import sprint2.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint2.socialmeli.exceptions.InvalidParamsException;
 import sprint2.socialmeli.model.Post;
-import sprint2.socialmeli.model.Product;
 import sprint2.socialmeli.model.User;
 import sprint2.socialmeli.repository.IPostRepository;
 import sprint2.socialmeli.repository.ISocialMeliRepository;
@@ -21,6 +20,7 @@ import sprint2.socialmeli.service.ProductService;
 import sprint2.socialmeli.utils.UserFactory;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -41,118 +41,20 @@ public class ProductServiceTest {
     // T-0005
     @Test
     @DisplayName("Verificar que al mandar el parametro date_desc la lista queda ordenada descendente")
-    public void test05xx() {
+    public void test05assertThatIfDateDescParamInGivenNotThrowException() {
         assertThatIfAParamInGivenNotThrowExceptionWithDate("date_desc");
     }
 
     @Test
-    @DisplayName("Verificar que al mandar el parametro date_asc la lista queda ordenada descendente")
-    public void test05xxx() {
+    @DisplayName("Verificar que al mandar el parametro date_asc la lista queda ordenada ascendente")
+    public void test05assertThatIfDateAscInGivenNotThrowException() {
         assertThatIfAParamInGivenNotThrowExceptionWithDate("date_asc");
     }
 
     @Test
     @DisplayName("Verificar que al mandar un parametro invalido, lance un error")
-    public void test05xxxx() {
+    public void test05assertThatIfAnInvalidParamInGivenThrowExceptionWithDate() {
         assertThatIfAParamInGivenThrowExceptionWithDate("jalsdfjdlskd");
-    }
-
-    @Test
-    @DisplayName(" verifica que los post filtrados de las ultimas 2 semanas sean efectivamente de las ultimas 2 semanas")
-    public void verifyPostLastTwoWeeks() {
-
-        // arrange
-        // Nico sigue a Alan
-        User alan = new User(2, "Alan Gimenez");
-        List<User> seguidos = new ArrayList<>();
-        seguidos.add(alan);
-        User nico = new User(1, "Nicolas Kazandjian");
-        nico.setListOfFollowed(seguidos);
-
-        // Armo una lista de post a devolver por el repositorio mockeado
-        List<Post> listaPost = crearLista();
-
-        // Respuesta esperada
-        ResponsePostListDTO respuestaEsperada = respuestaEsperada();
-
-        // Respuesta falsa esperada
-        ResponsePostListDTO respuestaEsperadaFalsa = new ResponsePostListDTO(1, crearLista());
-
-        // Mock de consultas al repositorio
-        Mockito.when(mockSocialMeliRepository.findUserById(1)).thenReturn(nico);
-        Mockito.when(mockPostRepository.getListOfPostOfUser(2)).thenReturn(listaPost);
-
-        // act
-        ResponsePostListDTO lista = productService.get2WeeksProductsOfFollowed(1, "date_asc");
-        // asssert
-        Assertions.assertAll(
-                () -> Assertions.assertEquals(respuestaEsperada.getPosts().size(), lista.getPosts().size()),
-                () -> Assertions.assertTrue(recorrerLista(lista))
-                // () -> Assertions.assertTrue(recorrerLista(respuestaEsperadaFalsa))
-        );
-    }
-
-    private List<Post> crearLista() {
-        Product producto = new Product(1, "producto", "tipo", "marca", "blanco", "sin notas");
-        Post postUno = new Post(1, 2, LocalDate.of(2022, 04, 29), producto, 1, 500.00);
-        Post postDos = new Post(2, 2, LocalDate.of(2021, 04, 29), producto, 1, 500.00);
-        Post postTres = new Post(3, 2, LocalDate.of(2022, 04, 30), producto, 1, 500.00);
-        List<Post> listaPost = new ArrayList<>();
-        listaPost.add(postUno);
-        listaPost.add(postDos);
-        // listaPost.add(postTres); // en caso de descomentar esta linea, el test NO DEBERIA FUNCIONAR
-        return listaPost;
-    }
-
-    private boolean recorrerLista(ResponsePostListDTO lista) {
-        for (int i = 0; i < lista.getPosts().size(); i++) {
-            if (lista.getPosts().get(i).getDate().isBefore(LocalDate.now().minusDays(14))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private ResponsePostListDTO respuestaEsperada() {
-        List<Post> posts = new ArrayList<>();
-        posts.add(crearLista().get(0));
-        return new ResponsePostListDTO(1, posts);
-    }
-
-    private void assertThatIfAParamInGivenNotThrowExceptionWithDate(String validOrder) {
-        //Arrange
-        int testId = mockFindUserByID(UserFactory.createAnUser());
-        //Act + Assert
-        Assertions.assertAll(
-                () -> Assertions.assertDoesNotThrow(() -> productService.get2WeeksProductsOfFollowed(testId, validOrder))
-                // ()->Assertions.assertTrue(controlParametroOrder(validOrder))
-                // ()->Assertions.assertFalse(controlParametroOrder(validOrder))
-        );
-    }
-
-    private void assertThatIfAParamInGivenThrowExceptionWithDate(String invalidOrder) {
-        //Arrange
-        // int testId = mockFindUserByID(UserFactory.createAnUser());
-        //Act + Assert
-        /*Assertions.assertAll(
-                ()->Assertions.assertThrows(InvalidParamsException.class,()->productService.get2WeeksProductsOfFollowed(1, invalidOrder))
-                // ()->Assertions.assertTrue(controlParametroOrder(validOrder))
-                // ()->Assertions.assertFalse(controlParametroOrder(validOrder))
-        );*/
-        Assertions.assertThrows(InvalidParamsException.class, () -> productService.get2WeeksProductsOfFollowed(1, invalidOrder));
-    }
-
-    // refactorizar a Utils
-    private int mockFindUserByID(User aMockUser) {
-        //Arrange
-        int testId = 1;
-        Mockito
-                .when(
-                        this.mockSocialMeliRepository.findUserById(testId))
-                .thenReturn(
-                        aMockUser
-                );
-        return testId;
     }
 
     // T-0006
@@ -174,6 +76,38 @@ public class ProductServiceTest {
         assertOrderOfFeed(null, 0, 1, 2);
     }
 
+    @Test
+    @DisplayName(" verifica que los post filtrados de las ultimas 2 semanas sean efectivamente de las ultimas 2 semanas")
+    public void test08verifyPostLastTwoWeeks() {
+
+        // arrange
+        User alan = new User(2, "Alan Gimenez");
+        User nico = new User(1, "Nicolas Kazandjian");
+
+        nico.follow(alan);
+
+        // Armo una lista de post a devolver por el repositorio mockeado
+        List<Post> listaPost = new ArrayList<>();
+        listaPost.addAll(createAListOfPostWhitDaysMinusNow(1,alan));
+        listaPost.addAll(createAListOfPostWhitDaysMinusNow(30,alan));
+
+        // Mock de consultas al repositorio
+        mockFindUserByID( nico,1);
+        Mockito.when(mockPostRepository.getListOfPostOfUser(2)).thenReturn(listaPost);
+
+        // act
+        ResponsePostListDTO listOfPostDTO = productService.get2WeeksProductsOfFollowed(1, "date_asc");
+        // asssert
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(1, listOfPostDTO.getPosts().size()),
+                () -> Assertions.assertTrue(checkIfPostsAreLessThanTwoWeeks(listOfPostDTO))
+        );
+    }
+
+
+    //--------------------- Private --------------------//
+
+
     private void assertOrderOfFeed(String validOrder, int i, int i1, int i2) {
         // ARRANGE
         User aFollowedSeller1 = UserFactory.createAnUser();
@@ -185,20 +119,12 @@ public class ProductServiceTest {
         aFollowerClient.follow(aFollowedSeller2);
         aFollowerClient.follow(aFollowedSeller3);
 
-        RequestPostDTO postDTOOfSeller1 = new RequestPostDTO(aFollowedSeller1.getId(), "01-05-2022", new ProductDTO(), 1, 10000D);
-        RequestPostDTO postDTOOfSeller2 = new RequestPostDTO(aFollowedSeller2.getId(), "02-05-2022", new ProductDTO(), 1, 10000D);
-        RequestPostDTO postDTOOfSeller3 = new RequestPostDTO(aFollowedSeller3.getId(), "03-05-2022", new ProductDTO(), 1, 10000D);
-
-        Post postOfSeller1 = new Post(postDTOOfSeller1);
-        Post postOfSeller2 = new Post(postDTOOfSeller2);
-        Post postOfSeller3 = new Post(postDTOOfSeller3);
-
-        ArrayList<Post> postsOfSeller1 = new ArrayList<>(Arrays.asList(postOfSeller1));
-        ArrayList<Post> postsOfSeller2 = new ArrayList<>(Arrays.asList(postOfSeller2));
-        ArrayList<Post> postsOfSeller3 = new ArrayList<>(Arrays.asList(postOfSeller3));
+        ArrayList<Post> postsOfSeller1 = createAListOfPostWhitDaysMinusNow(3, aFollowedSeller1);
+        ArrayList<Post> postsOfSeller2 = createAListOfPostWhitDaysMinusNow(2, aFollowedSeller2);
+        ArrayList<Post> postsOfSeller3 = createAListOfPostWhitDaysMinusNow(1, aFollowedSeller3);
 
         // MOCK
-        Mockito.when(this.mockSocialMeliRepository.findUserById(aFollowerClient.getId())).thenReturn(aFollowerClient);
+        mockFindUserByID( aFollowerClient,aFollowerClient.getId());
         Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller1.getId())).thenReturn(postsOfSeller1);
         Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller2.getId())).thenReturn(postsOfSeller2);
         Mockito.when(mockPostRepository.getListOfPostOfUser(aFollowedSeller3.getId())).thenReturn(postsOfSeller3);
@@ -209,9 +135,49 @@ public class ProductServiceTest {
 
         // ASSERTION
         Assertions.assertAll(
-                () -> Assertions.assertEquals(aSortedList.get(i).getDate(), postOfSeller1.getDate()),
-                () -> Assertions.assertEquals(aSortedList.get(i1).getDate(), postOfSeller2.getDate()),
-                () -> Assertions.assertEquals(aSortedList.get(i2).getDate(), postOfSeller3.getDate())
+                () -> Assertions.assertEquals(aSortedList.get(i).getDate(), postsOfSeller1.get(0).getDate()),
+                () -> Assertions.assertEquals(aSortedList.get(i1).getDate(), postsOfSeller2.get(0).getDate()),
+                () -> Assertions.assertEquals(aSortedList.get(i2).getDate(), postsOfSeller3.get(0).getDate())
         );
     }
+
+    private ArrayList<Post> createAListOfPostWhitDaysMinusNow(int daysMinusNow, User aFollowedSeller) {
+        LocalDate aDate = LocalDate.now().minusDays(daysMinusNow);
+        //DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        //String notOldDateString = aDate.format(formatter);
+        RequestPostDTO postDTOOfSeller = new RequestPostDTO(aFollowedSeller.getId(), aDate, new ProductDTO(), 1, 10000D);
+        Post postOfSeller = new Post(postDTOOfSeller);
+        return new ArrayList<>(Arrays.asList(postOfSeller));
+    }
+
+    private boolean checkIfPostsAreLessThanTwoWeeks(ResponsePostListDTO lista) {
+        for (int i = 0; i < lista.getPosts().size(); i++) {
+            if (lista.getPosts().get(i).getDate().isBefore(LocalDate.now().minusDays(14))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void assertThatIfAParamInGivenNotThrowExceptionWithDate(String validOrder) {
+        //Arrange
+        int testId = 1;
+        mockFindUserByID( UserFactory.createAnUser(),testId);
+        //Act + Assert
+        Assertions.assertAll(
+                () -> Assertions.assertDoesNotThrow(() -> productService.get2WeeksProductsOfFollowed(testId, validOrder))
+        );
+    }
+
+    private void assertThatIfAParamInGivenThrowExceptionWithDate(String invalidOrder) {
+        Assertions.assertThrows(InvalidParamsException.class, () -> productService.get2WeeksProductsOfFollowed(1, invalidOrder));
+    }
+
+
+    private int mockFindUserByID(User aMockUser,int testId) {
+        Mockito.when(this.mockSocialMeliRepository.findUserById(testId)).thenReturn(aMockUser);
+        Mockito.when(this.mockSocialMeliRepository.existUser(testId)).thenReturn(true);
+        return testId;
+    }
+
 }

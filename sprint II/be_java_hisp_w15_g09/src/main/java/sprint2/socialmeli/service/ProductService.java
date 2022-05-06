@@ -6,6 +6,7 @@ import sprint2.socialmeli.dto.post.request.RequestPostDTO;
 import sprint2.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint2.socialmeli.exceptions.InvalidParamsException;
 import sprint2.socialmeli.exceptions.InvalidPostException;
+import sprint2.socialmeli.exceptions.UserNotFound;
 import sprint2.socialmeli.model.Post;
 import sprint2.socialmeli.model.User;
 import sprint2.socialmeli.repository.IPostRepository;
@@ -69,7 +70,20 @@ public class ProductService implements IProductService {
      * @return user retorna el usuario en caso de que lo encuentre.
      */
     private User getUserFromRepositoryById(int userID) {
+        existUser(userID);
         return userRepository.findUserById(userID);
+    }
+
+    /**
+     * Verifica si el usuario existe en el repositorio.
+     * Busca un usuario a través de un ID recibido por parámetro, y en caso de no existir lanza la excepción UserNotFound con un mensaje recibido por parámetro.
+     * @param userId ídentificador del usuario a buscar.
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     */
+    private void existUser(Integer userId) {
+        if( !this.userRepository.existUser(userId)){
+            throw new UserNotFound( "Usuario con id: " + userId + " no fue encontrado");
+        }
     }
 
     /**

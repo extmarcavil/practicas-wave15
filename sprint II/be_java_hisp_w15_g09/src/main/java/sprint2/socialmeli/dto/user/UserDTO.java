@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 import sprint2.socialmeli.model.User;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
-
 @Getter
 @Setter
 @AllArgsConstructor

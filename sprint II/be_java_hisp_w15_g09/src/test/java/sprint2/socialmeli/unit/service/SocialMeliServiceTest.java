@@ -1,6 +1,5 @@
 package sprint2.socialmeli.unit.service;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -153,7 +152,6 @@ public class SocialMeliServiceTest{
     }
 
     // T0003 - LISTA FOLLOWED
-
     @Test
     @DisplayName("Verificar que el orden name_desc existe y no lanza error en una lista de seguidos")
     public void test03AssertThatIfNameDescParameterIsGivenNotThrowExceptionOnAFollowedList(){
@@ -197,31 +195,6 @@ public class SocialMeliServiceTest{
         assertOrderOfFollowerUserList(null, 0,1 , 2);
     }
 
-    @Test
-    @DisplayName(" verifica que la cantidad de seguidores de un usuario sea correcto")
-    public void verifyFollowersByUserDos () {
-
-        // arrange
-        User alan = new User(2, "Alan Gimenez");
-        User nico = new User (1, "Nicolas Kazandjian");
-        User lorena = new User (3, "Lorena Bitencur");
-        when(mockSocialMeliRepository.existUser(1)).thenReturn(true);
-        when(mockSocialMeliRepository.existUser(2)).thenReturn(true);
-        when(mockSocialMeliRepository.existUser(3)).thenReturn(true);
-        when(mockSocialMeliRepository.findUserById(1)).thenReturn(nico);
-        when(mockSocialMeliRepository.findUserById(2)).thenReturn(alan);
-        when(mockSocialMeliRepository.findUserById(3)).thenReturn(lorena);
-        /*mockFindUserByID(alan);
-        mockFindUserByID(nico);
-        mockFindUserByID(lorena);*/
-        socialMeliService.follow(1, 2);
-        socialMeliService.follow(3, 2);
-        // act
-        ResponseFollowersCountDTO user = socialMeliService.countFollowers(2);
-        // assert
-        Assertions.assertEquals(2, user.getFollowersCount());
-    }
-
     // T-0004 FOLLOWED
     @Test
     @DisplayName("Verificar que al mandar el parametro name_asc la lista de seguidos queda ordenada ascendente")
@@ -241,13 +214,27 @@ public class SocialMeliServiceTest{
         assertOrderOfFollowedUserList(null, 0,1 , 2);
     }
 
+    @Test
+    @DisplayName(" Verifica que la cantidad de seguidores de un usuario sea correcto")
+    public void test07verifyFollowersByUserDos () {
+        // arrange
+        mockTwoUsers(1,2);
+        mockTwoUsers(3,4);
+
+        socialMeliService.follow(1, 2);
+        socialMeliService.follow(3, 2);
+        socialMeliService.follow(4, 2);
+        // act
+        ResponseFollowersCountDTO user = socialMeliService.countFollowers(2);
+        // assert
+        Assertions.assertEquals(3, user.getFollowersCount());
+    }
     // ---------------------- Private ---------------------------------
 
     private void mockTwoUsersAndOneAsFollower(Integer followerId, Integer followedId) {
         User followerUser = UserFactory.createAnUserWithId(followerId);
         User followedUser = UserFactory.createAnUserWithId(followedId);
-        followerUser.getListOfFollowed().add(followedUser);
-
+        followerUser.follow(followedUser);
         Mockito.when(mockSocialMeliRepository.existUser(Mockito.any(Integer.class))).thenReturn(true);
         Mockito.when(mockSocialMeliRepository.findUserById(followerId)).thenReturn(followerUser);
         Mockito.when(mockSocialMeliRepository.findUserById(followedId)).thenReturn(followedUser);
@@ -256,6 +243,13 @@ public class SocialMeliServiceTest{
     private void mockAFollowerUserWhenFollowedDoesNotExist(Integer followerId, Integer followedId) {
         mockAnUser(followerId);
         Mockito.when(mockSocialMeliRepository.existUser(followedId)).thenReturn(false);
+    }
+
+    private int mockAnUser(User aMockUser) {
+        int testId = 1;
+        Mockito.when(this.mockSocialMeliRepository.findUserById(testId)).thenReturn(aMockUser);
+        Mockito.when(this.mockSocialMeliRepository.existUser(testId)).thenReturn(true);
+        return testId;
     }
 
     private void mockAnUser(Integer userId) {
@@ -282,14 +276,15 @@ public class SocialMeliServiceTest{
 
     private void assertThatIfAParamInGivenThrowExceptionInFollower(String invalidParam) {
         //Arrange
-        int testId = mockFindUserByID(UserFactory.createAnUser());
+        int testId = mockAnUser(UserFactory.createAnUser());
+        String errorMessage = "Los parámetros ingresados son incorrectos. Este endpoint admite solo:\\n\" +\n" + "\"order=name_asc\\n\" +\n" + " \"order=name_desc\"";
         //Act + Assert
-        Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowers(testId, invalidParam));
+        Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowers(testId, invalidParam),errorMessage);
     }
 
     private void assertThatIfAParamInGivenNotThrowExceptionInFollower(String validOrder) {
         //Arrange
-        int testId = mockFindUserByID(UserFactory.createAnUser());
+        int testId = mockAnUser(UserFactory.createAnUser());
         //Act + Assert
         Assertions.assertDoesNotThrow(() -> socialMeliService.listFollowers(testId, validOrder));
     }
@@ -306,7 +301,7 @@ public class SocialMeliServiceTest{
         ATheFollowerUser.follow(anInfluencer);
         CTheFollowerUser.follow(anInfluencer);
 
-        int testId = mockFindUserByID(anInfluencer);
+        int testId = mockAnUser(anInfluencer);
 
         ResponseFollowersListDTO aDtoWithTheList = socialMeliService.listFollowers(testId, validOrder);
         List<UserDTO> aSortedList = aDtoWithTheList.getFollowers();
@@ -321,14 +316,16 @@ public class SocialMeliServiceTest{
     //-- FOLLOWED
     private void assertThatIfAParamInGivenThrowExceptionInFollowed(String invalidParam) {
         //Arrange
-        int testId = mockFindUserByID(UserFactory.createAnUser());
+        int testId = mockAnUser(UserFactory.createAnUser());
+        String errorMessage = "Los parámetros ingresados son incorrectos. Este endpoint admite solo:\\n\" +\n" + "\"order=date_asc\\n\" +\n" + " \"order=date_desc\"";
+
         //Act + Assert
-        Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowed(testId, invalidParam));
+        Assertions.assertThrows(InvalidParamsException.class,()->socialMeliService.listFollowed(testId, invalidParam),errorMessage);
     }
 
     private void assertThatIfAParamInGivenNotThrowExceptionInFollowed(String validOrder) {
         //Arrange
-        int testId = mockFindUserByID(UserFactory.createAnUser());
+        int testId = mockAnUser(UserFactory.createAnUser());
         //Act + Assert
         Assertions.assertDoesNotThrow(() -> socialMeliService.listFollowed(testId, validOrder));
     }
@@ -345,7 +342,7 @@ public class SocialMeliServiceTest{
         aFollowerUser.follow(BInfluencer);
         aFollowerUser.follow(CInfluencer);
 
-        int testId = mockFindUserByID(aFollowerUser);
+        int testId = mockAnUser(aFollowerUser);
 
         ResponseFollowedListDTO aDtoWithTheList = socialMeliService.listFollowed(testId, validOrder);
         List<UserDTO> aSortedList = aDtoWithTheList.getFollowed();
@@ -357,31 +354,6 @@ public class SocialMeliServiceTest{
         );
     }
 
-    private int mockFindUserByID(User aMockUser) {
-        //Arrange
-        int testId = 1;
-        Mockito
-                .when(
-                        this.mockSocialMeliRepository.findUserById(testId))
-                .thenReturn(
-                        aMockUser
-                );
-
-        Mockito
-                .when(
-                        this.mockSocialMeliRepository.existUser(testId))
-                .thenReturn(
-                        true
-                );
-        return testId;
-    }
 
 
-
-    private boolean controlParametroOrder (String validOrder) {
-        if(validOrder == "date_asc" || validOrder == "date_desc") {
-            return true;
-        };
-        return false;
-    }
 }

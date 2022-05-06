@@ -18,42 +18,41 @@ public class SocialMeliExceptionManager {
 
 
     @ExceptionHandler(RuntimeException.class)
-    ResponseEntity<ErrorDTO> handlerException(RuntimeException exception) {
-        ErrorDTO errorDTO = new ErrorDTO("ERROR", exception.getMessage());
+    public ResponseEntity<ErrorDTO> handlerException(RuntimeException exception) {
+        ErrorDTO errorDTO = new ErrorDTO("RuntimeException", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UserNotFound.class)
-    public ResponseEntity<?> userNotFound(Exception e) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+    public ResponseEntity<ErrorDTO> userNotFound(Exception e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO("UserNotFound",e.getMessage()));
     }
 
     @ExceptionHandler(InvalidPostException.class)
-    public ResponseEntity<?> invalidPostException(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    public ResponseEntity<ErrorDTO> invalidPostException(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("InvalidPostException",e.getMessage()));
     }
 
     @ExceptionHandler(InvalidFollower.class)
-    public ResponseEntity<?> invalidFollower(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    public ResponseEntity<ErrorDTO> invalidFollower(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("InvalidFollower",e.getMessage()));
     }
 
     @ExceptionHandler(InvalidParamsException.class)
-    public ResponseEntity<?> invalidParams(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
+    public ResponseEntity<ErrorDTO> invalidParams(Exception e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("InvalidParamsException",e.getMessage()));
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    ResponseEntity<ErrorDTO> notReadableException(HttpMessageNotReadableException exception) {
+    public ResponseEntity<ErrorDTO> notReadableException(HttpMessageNotReadableException exception) {
         ErrorDTO errorDTO = new ErrorDTO("HttpMessageNotReadableException", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    ResponseEntity<ErrorDTO> validationsException(MethodArgumentNotValidException exception) {
+    public ResponseEntity<ErrorDTO> validationsException(MethodArgumentNotValidException exception) {
         HashMap<String, List<String>> errors = getHashMapErrors(exception.getFieldErrors());
-
-        ErrorDTO errorDTO = new ErrorDTO("Some Input are Invalids", errors);
+        ErrorDTO errorDTO = new ErrorDTO("MethodArgumentNotValidException", errors);
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 

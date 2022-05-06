@@ -24,7 +24,8 @@ public class Post {
 
     public Post(RequestPostDTO post) {
         userId = post.getUserId();
-        date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        //date = LocalDate.parse(post.getDate(), DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        date = post.getDate();
         detail = new Product(post.getDetail());
         category = post.getCategory();
         price = post.getPrice();

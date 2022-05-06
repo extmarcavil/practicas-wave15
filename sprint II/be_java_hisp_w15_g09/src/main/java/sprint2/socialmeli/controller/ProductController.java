@@ -9,6 +9,8 @@ import sprint2.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint2.socialmeli.service.IProductService;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/products")
@@ -24,7 +26,10 @@ public class ProductController {
 
     // US 0006 - US 0009
     @GetMapping("/followed/{followerUserID}/list")
-    public ResponseEntity<ResponsePostListDTO> get2WeeksProductsOfFollowed(@PathVariable int followerUserID, @RequestParam @Nullable String order){
+    public ResponseEntity<ResponsePostListDTO> get2WeeksProductsOfFollowed(
+            @PathVariable
+            @Positive(message = "El id debe ser mayor a cero")
+            @NotNull(message = "El  id no puede estar vacío.") int followerUserID, @RequestParam @Nullable String order){
         return ResponseEntity.ok(productService.get2WeeksProductsOfFollowed(followerUserID, order));
     }
 
