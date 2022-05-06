@@ -37,8 +37,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowers(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowers(1,order)
+        );
     }
 
     @Test
@@ -53,8 +55,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowers(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowers(1,order)
+        );
     }
 
 
@@ -88,8 +92,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowing(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowing(1,order)
+        );
     }
 
     @Test
@@ -104,13 +110,14 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowing(1,order);
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowing(1,order)
+        );
     }
 
 
     @Test
-    @DisplayName("Verifica que se lanza una Excepcion al ingresar un ordenamiento incorrecto de la lista de followings")
+    @DisplayName("Verifica que se lanza una Excepcion al ingresar un ordenamiento incorrecto de la lista de Seguidos")
     void orderFollowingsNotOk(){
 
         //arrange
@@ -124,8 +131,4 @@ public class T0003 {
                 ()->service.listFollowing(1,Mockito.anyString())
         );
     }
-
-
-
-
 }
