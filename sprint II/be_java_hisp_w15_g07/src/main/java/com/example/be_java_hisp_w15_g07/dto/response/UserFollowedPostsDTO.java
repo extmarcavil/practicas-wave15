@@ -1,6 +1,9 @@
 package com.example.be_java_hisp_w15_g07.dto.response;
 
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.util.List;
 

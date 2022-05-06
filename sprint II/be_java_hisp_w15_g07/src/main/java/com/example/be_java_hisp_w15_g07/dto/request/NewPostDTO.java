@@ -1,16 +1,15 @@
 package com.example.be_java_hisp_w15_g07.dto.request;
 
-import com.example.be_java_hisp_w15_g07.model.Product;
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jdk.jfr.Category;
-import lombok.*;
-import org.apache.logging.log4j.message.Message;
-
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.time.LocalDate;

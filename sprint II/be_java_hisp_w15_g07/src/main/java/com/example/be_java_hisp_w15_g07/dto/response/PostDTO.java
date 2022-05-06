@@ -2,10 +2,14 @@ package com.example.be_java_hisp_w15_g07.dto.response;
 
 import com.example.be_java_hisp_w15_g07.dto.request.ProductDTO;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
-
 
 @Getter
 @Setter

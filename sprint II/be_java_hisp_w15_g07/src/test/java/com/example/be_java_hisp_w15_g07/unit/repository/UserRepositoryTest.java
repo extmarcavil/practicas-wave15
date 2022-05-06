@@ -24,72 +24,72 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T00001/02 - Verificar que el usuario a seguir exista")
-    public void findExistingUser(){
-        //arrange
+    @DisplayName("T0001/02 - Verificar que el usuario a seguir existe")
+    public void findUserSuccess(){
+        // Arrange
         Integer queryId = 1;
         User expected = UserFactory.getUserOne();
 
-        //act
+        // Act
         User result = repository.findById(queryId);
 
-        //assert
+        // Assert
         assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("T0001/02 - Verificar que si el usuario a seguir no existe, lanza excepción")
-    public void throwsExceptionWhenUserNotFound(){
-        //arrange
-        Integer queryId = -1; //IDs are always positive
+    @DisplayName("T0001/02 - Verificar que se lanza una excepción si el usuario a seguir no existe")
+    public void findUserNotFound(){
+        // Arrange
+        Integer userId = -1;
 
-        //act and assert
-        assertThrows(UserNotFoundException.class, () -> repository.findById(queryId));
+        // Act and assert
+        assertThrows(UserNotFoundException.class, () -> repository.findById(userId));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario, ascendente.")
+    @DisplayName("T0003 - (Followers ascendente) Verificar que se lanza una excepción si no existe el usuario")
     public void findFollowersOrderByNameAscNotFound(){
         // Arrange
-        Integer userId = -2;
+        Integer userId = -1;
 
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> repository.findFollowersOrderByNameAsc(userId));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario, descendente.")
+    @DisplayName("T0003 - (Followers descendente) Verificar que se lanza una excepción si no existe el usuario")
     public void findFollowersOrderByNameDescNotFound(){
         // Arrange
-        Integer userId = -2;
+        Integer userId = -1;
 
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> repository.findFollowersOrderByNameDesc(userId));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
+    @DisplayName("T0003 - (Followed ascendente) Verificar que se lanza una excepción si no existe el usuario")
     public void findFollowedOrderByNameAscNotFound(){
         // Arrange
-        Integer userId = -2;
+        Integer userId = -1;
 
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameAsc(userId));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que set lance una excepción si no existe el usuario (followed)")
+    @DisplayName("T0003 - (Followed descendente) Verificar que se lanza una excepción si no existe el usuario")
     public void findFollowedOrderByNameDescNotFound(){
         // Arrange
-        Integer userId = -2;
+        Integer userId = -1;
 
         // Act and Assert
         assertThrows(UserNotFoundException.class, () -> repository.findFollowedOrderByNameDesc(userId));
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el ordenamiento alfabético es correcto")
-    public void findFollowersOrderByNameAsc(){
+    @DisplayName("T0004 - (Followers) Verificar que el ordenamiento alfabético ascendente es correcto")
+    public void findFollowersOrderByNameAscSuccess(){
         // Arrange
         Integer userId = 2;
         List<User> expected = Arrays.asList(UserFactory.getUserOne(), UserFactory.getUserThree());
@@ -102,8 +102,22 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el ordenamiento alfabético sea correcto (followed)")
-    public void findFollowedOrderByNameAsc(){
+    @DisplayName("T0004 - (Followers) Verificar que el ordenamiento alfabético descendente es correcto")
+    public void findFollowersOrderByNameDescSuccess(){
+        // Arrange
+        Integer userId = 2;
+        List<User> expected = Arrays.asList(UserFactory.getUserThree(), UserFactory.getUserOne());
+
+        // Act
+        List<User> result = repository.findFollowersOrderByNameDesc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("T0004 - (Followed) Verificar que el ordenamiento alfabético ascendente sea correcto")
+    public void findFollowedOrderByNameAscSuccess(){
         // Arrange
         Integer userId = 1;
         List<User> expected = Arrays.asList(UserFactory.getUserTwo(), UserFactory.getUserThree());
@@ -116,8 +130,8 @@ public class UserRepositoryTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar que el ordenamiento alfabético descendente sea correcto(followed)")
-    public void findFollowedOrderByNameDesc(){
+    @DisplayName("T0004 - (Followed) Verificar que el ordenamiento alfabético descendente sea correcto")
+    public void findFollowedOrderByNameDescSuccess(){
         // Arrange
         Integer userId = 1;
         List<User> expected = Arrays.asList(UserFactory.getUserThree(), UserFactory.getUserTwo());
