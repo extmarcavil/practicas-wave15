@@ -139,4 +139,14 @@ public class MeliRepository implements IMeliRepository {
         sellers.put(seller.getUserId(), seller);
         return seller;
     }
+
+    public void loadDataTest(List<Seller> sellers, List<User> users)
+    {
+        for (Seller s : sellers) {
+            MeliRepository.sellers.put(s.getUserId(),s);
+        }
+        for (User u : users){
+            MeliRepository.users.put(u.getUserId(),u);
+        }
+    }
 }
