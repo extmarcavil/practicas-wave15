@@ -10,7 +10,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
@@ -21,28 +20,13 @@ import java.util.Map;
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class IntegrationTest {
+public class UserController {
 
     @Autowired
     MockMvc mockMvc;
-    @Test
-    void followUseOk() throws Exception {
-
-        int idUser=1;
-        int idUserToFollow=2;
-
-        ResultMatcher status= MockMvcResultMatchers.status().isOk();
-
-        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.post("/users/{user_id}/follow/{userIdToFollow}",idUser,idUserToFollow);
-
-        mockMvc.perform(req)
-                .andExpectAll(
-                        status
-                );
-    }
 
     @Test
-    void followUseNotExists() throws Exception {
+    void followUserNotExists() throws Exception {
 
         ObjectWriter writer= new ObjectMapper().writer();
 
@@ -68,7 +52,7 @@ public class IntegrationTest {
 
 
     @Test
-    void followUseBadUserId() throws Exception {
+    void followUserBadUserId() throws Exception {
 
         ObjectWriter writer= new ObjectMapper().writer();
 

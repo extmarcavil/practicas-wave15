@@ -27,7 +27,7 @@ public class ProductController {
     MockMvc mockMvc;
 
     @Test
-    void postProduct() throws Exception {
+    void postProductOk() throws Exception {
 
         ObjectWriter writer = new ObjectMapper()
                 .registerModule(new JavaTimeModule())
@@ -64,9 +64,52 @@ public class ProductController {
                 .andExpectAll(
                         status
                 );
-
-
-
     }
+
+
+    @Test
+    void postProductNotOk() throws Exception {
+
+        ObjectWriter writer = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+
+        ProductDTO productDTO=new ProductDTO();
+        productDTO.setProduct_id(1);
+        productDTO.setProduct_name("Algo");
+        productDTO.setType("Ga&mer");
+        productDTO.setBrand("Racer");
+        productDTO.setColor("RED");
+        productDTO.setNotes("Algo");
+
+        PostDTO dto = new PostDTO();
+        dto.setUser_id(1);
+        dto.setDate(LocalDate.of(2022,05,01));
+        dto.setCategory(100);
+        dto.setPrice(10000);
+        dto.setDetail(productDTO);
+
+
+        String json = writer.writeValueAsString(dto);
+        String jsonExp="{\"status\":\"BAD_REQUEST\",\"errors\":{\"detail.type\":[\"El campo no puede poseer caracteres especiales.\"]}}";
+
+        //expected
+        ResultMatcher status= MockMvcResultMatchers.status().isBadRequest();
+        ResultMatcher bodyResponse=MockMvcResultMatchers.content().json(jsonExp);
+        ResultMatcher contentType= MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+
+        MockHttpServletRequestBuilder req =   MockMvcRequestBuilders.post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(json);
+
+        mockMvc.perform(req)
+                .andExpectAll(
+                        status,
+                        bodyResponse,
+                        contentType
+                );
+    }
+
 
 }
