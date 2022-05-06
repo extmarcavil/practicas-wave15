@@ -7,7 +7,6 @@ import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.*;
-import com.sprint1.be_java_hisp_w15_g03.model.Category;
 import com.sprint1.be_java_hisp_w15_g03.model.Publication;
 import com.sprint1.be_java_hisp_w15_g03.model.Seller;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
@@ -25,10 +24,7 @@ import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import utils.UtilsTest;
-
-import java.lang.reflect.Array;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Collectors;
 
@@ -46,7 +42,6 @@ public class sprint2IntegrationTest {
     MeliRepository repository;
 
     UtilsTest utils;
-    private PublicationDTO publicationDTO;
 
     @BeforeEach
     void setup() {
@@ -389,7 +384,7 @@ public class sprint2IntegrationTest {
                 .registerModule(new JavaTimeModule()) // convertir fechas
                 .writer();
 
-        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+        ProductDTO product = new ProductDTO(2,"mesa","no se","algo",
                 "Blanco","lala");
         PublicationDTO post = new PublicationDTO(30, LocalDate.now(),product,100,50.0);
 
@@ -407,6 +402,34 @@ public class sprint2IntegrationTest {
                 .content(payload))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Verifico el fallo en caso de un producto diferente con el mismo ID")
+    public void savePublicationProductInvalid() throws Exception {
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+                "Blanco","lala");
+        PublicationDTO post = new PublicationDTO(4, LocalDate.now(),product,0,50.0);
+
+        String payload = writer.writeValueAsString(post);
+
+        ErrorDTO error = new ErrorDTO("Error en parametros de entrada",
+                "El producto existente no concuerda con los datos enviados.");
+
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+
+        mockMVC.perform(post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedBody,expectedContentType,status().isConflict());
     }
 
     //---------------- US 06 ----------------
