@@ -214,6 +214,8 @@ public class SocialMeliServiceTest{
         assertOrderOfFollowedUserList(null, 0,1 , 2);
     }
 
+    // T-0007
+
     @Test
     @DisplayName(" Verifica que la cantidad de seguidores de un usuario sea correcto")
     public void test07verifyFollowersByUserDos () {
