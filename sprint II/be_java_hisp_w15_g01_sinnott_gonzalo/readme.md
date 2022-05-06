@@ -5,5 +5,5 @@ SocialMeli, la nueva implementación de MercadoLibre que fue realizada por el eq
 
 Siguiendo con el principio de que MeLi posee unos estándares de calidad muy altos, un especialista sugirió la posibilidad de contar con la implementación de al menos un test de integración para lograr una cobertura de código mayor que la lograda con los tests unitarios.
 
-[ANALISIS DE COVERAGE](jacoco/index.html)
+[ANALISIS DE COVERAGE](http://htmlpreview.github.io/?jacoco/index.html)
 
