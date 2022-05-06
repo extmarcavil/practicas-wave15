@@ -89,4 +89,32 @@ public class UseCaseFollow {
                         bodyResponse
                 );
     }
+
+    @Test
+    @DisplayName("Verifica lista de followers")
+    @Order(4)
+    void listFollowers() throws Exception {
+
+        int id_user =2;
+
+        MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/users/{user_id}/followers/list",id_user);
+
+        String json="{\n" +
+                "    \"user_id\": 2,\n" +
+                "    \"user_name\": \"nombre2\",\n" +
+                "    \"followers\": [\n" +
+                "        {\n" +
+                "            \"user_id\": 1,\n" +
+                "            \"user_name\": \"nombre1\"\n" +
+                "        }\n" +
+                "    ]\n" +
+                "}";
+
+        ResultMatcher body= MockMvcResultMatchers.content().json(json);
+
+        mockMvc.perform(req)
+                .andExpectAll(
+                        body
+                );
+    }
 }
