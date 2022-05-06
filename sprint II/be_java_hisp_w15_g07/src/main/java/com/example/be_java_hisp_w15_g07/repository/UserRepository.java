@@ -13,10 +13,10 @@ import java.util.stream.Collectors;
 
 @Repository
 public class UserRepository implements IUserRepository{
-    private Map<Integer, User> database;
+    private static Map<Integer, User> database = new HashMap<>();
 
     public UserRepository() {
-        this.database = new HashMap<>();
+        database = new HashMap<>();
         initDatabase();
     }
 
@@ -24,8 +24,9 @@ public class UserRepository implements IUserRepository{
      * init database
      *
      */
-    private void initDatabase(){
+    public static void initDatabase(){
         // Create user.
+        database = new HashMap<>();
         User user1 = new User(1, "User 1");
         User user2 = new User(2, "User 2");
         User user3 = new User(3, "User 3");
