@@ -59,6 +59,13 @@ public class ProductControllerTest {
         ObjectWriter writer = ObjectWriterFactory.create();
         PostDTO p = PostDTOFactory.createWrongPost();
         String payload = writer.writeValueAsString(p);
+        String[] errsArr = {
+                "La marca debe contener solo letras y numeros",
+                "El color debe contener solo letras y numeros",
+                "La nota debe contener solo letras y numeros",
+                "El nombre debe contener solo letras y numeros",
+                "El tipo debe contener solo letras y numeros"
+        };
         ResultMatcher expectedContentType = MockMvcResultMatchers
                 .content()
                 .contentType(MediaType.APPLICATION_JSON);
@@ -67,6 +74,16 @@ public class ProductControllerTest {
                 .isBadRequest();
         ResultMatcher expectedSuccess = MockMvcResultMatchers
                 .jsonPath("$.success").value(false);
+        ResultMatcher expectedBrandErr = MockMvcResultMatchers
+                .jsonPath("$['errors']['detail.brand']").value(errsArr[0]);
+        ResultMatcher expectedColorErr = MockMvcResultMatchers
+                .jsonPath("$['errors']['detail.color']").value(errsArr[1]);
+        ResultMatcher expectedNotesErr = MockMvcResultMatchers
+                .jsonPath("$['errors']['detail.notes']").value(errsArr[2]);
+        ResultMatcher expectedProductNameErr = MockMvcResultMatchers
+                .jsonPath("$['errors']['detail.productName']").value(errsArr[3]);
+        ResultMatcher expectedTypeErr = MockMvcResultMatchers
+                .jsonPath("$['errors']['detail.type']").value(errsArr[4]);
 
         // Act
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
@@ -78,6 +95,15 @@ public class ProductControllerTest {
         mockMvc
                 .perform(request)
                 .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(expectedStatus, expectedContentType, expectedSuccess);
+                .andExpectAll(
+                        expectedStatus,
+                        expectedContentType,
+                        expectedSuccess,
+                        expectedBrandErr,
+                        expectedProductNameErr,
+                        expectedColorErr,
+                        expectedTypeErr,
+                        expectedNotesErr
+                );
     }
 }

@@ -1,3 +1,23 @@
+# Project: Sprint 2 - Version individual Fedele Lucas
+
+## Test de unidad realizados por mi:
+
+FollowRepositoryTest.java -> test_01_follow()
+
+UserServiceTest.java ->
+- test_01_followService()
+- test_01_followUnexistentUser()
+- test_02_unfollowAnExistentUser()
+- test_02_unfollowAnUnexistentUser()
+
+## Test de integracion individual:
+
+ProductControllerTest -> 
+- test_integration_createPost()
+- test_integration_createPostSadPath()
+
+
+
 # Project: Sprint 1
 # Introduccion
 versión Beta de la API “SocialMeli”, en donde los compradores van a poder seguir a sus vendedores favoritos y enterarse de todas las novedades que los mismos posteen.
