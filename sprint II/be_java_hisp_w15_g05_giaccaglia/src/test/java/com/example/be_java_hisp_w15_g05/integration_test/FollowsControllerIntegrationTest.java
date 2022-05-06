@@ -3,6 +3,7 @@ package com.example.be_java_hisp_w15_g05.integration_test;
 import com.example.be_java_hisp_w15_g05.dto.PostDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResCountFollowersDTO;
 import com.example.be_java_hisp_w15_g05.dto.ResCreatePostDTO;
+import com.example.be_java_hisp_w15_g05.exceptions.ErrorDTO;
 import com.example.be_java_hisp_w15_g05.utils.PostFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -61,7 +62,6 @@ public class FollowsControllerIntegrationTest {
 
         //arrange
         //se crea el payload y el mensaje de respuesta de post creado
-        //si el test falla, es porque la fecha no es del día de hoy en la clase PostFactory, método createPost().
         PostDTO post = PostFactory.createPost();
         ResCreatePostDTO resPost = PostFactory.createResPost();
         String payload = writer.writeValueAsString(post);
@@ -82,4 +82,34 @@ public class FollowsControllerIntegrationTest {
                 .andExpectAll(expectedStatus, expectedJson, expectedContentType);
     }
 
+    @Test
+    @DisplayName("Test Integración para crear un post con error (post)")
+    void integrationTestCreatePostError() throws Exception{
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+
+        //arrange
+        //se crea el payload y el mensaje de respuesta de post creado
+        //si el test falla, es porque la fecha no es del día de hoy en la clase PostFactory, método createPost().
+        PostDTO post = PostFactory.createPostError();
+        ErrorDTO errorPost = new ErrorDTO();
+        String payload = writer.writeValueAsString(post);
+        String expected = writer.writeValueAsString(errorPost);
+
+        //expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(expected);
+
+        //request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON).content(payload);
+
+        //act & assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedStatus, expectedJson, expectedContentType);
+    }
 }
