@@ -95,7 +95,7 @@ public class UserIntegrationTest {
     }
 
     /**
-     * Valida que se pueda seguir a un usuario
+     * Valida que se pueda seguir a un usuario dado el id del usuario y el id del usuario a seguir
      */
     @Test
     @DisplayName("Test de integracion de seguir a un usuario")
@@ -119,6 +119,33 @@ public class UserIntegrationTest {
         mockMvc.perform(request).andDo(print())
                 .andExpect(expectedStatus)
                 .andExpect(jsonPath("$.message").value("Se ha comenzado a seguir al usuario: Camilo"));
+    }
+
+    /**
+     * Valida que se no se pueda seguir a un usuario dado el id del usuario y el id del usuario a seguir
+     */
+    @Test
+    @DisplayName("Test de integracion de seguir a un usuario")
+    void followUserInvalidIntegrationTest() throws Exception {
+
+        ObjectWriter writer = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+
+        //Arrange
+
+        int userId = 10;
+        int followedId = 2;
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+
+        //REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post
+                ("/users/{userId}/follow/{userIdToFollow}", userId, followedId);
+
+        //Assert
+        mockMvc.perform(request).andDo(print())
+                .andExpect(expectedStatus)
+                .andExpect(jsonPath("$.message").value("El usuario no fue encontrado"));
     }
 
 }
