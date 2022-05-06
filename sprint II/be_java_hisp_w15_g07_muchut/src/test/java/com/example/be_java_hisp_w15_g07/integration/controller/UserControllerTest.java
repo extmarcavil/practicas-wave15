@@ -1,4 +1,4 @@
-package com.example.be_java_hisp_w15_g07.integration;
+package com.example.be_java_hisp_w15_g07.integration.controller;
 
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
