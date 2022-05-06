@@ -1,0 +1,15 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-BeJavaHispW15G01Application<be_java_hisp_w15_g01>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "console": "internalConsole",
+            "mainClass": "ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.BeJavaHispW15G01Application",
+            "projectName": "be_java_hisp_w15_g01",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

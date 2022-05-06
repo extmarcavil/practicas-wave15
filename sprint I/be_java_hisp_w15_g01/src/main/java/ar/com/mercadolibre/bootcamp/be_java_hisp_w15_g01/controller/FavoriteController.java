@@ -1,5 +1,7 @@
 package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +26,7 @@ public class FavoriteController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<ResponseDTO> add(@RequestBody FavoriteDTO favoriteDTO) {
+    public ResponseEntity<ResponseDTO> add(@Valid @RequestBody FavoriteDTO favoriteDTO) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(favoriteService.create(favoriteDTO));
