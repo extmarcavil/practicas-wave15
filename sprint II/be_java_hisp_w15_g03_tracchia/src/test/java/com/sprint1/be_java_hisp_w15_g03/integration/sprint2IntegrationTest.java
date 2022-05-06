@@ -2,7 +2,10 @@ package com.sprint1.be_java_hisp_w15_g03.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.be_java_hisp_w15_g03.dto.PersonDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.ErrorDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
@@ -24,6 +27,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import utils.UtilsTest;
 
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
@@ -323,5 +327,83 @@ public class sprint2IntegrationTest {
                 .andExpectAll(status().isNotFound(), expectedBody, expectedContentType);
     }
 
+    //---------------- US 06 ----------------
+
+    @Test
+    @DisplayName("Verifico el guardado de una publicacion correcta")
+    public void savePublicationOk() throws Exception {
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+                "Blanco","lala");
+        PublicationDTO post = new PublicationDTO(3, LocalDate.now(),product,0,50.0);
+
+        String payload = writer.writeValueAsString(post);
+
+        mockMVC.perform(post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(status().isOk());
+    }
+
+    @Test
+    @DisplayName("Verifico el fallo en caso de un seller id invalido")
+    public void savePublicationSellerNotFound() throws Exception {
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+                "Blanco","lala");
+        PublicationDTO post = new PublicationDTO(30, LocalDate.now(),product,0,50.0);
+
+        String payload = writer.writeValueAsString(post);
+
+        ErrorDTO error = new ErrorDTO("Entidad no encontrada",
+                "El vendedor con el id: 30 no existe");
+
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+
+        mockMVC.perform(post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
+    }
+
+    @Test
+    @DisplayName("Verifico el fallo en caso de una categoria invalida")
+    public void savePublicationCategoryInvalid() throws Exception {
+
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        ProductDTO product = new ProductDTO(1,"mesa","no se","algo",
+                "Blanco","lala");
+        PublicationDTO post = new PublicationDTO(30, LocalDate.now(),product,100,50.0);
+
+        String payload = writer.writeValueAsString(post);
+
+        ErrorDTO error = new ErrorDTO("Fallo en categoria esperada",
+                "La categoria 100 no existe.");
+
+        ResultMatcher expectedBody = content().json(writer.writeValueAsString(error));
+        ResultMatcher expectedContentType = content().contentType(MediaType.APPLICATION_JSON);
+
+
+        mockMVC.perform(post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedBody,expectedContentType,status().isNotFound());
+    }
 
 }
