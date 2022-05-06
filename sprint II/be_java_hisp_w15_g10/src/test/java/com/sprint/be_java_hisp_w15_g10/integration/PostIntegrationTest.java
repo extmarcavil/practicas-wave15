@@ -28,10 +28,15 @@ public class PostIntegrationTest {
     @Autowired
     MockMvc mockMvc;
 
-    @Test
-    @DisplayName("Test Post")
-    void createPostIntegrationTest() throws Exception {
+    /**
+     * Valida que no se pueda crear un post nulo y tire la respuesta correspondiente
+     *
+     * @throws Exception
+     */
 
+    @Test
+    @DisplayName("Test crear Post nulo")
+    void createPostNullIntegrationTest() throws Exception {
 
         //Arrange
         ObjectWriter writer = new ObjectMapper()
@@ -53,6 +58,52 @@ public class PostIntegrationTest {
                 .andExpect(expectedStatus);
 
     }
+
+    /**
+     * Valida que se pueda crear un post y retorne la respuesta correspondiente
+     *
+     * @throws Exception
+     */
+//    @Test
+//    @DisplayName("Test creacion de post controlador")
+//    void createPostIntegrationTest() throws Exception {
+//
+//        ObjectWriter writer = new ObjectMapper()
+//                .registerModule(new JavaTimeModule())
+//                .writer();
+//
+//        //Arrange
+//
+//
+//        //Creacion de un post y producto para el test
+//
+//        ProductRequestDTO producto = new ProductRequestDTO(1, "Producto 1", "hogar", "samsung", "rojo", "nmdfiodsf");
+//
+//        PostCreateDTO Post = new PostCreateDTO(1, producto
+//                , LocalDate.now(), 1, 20.0);
+//
+//        String payloadPost = writer.writeValueAsString(Post);
+//        String expectedPost = writer.writeValueAsString(Post);
+//
+//        //Expected
+//        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isCreated();
+//        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(expectedPost);
+//        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+//
+//
+//        //Request
+//        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post/")
+//                .contentType(MediaType.APPLICATION_JSON)
+//                .content(payloadPost);
+//
+//        //Act & Assert
+//        mockMvc.perform(request).andDo(MockMvcResultHandlers.print())
+//                .andExpectAll(
+//                        expectedStatus,
+//                        expectedJson,
+//                        expectedContentType);
+//
+//    }
 
 
 }

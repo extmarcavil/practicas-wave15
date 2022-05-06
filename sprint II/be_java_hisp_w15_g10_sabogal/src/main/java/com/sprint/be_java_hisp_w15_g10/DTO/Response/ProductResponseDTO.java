@@ -9,6 +9,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 
 public class ProductResponseDTO {
+
     private int product_id;
     private String product_name;
     private String type;
