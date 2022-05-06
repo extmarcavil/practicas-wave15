@@ -1,0 +1,62 @@
+package sprint2.socialmeli.service;
+
+import sprint2.socialmeli.dto.user.ResponseFollowedListDTO;
+import sprint2.socialmeli.dto.user.ResponseFollowersCountDTO;
+import sprint2.socialmeli.dto.user.ResponseFollowersListDTO;
+import sprint2.socialmeli.exceptions.InvalidFollower;
+import sprint2.socialmeli.exceptions.InvalidParamsException;
+import sprint2.socialmeli.exceptions.UserNotFound;
+
+public interface ISocialMeliService {
+
+    /**
+     * Usuario en primer id, sigue al usuario del segundo id.
+     * Este método recibe dos argumentos(int) : “userID” y “userIdToFollow”. Ambos argumentos indican el número asociado a dicho un usuario. Al ejecutarse, el usuario con ID “userID” dejara de seguir al usuario con ID “userIdToFollow”, ambos IDs pasados por parámetros..
+     * @param userID indice del usuario seguidor
+     * @param userIdToFollow índice del usuario a seguir
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @throws InvalidFollower en caso de que el usuario seguidor ya siga al usuario seguido.
+     */
+    void follow(Integer userID, Integer userIdToFollow);
+
+    /**
+     * Hace que un usuario deje de seguir a otro
+     * Este metodo recibe dos indices #userID y #userIdToUnfollow.Ambos indices referencian a sus respectivos usuarios. Al ejecutar esta funcion el usuario con ID #userID dejara de seguir al usuario con ID #userIdToUnfollow
+     * @param userID indice del usuario seguidor
+     * @param userIdToUnfollow indice del usuario seguido, el cual se dejara de seguir.
+     * @throws UserNotFound si alguno de los usuarios no fue encontrado
+     * @throws InvalidFollower si el usuario quiere dejar de seguirse a si mismo o trata de dejar de seguir a alguien que no sigue
+     */
+    void unfollow(int userID, int userIdToUnfollow);
+
+    /**
+     * Cuenta la cantidad de seguidores de un usuario.
+     * Recibe un id de usuario por parámetro, valida a través del mismo que haya un usuario con ese ID, lo recupera, lo mapea a un DTO que se encarga de obtener el conteo de los seguidores a través de un .size() a la lista de Followers.
+     * @param userID índice del usuario a consultar.
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @return ResponseFollowersCountDTO
+     */
+    public ResponseFollowersCountDTO countFollowers(Integer userID);
+
+    /**
+     * Ver la lista de seguidores de un determinado usuario.
+     * Recibe un id de usuario y un string opcional indicando un orden por parámetro, valida a través del id recibido que haya un usuario con ese ID, lo recupera. En caso de que haya algún valor en el string order, ordena la lista de Followers según el criterio del parámetro, y en caso de que el valor sea nulo, no ordena la misma. Luego se mapea al DTO y lo devuelve.
+     * @param userId índice del usuario a consultar.
+     * @param order tipo de orden a realizar (es nullable)
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
+     * @return ResponseFollowersListDTO
+     */
+    public ResponseFollowersListDTO listFollowers(Integer userId, String order);
+
+    /**
+     * Ver la lista de seguidos de un determinado usuario.
+     * Recibe un id de usuario y un string opcional indicando un orden por parámetro, valida a través del id recibido que haya un usuario con ese ID, lo recupera. En caso de que haya algún valor en el string order, ordena la lista de Followed según el criterio del parámetro, y en caso de que el valor sea nulo, no ordena la misma. Luego se mapea al DTO y lo devuelve.
+     * @param userId índice del usuario a consultar.
+     * @param order tipo de orden a realizar (es nullable).
+     * @throws UserNotFound en caso de no existir un usuario con dicho ID.
+     * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
+     * @return ResponseFollowedListDTO
+     */
+    public ResponseFollowedListDTO listFollowed(Integer userId, String order);
+}
