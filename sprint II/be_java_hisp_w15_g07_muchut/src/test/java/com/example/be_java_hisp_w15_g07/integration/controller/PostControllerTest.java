@@ -69,4 +69,17 @@ public class PostControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
+    @Test
+    @DisplayName("products/post -> lanza excepción al intentar agregar usuario con payload incompleto")
+    void newPostFailsTest() throws Exception {
+        NewPostDTO newPost = new NewPostDTO();
+        String payloadJson = writer.writeValueAsString(newPost);
+
+        // Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post");
+
+        mockMvc.perform(request.contentType(MediaType.APPLICATION_JSON).content(payloadJson))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().is4xxClientError());
+    }
 }
