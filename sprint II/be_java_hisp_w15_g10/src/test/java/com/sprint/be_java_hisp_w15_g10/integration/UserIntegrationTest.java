@@ -1,5 +1,6 @@
 package com.sprint.be_java_hisp_w15_g10.integration;
 
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +13,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -76,6 +79,15 @@ public class UserIntegrationTest {
                 .andExpect(expectedStatus)
                 .andExpect(jsonPath("$.name").value("NOT FOUND USER"))
                 .andExpect(jsonPath("$.message").value("El usuario no fue encontrado"));
+    }
+
+    @Test
+    @DisplayName("Test de integracion de obtener seguidores de usuario")
+    void testGetVendorsFollow() throws Exception {
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followed/list", 1))
+                .andDo(print()).andExpect(status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.followed", Matchers.hasSize(0)));
     }
 
 }

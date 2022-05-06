@@ -53,6 +53,13 @@ public class UserController {
         return   new ResponseEntity<FollowUserDTO>(userService.followUser(userId, userIdToFollow),HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param userId
+     * @param order
+     * @return
+     */
+
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<VendedorsFollowedDTO> getVendorsFollow(
             @Min(value = 1, message = "El id debe ser mayor a cero") @PathVariable int userId,

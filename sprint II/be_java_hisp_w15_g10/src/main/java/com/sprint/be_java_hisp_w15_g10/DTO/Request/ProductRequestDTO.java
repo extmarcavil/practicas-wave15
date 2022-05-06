@@ -38,4 +38,8 @@ public class ProductRequestDTO {
     @Pattern(regexp = "^[a-zA-Z0-9-ñ ]*$", message = "El campo no puede poseer caracteres especiales")
     @JsonProperty
     private String notes;
+
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
+    }
 }

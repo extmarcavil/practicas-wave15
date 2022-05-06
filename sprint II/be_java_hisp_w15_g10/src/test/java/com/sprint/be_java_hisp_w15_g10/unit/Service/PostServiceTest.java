@@ -105,6 +105,7 @@ class PostServiceTest {
 
         //Assert
         Assertions.assertAll(
+                () -> Assertions.assertEquals("Tecnología", category1.getCategory_name()),
                 () -> Assertions.assertEquals(1, postCreateDTO.getCategory_id()),
                 () -> Assertions.assertEquals(LocalDate.now(), postCreateDTO.getDate()),
                 () -> Assertions.assertEquals(4, postCreateDTO.getUser_id()),
@@ -122,6 +123,38 @@ class PostServiceTest {
                 () -> Assertions.assertEquals("Se ha creado el Post con éxito", message)
         );
 
+    }
+
+    /**
+     * Valida que se cree un producto si se envía un ID producto nuevo
+     */
+
+    @Test
+    @DisplayName("Test creación de producto")
+    void createPostVoidProductTest(){
+
+        //Arrange
+        doReturn(Optional.of(category1))
+                .when(categoryRepository)
+                .getById(anyInt());
+
+        when(modelMapper
+                .map(postCreateDTO, Post.class))
+                .thenReturn(post1);
+
+        when(userRepository
+                .getById(anyInt()))
+                .thenReturn(Optional.of(user));
+
+        doReturn(Optional.empty())
+                .when(productRepository)
+                .getById(anyInt());
+
+        postServiceMock.createPost(postCreateDTO).getMessage();
+
+        Assertions.assertAll(
+                () -> verify(productRepository, atLeastOnce()).add(any(Product.class))
+        );
     }
 
     /**
@@ -237,6 +270,7 @@ class PostServiceTest {
 
         //Act
         List<PostResponseDTO> list = postServiceMock.getAllPosts();
+
         //Assert
         Assertions.assertAll(
                 () -> assertFalse(list.isEmpty()),
