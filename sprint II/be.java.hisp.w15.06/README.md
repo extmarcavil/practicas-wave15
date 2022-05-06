@@ -9,24 +9,7 @@ Objetivo: Aplicar los contenidos dados hasta el momento durante el BOOTCAMP MeLi
 ## Requerimientos: 
 ​
 ​
-US Sprint 1:
-​
-​
-- US 0001: Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
-- US 0002: Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
-- US 0003: Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?)
-- US 0004: Obtener un listado de todos los vendedores a los cuales sigue un determinado usuario (¿A quién sigo?)
-- US 0005: Dar de alta una nueva publicación
-- US 0006: Obtener un listado de las publicaciones realizadas por los vendedores que un usuario sigue en las últimas dos semanas (para esto tener en cuenta ordenamiento por fecha, publicaciones más recientes primero).
-- US 0007: Poder realizar la acción de “Unfollow” (dejar de seguir) a un determinado vendedor.
-- US 0008: Ordenamiento alfabético ascendente y descendente
-- US 0009: Ordenamiento por fecha ascendente y descendente
-​
-​
-US Sprint 2:
-​
-​
-- - US 0001: Verificar que el usuario a seguir exista. (US-0001)
+- US 0001: Verificar que el usuario a seguir exista. (US-0001)
 - US 0002: Verificar que el usuario a dejar de seguir exista. (US-0007)
 - US 0003: Verificar que el tipo de ordenamiento alfabético exista (US-0008)
 - US 0004: Verificar el correcto ordenamiento ascendente y descendente por nombre. (US-0008)
