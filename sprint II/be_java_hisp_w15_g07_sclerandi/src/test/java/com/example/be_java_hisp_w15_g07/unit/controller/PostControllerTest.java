@@ -1,9 +1,12 @@
 package com.example.be_java_hisp_w15_g07.unit.controller;
 
 import com.example.be_java_hisp_w15_g07.controller.PostController;
+import com.example.be_java_hisp_w15_g07.dto.request.NewPostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
+import com.example.be_java_hisp_w15_g07.model.Post;
+import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.service.IPostService;
 import com.example.be_java_hisp_w15_g07.utils.PostFactory;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
@@ -21,7 +24,8 @@ import org.springframework.http.ResponseEntity;
 import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.times;
 
 @ExtendWith(MockitoExtension.class)
 public class PostControllerTest {
@@ -155,5 +159,21 @@ public class PostControllerTest {
         for (PostDTO postDTO: result.getBody().getPosts()) {
             assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
         }
+    }
+
+    @Test
+    @DisplayName("BONUS - Verificar que se crea un nuevo post correctamente")
+    public void createNewPostSuccess(){
+        // Arrange
+        NewPostDTO post = PostFactory.getNewPostDTO();
+
+        // Mock
+        doNothing().when(service).newPost(post);
+
+        // Act
+        ResponseEntity<?> result = controller.newPost(post);
+
+        // Assert
+        assertEquals(HttpStatus.OK, result.getStatusCode());
     }
 }

@@ -59,6 +59,5 @@ public class PostController {
     public ResponseEntity<?> newPost(@Valid @RequestBody NewPostDTO postDTO){
         postService.newPost(postDTO);
         return new ResponseEntity<>(HttpStatus.OK);
-
     }
 }

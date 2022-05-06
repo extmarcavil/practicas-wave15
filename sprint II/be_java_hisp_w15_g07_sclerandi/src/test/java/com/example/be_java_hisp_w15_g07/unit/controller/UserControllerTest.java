@@ -65,7 +65,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("T00002 - Verificar que el usuario a dejar de seguir existe")
+    @DisplayName("T0002 - Verificar que el usuario a dejar de seguir existe")
     public void findUserToUnfollow(){
         // Arrange
         Integer userId = 1;
@@ -85,7 +85,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("T00002 - Verificar que se lanza una expcepción si el usuario a dejar de seguir no existe")
+    @DisplayName("T0002 - Verificar que se lanza una expcepción si el usuario a dejar de seguir no existe")
     public void FindUserToUnfollowNotFound(){
         // Arrange
         Integer userId = 1;

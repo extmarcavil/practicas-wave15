@@ -1,26 +1,36 @@
 package com.example.be_java_hisp_w15_g07.unit.repository;
 
 import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
+import com.example.be_java_hisp_w15_g07.model.Post;
 import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.repository.UserRepository;
+import com.example.be_java_hisp_w15_g07.utils.InitDatabase;
+import com.example.be_java_hisp_w15_g07.utils.PostFactory;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class UserRepositoryTest {
+
     private IUserRepository repository;
+
+    private Map<Integer, User> database;
 
     @BeforeEach
     public void setup(){
-        repository = new UserRepository();
+        this.repository = new UserRepository();
+        this.database = new HashMap<>();
+        InitDatabase.initDatabase(database);
     }
 
     @Test
@@ -138,6 +148,24 @@ public class UserRepositoryTest {
 
         // Act
         List<User> result = repository.findFollowedOrderByNameDesc(userId);
+
+        // Assert
+        assertEquals(expected, result);
+    }
+
+    @Test
+    @DisplayName("BONUS - Verificar que se crea un nuevo post correctamente")
+    public void createNewPostSuccess(){
+        // Arrange
+        Integer userId = 2;
+
+        Post post = PostFactory.getNewPost();
+        database.get(userId).newPost(post);
+        List<Post> expected = database.get(userId).getPosts();
+
+        // Act
+        repository.newPost(userId, post);
+        List<Post> result = repository.findById(userId).getPosts();
 
         // Assert
         assertEquals(expected, result);

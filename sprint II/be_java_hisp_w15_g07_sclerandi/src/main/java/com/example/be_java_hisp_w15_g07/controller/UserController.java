@@ -63,7 +63,7 @@ public class UserController {
      * @author Tomas Ravelli
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable
+    public ResponseEntity<?> followUser(@PathVariable
                                      @NotNull(message = "El  id no puede estar vacío.")
                                      @Positive(message = "El id debe ser mayor a cero")
                                      Integer userId,

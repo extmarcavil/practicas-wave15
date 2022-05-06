@@ -18,10 +18,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.Mockito.when;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
@@ -140,5 +138,24 @@ public class PostServiceTest {
         for (PostDTO postDTO: userFollowedPostsDTO.getPosts()) {
             assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
         }
+    }
+
+    @Test
+    @DisplayName("BONUS - Verificar que se crea un nuevo post correctamente")
+    public void createNewPostSuccess(){
+        // Arrange
+        Integer userId = 2;
+        User user2 = UserFactory.getUserTwo();
+        Post post = PostFactory.getNewPost();
+        user2.newPost(post);
+
+        // Mock
+        doNothing().when(repository).newPost(userId, post);
+
+        // Act
+        service.newPost(PostFactory.getNewPostDTO());
+
+        // Assert
+        verify(repository, times(1)).newPost(userId, post);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.be_java_hisp_w15_g07.utils;
 
+import com.example.be_java_hisp_w15_g07.dto.request.NewPostDTO;
 import com.example.be_java_hisp_w15_g07.dto.request.ProductDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.model.Post;
@@ -59,5 +60,15 @@ public class PostFactory {
                                     p.getCategory(),
                                     p.getPrice()))
                 .collect(Collectors.toList());
+    }
+
+    public static Post getNewPost(){
+        Product product1 = new Product(5, "Computadora", "Electrodomesticos", "Samsung", "Negro", "");
+        return new Post(now.minusDays(1), product1, 2, 120000d);
+    }
+
+    public static NewPostDTO getNewPostDTO(){
+        ProductDTO product1 = new ProductDTO(5, "Computadora", "Electrodomesticos", "Samsung", "Negro", "");
+        return new NewPostDTO(2, now.minusDays(1), product1, 2, 120000d);
     }
 }

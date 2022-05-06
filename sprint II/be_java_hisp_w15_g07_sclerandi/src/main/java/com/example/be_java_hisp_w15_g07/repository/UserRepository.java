@@ -70,21 +70,6 @@ public class UserRepository implements IUserRepository{
         post = new Post(LocalDate.of(2020, Month.JULY, 22), product, 5, 180000d);
         user4.newPost(post);
         database.put(user4.getUserId(), user4);
-        /*
-
-
-        product = new Product(6, "Celular", "Electronica", "Motorola", "Blanco", "");
-        post = new Post(6, 1, LocalDate.of(2021, Month.DECEMBER, 2), product, 6, 87000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(7, "Tostadora", "Electrodomesticos", "Volkswagen", "Blanco", "4 modos");
-        post = new Post(7, 3, LocalDate.of(2022, Month.APRIL, 3), product, 7, 20000d);
-        database.put(post.getPostId(), post);
-
-        product = new Product(8, "Pantalla 50", "Electrodomesticos", "TopHouse", "Plateado", "");
-        post = new Post(8, 2, LocalDate.of(2020, Month.APRIL, 10), product, 8, 68000d);
-        database.put(post.getPostId(), post);
-        */
     }
 
     /**
