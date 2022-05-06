@@ -2,6 +2,7 @@ package com.sprint1.be_java_hisp_w15_g03.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
+import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.RelationConflictException;
@@ -150,6 +151,38 @@ public class UserControllerIT {
                         expectedContentType,
                         result -> Assertions.assertTrue(result.getResolvedException() instanceof PersonNotFoundException)
                 );
+    }
+
+    @Test
+    @DisplayName("Verificar que la lista de followers es correcta.")
+    void getFollowersList() throws Exception {
+        // EXPECTED
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/users/{userId}/followers/list", 50)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        // act & assert
+        MvcResult result = mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        expectedContentType
+                )
+                .andReturn();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        SellerFListDTO sellerFListDTO = objectMapper.readValue(result.getResponse().getContentAsString(), SellerFListDTO.class);
+        //Edgar sigue dos vendedores : HBO y Netflix
+        Assertions.assertAll(
+                () -> Assertions.assertEquals(sellerFListDTO.getFollowers().size(), 1),
+                () -> Assertions.assertEquals(sellerFListDTO.getUserName(), "Netflix"),
+                () -> Assertions.assertEquals(sellerFListDTO.getUserId(), 50)
+        );
     }
 
     @Test
