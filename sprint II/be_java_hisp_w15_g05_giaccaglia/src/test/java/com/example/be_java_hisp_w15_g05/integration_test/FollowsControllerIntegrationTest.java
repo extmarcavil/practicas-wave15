@@ -61,6 +61,7 @@ public class FollowsControllerIntegrationTest {
 
         //arrange
         //se crea el payload y el mensaje de respuesta de post creado
+        //si el test falla, es porque la fecha no es del día de hoy en la clase PostFactory, método createPost().
         PostDTO post = PostFactory.createPost();
         ResCreatePostDTO resPost = PostFactory.createResPost();
         String payload = writer.writeValueAsString(post);
