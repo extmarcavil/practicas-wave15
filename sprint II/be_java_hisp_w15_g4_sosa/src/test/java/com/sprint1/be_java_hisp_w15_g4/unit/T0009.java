@@ -42,13 +42,14 @@ public class T0009 {
         Post post = TestGenerator.GeneratePosts(user1.getUser_id(),
                 LocalDate.now().toString());
         // Mock
-        Mockito.when(repo.findUser(userId1)).thenReturn(user1);
+        Mockito.when(repo.findUser(Mockito.any(Integer.class))).thenReturn(user1);
         // Act & Assert
         product.createPost(postRequest);
         Assertions.assertAll(
                 () -> Assertions.assertEquals(user1.getPosts().size(), 1),
                 () -> Assertions.assertEquals(post.getPrice(), user1.getPosts().get(0).getPrice()),
-                () -> Assertions.assertEquals(post.getPost_id() + 1, user1.getPosts().get(0).getPost_id())
+                () -> Assertions.assertEquals(post.getPost_id() + 1, user1.getPosts().get(0).getPost_id()),
+                () -> Mockito.verify(repo,Mockito.times(1)).findUser(Mockito.any(Integer.class))
         );
     }
 

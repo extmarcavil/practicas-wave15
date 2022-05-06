@@ -122,6 +122,7 @@ public class UserControllerIntegrationTest {
         // arrange
         FollowerCountDTO followerCountDTOResponseEntity=
                 new FollowerCountDTO(1,"nombre1",0);
+
         String followerJson = writer.writeValueAsString(followerCountDTOResponseEntity);
         // EXPECTED
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
