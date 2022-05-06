@@ -23,7 +23,7 @@ public class GlobalIntegration {
     }
 
     public static PostCreateDTO postDummy(){
-        return new PostCreateDTO(1, LocalDate.now(),productDummy(),"1",100);
+        return new PostCreateDTO(1, LocalDate.now().minusWeeks(2),productDummy(),"1",100);
     }
 
     public static PostCreateDTO postInvalidDummy(){
@@ -57,7 +57,10 @@ public class GlobalIntegration {
         var follow2 = new com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO();
         follow2.setUserId(5);
         follow2.setUserName("Ramiro");
-        List<GetFollowersDTO> listResult = List.of(follow1,follow2);
+        var follow3 = new com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO();
+        follow2.setUserId(6);
+        follow2.setUserName("Gerson");
+        List<GetFollowersDTO> listResult = List.of(follow1,follow2,follow3);
         return listResult;
     }
 }

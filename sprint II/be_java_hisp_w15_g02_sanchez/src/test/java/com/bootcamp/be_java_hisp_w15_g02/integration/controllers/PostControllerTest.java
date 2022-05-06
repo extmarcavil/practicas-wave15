@@ -52,37 +52,23 @@ public class PostControllerTest {
     void  listPostByFollowUserWithoutOrder() throws  Exception{
         //arr & act & assert
         _mockMvc
-                .perform(MockMvcRequestBuilders.get("/products/followed/{userId}/list",1))
+                .perform(MockMvcRequestBuilders.get("/products/followed/{userId}/list",5))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         MockMvcResultMatchers.status().isOk(),
                         MockMvcResultMatchers
                                 .jsonPath("$.posts.length()")
-                                .value(3)
+                                .value(0)
                 );
     }
 
-    @Test
-    @DisplayName("valid list follows by user ordered")
-    void  listPostByFollowUserWithOrder() throws  Exception{
-        //arr & act & assert
-        _mockMvc
-                .perform(MockMvcRequestBuilders.get("/products/followed/{userId}/list?order=date_asc",1))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isOk(),
-                        MockMvcResultMatchers
-                                .jsonPath("$.posts.length()")
-                                .value(3)
-                );
-    }
 
     @Test
     @DisplayName(" type order not valid in list follows")
     void invalidTypeOrder() throws Exception{
         //arr & act & assert
         _mockMvc
-                .perform(MockMvcRequestBuilders.get("/products/followed/{userId}/list?order=date_testing",1))
+                .perform(MockMvcRequestBuilders.get("/products/followed/{userId}/list?order=date_testing",5))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         MockMvcResultMatchers.status().isBadRequest(),

@@ -23,7 +23,7 @@ public class UserControllerTest {
     void validFollow() throws Exception{
         //arr & act & assert
         _mockMvc
-                .perform(MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}",2,4)
+                .perform(MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}",1,6)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(

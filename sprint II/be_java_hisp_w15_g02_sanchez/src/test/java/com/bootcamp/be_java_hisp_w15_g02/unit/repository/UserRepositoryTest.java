@@ -38,7 +38,7 @@ public class UserRepositoryTest {
     @DisplayName("Verify if the user to follow exist")
     public void verifyUserToFollowExist(){
         //act and assert
-        Assertions.assertTrue(userRepository.follow(1, 5));
+        Assertions.assertTrue(userRepository.follow(1, 6));
     }
 
     @Test
@@ -52,7 +52,7 @@ public class UserRepositoryTest {
     @DisplayName("Verify if the user to follower")
     public void verifyUserToFollower(){
         //act and assert
-        userRepository.follow(1, 4);
+        userRepository.follow(1, 6);
 
         boolean followExist = userRepository.getUserById(1).getFollowList().stream().filter(item -> item.getUserToFollow() == 4).count()>0?true:false;
         Assertions.assertTrue(followExist);

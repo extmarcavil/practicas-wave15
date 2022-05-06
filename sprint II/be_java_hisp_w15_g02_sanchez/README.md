@@ -65,8 +65,7 @@ PostControllerTest
 
 - createPostValid
 - createPostInvalid
-- listPostByFollowUserWithoutOrder 
-- listPostByFollowUserWithOrder
+- listPostByFollowUserWithoutOrder
 - invalidTypeOrder
 
 UserControllerTest
