@@ -36,7 +36,7 @@ public interface ISocialMeliService {
      * @throws UserNotFound en caso de no existir un usuario con dicho ID.
      * @return ResponseFollowersCountDTO
      */
-    public ResponseFollowersCountDTO countFollowers(Integer userID);
+    ResponseFollowersCountDTO countFollowers(Integer userID);
 
     /**
      * Ver la lista de seguidores de un determinado usuario.
@@ -47,7 +47,7 @@ public interface ISocialMeliService {
      * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowersListDTO
      */
-    public ResponseFollowersListDTO listFollowers(Integer userId, String order);
+    ResponseFollowersListDTO listFollowers(Integer userId, String order);
 
     /**
      * Ver la lista de seguidos de un determinado usuario.
@@ -58,5 +58,5 @@ public interface ISocialMeliService {
      * @throws InvalidParamsException en caso de que el tipo de ordeningresado sea incorrecto.
      * @return ResponseFollowedListDTO
      */
-    public ResponseFollowedListDTO listFollowed(Integer userId, String order);
+    ResponseFollowedListDTO listFollowed(Integer userId, String order);
 }
