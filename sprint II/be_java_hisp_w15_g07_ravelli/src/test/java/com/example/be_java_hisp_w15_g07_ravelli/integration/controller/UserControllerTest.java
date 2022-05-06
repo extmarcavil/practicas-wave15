@@ -4,7 +4,6 @@ import com.example.be_java_hisp_w15_g07_ravelli.dto.response.FollowedDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07_ravelli.dto.response.UserFollowersDTO;
-import com.example.be_java_hisp_w15_g07_ravelli.model.User;
 import com.example.be_java_hisp_w15_g07_ravelli.repository.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -154,7 +153,7 @@ public class UserControllerTest {
     //BONUS
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/count:response OK")
+    @DisplayName("GET /users/{userId}/followers/count - response OK")
     public void countFollowersOK() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -177,7 +176,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/count:response not found")
+    @DisplayName("GET /users/{userId}/followers/count - response 404")
     public void countFollowers404() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -196,7 +195,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/count:response bad request - negative id")
+    @DisplayName("GET /users/{userId}/followers/count - response 400 - negative id")
     public void countFollowersNegativeId() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -216,7 +215,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/list: response OK")
+    @DisplayName("GET /users/{userId}/followers/list - response OK")
     void getFollowersListOK() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -242,7 +241,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/list ordered ascendant: response OK")
+    @DisplayName("GET /users/{userId}/followers/list - ordered ascendant - response OK")
     void getFollowersListOrderedAsc() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -270,7 +269,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/list ordered descendant: response OK")
+    @DisplayName("GET /users/{userId}/followers/list - ordered descendant - response OK")
     void getFollowersListOrderedDesc() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -298,7 +297,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/list invalid param: response bad request")
+    @DisplayName("GET /users/{userId}/followers/list - response 400 - invalid param")
     void getFollowersListOrderBadRequest() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -320,7 +319,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followers/list: response not found")
+    @DisplayName("GET /users/{userId}/followers/list - response 404")
     void getFollowersNotFound() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -340,7 +339,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followed/list: response OK")
+    @DisplayName("GET /users/{userId}/followed/list - response OK")
     void getFollowedListOK() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -366,7 +365,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followed/list ordered ascendant: response OK")
+    @DisplayName("GET /users/{userId}/followed/list - ordered ascendant - response OK")
     void getFollowedListOrderedAsc() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -394,7 +393,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followed/list ordered descendant: response OK")
+    @DisplayName("GET /users/{userId}/followed/list - ordered descendant - response OK")
     void getFollowedListOrderedDesc() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -422,7 +421,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followed/list invalid param: response bad request")
+    @DisplayName("GET /users/{userId}/followed/list invalid param - response 400 - invalid argument 'order'")
     void getFollowedListOrderBadRequest() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -444,7 +443,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("GET /users/{userId}/followed/list: response not found")
+    @DisplayName("GET /users/{userId}/followed/list - response OK")
     void getFollowedNotFound() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -464,7 +463,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow}: response ok")
+    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow} - response OK")
     void unfollowUserOK() throws Exception {
         //arrange
         ResultMatcher statusOk = MockMvcResultMatchers.status().isOk();
@@ -482,7 +481,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow}: response 404")
+    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow} - response 404")
     void unfollowUserNotFoundUserId() throws Exception {
         //arrange
         ResultMatcher statusNotFound = MockMvcResultMatchers.status().isNotFound();
@@ -500,7 +499,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow}: response bad request ")
+    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow} - response 400 - not following")
     void unfollowUserNotFollowing() throws Exception {
         //arrange
         ResultMatcher statusBadRequest = MockMvcResultMatchers.status().isBadRequest();
@@ -518,7 +517,7 @@ public class UserControllerTest {
     }
 
     @Test
-    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow}: response bad request ")
+    @DisplayName("POST /users/{userId}/unfollow/{userIdToUnfollow} - response 400 - same userId and userIdToUnfollow")
     void unfollowYourself() throws Exception {
         //arrange
         ResultMatcher statusBadRequest = MockMvcResultMatchers.status().isBadRequest();

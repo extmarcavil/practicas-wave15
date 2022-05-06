@@ -61,7 +61,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("POST /products/post: response OK")
+    @DisplayName("POST /products/post - response OK")
     void newPostOK() throws Exception {
         //arrange
         ResultMatcher statusOk = MockMvcResultMatchers.status().isOk();
@@ -84,7 +84,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("POST /products/post: response bad request - invalid arguments")
+    @DisplayName("POST /products/post - response 400 - invalid arguments")
     void newPostInvalidArguments() throws Exception {
         //arrange
         ResultMatcher statusBadRequest = MockMvcResultMatchers.status().isBadRequest();
@@ -112,7 +112,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("POST /products/post: response 404")
+    @DisplayName("POST /products/post - response 404")
     void newPostNotFound() throws Exception {
         //arrange
         // ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -136,7 +136,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list response OK")
+    @DisplayName("GET /products/followed/{userId}/list - response OK")
     void getPostsDefault() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -175,7 +175,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list response OK - order ascendant")
+    @DisplayName("GET /products/followed/{userId}/list - order ascendant - response OK")
     void getPostsOrderDateAsc() throws Exception {
         //arrange
         ObjectMapper mapper = new ObjectMapper()
@@ -229,7 +229,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list response OK - order descendant")
+    @DisplayName("GET /products/followed/{userId}/list - order descendant - response OK")
     void getPostsOrderDateDesc() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -264,7 +264,7 @@ public class PostControllerTest {
         //assert
         MvcResult mvcResult = this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/products/followed/{userId}/list", 1)
-                .params(params))
+                        .params(params))
                 .andDo(print())
                 .andExpectAll(
                         contentType,
@@ -283,7 +283,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list: response not found")
+    @DisplayName("GET /products/followed/{userId}/list - response 404")
     void getPostsUserNotFound() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -303,7 +303,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list response bad request - invalid param")
+    @DisplayName("GET /products/followed/{userId}/list response 400 - invalid param")
     void getPostsInvalidParam() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
@@ -316,7 +316,7 @@ public class PostControllerTest {
         //assert
         MvcResult mvcResult = this.mockMvc.perform(
                 MockMvcRequestBuilders.get("/products/followed/{userId}/list", 1)
-                            .params(params))
+                        .params(params))
                 .andDo(print())
                 .andExpectAll(
                         contentType,
@@ -326,7 +326,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("GET /products/followed/{userId}/list response bad request - negative id")
+    @DisplayName("GET /products/followed/{userId}/list - response 400 - negative id")
     void getPostsNegativeId() throws Exception {
         //arrange
         ResultMatcher contentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
