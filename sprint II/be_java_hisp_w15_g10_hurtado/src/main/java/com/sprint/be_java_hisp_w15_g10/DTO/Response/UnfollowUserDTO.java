@@ -4,7 +4,6 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
-@NoArgsConstructor
-public class FollowUserDTO {
+public class UnfollowUserDTO {
     private String message;
 }

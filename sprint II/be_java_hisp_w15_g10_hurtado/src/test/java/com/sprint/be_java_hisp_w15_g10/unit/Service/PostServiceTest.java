@@ -105,9 +105,6 @@ class PostServiceTest {
 
         //Assert
         Assertions.assertAll(
-                () -> Assertions.assertEquals("Se ha creado el Post con éxito", message),
-                () -> Assertions.assertEquals(4, category1.getCategory_id()),
-                () -> Assertions.assertEquals("Tecnología", category1.getCategory_name()),
                 () -> Assertions.assertEquals("Tecnología", category1.getCategory_name()),
                 () -> Assertions.assertEquals(1, postCreateDTO.getCategory_id()),
                 () -> Assertions.assertEquals(LocalDate.now(), postCreateDTO.getDate()),
@@ -122,7 +119,8 @@ class PostServiceTest {
                 () -> Assertions.assertEquals("", productRequestDTO.getNotes()),
                 () -> verify(categoryRepository, atLeastOnce()).getById(anyInt()),
                 () -> verify(userRepository, atLeastOnce()).getById(anyInt()),
-                () -> verify(productRepository, atLeastOnce()).getById(anyInt())
+                () -> verify(productRepository, atLeastOnce()).getById(anyInt()),
+                () -> Assertions.assertEquals("Se ha creado el Post con éxito", message)
         );
 
     }
@@ -133,7 +131,7 @@ class PostServiceTest {
 
     @Test
     @DisplayName("Test creación de producto")
-    void createPostVoidProductTest() {
+    void createPostVoidProductTest(){
 
         //Arrange
         doReturn(Optional.of(category1))
@@ -161,6 +159,7 @@ class PostServiceTest {
 
     /**
      * valida que se pueda lanzar una Excepcion cuando la categoría no existe
+     *
      */
     @Test
     @DisplayName("Test de lanzamiento de excepcion cuando la categoria no existe")
@@ -177,6 +176,7 @@ class PostServiceTest {
 
     /**
      * Valida que se pueda lanzar una Excepcion cuando el usuario no existe
+     *
      */
     @Test
     @DisplayName("Test excepcion cuando el usuario no existe")
@@ -199,6 +199,7 @@ class PostServiceTest {
 
     /**
      * Valida que se puedan traer todos los productos
+     *
      */
     @Test
     @DisplayName("Test obtener todos los productos")
@@ -226,6 +227,7 @@ class PostServiceTest {
 
     /**
      * Valida que se puedan traer todos los productos con menor fecha dentro de dos semanas
+     *
      */
     @Test
     @DisplayName("Test obtener todos los productos con menor fecha dentro de dos semanas")
@@ -252,6 +254,7 @@ class PostServiceTest {
 
     /**
      * valida que pueda traer todos los posts
+     *
      */
     @Test
     @DisplayName("Test obtener todos los post")
