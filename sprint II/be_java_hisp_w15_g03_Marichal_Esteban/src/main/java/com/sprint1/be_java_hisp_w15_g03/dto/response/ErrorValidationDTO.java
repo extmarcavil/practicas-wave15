@@ -9,9 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
-@NoArgsConstructor
 public class ErrorValidationDTO {
     private String message;
     private HashMap<String, List<String>> errors;
