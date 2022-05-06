@@ -25,8 +25,6 @@ public class IntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
-
-
     @Test
     void followUseOk() throws Exception {
 
