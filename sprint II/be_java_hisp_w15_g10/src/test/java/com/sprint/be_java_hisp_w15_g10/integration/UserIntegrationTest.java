@@ -1,5 +1,9 @@
 package com.sprint.be_java_hisp_w15_g10.integration;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sprint.be_java_hisp_w15_g10.DTO.Response.UserDTO;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -25,7 +29,7 @@ public class UserIntegrationTest {
 
     @Test
     @DisplayName("Test Endpoint para retornar una excepción al ingresar un id invalido")
-    public void getInvalidUserWitFollowersCount() throws Exception{
+    public void getInvalidUserWitFollowersCount() throws Exception {
         //arrange
         int userId = 0;
         //EXPECTED
@@ -44,7 +48,7 @@ public class UserIntegrationTest {
 
     @Test
     @DisplayName("Test Endpoint para retornar un usuario con un conteo de seguidores")
-    public void getUserWitFollowersCount() throws Exception{
+    public void getUserWitFollowersCount() throws Exception {
         //arrange
         int userId = 1;
         //EXPECTED
@@ -64,7 +68,7 @@ public class UserIntegrationTest {
 
     @Test
     @DisplayName("Test Endpoint para retornar una excepción al ingresar usuario no encontrado")
-    public void getNotFoundUserWitFollowersCount() throws Exception{
+    public void getNotFoundUserWitFollowersCount() throws Exception {
         //arrange
         int userId = 100;
         //EXPECTED
@@ -88,6 +92,33 @@ public class UserIntegrationTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followed/list", 1))
                 .andDo(print()).andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.followed", Matchers.hasSize(0)));
+    }
+
+    /**
+     * Valida que se pueda seguir a un usuario
+     */
+    @Test
+    @DisplayName("Test de integracion de seguir a un usuario")
+    void followUserIntegrationTest() throws Exception {
+
+        ObjectWriter writer = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+
+        //Arrange
+
+        int userId = 1;
+        int followedId = 2;
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+
+        //REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post
+                ("/users/{userId}/follow/{userIdToFollow}", userId, followedId);
+
+        //Assert
+        mockMvc.perform(request).andDo(print())
+                .andExpect(expectedStatus)
+                .andExpect(jsonPath("$.message").value("Se ha comenzado a seguir al usuario: Camilo"));
     }
 
 }
