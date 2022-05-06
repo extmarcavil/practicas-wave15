@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller</a> &gt; <span class="el_source">UserController.java</span></div><h1>UserController.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowedListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersCountDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.FollowersListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.UserService;
+import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import javax.validation.Valid;
+
+@RestController
+@RequestMapping(&quot;/users&quot;)
+<span class="fc" id="L20">@Log</span>
+@Validated
+public class UserController {
+    private UserService userService;
+
+<span class="fc" id="L25">    public UserController(UserService userService) {</span>
+<span class="fc" id="L26">        this.userService = userService;</span>
+<span class="fc" id="L27">    }</span>
+
+    /**
+     * UserController
+     * Accion de seguir a un vendedor
+     */
+    @PostMapping(&quot;/{userId}/follow/{userIdToFollow}&quot;)
+    public ResponseEntity&lt;ResponseDTO&gt; follow(@Valid FollowRequestDTO dto) {
+
+<span class="fc" id="L36">        log.info(&quot;Se recibe peticion de seguir, id &quot; + dto.getUserId() + &quot; a id &quot; + dto.getUserIdToFollow());</span>
+<span class="fc" id="L37">        return ResponseEntity</span>
+<span class="fc" id="L38">                .status(HttpStatus.OK)</span>
+<span class="fc" id="L39">                .body(userService.follow(dto));</span>
+    }
+
+    /**
+     * UserController
+     * Devuelve la cuenta de cuantas personas siguen a userId
+     *
+     * @param userId El usuario a buscar
+     */
+    @GetMapping(&quot;/{userId}/followers/count&quot;)
+    public ResponseEntity&lt;FollowersCountDTO&gt; wowManyFollowsMe( @Valid UserIdDTO userIdDTO) {
+
+<span class="nc" id="L51">        log.info(&quot;Se recibe peticion de cantidad de seguidores del id &quot; + userIdDTO.getUserId());</span>
+<span class="nc" id="L52">        return ResponseEntity</span>
+<span class="nc" id="L53">                .status(HttpStatus.OK)</span>
+<span class="nc" id="L54">                .body(userService.wowManyFollowsMe(userIdDTO));</span>
+    }
+
+    /**
+     * UserController
+     * Devuelve la lista de quienes siguen a userId
+     */
+    @GetMapping(&quot;/{userId}/followers/list&quot;)
+    public ResponseEntity&lt;FollowersListDTO&gt; whoFollowsMe(@Valid WhoAndHowManyFollowsMeRequestDTO dto) {
+
+<span class="nc" id="L64">        log.info(&quot;Se recibe peticion de lista de seguidores del id &quot; + dto.getUserId());</span>
+<span class="nc" id="L65">        return ResponseEntity</span>
+<span class="nc" id="L66">                .status(HttpStatus.OK)</span>
+<span class="nc" id="L67">                .body(userService.whoFollowsMe(dto));</span>
+
+    }
+
+
+    /**
+     * UserController
+     * Devuelve la la lista de todas las personas a las que sigue userId
+     *
+     */
+    @GetMapping(&quot;/{userId}/followed/list&quot;)
+    public ResponseEntity&lt;FollowedListDTO&gt; AllFollowedByUserId(@Valid WhoAndHowManyFollowsMeRequestDTO dto){
+
+<span class="nc" id="L80">        log.info(&quot;Se recibe peticion de lista de seguidos del id &quot; + dto.getUserId());</span>
+<span class="nc" id="L81">        return ResponseEntity</span>
+<span class="nc" id="L82">                .status(HttpStatus.OK)</span>
+<span class="nc" id="L83">                .body(userService.findAllFollowedByUserId(dto));</span>
+    }
+
+    /**
+     * UserController
+     * Accion de dejar de seguir a un vendedor
+     *
+     */
+    @PostMapping(&quot;{userId}/unfollow/{userIdToUnfollow}&quot;)
+    public ResponseEntity&lt;ResponseDTO&gt; unFollow(@Valid FollowRequestDTO dto){
+
+<span class="nc" id="L94">        log.info(&quot;Se recibe peticion de dejar de seguir, id &quot; + dto.getUserId() + &quot; a id &quot; + dto.getUserIdToFollow());</span>
+<span class="nc" id="L95">        return ResponseEntity</span>
+<span class="nc" id="L96">                .status(HttpStatus.OK)</span>
+<span class="nc" id="L97">                .body(userService.unFollow(dto));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UserServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service</a> &gt; <span class="el_source">UserServiceImpl.java</span></div><h1>UserServiceImpl.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.*;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.FollowRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.UserIdDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.*;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.UserRepository;
+import lombok.extern.java.Log;
+import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Service;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L23">@Log</span>
+public class UserServiceImpl implements  UserService {
+    private final UserRepository userRepository;
+    private final PostRepository postRepository;
+    private final FollowRepository followRepository;
+    private final ModelMapper mapper;
+
+<span class="fc" id="L30">    public UserServiceImpl(UserRepository userRepository, PostRepository postRepository, FollowRepository followRepository) {</span>
+<span class="fc" id="L31">        this.userRepository = userRepository;</span>
+<span class="fc" id="L32">        this.postRepository = postRepository;</span>
+<span class="fc" id="L33">        this.followRepository = followRepository;</span>
+<span class="fc" id="L34">        this.mapper = new ModelMapper();</span>
+<span class="fc" id="L35">    }</span>
+
+    @Override
+    public ResponseDTO follow(FollowRequestDTO dto) {
+
+<span class="fc" id="L40">        Long userId = dto.getUserId();</span>
+<span class="fc" id="L41">        Long userIdToFollow = dto.getUserIdToFollow();</span>
+
+<span class="pc bpc" id="L43" title="1 of 2 branches missed.">        if (userId.equals(userIdToFollow)) {</span>
+<span class="nc" id="L44">            log.warning(&quot;El id &quot; + userId + &quot; intento seguirse a si mismo&quot;);</span>
+<span class="nc" id="L45">            throw new OwnFollowingException(&quot;Your cant follow yourself&quot;);</span>
+        }
+<span class="fc" id="L47">        User follower = this.findById(userId);</span>
+<span class="fc" id="L48">        User followed = this.findById(userIdToFollow);</span>
+<span class="pc bpc" id="L49" title="1 of 2 branches missed.">        if(!this.postRepository.isseller(followed)) {</span>
+<span class="nc" id="L50">            log.warning(&quot;El id&quot; + userId + &quot; intento seguir a un no vendedor&quot;);</span>
+<span class="nc" id="L51">            throw new NotSellerException();</span>
+        }
+<span class="fc" id="L53">        this.followRepository.save(follower, followed);</span>
+
+<span class="fc" id="L55">        ResponseDTO dtoResponse = new ResponseDTO();</span>
+<span class="fc" id="L56">        dtoResponse.setMessage(&quot;Followed!&quot;);</span>
+<span class="fc" id="L57">        return dtoResponse;</span>
+    }
+
+    @Override
+    public User findById(Long id) {
+<span class="fc" id="L62">        Optional&lt;User&gt; ou = userRepository.findById(id);</span>
+<span class="pc bpc" id="L63" title="1 of 2 branches missed.">        if (ou.isPresent()) {</span>
+<span class="fc" id="L64">            return ou.get();</span>
+        } else {
+<span class="nc" id="L66">            log.warning(&quot;Se busco un usuario inexistente, id &quot; + id);</span>
+<span class="nc" id="L67">            throw new UserNotFoundException();</span>
+        }
+    }
+
+    @Override
+    public FollowersListDTO whoFollowsMe(WhoAndHowManyFollowsMeRequestDTO dto) {
+<span class="fc" id="L73">        Long id = dto.getUserId();</span>
+<span class="fc" id="L74">        String order = dto.getOrder();</span>
+<span class="pc bpc" id="L75" title="1 of 6 branches missed.">        if (order != null &amp;&amp; !order.equals(&quot;name_asc&quot;) &amp;&amp; !order.equals(&quot;name_desc&quot;)){</span>
+<span class="fc" id="L76">            log.warning(&quot;Se recibieron parametros inesperados: &quot; + order);</span>
+<span class="fc" id="L77">            throw new InvalidArgumentException(&quot;Invalid sorting Parameter. Must be name_desc or name_asc&quot;);</span>
+        }
+<span class="fc" id="L79">        User user = this.findById(id);</span>
+
+<span class="fc" id="L81">        List&lt;UserDTO&gt; followers = this.followRepository</span>
+<span class="fc" id="L82">                .whoFollows(id)</span>
+<span class="fc" id="L83">                .stream()</span>
+<span class="fc" id="L84">                .map(f -&gt; mapper.map(f.getFollower(), UserDTO.class))</span>
+<span class="fc" id="L85">                .sorted(Comparator.comparing(UserDTO::getUserName))</span>
+<span class="fc" id="L86">                .collect(Collectors.toList());</span>
+
+<span class="pc bpc" id="L88" title="1 of 4 branches missed.">        if (order!= null &amp;&amp; order.equals(&quot;name_desc&quot;)){</span>
+<span class="fc" id="L89">            Collections.reverse(followers);</span>
+        }
+
+<span class="fc" id="L92">        FollowersListDTO dtoResponse = new FollowersListDTO();</span>
+<span class="fc" id="L93">        dtoResponse.setUserId(user.getUserId());</span>
+<span class="fc" id="L94">        dtoResponse.setUserName(user.getUserName());</span>
+<span class="fc" id="L95">        dtoResponse.setFollowers(followers);</span>
+<span class="fc" id="L96">        return dtoResponse;</span>
+    }
+
+    @Override
+    public FollowersCountDTO wowManyFollowsMe(UserIdDTO dto) {
+<span class="fc" id="L101">        Long userId = dto.getUserId();</span>
+<span class="fc" id="L102">        User user = this.findById(userId);</span>
+<span class="fc" id="L103">        Integer followersCount = this.followRepository</span>
+<span class="fc" id="L104">                .whoFollows(userId)</span>
+<span class="fc" id="L105">                .size();</span>
+
+<span class="fc" id="L107">        FollowersCountDTO dtoResponse = new FollowersCountDTO();</span>
+<span class="fc" id="L108">        dtoResponse.setUserId(user.getUserId());</span>
+<span class="fc" id="L109">        dtoResponse.setUserName(user.getUserName());</span>
+<span class="fc" id="L110">        dtoResponse.setFollowersCount(followersCount);</span>
+<span class="fc" id="L111">        return dtoResponse;</span>
+    }
+
+    public FollowedListDTO findAllFollowedByUserId(WhoAndHowManyFollowsMeRequestDTO dto) {
+
+<span class="fc" id="L116">        Long userId = dto.getUserId();</span>
+<span class="fc" id="L117">        String order = dto.getOrder();</span>
+<span class="pc bpc" id="L118" title="2 of 6 branches missed.">        if (order != null &amp;&amp; !order.equals(&quot;name_asc&quot;) &amp;&amp; !order.equals(&quot;name_desc&quot;)){</span>
+<span class="nc" id="L119">            log.warning(&quot;Se recibieron parametros inesperados: &quot; + order);</span>
+<span class="nc" id="L120">            throw new InvalidArgumentException(&quot;Invalid sorting Parameter. Must be name_desc or name_asc&quot;);</span>
+        }
+<span class="fc" id="L122">        List&lt;UserDTO&gt; followed = followRepository</span>
+<span class="fc" id="L123">                .findFollowedByUserId(userId)</span>
+<span class="fc" id="L124">                .stream()</span>
+<span class="fc" id="L125">                .map(u -&gt; mapper.map(u, UserDTO.class))</span>
+<span class="fc" id="L126">                .sorted((v,k)-&gt;v.getUserName().compareTo(k.getUserName()))</span>
+<span class="fc" id="L127">                .collect(Collectors.toList());</span>
+<span class="fc" id="L128">        User userFollowing = findById(userId);</span>
+
+<span class="pc bpc" id="L130" title="1 of 4 branches missed.">        if (order!= null &amp;&amp; order.equals(&quot;name_desc&quot;)){</span>
+<span class="fc" id="L131">            Collections.reverse(followed);</span>
+        }
+
+<span class="fc" id="L134">        FollowedListDTO userDto = new FollowedListDTO();</span>
+<span class="fc" id="L135">        userDto.setUserName(userFollowing.getUserName());</span>
+<span class="fc" id="L136">        userDto.setUserId(userId);</span>
+<span class="fc" id="L137">        userDto.setFollowed(followed);</span>
+<span class="fc" id="L138">        return userDto;</span>
+    }
+
+    @Override
+    public ResponseDTO unFollow(FollowRequestDTO dto) {
+<span class="fc" id="L143">        Long userId = dto.getUserId();</span>
+<span class="fc" id="L144">        Long userIdToUnfollow = dto.getUserIdToFollow();</span>
+<span class="fc bfc" id="L145" title="All 2 branches covered.">        if (userId.equals(userIdToUnfollow)) {</span>
+<span class="fc" id="L146">            log.warning(&quot;El usuario con id &quot; + userId + &quot; intento dejar de seguirse a si mismo&quot;);</span>
+<span class="fc" id="L147">            throw new OwnFollowingException(&quot;You can´t unfollow yourself&quot;);</span>
+        }
+<span class="fc" id="L149">        User follower = this.findById(userId);</span>
+<span class="fc" id="L150">        User followed = this.findById(userIdToUnfollow);</span>
+<span class="fc" id="L151">        followRepository.unFollow(follower, followed);</span>
+
+<span class="fc" id="L153">        ResponseDTO responseDTO = new ResponseDTO();</span>
+<span class="fc" id="L154">        responseDTO.setMessage(&quot;Unfollowed&quot;);</span>
+<span class="fc" id="L155">        return responseDTO;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

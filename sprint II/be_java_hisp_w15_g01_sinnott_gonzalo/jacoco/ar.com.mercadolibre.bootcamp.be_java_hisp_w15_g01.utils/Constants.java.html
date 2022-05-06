@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Constants.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils</a> &gt; <span class="el_source">Constants.java</span></div><h1>Constants.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils;
+
+<span class="nc" id="L3">public class Constants {</span>
+
+    public static final String ID_NOT_NULL = &quot;El id no puede ser nulo&quot;;
+    public static final String ID_NOT_ZERO = &quot;El id no puede ser cero&quot;;
+    public static final int ID_VALUE = 1;
+
+    public static final String NOMBRE_NOT_NULL = &quot;El nombre no puede ser nulo&quot;;
+    public static final String NOMBRE_MAX_VALUE = &quot;El nombre no puede ser mayor a 40 caracteres&quot;;
+    public static final String NOMBRE_REGEX = &quot;El nombre debe contener solo letras y numeros&quot;;
+    public static final int NAME_VALUE = 40;
+
+    public static final String TIPO_NOT_NULL = &quot;El tipo no puede ser nulo&quot;;
+    public static final String TIPO_MAX_VALUE = &quot;El tipo no puede ser mayor a 15 caracteres&quot;;
+    public static final String TIPO_REGEX = &quot;El tipo debe contener solo letras y numeros&quot;;
+    public static final int TIPO_VALUE = 15;
+
+    public static final String BRAND_NOT_NULL = &quot;La marca no puede ser nula&quot;;
+    public static final String BRAND_MAX_VALUE = &quot;La marcano puede ser mayor a 25 caracteres&quot;;
+    public static final String BRAND_REGEX = &quot;La marca debe contener solo letras y numeros&quot;;
+    public static final int BRAND_VALUE = 25;
+
+    public static final String COLOR_NOT_NULL = &quot;El color no puede ser nulo&quot;;
+    public static final String COLOR_MAX_VALUE = &quot;El color no puede ser mayor a 15 caracteres&quot;;
+    public static final String COLOR_REGEX = &quot;El color debe contener solo letras y numeros&quot;;
+    public static final int COLOR_VALUE = 15;
+
+    public static final String NOTES_MAX_VALUE = &quot;El largo de la nota no puede ser mayor a 80 caracteres&quot;;
+    public static final String NOTES_REGEX = &quot;La nota debe contener solo letras y numeros&quot;;
+    public static final int NOTES_VALUE = 80;
+
+    public static final String SIMBOLS_REGEX = &quot;^[a-zA-Z0-9 ]*$&quot;;
+
+    public static final String CATEGORY_NOT_NULL = &quot;La categoria no puede ser nula&quot;;
+
+    public static final String PRICE_NOT_NULL = &quot;El precio no puede ser nulo&quot;;
+    public static final String PRICE_MAX_VALUE = &quot;El precio no puede ser mayor a 10 millones&quot;;
+    public static final int PRICE_VALUE = 10000000;
+
+    public static final String DATE_NOT_NULL = &quot;La fecha no puede ser nula&quot;;
+    public static final String DATE_FORMAT = &quot;El formato de la fecha debe ser dd-MM-yyyy&quot;;
+    public static final String DATE_REGEX = &quot;^(?:3[01]|[12][0-9]|0?[1-9])([\\-/.])(0?[1-9]|1[1-2])\\1\\d{4}$&quot;;
+
+    public static final String ORDER_REGEX = &quot;name_asc|name_desc|date_asc|date_desc&quot;;
+    public static final String ORDER_MESSAGE = &quot;No es un parametro de ordenamiento valido&quot;;
+
+    public static final String DETAIL_NOT_NULL = &quot;El detalle del producto no puede ser nulo&quot;;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

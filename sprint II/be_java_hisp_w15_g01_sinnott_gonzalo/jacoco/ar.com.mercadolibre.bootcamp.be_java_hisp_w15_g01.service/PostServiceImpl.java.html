@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service</a> &gt; <span class="el_source">PostServiceImpl.java</span></div><h1>PostServiceImpl.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ProductDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidArgumentException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.exceptions.InvalidDateException;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.FollowRepository;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository.PostRepository;
+import lombok.extern.java.Log;
+import org.springframework.stereotype.Service;
+
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+<span class="fc" id="L28">@Log</span>
+public class PostServiceImpl implements PostService {
+
+    private final UserService userService;
+    private final PostRepository postRepository;
+    private final FollowRepository followRepository;
+
+<span class="fc" id="L35">    PostServiceImpl(UserService userService, PostRepository postRepository, FollowRepository followRepository) {</span>
+<span class="fc" id="L36">        this.userService = userService;</span>
+<span class="fc" id="L37">        this.postRepository = postRepository;</span>
+<span class="fc" id="L38">        this.followRepository = followRepository;</span>
+<span class="fc" id="L39">    }</span>
+
+    @Override
+    public ResponseDTO createPost(PostDTO postDto) {
+<span class="fc" id="L43">        User user = userService.findById(postDto.getUserId());</span>
+<span class="fc" id="L44">        ProductDTO detail = postDto.getDetail();</span>
+
+<span class="fc" id="L46">        Product product = new Product(</span>
+<span class="fc" id="L47">                detail.getProductId(),</span>
+<span class="fc" id="L48">                detail.getProductName(),</span>
+<span class="fc" id="L49">                detail.getType(),</span>
+<span class="fc" id="L50">                detail.getBrand(),</span>
+<span class="fc" id="L51">                detail.getColor(),</span>
+<span class="fc" id="L52">                detail.getNotes()</span>
+        );
+
+        LocalDate date;
+
+        try {
+<span class="fc" id="L58">            date = LocalDate.parse(postDto.getDate(), DateTimeFormatter.ofPattern(&quot;dd-MM-yyyy&quot;));</span>
+<span class="nc" id="L59">        } catch(DateTimeException e) {</span>
+<span class="nc" id="L60">            log.warning(&quot;Se recibio una fecha incorrecta &quot; + e.getMessage());</span>
+<span class="nc" id="L61">            throw new InvalidDateException();</span>
+<span class="fc" id="L62">        }</span>
+
+<span class="fc" id="L64">        Post createdPost = postRepository.create(user, date, product, postDto.getCategory(), postDto.getPrice());</span>
+
+<span class="fc" id="L66">        ResponseDTO dto = new ResponseDTO();</span>
+<span class="fc" id="L67">        dto.setMessage(&quot;Product Created!&quot;);</span>
+
+<span class="fc" id="L69">        return dto;</span>
+    }
+
+    @Override
+    public PostListDTO getPostsByFollowedUsers(WhoAndHowManyFollowsMeRequestDTO dto) {
+
+<span class="fc" id="L75">        Long userId = dto.getUserId();</span>
+<span class="fc" id="L76">        String order = dto.getOrder();</span>
+
+<span class="pc bpc" id="L78" title="1 of 6 branches missed.">        if(order != null &amp;&amp; !order.equals(&quot;date_asc&quot;) &amp;&amp; !order.equals(&quot;date_desc&quot;)) {</span>
+<span class="fc" id="L79">            log.warning(&quot;Se recibieron parametros inesperados: &quot; + order);</span>
+<span class="fc" id="L80">            throw new InvalidArgumentException(&quot;Invalid sorting Parameter. Must be order_desc or order_asc&quot;);</span>
+        }
+
+<span class="fc" id="L83">        List&lt;User&gt; followedUsers = followRepository.findFollowedByUserId(userId);</span>
+<span class="fc" id="L84">        PostListDTO postListDTO = new PostListDTO(userId, null);</span>
+<span class="fc" id="L85">        List&lt;PostDTO&gt; internalPostList = new ArrayList&lt;&gt;();</span>
+
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        for(User v : followedUsers) {</span>
+<span class="fc" id="L88">            this.postRepository.getAllPostsByUserWithinTimespan(v, 14)</span>
+<span class="fc" id="L89">                    .forEach(p -&gt; internalPostList.add(new PostDTO(p)));</span>
+<span class="fc" id="L90">        }</span>
+
+
+<span class="fc" id="L93">        List&lt;PostDTO&gt; sortedAscPostList = internalPostList.stream()</span>
+<span class="fc" id="L94">                .sorted(Comparator.comparing(PostDTO::getDate))</span>
+<span class="fc" id="L95">                .collect(Collectors.toList());</span>
+
+<span class="pc bpc" id="L97" title="1 of 4 branches missed.">        if(order != null &amp;&amp; order.equals(&quot;date_desc&quot;)) {</span>
+<span class="fc" id="L98">            Collections.reverse(sortedAscPostList);</span>
+        }
+
+<span class="fc" id="L101">        postListDTO.setPosts(sortedAscPostList);</span>
+
+<span class="fc" id="L103">        return postListDTO;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
