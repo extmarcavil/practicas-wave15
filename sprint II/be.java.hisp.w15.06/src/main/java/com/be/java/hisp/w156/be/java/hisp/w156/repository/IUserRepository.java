@@ -6,7 +6,4 @@ public interface IUserRepository {
 
     User getUser(Integer id);
 
-    boolean existsById(Integer id);
-
-    void save(User user);
 }

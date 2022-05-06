@@ -5,7 +5,6 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.RecentlyPostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.ResponsePostDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
-import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFoundException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.Post;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
@@ -32,14 +31,12 @@ public class ProductServiceImpl implements IProductService {
 
     @Override
     public ResponseEntity<SuccessDTO> savePost(RequestPostDTO requestPostDto) {
-        if (useRepository.existsById(requestPostDto.getUser_id())) {
-            Post postToSaved = Post.from(requestPostDto);
-            User user = useRepository.getUser(requestPostDto.getUser_id());
-            user.getPosts().add(postToSaved);
-            String message = String.format("Post with ID: %s was saved successfully", postToSaved.getPost_id());
-            return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
-        }
-        throw new UserNotFoundException(requestPostDto.getUser_id());
+        User user = useRepository.getUser(requestPostDto.getUser_id());
+        Post postToSaved = Post.from(requestPostDto);
+        user.getPosts().add(postToSaved);
+        String message = String.format("Post with ID: %s was saved successfully", postToSaved.getPost_id());
+
+        return new ResponseEntity<>(new SuccessDTO(message), HttpStatus.CREATED);
     }
 
     @Override

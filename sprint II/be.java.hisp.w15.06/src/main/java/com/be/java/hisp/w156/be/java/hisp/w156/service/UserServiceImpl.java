@@ -1,14 +1,10 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserCountFollowersDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowedDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowersDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.*;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
-import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFollowedException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserAlreadyFollowsTheUserException;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserCantFollowHimselfException;
+import com.be.java.hisp.w156.be.java.hisp.w156.exception.UserNotFollowedException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

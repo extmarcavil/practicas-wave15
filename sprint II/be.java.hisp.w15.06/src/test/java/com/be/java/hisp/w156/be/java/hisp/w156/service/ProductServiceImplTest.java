@@ -43,10 +43,11 @@ class ProductServiceImplTest {
     @DisplayName("Obtener excepción al verificar que el tipo de ordenamiento por fecha no es valido al ordenar lista de posts.")
     void whenPostDateOrderingIsNotValidThenReturnsException(){
         String order = "order";
+        Integer userId = 1;
 
         when(repository.getUser(any())).thenThrow(new InvalidOrderException());
 
-        assertThatThrownBy(() -> productService.getPostsLastTwoWeekById(1, order))
+        assertThatThrownBy(() -> productService.getPostsLastTwoWeekById(userId, order))
                 .isInstanceOf(InvalidOrderException.class)
                 .hasMessage("El tipo de ordenamiento no es valido.");
     }
@@ -85,10 +86,10 @@ class ProductServiceImplTest {
     @MethodSource("orderList")
     @DisplayName("Verificar que la consulta de posts este ordenado ascendente y descendente")
     void validatePostsAreOrderedCorrectlyByDateAsc(String order, List<ResponsePostDTO> listResponseDtoExpected) {
-        User userWithPostsOrdered = getUserWithPosts();
-        Integer userId = userWithPostsOrdered.getId();
+        User userWithPosts = getUserWithPosts();
+        Integer userId = userWithPosts.getId();
 
-        when(repository.getUser(userId)).thenReturn(userWithPostsOrdered);
+        when(repository.getUser(userId)).thenReturn(userWithPosts);
 
         ResponseEntity<RecentlyPostDTO> result =
                 productService.getPostsLastTwoWeekById(userId, order);
@@ -98,7 +99,7 @@ class ProductServiceImplTest {
         assertThat(postsDtoResult).isEqualTo(listResponseDtoExpected);
     }
 
-    public static Stream<Arguments> orderList() {
+    private static Stream<Arguments> orderList() {
         return Stream.of(
                 Arguments.of("date_asc", getPostsOrderByAsc()),
                 Arguments.of("date_desc", getPostsOrderByDesc())

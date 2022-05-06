@@ -1,7 +1,6 @@
 package com.be.java.hisp.w156.be.java.hisp.w156.service;
 
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
-import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserCountFollowersDTO;
+import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.*;
 import com.be.java.hisp.w156.be.java.hisp.w156.exception.InvalidOrderException;
 import com.be.java.hisp.w156.be.java.hisp.w156.model.User;
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.IUserRepository;
@@ -9,7 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,6 +18,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.be.java.hisp.w156.be.java.hisp.w156.utils.UserFactory.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -150,20 +151,39 @@ class UserServiceImplTest {
 
     @DisplayName("Verificar el correcto ordenamiento ascendente y descendente por nombre para seguidores.")
     @ParameterizedTest
-    @ValueSource(strings = {"name_asc", "name_desc", ""})
-    void whenFollowersAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){
-        when(repository.getUser(user.getId())).thenReturn(user);
+    @MethodSource("orderListUserDTO")
+    void whenFollowersAlphabeticalOrderingIsValidThenReturnsStatusOk(String order, List<UserDTO> userDtosExpected){
+        User userWithFollowers = getUserWithFollowers();
+        Integer userId = userWithFollowers.getId();
 
-        assertThat(userService.getFollowers(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
+        when(repository.getUser(userId)).thenReturn(userWithFollowers);
+
+        ResponseEntity<UserFollowersDTO> response = userService.getFollowers(userId, order);
+
+        assertThat(response.getBody().getFollowers()).usingRecursiveComparison().isEqualTo(userDtosExpected);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
     }
 
     @DisplayName("Verificar el correcto ordenamiento ascendente y descendente por nombre para seguidos.")
     @ParameterizedTest
-    @ValueSource(strings = {"name_asc", "name_desc", ""})
-    void whenFollowedAlphabeticalOrderingIsValidThenReturnsStatusOk(String order){
-        when(repository.getUser(user.getId())).thenReturn(user);
+    @MethodSource("orderListUserDTO")
+    void whenFollowedAlphabeticalOrderingIsValidThenReturnsStatusOk(String order, List<UserDTO> userDtosExpected){
+        User userWithFolloweds = getUserWithFolloweds();
+        Integer userId = userWithFolloweds.getId();
 
-        assertThat(userService.getFollowed(user.getId(), order).getStatusCode()).isEqualTo(HttpStatus.OK);
+        when(repository.getUser(userId)).thenReturn(getUserWithFolloweds());
+
+        ResponseEntity<UserFollowedDTO> response = userService.getFollowed(userId, order);
+
+        assertThat(response.getBody().getFollowed()).usingRecursiveComparison().isEqualTo(userDtosExpected);
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+    }
+
+    private static Stream<Arguments> orderListUserDTO() {
+        return Stream.of(
+                Arguments.of("name_asc", getUserDtoOrderByAsc()),
+                Arguments.of("name_desc", getUserDtoOrderByDesc())
+        );
     }
 
 }
