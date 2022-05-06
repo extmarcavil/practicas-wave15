@@ -1,8 +1,11 @@
 package com.sprint1.be_java_hisp_w15_g4.integration;
 
+import Utils.TestGenerator;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
+import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerCountDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.IdNotPositiveErrorDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.IDNotFoundException;
@@ -23,6 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import javax.validation.ConstraintViolationException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -156,4 +160,24 @@ public class UserControllerIntegrationTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(expectedStatus);
     }
+
+    @Test
+    @DisplayName("Solicitud de posteo funciona correctamente con un post valido")
+    void postProductTestOk() throws Exception {
+        ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
+
+        // arrange
+        String postJason = writer
+                .writeValueAsString(TestGenerator.getPost());
+        MockHttpServletRequestBuilder request =
+                MockMvcRequestBuilders.post(
+                        "/products/post").content(postJason).contentType(MediaType.APPLICATION_JSON);
+        // act & assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+
 }

@@ -72,7 +72,25 @@ public class TestGenerator {
         ));
         return user;
     }
+    public static PostDTO getPost() {
+        ProductDTO product = new ProductDTO();
+        product.setProduct_id(1);
+        product.setProduct_name("name");
+        product.setType("type");
+        product.setBrand("brand");
+        product.setColor("color");
+        product.setNotes("notes");
 
+        PostDTO post = new PostDTO();
+        post.setUser_id(1);
+        post.setPost_id(1);
+        post.setDate(LocalDate.of(2022,5,2));
+        post.setDetail(product);
+        post.setCategory(1);
+        post.setPrice(1.55);
+
+        return post;
+    }
 
 
 }
