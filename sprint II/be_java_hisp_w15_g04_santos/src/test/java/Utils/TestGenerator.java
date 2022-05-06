@@ -1,8 +1,10 @@
 package Utils;
 
-import com.sprint1.be_java_hisp_w15_g4.model.Post;
-import com.sprint1.be_java_hisp_w15_g4.model.Product;
-import com.sprint1.be_java_hisp_w15_g4.model.User;
+import com.sprint2.be_java_hisp_w15_g4.dto.ProductDTO;
+import com.sprint2.be_java_hisp_w15_g4.dto.request.PostDTO;
+import com.sprint2.be_java_hisp_w15_g4.model.Post;
+import com.sprint2.be_java_hisp_w15_g4.model.Product;
+import com.sprint2.be_java_hisp_w15_g4.model.User;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,6 +18,47 @@ public class TestGenerator {
         return new User(userId, name);
     }
 
+    public static User GenerateUserWPost(int userId, String name) {
+
+        User user = new User(userId, name);
+        Post post1 = GeneratePosts(userId, "2022-04-27");
+        Post post2 = GeneratePosts(userId, "2022-05-02");
+
+        user.setUser_id(userId);
+        user.setUser_name(name);
+        user.setPosts(List.of(post1, post2));
+
+        return user;
+    }
+
+    public static PostDTO GeneratePostDTO(String date) {
+
+        PostDTO postDTO = new PostDTO();
+        ProductDTO productDTO = GenerateProductDTO();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        postDTO.setUser_id(1);
+        postDTO.setCategory(1);
+        postDTO.setDate(LocalDate.parse(date, formatter));
+        postDTO.setPrice(100.0);
+        postDTO.setDetail(productDTO);
+
+        return postDTO;
+    }
+
+    public static ProductDTO GenerateProductDTO() {
+
+        ProductDTO productDTO = new ProductDTO();
+
+        productDTO.setProduct_id(1);
+        productDTO.setProduct_name("Mobile Phone");
+        productDTO.setBrand("Samsung");
+        productDTO.setColor("Red");
+        productDTO.setType("Technology");
+        productDTO.setNotes("Fastest phone on earth");
+
+        return productDTO;
+    }
 
     public static Post GeneratePosts(int userId, String date) {
 
