@@ -7,7 +7,7 @@ import com.sprint1.be_java_hisp_w15_g4.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.request.PostDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.ErrorDTO;
 import com.sprint1.be_java_hisp_w15_g4.dto.response.IdNotPositiveErrorDTO;
-import org.junit.jupiter.api.Disabled;
+import com.sprint1.be_java_hisp_w15_g4.dto.response.ValidationErrorDTO;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +20,9 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -148,14 +149,13 @@ public class UserControllerTest {
 
     @Test
     @DisplayName("Solicitud de posteo funciona correctamente con un post valido")
-    @Disabled()
     void postProductTestOk() throws Exception {
         ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
 
         // arrange
-        PostDTO post = getGoodPost();
-        String postJason = writer.writeValueAsString(post).replace("[2022,5,2]", "\"02-05-2022\"");
-        System.out.println(postJason);
+        String postJason = writer
+                                .writeValueAsString(getGoodPost())
+                                .replace("[2022,5,2]", "\"02-05-2022\"");
 
         // act & assert
         mockMvc
@@ -164,28 +164,30 @@ public class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
-//    @Test
-//    @DisplayName("Solicitud de posteos devuelve error de validacion")
-//    void badPostBadInput() throws Exception {
-//        ObjectWriter writer =  new ObjectMapper().writer();
-//
-//        // arrange
-//        String postJason = writer.writeValueAsString(getGoodPost());
-//
-//        Map<String, String> errors = new HashMap<>();
-//        errors.put("userId","El id debe ser mayor a cero.");
-//        errors.put("userIdToFollow","El id debe ser mayor a cero.");
-//        String listJson = writer.writeValueAsString(new IdNotPositiveErrorDTO(HttpStatus.BAD_REQUEST, errors));
-//
-//        // act & assert
-//        mockMvc
-//                .perform(post("/products/post").content(postJason))
-//                .andExpectAll(
-//                        MockMvcResultMatchers.status().isBadRequest(),
-//                        MockMvcResultMatchers.content().json(listJson),
-//                        MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON)
-//                );
-//    }
+    @Test
+    @DisplayName("Solicitud de posteos devuelve error de validacion")
+    void badPostBadInput() throws Exception {
+        ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
+
+        // arrange
+        String postJason = writer
+                .writeValueAsString(getGoodPost())
+                .replace("[2022,5,2]", "\"02-05-2022\"");
+
+        Map<String, List<String>> errors = new HashMap<>();
+        errors.put("user_id",Arrays.asList("El id debe ser mayor a cero."));
+        errors.put("detail.color", Arrays.asList("La longitud no puede superar los 15 caracteres.","El campo no puede poseer caracteres especiales."));
+        String listJson = writer.writeValueAsString(new ValidationErrorDTO(HttpStatus.BAD_REQUEST, errors));
+
+        // act & assert
+        mockMvc
+                .perform(post("/products/post").contentType(MediaType.APPLICATION_JSON).content(postJason))
+                .andExpectAll(
+                        MockMvcResultMatchers.status().isBadRequest(),
+                        MockMvcResultMatchers.content().json(listJson),
+                        MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON)
+                );
+    }
 
     private PostDTO getGoodPost() {
         ProductDTO product = new ProductDTO();
@@ -193,11 +195,11 @@ public class UserControllerTest {
         product.setProduct_name("name");
         product.setType("type");
         product.setBrand("brand");
-        product.setColor("color");
+        product.setColor("color llllllllll");
         product.setNotes("notes");
 
         PostDTO post = new PostDTO();
-        post.setUser_id(1);
+        post.setUser_id(-1);
         post.setPost_id(1);
         post.setDate(LocalDate.of(2022,5,2));
         post.setDetail(product);
