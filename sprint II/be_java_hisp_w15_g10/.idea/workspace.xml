@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="12262d35-eb7d-4246-ad86-42d74f2c011c" name="Changes" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHome" value="Use Maven wrapper" />
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="28i6dwIkRbyD0B569Ux00cwk8AF" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;9cc3b4c399e7c5a16e3370ead849d700&quot;
+  }
+}</component>
+  <component name="RunManager" selected="JUnit.com.sprint.be_java_hisp_w15_g10.unit in be_java_hisp_w15_g10">
+    <configuration name="All in be_java_hisp_w15_g10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g10" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserRepositoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g10" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sprint.be_java_hisp_w15_g10.unit.Repository.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sprint.be_java_hisp_w15_g10.unit.Repository" />
+      <option name="MAIN_CLASS_NAME" value="com.sprint.be_java_hisp_w15_g10.unit.Repository.UserRepositoryTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.sprint.be_java_hisp_w15_g10.unit in be_java_hisp_w15_g10" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g10" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.sprint.be_java_hisp_w15_g10.unit.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.sprint.be_java_hisp_w15_g10.unit" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BeJavaHispW15G10Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="be_java_hisp_w15_g10" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.sprint.be_java_hisp_w15_g10.BeJavaHispW15G10Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.com.sprint.be_java_hisp_w15_g10.unit in be_java_hisp_w15_g10" />
+        <item itemvalue="JUnit.UserRepositoryTest" />
+        <item itemvalue="JUnit.All in be_java_hisp_w15_g10" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="12262d35-eb7d-4246-ad86-42d74f2c011c" name="Changes" comment="" />
+      <created>1651687150544</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1651687150544</updated>
+      <workItem from="1651687152453" duration="3694000" />
+      <workItem from="1651694114481" duration="260000" />
+      <workItem from="1651694514493" duration="940000" />
+      <workItem from="1651756349185" duration="1169000" />
+      <workItem from="1651770522251" duration="9221000" />
+      <workItem from="1651783940794" duration="5607000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g10$UserRepositoryTest.ic" NAME="UserRepositoryTest Coverage Results" MODIFIED="1651694667763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.sprint.be_java_hisp_w15_g10.unit.Repository.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g10$com_sprint_be_java_hisp_w15_g10_unit_in_be_java_hisp_w15_g10.ic" NAME="com.sprint.be_java_hisp_w15_g10.unit in be_java_hisp_w15_g10 Coverage Results" MODIFIED="1651783328402" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.sprint.be_java_hisp_w15_g10.unit.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g10$All_in_be_java_hisp_w15_g10.ic" NAME="All in be_java_hisp_w15_g10 Coverage Results" MODIFIED="1651757402543" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>
