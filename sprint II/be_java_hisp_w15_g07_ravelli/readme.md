@@ -1,6 +1,6 @@
-#SocialMeli
-##Quality
-###Tests unitarios (Parte A)
+# SocialMeli
+## Quality
+### Tests unitarios (Parte A)
 - [x] **T-0001:** Verificar que el usuario a seguir exista. (US-0001)
 - [x] **T-0002:** Verificar que el usuario a dejar de seguir exista. (US-0007)
 - [x] **T-0003:** Verificar que el tipo de ordenamiento alfabético exista (US-0008)
@@ -10,12 +10,12 @@
 - [x] **T-0007:** Verificar que la cantidad de seguidores de un determinado usuario sea correcta. (US-0002)
 - [x] **T-0008:** Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006)
 
-###Tests de integración
+### Tests de integración
 
-####Obligatorios (Parte B)
+#### Obligatorios (Parte B)
 - [x] **POST /{userId}/follow/{userIdToFollow}:** US-0001 - Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
   
-####Bonus (Parte C)
+#### Bonus (Parte C)
 - [x] **GET /users/{userId}/followers/count:** US-0002 - Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
 - [x] **GET /users/{userId}/followers/list:** US-0003 y US-0008 - Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?) y ordenar alfabeticamente (ascendente, descendente)
 - [x] **GET /users/{userId}/followed/list:**  US-0004 y US-0008 - Obtener un listado de todos los usuarios que siguen a un determinado vendedor (¿Quién me sigue?) y ordenar alfabeticamente (ascendente, descendente)
