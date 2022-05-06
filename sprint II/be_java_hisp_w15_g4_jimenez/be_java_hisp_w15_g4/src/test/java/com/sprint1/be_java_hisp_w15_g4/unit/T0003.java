@@ -1,7 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g4.unit;
 
 import Utils.TestGenerator;
-import com.sprint1.be_java_hisp_w15_g4.dto.response.FollowerListDTO;
 import com.sprint1.be_java_hisp_w15_g4.exception.BadOrderArgumentExcepcion;
 import com.sprint1.be_java_hisp_w15_g4.model.User;
 import com.sprint1.be_java_hisp_w15_g4.repository.IUserRepository;
@@ -14,8 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-
-import java.util.List;
 
 @ExtendWith(MockitoExtension.class)
 public class T0003 {
@@ -37,8 +34,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowers(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowers(1,order)
+        );
     }
 
     @Test
@@ -53,8 +52,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowers(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowers(1,order)
+        );
     }
 
 
@@ -88,8 +89,10 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowing(1,order);
+        //act & assert
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowing(1,order)
+        );
     }
 
     @Test
@@ -104,8 +107,9 @@ public class T0003 {
 
         Mockito.when(repo.findUser(1)).thenReturn(user);
 
-        //act
-        service.listFollowing(1,order);
+        Assertions.assertDoesNotThrow(
+                ()->service.listFollowing(1,order)
+        );
     }
 
 
