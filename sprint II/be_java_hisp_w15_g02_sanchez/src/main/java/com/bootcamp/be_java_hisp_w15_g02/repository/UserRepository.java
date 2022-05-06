@@ -71,7 +71,7 @@ public class UserRepository implements IUserRepository {
 
         if (!userToFollow.isSeller())
             return false;
-        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 1)
+        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 0)
             throw new FollowYourselfException("Ya sigue a este usuario.");
 
         userToFollow.getFollowerList().add(new Follow(user.getUserId()));
