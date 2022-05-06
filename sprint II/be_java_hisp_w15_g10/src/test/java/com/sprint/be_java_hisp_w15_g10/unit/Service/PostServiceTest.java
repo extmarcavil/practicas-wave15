@@ -103,6 +103,7 @@ class PostServiceTest {
         //Act
         String message = postServiceMock.createPost(postCreateDTO).getMessage();
 
+        ProductRequestDTO productRequestDTO = new ProductRequestDTO(1, "Pantalón", "Old", "Jeff", "Rojo", "");
         //Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(1, postCreateDTO.getCategory_id()),
@@ -110,6 +111,12 @@ class PostServiceTest {
                 () -> Assertions.assertEquals(4, postCreateDTO.getUser_id()),
                 () -> Assertions.assertEquals(1D, postCreateDTO.getPrice()),
                 () -> Assertions.assertEquals(productRequestDTO, postCreateDTO.getDetail()),
+                () -> Assertions.assertEquals(1, productRequestDTO.getProduct_id()),
+                () -> Assertions.assertEquals("Pantalón", productRequestDTO.getProduct_name()),
+                () -> Assertions.assertEquals("Old", productRequestDTO.getType()),
+                () -> Assertions.assertEquals("Jeff", productRequestDTO.getBrand()),
+                () -> Assertions.assertEquals("Rojo", productRequestDTO.getColor()),
+                () -> Assertions.assertEquals("", productRequestDTO.getNotes()),
                 () -> verify(categoryRepository, atLeastOnce()).getById(anyInt()),
                 () -> verify(userRepository, atLeastOnce()).getById(anyInt()),
                 () -> verify(productRepository, atLeastOnce()).getById(anyInt()),
