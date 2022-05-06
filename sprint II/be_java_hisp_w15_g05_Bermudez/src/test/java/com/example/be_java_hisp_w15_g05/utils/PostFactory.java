@@ -8,15 +8,16 @@ import com.example.be_java_hisp_w15_g05.model.Product;
 import com.example.be_java_hisp_w15_g05.model.User;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class PostFactory {
 
-    private static Product p1= new Product(0, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
+    private static Product p1= new Product(10, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
     private static Product p2 = new Product(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
 
-    private static ProductDTO pDTO1= new ProductDTO(0, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
+    private static ProductDTO pDTO1= new ProductDTO(10, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
     private static ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
 
 
@@ -59,5 +60,21 @@ public class PostFactory {
 
     public static ProductDTO getpDTO2() {
         return pDTO2;
+    }
+
+    public static List<PostIdDTO> getListSellerPost() {
+        ProductDTO pDTO1= new ProductDTO(10, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
+        ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
+
+        List<PostIdDTO> posts = new ArrayList<>();
+        PostIdDTO postIdDTO1 = new PostIdDTO(21, LocalDate.of(2022, 4, 26), pDTO2, 100, 202.0);
+        PostIdDTO postIdDTO2 = new PostIdDTO(23, LocalDate.of(2022, 4, 25), pDTO2, 100, 202.0);
+        PostIdDTO postIdDTO3 = new PostIdDTO(22, LocalDate.of(2022, 4, 24), pDTO1, 100, 202.0);
+
+        posts.add(postIdDTO1);
+        posts.add(postIdDTO2);
+        posts.add(postIdDTO3);
+
+        return posts;
     }
 }

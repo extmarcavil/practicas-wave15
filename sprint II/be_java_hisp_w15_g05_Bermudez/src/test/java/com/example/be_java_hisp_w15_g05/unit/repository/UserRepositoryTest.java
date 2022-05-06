@@ -1,13 +1,19 @@
 package com.example.be_java_hisp_w15_g05.unit.repository;
 
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
+import com.example.be_java_hisp_w15_g05.model.Post;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g05.repository.UserRepository;
+import com.example.be_java_hisp_w15_g05.utils.PostFactory;
+import com.example.be_java_hisp_w15_g05.utils.UsersFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserRepositoryTest {
 
@@ -48,6 +54,23 @@ public class UserRepositoryTest {
 
         //assert
         Assertions.assertFalse(expectedSeller.getSeguidores().contains(expectedFollower));
+    }
+
+    // BONUS - Testeo del metodo getPostById
+    @Test
+    void verifyPostListById(){
+
+        // arrange
+        int id = 1;
+
+        //act
+        List<Post> result = repository.getPostsById(1);
+
+        //arrange
+        Assertions.assertAll(
+                ()->Assertions.assertEquals(result.size(),4),
+                ()->Assertions.assertTrue(result.size() != 0)
+        );
     }
 
 }

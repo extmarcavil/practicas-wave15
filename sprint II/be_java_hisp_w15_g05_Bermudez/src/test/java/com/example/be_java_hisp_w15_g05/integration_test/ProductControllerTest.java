@@ -64,6 +64,7 @@ public class ProductControllerTest {
                 );
     }
 
+    // BONUS - 75% Coverage
     @Test
     @DisplayName(" Usuario no encontrado al crear un post ")
     void userNotFoundExceptionPostTest() throws Exception {
@@ -100,7 +101,7 @@ public class ProductControllerTest {
                 .writer();
 
         // arrange
-        List<PostIdDTO> listedPosts = PostFactory.getListPostsAsc();
+        List<PostIdDTO> listedPosts = PostFactory.getListSellerPost();
         ResPostListDTO resListedPosts = new ResPostListDTO(10,listedPosts);
         String expectedBody = writer.writeValueAsString(resListedPosts);
 
