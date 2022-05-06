@@ -59,6 +59,7 @@ class PostServiceTest {
     private Post post2;
     private User user;
     private PostCreateDTO postCreateDTO;
+    public ProductRequestDTO productRequestDTO;
 
     @BeforeEach
     void setup() {
@@ -68,7 +69,10 @@ class PostServiceTest {
         post1 = TestUtils.createPost(postRepository, LocalDate.now());
         post2 = TestUtils.createPost2(postRepository, LocalDate.now());
         user = TestUtils.createUser(4, "Luis");
-        postCreateDTO = TestUtils.createPostCreateDTO();
+        productRequestDTO = TestUtils.createProductRequestDTO();
+        postCreateDTO = TestUtils.createPostCreateDTO(productRequestDTO);
+
+
     }
 
 
@@ -101,6 +105,17 @@ class PostServiceTest {
 
         //Assert
         Assertions.assertAll(
+                () -> Assertions.assertEquals(1, postCreateDTO.getCategory_id()),
+                () -> Assertions.assertEquals(LocalDate.now(), postCreateDTO.getDate()),
+                () -> Assertions.assertEquals(4, postCreateDTO.getUser_id()),
+                () -> Assertions.assertEquals(1D, postCreateDTO.getPrice()),
+                () -> Assertions.assertEquals(productRequestDTO, postCreateDTO.getDetail()),
+                () -> Assertions.assertEquals(1, productRequestDTO.getProduct_id()),
+                () -> Assertions.assertEquals("Pantalón", productRequestDTO.getProduct_name()),
+                () -> Assertions.assertEquals("Old", productRequestDTO.getType()),
+                () -> Assertions.assertEquals("Jeff", productRequestDTO.getBrand()),
+                () -> Assertions.assertEquals("Rojo", productRequestDTO.getColor()),
+                () -> Assertions.assertEquals("", productRequestDTO.getNotes()),
                 () -> verify(categoryRepository, atLeastOnce()).getById(anyInt()),
                 () -> verify(userRepository, atLeastOnce()).getById(anyInt()),
                 () -> verify(productRepository, atLeastOnce()).getById(anyInt()),
