@@ -30,7 +30,7 @@ public class Constants {
     public static final String NOTES_REGEX = "La nota debe contener solo letras y numeros";
     public static final int NOTES_VALUE = 80;
 
-    public static final String SIMBOLS_REGEX = "([A-Za-z0-9\\\\s]|^$).*";
+    public static final String SIMBOLS_REGEX = "^[a-zA-Z0-9 ]*$";
 
     public static final String CATEGORY_NOT_NULL = "La categoria no puede ser nula";
 
