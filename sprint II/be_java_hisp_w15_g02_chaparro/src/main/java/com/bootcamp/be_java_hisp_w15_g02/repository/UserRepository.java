@@ -1,0 +1,99 @@
+package com.bootcamp.be_java_hisp_w15_g02.repository;
+
+import com.bootcamp.be_java_hisp_w15_g02.exception.FollowYourselfException;
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
+import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
+import com.bootcamp.be_java_hisp_w15_g02.model.User;
+import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
+import org.springframework.stereotype.Repository;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Repository
+public class UserRepository implements IUserRepository {
+
+    private List<User> listUser;
+
+    public void init() {
+        listUser = new ArrayList<>();
+        List<Follow> listFollowers = new ArrayList<>();
+        List<Follow> listFollowers2 = new ArrayList<>();
+        List<Follow> listFollows = new ArrayList<>();
+        List<Follow> listFollows2 = new ArrayList<>();
+
+        listFollows.add(new Follow(4));
+        listFollows.add(new Follow(5));
+
+        listFollows2.add(new Follow(4));
+
+        listFollowers.add(new Follow(1));
+        listFollowers.add(new Follow(3));
+
+        listFollowers2.add(new Follow(1));
+        listFollowers2.add(new Follow(2));
+        listFollowers2.add(new Follow(3));
+
+        User user4 = new User(4, "Carlos", new ArrayList<>(), listFollowers);
+        User user5 = new User(5, "Ramiro", listFollows2, listFollowers2);
+        User user6 = new User(6, "Daniel", new ArrayList<>(), new ArrayList<>());
+        user4.setSeller(true);
+        user5.setSeller(true);
+        user6.setSeller(true);
+        listUser.add(new User(1, "Martin", listFollows, new ArrayList<>()));
+        listUser.add(new User(2, "Diana", listFollows2, new ArrayList<>()));
+        listUser.add(new User(3, "Leo", listFollows, new ArrayList<>()));
+        listUser.add(user4);
+        listUser.add(user5);
+        listUser.add(user6);
+
+    }
+
+
+    public UserRepository() {
+        init();
+    }
+
+
+    @Override
+    public List<User> getListUser() {
+        return listUser;
+    }
+
+    @Override
+    public User getUserById(int userId) {
+        return listUser.stream().
+                filter(f -> f.getUserId() == userId)
+                .findFirst().orElseThrow(UserNotFoundException::new);
+    }
+
+    @Override
+    public boolean follow(int userId, int userIdToFollow) {
+        User user = getUserById(userId);
+        User userToFollow = getUserById(userIdToFollow);
+
+        if (!userToFollow.isSeller())
+            return false;
+        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 0)
+            throw new FollowYourselfException("Ya sigue a este usuario.");
+
+        userToFollow.getFollowerList().add(new Follow(user.getUserId()));
+        user.getFollowList().add(new Follow(userToFollow.getUserId()));
+        return true;
+    }
+
+    @Override
+    public boolean unFollow(int userId, int userIdToUnFollow) {
+        User user = getUserById(userId);
+        User userToUnFollow = getUserById(userIdToUnFollow);
+
+        if (!userToUnFollow.isSeller())
+            return false;
+
+        user.getFollowList().removeIf(follow ->  follow.getUserToFollow() == userIdToUnFollow);
+        userToUnFollow.getFollowerList().removeIf(follow -> follow.getUserToFollow() == userId);
+        return true;
+    }
+
+
+}

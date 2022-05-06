@@ -18,7 +18,6 @@ import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,6 +50,7 @@ public class PostService implements IPostService{
      */
     @Override
     public boolean createPost(PostCreateDTO newPost) {
+        userRepository.getUserById(newPost.getUser_id());
         var id = 0;
         var postlist = postRepository.all();
         id = postlist.size() == 0 ? 1 : postlist.size() + 1;
@@ -58,9 +58,16 @@ public class PostService implements IPostService{
         var instant = newPost.getDate().toInstant();
         var zdt = instant.atZone(ZoneId.systemDefault());
         var date = zdt.toLocalDate();
+        modelProduct.setProductId(newPost.getDetail().getProduct_id());
+        modelProduct.setProductName(newPost.getDetail().getProduct_name());
+        modelProduct.setType(newPost.getDetail().getType());
+        modelProduct.setBrand(newPost.getDetail().getBrand());
+        modelProduct.setColor(newPost.getDetail().getColor());
+        modelProduct.setNotes(newPost.getDetail().getNotes());
         var modelPost = new Post(
-                id, newPost.getUser_id(), date, Integer.valueOf(newPost.getCategory()), modelProduct, newPost.getPrice());
+                id, newPost.getUser_id(), date, Integer.valueOf(newPost.getCategory()), modelProduct, newPost.getPrice(),newPost.isHas_Promo(),newPost.getDiscount());
         postRepository.createPost(modelPost);
+        userRepository.getUserById(newPost.getUser_id()).setSeller(true);
         return true;
     }
 

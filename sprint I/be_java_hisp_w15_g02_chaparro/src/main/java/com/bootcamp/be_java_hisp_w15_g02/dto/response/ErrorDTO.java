@@ -6,7 +6,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ErrorDTO {
-    private boolean status;
+    private String status;
     private String message;
 
     public ErrorDTO() {
