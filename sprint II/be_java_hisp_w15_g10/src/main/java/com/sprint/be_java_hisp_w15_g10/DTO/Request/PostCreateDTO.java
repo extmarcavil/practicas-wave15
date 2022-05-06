@@ -21,18 +21,15 @@ public class PostCreateDTO {
     @NotNull
     private ProductRequestDTO detail;
 
-
     @NotNull(message = "La fecha no puede estar vacía")
     @PastOrPresent(message = "La fecha no puede ser de un día posterior a la fecha actual")
     @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate date;
 
-
     @NotNull(message = "El campo no puede estar vacío")
     @Min(1)
     @JsonAlias({"category", "category_id"})
     private Integer category_id;
-
 
     @NotNull(message = "El campo no puede estar vacío.")
     @DecimalMin(value = "0", message = "El precio no puede ser 0")
