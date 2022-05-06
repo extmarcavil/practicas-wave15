@@ -154,7 +154,7 @@ public class UserControllerTest {
 
         // arrange
         String postJason = writer
-                                .writeValueAsString(getGoodPost())
+                                .writeValueAsString(getPost())
                                 .replace("[2022,5,2]", "\"02-05-2022\"");
 
         // act & assert
@@ -170,8 +170,13 @@ public class UserControllerTest {
         ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
 
         // arrange
+        PostDTO post = getPost();
+
+        post.setUser_id(-1);
+        post.getDetail().setColor("color llllllllll");
+
         String postJason = writer
-                .writeValueAsString(getGoodPost())
+                .writeValueAsString(post)
                 .replace("[2022,5,2]", "\"02-05-2022\"");
 
         Map<String, List<String>> errors = new HashMap<>();
@@ -189,17 +194,17 @@ public class UserControllerTest {
                 );
     }
 
-    private PostDTO getGoodPost() {
+    private PostDTO getPost() {
         ProductDTO product = new ProductDTO();
         product.setProduct_id(1);
         product.setProduct_name("name");
         product.setType("type");
         product.setBrand("brand");
-        product.setColor("color llllllllll");
+        product.setColor("color");
         product.setNotes("notes");
 
         PostDTO post = new PostDTO();
-        post.setUser_id(-1);
+        post.setUser_id(1);
         post.setPost_id(1);
         post.setDate(LocalDate.of(2022,5,2));
         post.setDetail(product);
