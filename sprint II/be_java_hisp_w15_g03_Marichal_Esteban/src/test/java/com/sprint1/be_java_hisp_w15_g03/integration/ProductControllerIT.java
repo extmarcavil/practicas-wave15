@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint1.be_java_hisp_w15_g03.dto.ProductDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
-import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerPListDTO;
 import com.sprint1.be_java_hisp_w15_g03.exception.CategoryNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
@@ -36,11 +35,23 @@ import java.time.LocalDate;
 @AutoConfigureMockMvc
 public class ProductControllerIT {
 
+    private static ObjectWriter writer;
+    private static ObjectMapper objectMapper;
+
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     MeliRepository meliRepository;
+
+    @BeforeAll
+    static void setupObject(){
+        writer = new ObjectMapper()
+            .registerModule(new JavaTimeModule()) // convertir fechas
+            .writer();
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+    }
 
     @BeforeEach
     void setup() {
@@ -56,10 +67,6 @@ public class ProductControllerIT {
     @Test
     @DisplayName("Verificar crear una publicación correctamente.")
     void savePublicationOk() throws Exception {
-        ObjectWriter writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
-
         // Arrange
         ProductDTO productDTO = new ProductDTO(1, "Mesa", "Roble", "Buena", "Verde", "con detalles");
         PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, 2, 300.0);
@@ -117,10 +124,6 @@ public class ProductControllerIT {
     @Test
     @DisplayName("Verificar crear una publicación con una categoría inexistente.")
     void savePublicationCategoryNotFoundException() throws Exception {
-        ObjectWriter writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
-
         // Arrange
         ProductDTO productDTO = new ProductDTO(1, "Mesa", "Roble", "Buena", "Verde", "con detalles");
         PublicationDTO publicationDTO = new PublicationDTO(1, LocalDate.now(), productDTO, 100, 300.0);
@@ -149,10 +152,6 @@ public class ProductControllerIT {
     @Test
     @DisplayName("Verificar crear una publicación con un usuario inexistente.")
     void savePublicationPersonNotFoundException() throws Exception {
-        ObjectWriter writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
-
         // Arrange
         ProductDTO productDTO = new ProductDTO(1, "Mesa", "Roble", "Buena", "Verde", "con detalles");
         PublicationDTO publicationDTO = new PublicationDTO(60, LocalDate.now(), productDTO, 2, 300.0);
@@ -181,10 +180,6 @@ public class ProductControllerIT {
     @Test
     @DisplayName("Verificar crear una publicación con un producto existente invalido.")
     void savePublicationProductDuplicatedException() throws Exception {
-        ObjectWriter writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
-
         // Arrange
         ProductDTO productDTO = new ProductDTO(50, "Mesa", "Chapa", "Mala", "Gris", "0km");
         PublicationDTO publicationDTO = new PublicationDTO(50, LocalDate.now(), productDTO, 2, 200.0);
@@ -250,8 +245,6 @@ public class ProductControllerIT {
                 .andExpect(expectedStatus)
                 .andReturn();
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.findAndRegisterModules();
         SellerPListDTO sellerPListDTO = objectMapper.readValue(result.getResponse().getContentAsString(), SellerPListDTO.class);
         //El usuario Esteban sigue a los vendedores (Antel, Movistar y Claro) y en total de las ultimas dos semanas hay 4 publicaciones.
         Assertions.assertEquals(sellerPListDTO.getPosts().size(), 4);

@@ -1,6 +1,7 @@
 package com.sprint1.be_java_hisp_w15_g03.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
@@ -25,11 +26,19 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 @AutoConfigureMockMvc
 public class UserControllerIT {
 
+    private static ObjectMapper objectMapper;
+
     @Autowired
     MockMvc mockMvc;
 
     @Autowired
     MeliRepository meliRepository;
+
+    @BeforeAll
+    static void setupObject(){
+        objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+    }
 
     @BeforeEach
     void setup() {
@@ -126,7 +135,7 @@ public class UserControllerIT {
 
         ObjectMapper objectMapper = new ObjectMapper();
         SellerCountDTO sellerCountDTO = objectMapper.readValue(result.getResponse().getContentAsString(), SellerCountDTO.class);
-        //A el vendedor solo lo sigue un user Edgar id:50
+        //Al vendedor solo lo sigue un user Edgar id:50
         Assertions.assertEquals(sellerCountDTO.getFollowersCount(), 1);
     }
 
@@ -207,7 +216,6 @@ public class UserControllerIT {
                 )
                 .andReturn();
 
-        ObjectMapper objectMapper = new ObjectMapper();
         UserListDTO userListDTO = objectMapper.readValue(result.getResponse().getContentAsString(), UserListDTO.class);
         //Edgar sigue dos vendedores : HBO y Netflix
         Assertions.assertAll(
