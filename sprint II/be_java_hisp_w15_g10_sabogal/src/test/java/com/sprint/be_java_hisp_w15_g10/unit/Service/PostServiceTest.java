@@ -77,11 +77,11 @@ class PostServiceTest {
 
 
     /**
-     * Valida que se pueda crear un post
+     * Valida que se pueda crear una categoria
      */
 
     @Test
-    @DisplayName("Test creacion de un post")
+    @DisplayName("Test creacion de una categoria")
     void createPostTest() {
         //Arrange
         doReturn(Optional.of(category1))
