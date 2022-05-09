@@ -38,13 +38,12 @@ public class UserRepositoryTest {
     public void findUserSuccess(){
         // Arrange
         Integer queryId = 1;
-        User expected = UserFactory.getUserOne();
 
         // Act
         User result = repository.findById(queryId);
 
         // Assert
-        assertEquals(expected, result);
+        assertEquals(1, result.getUserId());
     }
 
     @Test

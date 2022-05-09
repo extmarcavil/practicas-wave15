@@ -163,6 +163,7 @@ public class UserService implements IUserService{
     public void followUser(Integer userId, Integer userToFollowId) {
         User user = userRepository.findById(userId);
         User userToFollow = userRepository.findById(userToFollowId);
+
         if(userToFollow.getPosts().isEmpty()){
             throw new BadRequestException("No se puede seguir un usuario que no es vendedor.");
         }

@@ -1,6 +1,5 @@
 package com.example.be_java_hisp_w15_g07.unit.service;
 
-import com.example.be_java_hisp_w15_g07.dto.response.PostDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowedPostsDTO;
 import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.model.Post;
@@ -115,8 +114,8 @@ public class PostServiceTest {
     @DisplayName("T0008 - Verificar que se filtran correctamente las publicaciones recientes de los usuarios seguidos")
     public void returnRecentPostsUsersFollowed(){
         // Arrange
-        Integer userId = 1;
         User user1 = UserFactory.getUserOne();
+        Integer userId = user1.getUserId();
         User user2 = UserFactory.getUserTwoWithPosts();
         for (Post post: PostFactory.getTwoPostsOneOutdated()) {
             user2.newPost(post);
@@ -133,11 +132,11 @@ public class PostServiceTest {
         UserFollowedPostsDTO userFollowedPostsDTO = service.getFollowedPosts(userId, "date_asc");
 
         // Assert
-        assertEquals(1, userFollowedPostsDTO.getUserID());
-        assertEquals(userFollowedPostsDTO.getPosts().size(), 5);
-        for (PostDTO postDTO: userFollowedPostsDTO.getPosts()) {
-            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
-        }
+        assertAll(
+                () -> assertEquals(1, userFollowedPostsDTO.getUserID()),
+                () -> assertEquals(5, userFollowedPostsDTO.getPosts().size()),
+                () -> userFollowedPostsDTO.getPosts().forEach(postDTO -> assertTrue(postDTO.getDate().isAfter(twoWeeksAgo)))
+        );
     }
 
     @Test
