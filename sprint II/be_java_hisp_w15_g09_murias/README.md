@@ -25,7 +25,7 @@ Como documentación de respaldo, un analista funcional adjunta el siguiente docu
 | category | SI | Que el campo no este vacío | El campo no puede estar vacío |
 
 #### - TESTS UNITARIOS
-| TESTS| SITUACIONES DE ENTRADA | COMPORTAMIENTO ESPERADO |
+| TESTS  | SITUACIONES DE ENTRADA | COMPORTAMIENTO ESPERADO |
 | ------ | ------ | ------ |
 | T-0001 | Verificar que el usuario a seguir exista. (US-0001) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. |
 | T-0002 | Verificar que el usuario a dejar de seguir exista. (US-0007) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
@@ -35,10 +35,10 @@ Como documentación de respaldo, un analista funcional adjunta el siguiente docu
 | T-0006 | Verificar el correcto ordenamiento ascendente y descendente por fecha. (US-0009) | Devuelve la lista ordenada según el criterio solicitado | 
 | T-0007 | Verificar que la cantidad de seguidores de un determinado usuario sea correcta. (US-0002) | Devuelve el cálculo correcto del total de la cantidad de seguidores que posee un usuario. | 
 | T-0008 | Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006) | Devuelve únicamente los datos de las publicaciones que tengan fecha de publicación dentro de las últimas dos semanas a partir del día de la fecha. | 
-| T-0009 | Verificar que un usuario realmente siga a otro (US-0001) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
-| T-0010 | Verificar que un usuario realmente deje de seguir a otro (US-0007) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
-| T-0011 | Verificar la cantidad de seguidores de un usuario (US-0002) | Devuelve la cantidad de un determinado usuario. | 
-| T-0012 | Verificar que un posteo se realice realmente | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
+| T-0009 | Verificar que un usuario realmente siga a otro. (US-0001) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
+| T-0010 | Verificar que un usuario realmente deje de seguir a otro. (US-0007) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
+| T-0011 | Verificar la cantidad de seguidores de un usuario. (US-0002) | Devuelve la cantidad de un determinado usuario. | 
+| T-0012 | Verificar que una publicación se realice correctamente. (US-0005) | Se cumple: Permite continuar con normalidad. + No se cumple: Notifica la no existencia mediante una excepción. | 
 
 
 #### - COLABORADORES POR REQUERIMIENTOS GRUPALES:
