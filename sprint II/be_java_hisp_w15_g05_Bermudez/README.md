@@ -200,9 +200,53 @@ Este es el repositorio del segundo Sprint realizado en el bootcamp wave 15 de Ja
   verificarCorrectoFiltroPorFecha()
     Verificación correcto filtro de fecha
 ```
+## Integration Tests
+### Product controller tests
 
+```http
+  createPostTest()
+    Integracion - Crear un post
+```
+```http
+  userNotFoundExceptionPostTest()
+    Usuario no encontrado al crear un post
+```
+```http
+  getFollowedVendorPosts()
+    Integracion - Obtener los post del vendedor a seguir
+```
+```http
+  invalidArgumentsGlobalHandler()
+    Integracion del ExceptionGlobalHandler sobre listado de validaciones
+```
 
-#### Con los presentes tests se alcanza un line coverage de 59%.
+### Follower controller tests
+```http
+  followTest()
+    Integracion - Un usuario sigue a otro
+```
+```http
+  alreadyFollowingException()
+    Excepcion de usuario ya siguiendo al usuario a seguir
+```
+```http
+  notVendorFollowingException()
+    Excepcion de usuario a seguir no es vendedor
+```
+```http
+  unfollowTest()
+    Integracion - Dejar de seguir un usuario
+```
+```http
+  notFollowingException()
+    Excepcion el usuario no seguia al vendedor
+```
+```http
+  countFollowers()
+    Integracion cantidad de seguidores
+```
+
+#### Con los presentes tests se alcanza un code coverage del +80%.
 
 
 ## Authors
