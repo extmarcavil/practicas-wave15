@@ -63,4 +63,28 @@ public class ObtenerDiplomaControllerIT {
                         MockMvcResultMatchers.jsonPath("$.subjects[1].score").value("6.0")
                 );
     }
+
+    @Test
+    void analyzeScoresNotOk() throws Exception {
+
+        String jsonExpected="{\"name\":\"StudentNotFoundException\",\"description\":\"El alumno con Id 9 no se encuetra registrado.\"}";
+
+        //Expected
+        ResultMatcher status= MockMvcResultMatchers.status().isNotFound();
+        ResultMatcher contentType= MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+        ResultMatcher body=MockMvcResultMatchers.content().json(jsonExpected);
+
+        //Request
+        MockHttpServletRequestBuilder request= MockMvcRequestBuilders.get("/analyzeScores/{studentId}",9);
+
+        //act & assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        status,
+                        contentType,
+                        body
+                );
+    }
 }

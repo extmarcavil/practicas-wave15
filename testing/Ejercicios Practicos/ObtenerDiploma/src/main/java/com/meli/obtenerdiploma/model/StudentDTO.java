@@ -8,7 +8,6 @@ import javax.validation.constraints.*;
 import java.util.List;
 
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class StudentDTO {

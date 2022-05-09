@@ -61,7 +61,7 @@ public class StudentDAO implements IStudentDAO {
 
         return ret;
     }
-
+/*
     public boolean exists(StudentDTO stu) {
        boolean ret = false;
 
@@ -74,6 +74,7 @@ public class StudentDAO implements IStudentDAO {
 
        return ret;
     }
+ */
 
     @Override
     public StudentDTO findById(Long id) {
@@ -100,7 +101,7 @@ public class StudentDAO implements IStudentDAO {
 
         this.students = loadedData;
     }
-
+/*
     private void saveData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -114,4 +115,6 @@ public class StudentDAO implements IStudentDAO {
             System.out.println("Failed while writing to DB, check your JSON formatting.");
         }
     }
+ */
+
 }
