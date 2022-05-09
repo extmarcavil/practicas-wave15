@@ -34,7 +34,7 @@ public class UserRepositoryTest {
         User result = repository.findById(queryId);
 
         // Assert
-        assertEquals(expected, result);
+        assertEquals(1, result.getUserId());
     }
 
     @Test

@@ -35,13 +35,13 @@ public class PostController {
      * returns a List of products for one of the users followed
      *
      * @param userId Integer
+     * @param order String (request param)
      * @return {@link ResponseEntity}
      * @see ResponseEntity
      * @author Jeronimo Graff
      */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<UserFollowedPostsDTO> getUserFollowedPosts (@PathVariable
-                                                                      @NotNull(message = "El  id no puede estar vacío.")
                                                                       @Positive(message = "El id debe ser mayor a cero")
                                                                       Integer userId,
                                                                       @RequestParam(defaultValue = "date_asc") String order) {
@@ -51,6 +51,7 @@ public class PostController {
     /**
      * add new user post
      *
+     * @param postDTO {@link NewPostDTO}
      * @return {@link ResponseEntity}
      * @see ResponseEntity
      * @author Jeronimo Graff
