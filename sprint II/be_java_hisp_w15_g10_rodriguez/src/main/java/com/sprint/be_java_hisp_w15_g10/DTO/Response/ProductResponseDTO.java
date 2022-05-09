@@ -6,8 +6,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 
 @Getter
+@Setter
 @NoArgsConstructor
-
 public class ProductResponseDTO {
 
     private int product_id;

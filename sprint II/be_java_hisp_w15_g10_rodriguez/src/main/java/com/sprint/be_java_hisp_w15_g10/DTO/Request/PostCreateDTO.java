@@ -19,7 +19,7 @@ public class PostCreateDTO {
     private Integer user_id;
 
     @Valid
-    @NotNull
+    @NotNull(message = "no puede ser null")
     private ProductRequestDTO detail;
 
     @NotNull(message = "La fecha no puede estar vacía")
@@ -28,7 +28,7 @@ public class PostCreateDTO {
     private LocalDate date;
 
     @NotNull(message = "El campo no puede estar vacío")
-    @Min(1)
+    @Min(value = 1, message = "El category_id debe ser mayor a cero")
     @JsonAlias({"category", "category_id"})
     private Integer category_id;
 

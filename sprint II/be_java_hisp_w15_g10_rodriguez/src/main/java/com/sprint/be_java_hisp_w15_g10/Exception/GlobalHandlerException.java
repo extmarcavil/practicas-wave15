@@ -45,13 +45,13 @@ public class GlobalHandlerException {
 
     @ExceptionHandler(NotFollowException.class)
     public ResponseEntity<ErrorDTO> handlerNotFollowUserException(NotFollowException exception) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("NOT FOLLOWS USER", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(FollowException.class)
     public ResponseEntity<ErrorDTO> handlerFollowUserException(FollowException exception) {
-        ErrorDTO errorDTO = new ErrorDTO("NOT FOUND RELATION", exception.getMessage());
+        ErrorDTO errorDTO = new ErrorDTO("FOLLOWS USER", exception.getMessage());
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
@@ -61,7 +61,7 @@ public class GlobalHandlerException {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
-    /*@ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(
             MethodArgumentNotValidException ex) {
@@ -74,29 +74,5 @@ public class GlobalHandlerException {
             errors.put(fieldName, errorMessage);
         });
         return errors;
-    }*/
-
-    /**
-     * handleMethodArgumentNotValid (Argumentos en el RequestDto no validos) - (Spring-Validation)
-     */
-    //@Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-
-        Map<String, String> errorsMap = new HashMap<>();
-
-        ex.getBindingResult().getAllErrors().forEach(error -> {
-            String fieldName = ((FieldError) error).getField();
-            String errorMessage = error.getDefaultMessage();
-            errorsMap.put(fieldName, errorMessage);
-        });
-
-        ExceptionResponse er = ExceptionResponse.builder()
-                .fecha(LocalDateTime.now())
-                .mensaje(errorsMap.toString())
-                .detalle(request.getDescription(false))
-                .build();
-
-        return new ResponseEntity<Object>(er, HttpStatus.BAD_REQUEST);
     }
 }

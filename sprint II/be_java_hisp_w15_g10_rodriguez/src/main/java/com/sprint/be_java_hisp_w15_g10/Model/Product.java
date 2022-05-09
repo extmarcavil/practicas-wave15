@@ -3,7 +3,9 @@ package com.sprint.be_java_hisp_w15_g10.Model;
 import lombok.*;
 
 @Getter
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     private int product_id;

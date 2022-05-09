@@ -9,6 +9,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Post {
 
     private int post_id;

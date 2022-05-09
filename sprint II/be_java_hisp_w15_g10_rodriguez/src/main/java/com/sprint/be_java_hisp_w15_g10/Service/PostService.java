@@ -52,9 +52,9 @@ public class PostService implements IPostService {
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
 
         Post post = modelMapper.map(postCreateDTO, Post.class);
-
         post.setPost_id(postRepository.nextIndex());
         post.setCategory(category);
+        System.out.println(post.toString());
         User user = userRepository.getById(postCreateDTO.getUser_id())
                 .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
 

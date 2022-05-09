@@ -73,9 +73,7 @@ public class UserService implements IUserService {
         List<UserDTO> listUsers = new ArrayList<>();
 
         user.getFollowed().forEach(u -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUser_id(u.getUser_id());
-            userDTO.setUser_name(u.getUser_name());
+            UserDTO userDTO = new UserDTO(u.getUser_id(), u.getUser_name());
             listUsers.add(userDTO);
         });
 
@@ -95,13 +93,11 @@ public class UserService implements IUserService {
         List<UserDTO> listUsers = new ArrayList<>();
 
         user.getFollowers().forEach(u -> {
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUser_id(u.getUser_id());
-            userDTO.setUser_name(u.getUser_name());
+            UserDTO userDTO = new UserDTO(u.getUser_id(),u.getUser_name());
             listUsers.add(userDTO);
         });
 
-        if(order.equals("name_asc")) listUsers.sort((user1, user2) -> user1.getUser_name().compareTo(user2.getUser_name()));
+        if(order.equals("name_asc")) listUsers.sort(Comparator.comparing(UserDTO::getUser_name));
         else if(order.equals("name_desc")) listUsers.sort((user1, user2) -> user2.getUser_name().compareTo(user1.getUser_name()));
 
         vendedorsFollowedDTO.setFollowers(listUsers);
