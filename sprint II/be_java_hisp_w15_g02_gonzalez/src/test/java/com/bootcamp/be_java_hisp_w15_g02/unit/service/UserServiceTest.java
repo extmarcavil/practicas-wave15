@@ -57,6 +57,17 @@ public class UserServiceTest {
     }
 
     @Test
+    @DisplayName("Verify if the User don't have followers.")
+    void verifyIfAmountOfFollowersIsEmpty(){
+        //Arrange
+        //int countExpected = Global.getUserByIdUtils(1).getFollowerList().size();
+        Mockito.when(userRepository.getUserById(1)).thenReturn(Global.getUserByIdUtils(1));
+        //Act and Assert
+        GetFollowersCountDTO countResultDTO = userService.getFollowersCount(1);
+        Assertions.assertEquals(0, countResultDTO.getFollowersCount());
+    }
+
+    @Test
     @DisplayName("Verify if order type exists.")
     void verifyOrderTypeExists(){
         //Arrange
