@@ -267,7 +267,7 @@ public enum Category {
 * sellerId: 2
 * sellerName: Amazon
 
-##Detalles de las pruebas realizadas
+## Detalles de las pruebas realizadas
 <ul>
 <li>Se realizaron 2 metodos en el repository para poder cargar y borrar informacion para las pruebas: loadDataTest y deleteDataTest.</li>
 <br />
