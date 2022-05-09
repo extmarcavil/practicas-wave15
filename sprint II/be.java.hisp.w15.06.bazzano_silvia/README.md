@@ -33,6 +33,7 @@ _**Requerimientos implementados**_
 **Consideraciones**
 
 - El código se ha definido que se escriba en inglés para mantener su coherencia.
+- Se decidió poner los comentarios en español. 
 - Se decidió que los usuarios tendrán dos listas (Followed and Followers).
 - Se decidió que los POST serán valores de User.
 - Utilizamos @DefaultValue por delante de @QueryParam.
