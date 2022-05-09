@@ -33,12 +33,4 @@ public class ProductController {
         return ResponseEntity.ok(productService.get2WeeksProductsOfFollowed(followerUserID, order));
     }
 
-
-
-
-
-
-
-
-
 }
