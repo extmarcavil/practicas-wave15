@@ -1,11 +1,8 @@
 package com.bootcamp.be_java_hisp_w15_g02.integration_test;
 
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.ErrorDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -21,6 +18,9 @@ import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilde
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import java.util.Arrays;
+import java.util.List;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -171,8 +171,59 @@ public class UserControllerIntegrationTest {
 
         // request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
-                .get(url+"/{userId}/followers/count", validUserId);
+                                                    .get(url+"/{userId}/followers/count", validUserId);
         // act & assert
         mockMvc.perform(request).andDo(MockMvcResultHandlers.print()).andExpectAll(expectedStatus, expectedJson, expectedContentType);
     }
+
+    @Test
+    @DisplayName("Obtener la lista de seguidores de un usuario")
+    void getFollowersList() throws Exception {
+        // arrange
+        int validUserId = 5;
+        List<FollowersDTO> followers = Arrays.asList(
+                                                new FollowersDTO(1, "Martin"),
+                                                new FollowersDTO(2, "Diana"),
+                                                new FollowersDTO(3, "Leo"));
+        GetFollowersBySellerDTO responseFollowers = new GetFollowersBySellerDTO(validUserId, "Ramiro", followers);
+        String jsonExpected = writer.writeValueAsString(responseFollowers);
+
+        // expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(jsonExpected);
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                                                    .get(url+"/{userId}/followers/list", validUserId);
+
+        // act & assert
+        mockMvc.perform(request).andDo(MockMvcResultHandlers.print()).andExpectAll(expectedStatus, expectedJson, expectedContentType);
+    }
+
+    @Test
+    @DisplayName("Obtener la lista de los usuarios que sigue un usuario")
+    void getFollowingList() throws Exception {
+        // arrange
+        int validUserId = 1;
+        List<FollowersDTO> following = Arrays.asList(
+                new FollowersDTO(4, "Carlos"),
+                new FollowersDTO(5, "Ramiro"));
+        GetFollowedByUserDTO responseFollowers = new GetFollowedByUserDTO(validUserId, "Martin", following);
+        String jsonExpected = writer.writeValueAsString(responseFollowers);
+
+        // expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(jsonExpected);
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get(url+"/{userId}/followed/list", validUserId);
+
+        // act & assert
+        mockMvc.perform(request).andDo(MockMvcResultHandlers.print()).andExpectAll(expectedStatus, expectedJson, expectedContentType);
+    }
+
+
 }

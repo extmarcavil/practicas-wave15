@@ -1,7 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.service;
 
 import com.bootcamp.be_java_hisp_w15_g02.dto.request.PostCreateDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Post;
@@ -14,11 +13,9 @@ import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 @Service

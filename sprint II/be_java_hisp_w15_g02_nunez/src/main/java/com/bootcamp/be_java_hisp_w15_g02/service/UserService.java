@@ -11,7 +11,7 @@ import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.FollowersDTO;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -92,12 +92,12 @@ public class UserService implements IUserService {
     @Override
     public GetFollowedByUserDTO getFollowedByUser(int userId, String order) {
         User user = userRepository.getUserById(userId);
-        List<GetFollowersDTO> listFollowed = mapFollowDTO(user.getFollowList());
+        List<FollowersDTO> listFollowed = mapFollowDTO(user.getFollowList());
         if (order != null) {
             if (order.equals("name_asc"))
-                listFollowed.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+                listFollowed.sort(Comparator.comparing(FollowersDTO::getUserName));
             else if (order.equals("name_desc"))
-                listFollowed.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+                listFollowed.sort(Comparator.comparing(FollowersDTO::getUserName, Comparator.reverseOrder()));
             else
                 throw new OrderNotFoundException("Orden no encontrado");
         }
@@ -117,17 +117,17 @@ public class UserService implements IUserService {
     public GetFollowersBySellerDTO getFollowersBySeller(int userId, String order) {
         var result = new GetFollowersBySellerDTO();
         var user = userRepository.getUserById(userId);
-        var listFollowers = new ArrayList<GetFollowersDTO>();
+        var listFollowers = new ArrayList<FollowersDTO>();
 
         if (user.isSeller()) {
-            listFollowers = (ArrayList<GetFollowersDTO>) mapFollowDTO(user.getFollowerList());
+            listFollowers = (ArrayList<FollowersDTO>) mapFollowDTO(user.getFollowerList());
 
             if (order != null) {
 
                 if (order.equals("name_asc"))
-                    listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+                    listFollowers.sort(Comparator.comparing(FollowersDTO::getUserName));
                 else if (order.equals("name_desc"))
-                    listFollowers.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+                    listFollowers.sort(Comparator.comparing(FollowersDTO::getUserName, Comparator.reverseOrder()));
                 else
                     throw new OrderNotFoundException("Orden no encontrado");
             }
@@ -146,14 +146,17 @@ public class UserService implements IUserService {
      * @param listFollows List of followers
      * @return List of Followers DTO
      */
-    public List<GetFollowersDTO> mapFollowDTO(List<Follow> listFollows){
-        List<GetFollowersDTO> followsDto = new ArrayList<>();
+    public List<FollowersDTO> mapFollowDTO(List<Follow> listFollows){
+        List<FollowersDTO> followsDto = new ArrayList<>();
 
         if (listFollows != null) {
             listFollows.forEach(item -> {
-                var newDto = new GetFollowersDTO();
+                var newDto = new FollowersDTO();
                 newDto.setUserId(item.getUserToFollow());
-                newDto.setUserName(userRepository.getListUser().stream().filter(u -> u.getUserId() == item.getUserToFollow()).findFirst().orElseThrow(UserNotFoundException::new).getUserName());
+                newDto.setUserName(userRepository.getListUser().stream()
+                                                                    .filter(u -> u.getUserId() == item.getUserToFollow())
+                                                                    .findFirst()
+                                                                    .orElseThrow(UserNotFoundException::new).getUserName());
                 followsDto.add(newDto);
             });
         }
