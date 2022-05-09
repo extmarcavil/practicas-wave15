@@ -4,6 +4,7 @@ import com.social.media.sprgbt.dto.*;
 import com.social.media.sprgbt.entity.User;
 import com.social.media.sprgbt.exception.ExistingException;
 import com.social.media.sprgbt.exception.NotFoundException;
+import com.social.media.sprgbt.exception.OrderNotExistingException;
 import com.social.media.sprgbt.facade.IApplicationProductFacade;
 import com.social.media.sprgbt.service.*;
 import lombok.extern.slf4j.Slf4j;
@@ -185,6 +186,11 @@ public class ApplicationProductFacadeImpl implements IApplicationProductFacade {
      */
     @Override
     public PostListDto getListOfSellersPostsThatUserFollowed(Integer userId, String order) throws NotFoundException {
+
+        if (order != "date_desc" && order != "date_asc") {
+            throw new OrderNotExistingException(String.format("El orden: %s, es invalido", order));
+        }
+
         LocalDate date = LocalDate.now();
 
         userService.getUserById(userId);

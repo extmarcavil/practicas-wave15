@@ -2,6 +2,7 @@ package com.social.media.sprgbt.unit.facade;
 
 import com.social.media.sprgbt.dto.*;
 import com.social.media.sprgbt.exception.ExistingException;
+import com.social.media.sprgbt.exception.OrderNotExistingException;
 import com.social.media.sprgbt.facade.impl.ApplicationProductFacadeImpl;
 import com.social.media.sprgbt.service.*;
 import com.social.media.sprgbt.utils.Data;
@@ -300,10 +301,23 @@ class ApplicationProductFacadeImplTest {
 
         //Assert
         assertNotNull(postDto);
-        //assertTrue(14 <= dias);
         verify(userService).getUserById(anyInt());
         verify(followerService).getListFollowedByUser(anyInt());
         verify(postService).getAllPostByUser(anyInt());
+
+    }
+
+    //Verificar que el tipo de ordenamiento alfabético exista (US-0008)
+    @Test
+    @DisplayName("Test Get List Followers Post By that User Followed Order Invalid.")
+    void getListOfSellersPostsThatUserFollowedIvalidOrderTest() {
+        //Arrange
+
+        //Act
+        //Assert
+        OrderNotExistingException e = assertThrows(OrderNotExistingException.class, () -> {
+            productFacadeImpl.getListOfSellersPostsThatUserFollowed(1, "_desc");
+        });
 
     }
 
