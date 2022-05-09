@@ -24,7 +24,7 @@ public class StudentDAO implements IStudentDAO {
 
 
     public StudentDAO() {
-        Properties properties = new Properties();
+        Properties properties =  new Properties();
 
         try {
             properties.load(new ClassPathResource("application.properties").getInputStream());
@@ -42,7 +42,7 @@ public class StudentDAO implements IStudentDAO {
         if (!removed) stu.setId((this.students.size() + 1L));
 
         students.add(stu);
-        System.out.println(stu + " Almacenado");
+
         //this.saveData();
     }
 
@@ -54,24 +54,23 @@ public class StudentDAO implements IStudentDAO {
             StudentDTO found = this.findById(id);
 
             students.remove(found);
-            ret = true;
+            ret  = true;
             //this.saveData();
 
-        } catch (StudentNotFoundException e) {
-        }
+        } catch (StudentNotFoundException e) {}
 
         return ret;
     }
 
     public boolean exists(StudentDTO stu) {
-        boolean ret = false;
+       boolean ret = false;
 
-        try {
-            ret = this.findById(stu.getId()) != null;
-        } catch (StudentNotFoundException e) {
-        }
+       try {
+           ret  = this.findById(stu.getId()) != null;
+       }
+       catch (StudentNotFoundException e) {}
 
-        return ret;
+       return ret;
     }
 
     @Override
@@ -88,8 +87,7 @@ public class StudentDAO implements IStudentDAO {
         File file;
         try {
             file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>() {
-            });
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");
@@ -101,7 +99,7 @@ public class StudentDAO implements IStudentDAO {
         this.students = loadedData;
     }
 
-    private void saveData() {
+    /*private void saveData() {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
@@ -113,5 +111,5 @@ public class StudentDAO implements IStudentDAO {
             e.printStackTrace();
             System.out.println("Failed while writing to DB, check your JSON formatting.");
         }
-    }
+    }*/
 }

@@ -16,8 +16,7 @@ import java.util.Set;
 @Repository
 public class StudentRepository implements IStudentRepository {
 
-    @Value("${api.scope}")
-    private String SCOPE = "test";
+    private String SCOPE = "main";
 
     @Override
     public Set<StudentDTO> findAll() {
@@ -26,8 +25,7 @@ public class StudentRepository implements IStudentRepository {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             File file = ResourceUtils.getFile("./src/" + SCOPE + "/resources/users.json");
-            loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>() {
-            });
+            loadedData = objectMapper.readValue(file, new TypeReference<Set<StudentDTO>>(){});
         } catch (FileNotFoundException e) {
             e.printStackTrace();
             System.out.println("Failed while initializing DB, check your resources files");

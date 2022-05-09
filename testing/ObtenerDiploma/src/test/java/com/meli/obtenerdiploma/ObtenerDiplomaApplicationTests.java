@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 @SpringBootTest
 class ObetenerDiplomaApplicationTests {
 
-    @Test
-    public void contextLoads() {
+	@Test
+	public void contextLoads() {
 
-    }
+	}
 }

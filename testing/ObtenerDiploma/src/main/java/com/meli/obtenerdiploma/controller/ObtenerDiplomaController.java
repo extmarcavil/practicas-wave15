@@ -12,10 +12,10 @@ import javax.validation.Valid;
 public class ObtenerDiplomaController {
 
     @Autowired
-    IObtenerDiplomaService obtenerDiplomaService;
+    IObtenerDiplomaService service;
 
     @GetMapping("/analyzeScores/{studentId}")
     public StudentDTO analyzeScores(@PathVariable Long studentId) {
-        return obtenerDiplomaService.analyzeScores(studentId);
+        return service.analyzeScores(studentId);
     }
 }
