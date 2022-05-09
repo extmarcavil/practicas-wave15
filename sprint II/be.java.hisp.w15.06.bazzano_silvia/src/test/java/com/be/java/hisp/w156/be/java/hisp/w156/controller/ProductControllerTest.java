@@ -65,8 +65,6 @@ class ProductControllerTest {
         requestPostDTO.setCategory("silla");
         requestPostDTO.setPrice(100.00);
 
-        SuccessDTO successDTO = new SuccessDTO("Publicación con id 1 se guardo correctamente");
-
         // Expected
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().is4xxClientError();
 
