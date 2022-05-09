@@ -37,11 +37,11 @@ public class UserRepository implements IUserRepository {
 
         users.addAll(Arrays.asList(galperin, antonio, juan, pedro, valentina));
 
-        Product p1 = new Product(10, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
+        Product p1 = new Product(0, "Mouse", "Tecnologia", "Raton", "Negro", "Bluetoo");
         Product p2 = new Product(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
 
         Post posteo = new Post(1, 20, LocalDate.of(2022, 4, 1), p1, 100, 202.00);
-        Post posteo2 = new Post(1, 21, LocalDate.of(2022, 4, 26), p2, 100, 202.00);
+        Post posteo2 = new Post(1, 21, LocalDate.now(), p2, 100, 202.00);
         Post posteo3 = new Post(1, 22, LocalDate.of(2022, 4, 24), p1, 100, 202.00);
         Post posteo4 = new Post(1, 23, LocalDate.of(2022, 4, 25), p2, 100, 202.00);
 

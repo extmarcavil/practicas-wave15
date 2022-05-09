@@ -78,13 +78,9 @@ public class PostFactory {
         ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
 
         List<PostIdDTO> posts = new ArrayList<>();
-        PostIdDTO postIdDTO1 = new PostIdDTO(21, LocalDate.of(2022, 04, 26), pDTO2, 100, 202.0);
-        PostIdDTO postIdDTO2 = new PostIdDTO(23, LocalDate.of(2022, 04, 25), pDTO2, 100, 202.0);
-        PostIdDTO postIdDTO3 = new PostIdDTO(22, LocalDate.of(2022, 04, 24), pDTO1, 100, 202.0);
+        PostIdDTO postIdDTO1 = new PostIdDTO(21, LocalDate.now(), pDTO2, 100, 202.0);
 
         posts.add(postIdDTO1);
-        posts.add(postIdDTO2);
-        posts.add(postIdDTO3);
 
         return posts;
     }

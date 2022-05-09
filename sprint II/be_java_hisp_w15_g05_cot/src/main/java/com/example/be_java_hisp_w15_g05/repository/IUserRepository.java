@@ -30,7 +30,7 @@ public interface IUserRepository {
 
     /**
      *
-     * @param id id del usuario
+     * @param user usuario
      * @return cantidad de followers de dicho usuario
      */
     int cantFollowers(User user);

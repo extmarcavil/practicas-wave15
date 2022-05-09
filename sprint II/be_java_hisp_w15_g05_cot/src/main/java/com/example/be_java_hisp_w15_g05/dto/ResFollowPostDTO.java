@@ -8,7 +8,4 @@ import lombok.*;
 public class ResFollowPostDTO {
 
     private String message;
-
-
-
 }

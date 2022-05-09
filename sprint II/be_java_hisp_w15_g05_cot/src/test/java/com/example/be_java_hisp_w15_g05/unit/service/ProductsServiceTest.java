@@ -2,7 +2,6 @@ package com.example.be_java_hisp_w15_g05.unit.service;
 
 import com.example.be_java_hisp_w15_g05.dto.*;
 import com.example.be_java_hisp_w15_g05.exceptions.InvalidDateException;
-import com.example.be_java_hisp_w15_g05.exceptions.InvalidPriceException;
 import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
@@ -135,16 +134,4 @@ public class ProductsServiceTest {
                 () -> productsService.createPost(post));
     }
 
-    @Test
-    void invalidPriceExceptionPost() {
-        PostDTO post = PostFactory.getInvalidPricePost();
-
-        User user = UsersFactory.createUserWithFollowers();
-
-        when(userRepository.findById(10)).thenReturn(Optional.of(user));
-
-        Assertions.assertThrows(
-                InvalidPriceException.class,
-                () -> productsService.createPost(post));
-    }
 }
