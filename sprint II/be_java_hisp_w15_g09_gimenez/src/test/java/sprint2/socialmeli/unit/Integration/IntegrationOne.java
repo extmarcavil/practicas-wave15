@@ -25,6 +25,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.web.bind.annotation.RequestParam;
 import sprint2.socialmeli.dto.ProductDTO;
 import sprint2.socialmeli.dto.post.request.RequestPostDTO;
+import sprint2.socialmeli.dto.user.UserDTO;
+import sprint2.socialmeli.model.User;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -103,7 +105,25 @@ public class IntegrationOne {
                 .andExpect(MockMvcResultMatchers.jsonPath("$.user_id").value(usuario));
 
     }
+
+    @Test
+    public void testPrueba() throws Exception {
+        User payloadDTO = new User(7, "Sofia");
+
+        ObjectWriter writer = new ObjectMapper().
+                configure(SerializationFeature.WRAP_ROOT_VALUE, false).
+                writer().withDefaultPrettyPrinter();
+        String payloadJson = writer.writeValueAsString(payloadDTO);
+
+        this.mockMvc.perform(MockMvcRequestBuilders.post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payloadJson))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("MethodArgumentNotValidException"));
+    }
 }
+
 
 
 

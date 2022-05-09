@@ -49,4 +49,30 @@ public class SocialMeliExceptionManager {
         return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorDTO> validationsException(MethodArgumentNotValidException exception) {
+        HashMap<String, List<String>> errors = getHashMapErrors(exception.getFieldErrors());
+        ErrorDTO errorDTO = new ErrorDTO("MethodArgumentNotValidException", errors);
+        return new ResponseEntity<>(errorDTO, HttpStatus.BAD_REQUEST);
+    }
+
+    private HashMap<String, List<String>> getHashMapErrors(List<FieldError> errors) {
+        HashMap<String, List<String>> errorsList = new HashMap<>();
+
+        errors.forEach(e -> {
+            String field = e.getField();
+            String msg = e.getDefaultMessage();
+
+            List<String> errorFields = new ArrayList<>();
+
+            if (errorsList.containsKey(e.getField())) {
+                errorFields = errorsList.get(field);
+            }
+            errorFields.add(msg);
+            errorsList.put(field, errorFields);
+        });
+
+        return errorsList;
+    }
+
 }

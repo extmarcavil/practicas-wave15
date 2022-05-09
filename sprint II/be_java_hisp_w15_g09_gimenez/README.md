@@ -21,3 +21,4 @@ Se implementaron 4 test integrales:
 * Validar que al cargar un usuario incorrecto para obtener su lista de seguidores, arroje error
 * Validar que al cargar una opcion incorrecta para ordenar la lista de seguidores de un usuario, arroje error
 * Validar que al pedir la lista de post de las ultimas dos semanas de usuarios seguidos de un usuario, obtenga los del usuario solicitado
+* Validar que al intentar cargar un producto sin los parametros correctos, arrojes los errores de validaciones correspondientes
