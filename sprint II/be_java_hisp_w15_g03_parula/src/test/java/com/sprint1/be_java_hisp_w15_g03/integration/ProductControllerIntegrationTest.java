@@ -8,6 +8,7 @@ import com.sprint1.be_java_hisp_w15_g03.dto.request.PublicationDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.ErrorValidationDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerPListDTO;
+import com.sprint1.be_java_hisp_w15_g03.exception.CategoryNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
 import com.sprint1.be_java_hisp_w15_g03.exception.ProductDuplicatedException;
 import com.sprint1.be_java_hisp_w15_g03.model.Category;
@@ -245,6 +246,38 @@ public class ProductControllerIntegrationTest {
                 );
 
     }
+
+
+    @Test
+    @DisplayName("Realizo el post publicaciones con una categoria inexistente")
+    void postPublicacionesCategoriaInexistente() throws Exception {
+        //Arrange
+        ObjectWriter writer =  new ObjectMapper()
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+        ProductDTO pr4 = new ProductDTO(5010,"NombreProducto","vali",
+                "Marca Duplicada", "Color Duplicado", "Notas del producto Duplicado");
+        PublicationDTO publication = new PublicationDTO(5010, LocalDate.now(),pr4, 7,10.0);
+        String publicationPayload = writer.writeValueAsString(publication);
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(publicationPayload);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof CategoryNotFoundException)),
+                        (result -> Assertions.assertEquals("La categoria 7 no existe.", result.getResolvedException().getMessage()))
+                );
+
+    }
+
 
 
 }
