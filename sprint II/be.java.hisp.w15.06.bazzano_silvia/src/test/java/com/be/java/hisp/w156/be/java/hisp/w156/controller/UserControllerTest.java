@@ -61,13 +61,14 @@ class UserControllerTest {
     @DisplayName("Corroborar que un usuario pueda dejar de seguir a otro usuario de forma correctamente")
     void unfollowUserOK() throws Exception {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().isOk();
+
         mockMvc.perform(MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}", 1, 3))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(expetedStatus);
     }
 
     @Test
-    @DisplayName("Corroborar que un usuario no pueda dejar de seguir a un usuario que no sigue")
+    @DisplayName("Corroborar que un usuario no pueda dejar de seguir a un usuario incorrecto (que no sigue)")
     void unfollowUserNoOK() throws Exception {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
 
@@ -97,7 +98,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("Lista de personas que siguen al usuario")
+    @DisplayName("Lista de personas que siguen a un usuario")
     void listFolowersAtUser() throws Exception {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().isOk();
 
