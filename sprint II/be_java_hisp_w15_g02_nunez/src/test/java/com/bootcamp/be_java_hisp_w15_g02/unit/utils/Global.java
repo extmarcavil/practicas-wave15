@@ -49,7 +49,7 @@ public class Global {
     public static List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
         posts.add(new Post(4,5, LocalDate.parse("2022-04-10"),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
-        posts.add(new Post(5,5, LocalDate.now(),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
+        posts.add(new Post(5,5, LocalDate.parse("2022-05-08"),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
         posts.add(new Post(6,5, LocalDate.parse("2022-05-03"),5,new Product(6,"cama","electronic","apple","white","cama grande"),6000));
         return posts;
     }
@@ -60,7 +60,7 @@ public class Global {
         List<PostsBySellersDTO> posts = new ArrayList<>();
         posts.add(
                 new PostsBySellersDTO(
-                        new Post(5,5, LocalDate.now(),5,
+                        new Post(5,5, LocalDate.parse("2022-05-08"),5,
                                 new Product(5,"iphone XR","electronic","apple","white",
                                         "iphone 128 GB"),5000)));
         posts.add(new PostsBySellersDTO(
@@ -78,7 +78,7 @@ public class Global {
                         6000)));
         posts.add(
                 new PostsBySellersDTO(
-                        new Post(5,5, LocalDate.now(),5,
+                        new Post(5,5, LocalDate.parse("2022-05-08"),5,
                                 new Product(5,"iphone XR","electronic","apple","white",
                                         "iphone 128 GB"),5000)));
         return posts;

@@ -24,6 +24,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,7 @@ public class PostControllerIntegrationTest {
     void setup() {
         url = "/products";
         this.writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule())
+                .registerModule(new JavaTimeModule()).setDateFormat(new SimpleDateFormat("yyyy-MM-dd"))
                 .writer();
     }
 
@@ -76,20 +77,16 @@ public class PostControllerIntegrationTest {
         // arrange
         List<PostsBySellersDTO> postsExpected = new ArrayList<>();
         postsExpected.add(
-                new PostsBySellersDTO(new Post(4,5, LocalDate.parse("2022-04-10"),4,
-                        new Product(4,"iphone se","electronic","apple","red",
-                                "iphone 64 GB"),7000)));
-        postsExpected.add(
-                new PostsBySellersDTO(new Post(5,5, LocalDate.now(),5,
+                new PostsBySellersDTO(new Post(5,5, LocalDate.parse("2022-05-08"),5,
                         new Product(5,"iphone XR","electronic","apple","white",
                                 "iphone 128 GB"),5000)));
         postsExpected.add(
                 new PostsBySellersDTO(new Post(6,5, LocalDate.parse("2022-05-03"),5,
                         new Product(6,"cama","electronic","apple","white",
                                 "cama grande"),6000)));
-        int validUserId = 5;
+        int validUserId = 1;
         List<PostsBySellersDTO> postsExpected1 = new ArrayList<>();
-        GetPostsSellerByUserIdDTO postSellerDTO = new GetPostsSellerByUserIdDTO(5, postsExpected1);
+        GetPostsSellerByUserIdDTO postSellerDTO = new GetPostsSellerByUserIdDTO(1, postsExpected);
         String jsonPosts = writer.writeValueAsString(postSellerDTO);
 
         // expected
