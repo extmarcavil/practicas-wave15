@@ -4,12 +4,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "No puede seguirse así mismo.")
-public class FollowYourselfException extends RuntimeException {
+public class FollowUnfollowErrorsException extends RuntimeException {
 
-    public FollowYourselfException() {
+    public FollowUnfollowErrorsException() {
     }
 
-    public FollowYourselfException(String message) {
+    public FollowUnfollowErrorsException(String message) {
         super(message);
     }
 }

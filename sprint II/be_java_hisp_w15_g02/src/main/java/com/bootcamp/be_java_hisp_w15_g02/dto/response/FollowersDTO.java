@@ -7,13 +7,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @Data
-public class GetFollowersDTO {
+public class FollowersDTO {
 
     private int userId;
     private String userName;
 
-    public GetFollowersDTO() {
+    public FollowersDTO() {
     }
 
-
+    public FollowersDTO(int userId, String userName) {
+        this.userId = userId;
+        this.userName = userName;
+    }
 }

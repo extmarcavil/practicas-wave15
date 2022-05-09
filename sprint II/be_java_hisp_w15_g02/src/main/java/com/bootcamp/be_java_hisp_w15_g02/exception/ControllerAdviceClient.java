@@ -9,8 +9,9 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
-import java.util.ArrayList;
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,9 +26,9 @@ public class ControllerAdviceClient{
      * @return The response entity containing the exception
      */
     @ExceptionHandler(NotSellerException.class)
-    public ResponseEntity<ErrorDTO> cantFollowHandler() {
+    public ResponseEntity<ErrorDTO> cantFollowHandler(Exception e) {
         ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.setMessage("El usuario que intentas seguir no es vendedor.");
+        errorDTO.setMessage(e.getMessage());
         errorDTO.setStatus(HttpStatus.BAD_REQUEST.toString());
         return new ResponseEntity<ErrorDTO>(errorDTO, HttpStatus.BAD_REQUEST);
     }
@@ -71,7 +72,7 @@ public class ControllerAdviceClient{
      * @param e The exception thrown
      * @return The response entity containing the exception
      */
-    @ExceptionHandler(FollowYourselfException.class)
+    @ExceptionHandler(FollowUnfollowErrorsException.class)
     public ResponseEntity<ErrorDTO> followYourselfHandler(Exception e) {
         ErrorDTO errorDTO = new ErrorDTO();
         errorDTO.setMessage(e.getMessage());
@@ -101,5 +102,15 @@ public class ControllerAdviceClient{
         return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ConstraintViolationException.class)
+    protected ResponseEntity<ErrorDTO> handleConstraintViolation(ConstraintViolationException e){
+        var response = new ErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+    }
 
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
+    protected ResponseEntity<ErrorDTO> handleMethodArgumentTypeMismatch(MethodArgumentTypeMismatchException e){
+        var response = new ErrorDTO(HttpStatus.BAD_REQUEST.toString(), e.getMessage());
+        return new ResponseEntity<>(response,HttpStatus.BAD_REQUEST);
+    }
 }

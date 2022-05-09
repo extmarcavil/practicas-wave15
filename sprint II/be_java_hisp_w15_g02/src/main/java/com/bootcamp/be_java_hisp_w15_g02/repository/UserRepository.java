@@ -1,10 +1,9 @@
 package com.bootcamp.be_java_hisp_w15_g02.repository;
 
-import com.bootcamp.be_java_hisp_w15_g02.exception.FollowYourselfException;
+import com.bootcamp.be_java_hisp_w15_g02.exception.FollowUnfollowErrorsException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
-import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -39,7 +38,8 @@ public class UserRepository implements IUserRepository {
         user4.setSeller(true);
         user5.setSeller(true);
         listUser.add(new User(1, "Martin", listFollows, new ArrayList<>()));
-        listUser.add(new User(2, "Diana", listFollows2, new ArrayList<>()));
+        listUser.add(new User(2, "Diana", new ArrayList<>(), new ArrayList<>()));
+        listUser.add(new User(6, "Juan", new ArrayList<>(), new ArrayList<>()));
         listUser.add(new User(3, "Leo", listFollows, new ArrayList<>()));
         listUser.add(user4);
         listUser.add(user5);
@@ -71,8 +71,8 @@ public class UserRepository implements IUserRepository {
 
         if (!userToFollow.isSeller())
             return false;
-        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 1)
-            throw new FollowYourselfException("Ya sigue a este usuario.");
+        if (user.getFollowList().stream().filter(p -> p.getUserToFollow() == userIdToFollow).count() > 0)
+            throw new FollowUnfollowErrorsException("Ya sigue a este usuario.");
 
         userToFollow.getFollowerList().add(new Follow(user.getUserId()));
         user.getFollowList().add(new Follow(userToFollow.getUserId()));
@@ -87,8 +87,11 @@ public class UserRepository implements IUserRepository {
         if (!userToUnFollow.isSeller())
             return false;
 
-        user.getFollowList().removeIf(follow ->  follow.getUserToFollow() == userIdToUnFollow);
+        boolean deleted = user.getFollowList().removeIf(follow ->  follow.getUserToFollow() == userIdToUnFollow);
         userToUnFollow.getFollowerList().removeIf(follow -> follow.getUserToFollow() == userId);
+
+        if (!deleted)
+            throw new FollowUnfollowErrorsException("No sigues al usuario que intentas dejar de seguir");
         return true;
     }
 

@@ -31,9 +31,11 @@ public class PostController {
     }
 
     @GetMapping("/followed/{userId}/list")
-    public ResponseEntity<GetPostsSellerByUserIdDTO> getListPostByFollowIdUser(@PathVariable @NotNull(message = "El id no puede estar vacio")
+    public ResponseEntity<GetPostsSellerByUserIdDTO> getListPostByFollowIdUser(@PathVariable
+                                                                                   @NotNull(message = "El id no puede estar vacio")
                                                                                    @Min(value = 1, message = "El id debe ser mayor a 0")
-                                                                                   Integer userId, @RequestParam(required = false) String order) {
+                                                                                    Integer userId, @RequestParam(required = false)
+                                                                                    String order) {
         return new ResponseEntity<>(this.postService.getListPostByFollowIdUser(userId, order), HttpStatus.OK);
     }
 }

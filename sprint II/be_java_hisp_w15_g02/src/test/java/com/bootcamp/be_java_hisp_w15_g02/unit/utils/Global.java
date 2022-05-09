@@ -1,6 +1,6 @@
 package com.bootcamp.be_java_hisp_w15_g02.unit.utils;
 
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.FollowersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.PostsBySellersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.UserNotFoundException;
 import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
@@ -49,7 +49,7 @@ public class Global {
     public static List<Post> getPosts() {
         List<Post> posts = new ArrayList<>();
         posts.add(new Post(4,5, LocalDate.parse("2022-04-10"),4,new Product(4,"iphone se","electronic","apple","red","iphone 64 GB"),7000));
-        posts.add(new Post(5,5, LocalDate.now(),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
+        posts.add(new Post(5,5, LocalDate.parse("2022-05-08"),5,new Product(5,"iphone XR","electronic","apple","white","iphone 128 GB"),5000));
         posts.add(new Post(6,5, LocalDate.parse("2022-05-03"),5,new Product(6,"cama","electronic","apple","white","cama grande"),6000));
         return posts;
     }
@@ -60,7 +60,7 @@ public class Global {
         List<PostsBySellersDTO> posts = new ArrayList<>();
         posts.add(
                 new PostsBySellersDTO(
-                        new Post(5,5, LocalDate.now(),5,
+                        new Post(5,5, LocalDate.parse("2022-05-08"),5,
                                 new Product(5,"iphone XR","electronic","apple","white",
                                         "iphone 128 GB"),5000)));
         posts.add(new PostsBySellersDTO(
@@ -78,7 +78,7 @@ public class Global {
                         6000)));
         posts.add(
                 new PostsBySellersDTO(
-                        new Post(5,5, LocalDate.now(),5,
+                        new Post(5,5, LocalDate.parse("2022-05-08"),5,
                                 new Product(5,"iphone XR","electronic","apple","white",
                                         "iphone 128 GB"),5000)));
         return posts;
@@ -91,28 +91,28 @@ public class Global {
                 .findFirst().orElseThrow(UserNotFoundException::new);
     }
 
-    public static List<GetFollowersDTO> getListSorted(String order){
-        GetFollowersDTO listFollow1 = new GetFollowersDTO();
+    public static List<FollowersDTO> getListSorted(String order){
+        FollowersDTO listFollow1 = new FollowersDTO();
         listFollow1.setUserId(1);
         listFollow1.setUserName("Martin");
 
-        GetFollowersDTO listFollow2 = new GetFollowersDTO();
+        FollowersDTO listFollow2 = new FollowersDTO();
         listFollow2.setUserId(2);
         listFollow2.setUserName("Diana");
 
-        GetFollowersDTO listFollow3 = new GetFollowersDTO();
+        FollowersDTO listFollow3 = new FollowersDTO();
         listFollow3.setUserId(3);
         listFollow3.setUserName("Leo");
 
-        List<GetFollowersDTO> listFollowDTO = new ArrayList<>();
+        List<FollowersDTO> listFollowDTO = new ArrayList<>();
         listFollowDTO.add(listFollow1);
         listFollowDTO.add(listFollow2);
         listFollowDTO.add(listFollow3);
 
         if (order.equals("name_asc"))
-            listFollowDTO.sort(Comparator.comparing(GetFollowersDTO::getUserName));
+            listFollowDTO.sort(Comparator.comparing(FollowersDTO::getUserName));
         else if (order.equals("name_desc"))
-            listFollowDTO.sort(Comparator.comparing(GetFollowersDTO::getUserName, Comparator.reverseOrder()));
+            listFollowDTO.sort(Comparator.comparing(FollowersDTO::getUserName, Comparator.reverseOrder()));
         return listFollowDTO;
     }
 }

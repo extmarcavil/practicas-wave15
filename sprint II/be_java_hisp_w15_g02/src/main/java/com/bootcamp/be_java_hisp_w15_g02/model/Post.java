@@ -1,8 +1,11 @@
 package com.bootcamp.be_java_hisp_w15_g02.model;
 
+import lombok.Data;
+
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@Data
 public class Post {
     private int postId;
     private int userId;

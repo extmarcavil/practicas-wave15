@@ -3,16 +3,10 @@ package com.bootcamp.be_java_hisp_w15_g02.unit.service;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowedByUserDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersBySellerDTO;
 import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersCountDTO;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetFollowersDTO;
+import com.bootcamp.be_java_hisp_w15_g02.dto.response.FollowersDTO;
 import com.bootcamp.be_java_hisp_w15_g02.exception.OrderNotFoundException;
-import com.bootcamp.be_java_hisp_w15_g02.model.Follow;
-import com.bootcamp.be_java_hisp_w15_g02.dto.response.GetPostsSellerByUserIdDTO;
-import com.bootcamp.be_java_hisp_w15_g02.model.Post;
 import com.bootcamp.be_java_hisp_w15_g02.model.User;
-import com.bootcamp.be_java_hisp_w15_g02.repository.IPostRepository;
 import com.bootcamp.be_java_hisp_w15_g02.repository.IUserRepository;
-import com.bootcamp.be_java_hisp_w15_g02.repository.UserRepository;
-import com.bootcamp.be_java_hisp_w15_g02.service.IUserService;
 import com.bootcamp.be_java_hisp_w15_g02.service.UserService;
 import com.bootcamp.be_java_hisp_w15_g02.unit.utils.Global;
 import org.junit.jupiter.api.Assertions;
@@ -26,7 +20,6 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootTest
@@ -84,7 +77,7 @@ public class UserServiceTest {
     @DisplayName("Verify if order followers is correct.")
     void verifyCorrectOrderByName(){
         //Arrange
-        List<GetFollowersDTO> listExpected = Global.getListSorted("name_desc");
+        List<FollowersDTO> listExpected = Global.getListSorted("name_desc");
         User user = Global.getUserByIdUtils(5);
         Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
         Mockito.when(userRepository.getUserById(5)).thenReturn(user);
@@ -99,7 +92,7 @@ public class UserServiceTest {
     @DisplayName("Verify if order followers is incorrect.")
     void verifyIncorrectOrderByName(){
         //Arrange
-        List<GetFollowersDTO> listExpected = Global.getListSorted("");
+        List<FollowersDTO> listExpected = Global.getListSorted("");
         User user = Global.getUserByIdUtils(5);
         Mockito.when(userRepository.getListUser()).thenReturn(Global.getListOfUsers());
         Mockito.when(userRepository.getUserById(5)).thenReturn(user);
