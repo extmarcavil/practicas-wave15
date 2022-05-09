@@ -55,7 +55,8 @@ El especialista conoce que los tiempos de desarrollo en bootcamp son acotados, p
 #### _T0010_
 Donde testeo la correcta creacion de un post y el funcionamiento del follow
 
-
+### Coverage obtenido: 
+#### 88% Class | 72% Method | 81% Line
 
 
 
