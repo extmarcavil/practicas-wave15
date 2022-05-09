@@ -5,6 +5,7 @@ import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.IUserService;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import lombok.val;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -65,19 +66,21 @@ public class UserControllerTest {
     @Test
     @DisplayName("/users/{userId}/followers/count -> lanza excepción cuando no encuentra el usuario")
     void countFollowersFailsTest() throws Exception {
+        String exceptionMessage = "Usuario no encontrado";
         // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/count", 100);
 
         // Expected
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
-
-        // Act and Asser
+        ResultMatcher expectedBodyError= MockMvcResultMatchers.jsonPath("$.name").value(exceptionMessage);
+        // Act and Assert
         mockMvc.perform(request)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         expectedStatus,
-                        expectedContentType
+                        expectedContentType,
+                        expectedBodyError
                 );
     }
 

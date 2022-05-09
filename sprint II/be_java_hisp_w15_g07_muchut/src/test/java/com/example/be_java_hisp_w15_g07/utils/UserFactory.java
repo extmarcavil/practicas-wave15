@@ -25,6 +25,18 @@ public class UserFactory {
         return new UserFollowersDTO(1, "User 1");
     }
 
+    public static UserFollowedPostsDTO getUserOneFollowedDTOIntegrationTest(){
+        UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
+
+        ProductDTO product1 = new ProductDTO(1, "Televisor 43", "Electrodomesticos", "Samsung", "Negro", "");
+        PostDTO post1 = new PostDTO(1, now.minusDays(1), product1, 1, 60000d);
+
+        user1.setPosts(Arrays.asList(post1));
+        user1.setUserID(1);
+
+        return user1;
+    }
+
     public static UserFollowedPostsDTO getUserOneFollowedDTOAsc(){
         UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
 
