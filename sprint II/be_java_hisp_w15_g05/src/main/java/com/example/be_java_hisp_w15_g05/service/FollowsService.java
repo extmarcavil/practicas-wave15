@@ -21,7 +21,6 @@ public class FollowsService implements IFollowsService {
 
     @Override
     public ResFollowPostDTO follow(int userId, int userToFollowId) {
-
         User follower = validateUserExists(userId);
         User toFollow = validateUserExists(userToFollowId);
         validateIsSeller(toFollow);
@@ -79,37 +78,74 @@ public class FollowsService implements IFollowsService {
         return new ResListSellersDTO(user.getUserId(), user.getName(), followed);
     }
 
+    /**
+     * Mapear de Lista de User a Lista de UserDTO
+     * @param users lista de usuarios
+     * @return
+     */
     private List<UserDTO> getListUserDTO(List<User> users) {
         return users.stream().map(u -> new UserDTO(u.getUserId(), u.getName())).collect(Collectors.toList());
     }
 
+    /**
+     * Verifica que el usuario exista en el repositorio o lanza UserNotFoundException
+     * @param userId id de un usuario
+     * @return
+     */
     private User validateUserExists(Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
     }
 
+    /**
+     * Verifica que el usuario sea un vendedor o lanza UserNotSellerException
+     * @param user usuario
+     */
     private void validateIsSeller(User user) {
         if(!user.isSeller())
             throw new UserNotSellerException("El usuario " + user.getUserId() + " no es un vendedor");
     }
 
+    /**
+     * Si el usuario ya sigue al vendedor lanza UserAlreadyFollowedException
+     * @param follower usuario seguidor
+     * @param seller usuario vendedor o a seguir
+     */
     private void validateUserAlreadyFollowed(User follower, User seller) {
         if(seller.getSeguidores().contains(follower))
             throw new UserAlreadyFollowedException("No se puede seguir: El usuario " + follower.getUserId() +
                     " actualmente ya es un seguidor del usuario " + seller.getUserId());
     }
 
+    /**
+     * Verifica que un usuario no se siga a si mismo lanzando UserCannotFollowHimself
+     * @param follower usuario seguidor
+     * @param seller usuario vendedor o a seguir
+     */
     private void validateUserCannotFollowHimself(User follower, User seller) {
         if(seller.getUserId() == follower.getUserId())
             throw new UserCannotFollowHimself("Un usuario no se puede seguir a sí mismo");
     }
 
+    /**
+     * Lanza UserNotFollowingException si el usuario NO seguia al vendedor
+     * @param follower seguidor
+     * @param seller vendedor a dejar de seguir
+     */
     private void validateUserIsFollower(User follower, User seller) {
         if(!seller.getSeguidores().contains(follower))
             throw new UserNotFollowingException("No se pudo dejar de seguir: El usuario " + follower.getUserId() +
                     " no sigue actualmente al usuario " + seller.getUserId());
     }
 
+    /**
+     * Recibe una lista de UserDTO y la ordena seguin el parametro 'order'
+     *
+     * Por defecto ordena de manera asc
+     *
+     * @param list Lista de UserDTO
+     * @param order condición de ordenamiento
+     */
     private void sortListByName(List<UserDTO> list, String order) {
         if(order.equalsIgnoreCase("name_desc"))
             list.sort(Comparator.comparing(UserDTO::getUserName).reversed());
@@ -117,6 +153,10 @@ public class FollowsService implements IFollowsService {
             list.sort(Comparator.comparing(UserDTO::getUserName));
     }
 
+    /**
+     * Verificar que sea una condición de ordenamiento valida o lanza OrderNotValidException
+     * @param order condición de ordenamiento
+     */
     private void checkSortName(String order){
         if(!order.equals("name_asc") && !order.equals("name_desc") && !order.isEmpty())
             throw new OrderNotValidException("El ordenamiento " + order + " no existe.");

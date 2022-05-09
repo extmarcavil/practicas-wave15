@@ -5,7 +5,6 @@ import com.example.be_java_hisp_w15_g05.exceptions.OrderNotValidException;
 import com.example.be_java_hisp_w15_g05.exceptions.UserNotFoundException;
 import com.example.be_java_hisp_w15_g05.model.User;
 import com.example.be_java_hisp_w15_g05.repository.IUserRepository;
-import com.example.be_java_hisp_w15_g05.repository.UserRepository;
 import com.example.be_java_hisp_w15_g05.service.FollowsService;
 import com.example.be_java_hisp_w15_g05.utils.UsersFactory;
 import org.junit.jupiter.api.Assertions;
@@ -20,7 +19,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.List;
 import java.util.Optional;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 public class FollowsServiceTest {
@@ -36,12 +35,10 @@ public class FollowsServiceTest {
     void verificarCorrectoOrdenAlfabetico() {
         //arrange
         User user = UsersFactory.createUserWithFollowers();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
         ResListFollowersDTO resp = followsService.getListFollowers(1,"name_asc");
 
         // assert
@@ -53,12 +50,10 @@ public class FollowsServiceTest {
     void verificarCorrectoOrdenDescAlfabetico() {
         //arrange
         User user = UsersFactory.createUserWithFollowers();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfDesc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
         ResListFollowersDTO resp = followsService.getListFollowers(1,"name_desc");
 
         // assert
@@ -70,12 +65,10 @@ public class FollowsServiceTest {
     void verificarCorrectoOrdenDefectoAlfabetico() {
         //arrange
         User user = UsersFactory.createUserWithFollowers();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
         ResListFollowersDTO resp = followsService.getListFollowers(1,"");
 
         // assert
@@ -96,12 +89,10 @@ public class FollowsServiceTest {
     void correctoOrdenAlfabeticoSellers() {
         //arrange
         User user = UsersFactory.createUserWithFolloweds();
-        //mockear repo
-        when(userRepository.findById(10)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
 
         //act
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
         ResListSellersDTO resp = followsService.getListSellers(10,"name_asc");
 
         // assert
@@ -113,12 +104,10 @@ public class FollowsServiceTest {
     void correctoOrdenAlfabeticoSellersDesc() {
         //arrange
         User user = UsersFactory.createUserWithFolloweds();
-        //mockear repo
-        when(userRepository.findById(10)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfDesc();
 
         //act
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
         ResListSellersDTO resp = followsService.getListSellers(10,"name_desc");
 
         // assert
@@ -130,12 +119,10 @@ public class FollowsServiceTest {
     void correctoOrdenAlfabeticoSellersDefault() {
         //arrange
         User user = UsersFactory.createUserWithFolloweds();
-        //mockear repo
-        when(userRepository.findById(10)).thenReturn(Optional.of(user));
-        //Crear lista ordenada
         List<UserDTO> listaOrdenada = UsersFactory.listaOrdenadaAlfAsc();
 
         //act
+        when(userRepository.findById(10)).thenReturn(Optional.of(user));
         ResListSellersDTO resp = followsService.getListSellers(10,"");
 
         // assert
@@ -153,91 +140,80 @@ public class FollowsServiceTest {
 
     // T001 - Follow
     @Test
-    @DisplayName("validación de existencia de usuario a seguir")
-    void VerifyUserExistence() {
-
+    @DisplayName("validación de follow camino feliz")
+    void verifyFollow() {
         //arrange
-
         User userVendor = UsersFactory.createUserWithFollowed();
         User userFollow = UsersFactory.createFollower();
-
-        //mock
-        Mockito.when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
-        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
-        Mockito.doNothing().when(userRepository).follow(userFollow,userVendor);
+        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " seguido con éxito");
 
         //act
-
+        //mock
+        when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
+        when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        doNothing().when(userRepository).follow(userFollow,userVendor);
         ResFollowPostDTO response = followsService
                 .follow(userFollow.getUserId(),userVendor.getUserId());
 
-        Mockito.verify(userRepository,Mockito
-                .times(1))
+        verify(userRepository, times(1))
                 .follow(userFollow,userVendor);
 
-        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " seguido con éxito");
         //act & assert
         Assertions.assertEquals(result,response);
-
     }
 
     @Test
     @DisplayName("validación de existencia de excepcion cuando no encuentra el usuario a seguir")
     void VerifyUserExistenceException() {
-
+        // arrange
         User userFollow = UsersFactory.createFollower();
 
-        //mock
-        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
-        Mockito.when(userRepository.findById(30)).thenReturn(Optional.empty());
+        // act
+        when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        when(userRepository.findById(30)).thenReturn(Optional.empty());
 
-        //act & assert
+        // assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .follow(userFollow.getUserId(),30));
     }
 
     // T002 - Unfollow
     @Test
-    @DisplayName("validación de existencia de usuario a dejar de seguir")
-    void VerifyUserExistenceToUnfollow() {
-
+    @DisplayName("validación de unfollow camino feliz")
+    void verifyUnfollow() {
         //arrange
-
         User userVendor = UsersFactory.createUserWithFollowed();
         User userFollow = UsersFactory.createFollower();
         userFollow.seguir(userVendor);
         userVendor.agregarSeguidor(userFollow);
+        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " dejado de seguir");
 
-        //mock
-        Mockito.when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
-        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
-        Mockito.doNothing().when(userRepository).unFollow(userFollow,userVendor);
-
-        //act
-
+        // act
+        when(userRepository.findById(userVendor.getUserId())).thenReturn(Optional.of(userVendor));
+        when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        doNothing().when(userRepository).unFollow(userFollow,userVendor);
         ResFollowPostDTO response = followsService
                 .unFollow(userFollow.getUserId(),userVendor.getUserId());
 
-        Mockito.verify(userRepository,Mockito
-                .times(1))
-                .unFollow(userFollow,userVendor);
+        verify(
+                userRepository,
+                times(1))
+                    .unFollow(userFollow,userVendor);
 
-        ResFollowPostDTO result = new ResFollowPostDTO("Usuario " + userVendor.getUserId() + " dejado de seguir");
-        //act & assert
+        //assert
         Assertions.assertEquals(result,response);
-
     }
     @Test
     @DisplayName("validación de existencia de excepcion cuando no encuentra el usuario a dejar de seguir")
     void VerifySellerExistenceException() {
-
+        // arrange
         User userFollow = UsersFactory.createFollower();
 
-        //mock
-        Mockito.when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
-        Mockito.when(userRepository.findById(30)).thenReturn(Optional.empty());
+        // act
+        when(userRepository.findById(userFollow.getUserId())).thenReturn(Optional.of(userFollow));
+        when(userRepository.findById(30)).thenReturn(Optional.empty());
 
-        //act & assert
+        // assert
         Assertions.assertThrows(UserNotFoundException.class, () -> followsService
                 .unFollow(userFollow.getUserId(),30));
     }
@@ -246,17 +222,15 @@ public class FollowsServiceTest {
     @Test
     @DisplayName("Validar cantidad de usuarios seguidores")
     void VerifyQuantityFollowers() {
-
         //arrange
-        User user = UsersFactory.createUserWithFolloweds();
-        Mockito.when(userRepository.findById(90)).thenReturn(Optional.of(user));
-        ResCountFollowersDTO userDTO = new ResCountFollowersDTO(user.getUserId(),user.getName(),user.getSeguidores().size());
+        User user = UsersFactory.createUserWithFollowers();
 
         //act
+        when(userRepository.findById(user.getUserId())).thenReturn(Optional.of(user));
+        when(userRepository.cantFollowers(user)).thenReturn(3);
         ResCountFollowersDTO resultFollow = followsService.countFollowers(user.getUserId());
 
         //assert
-        Assertions.assertEquals(userDTO.getFollowers_count(), resultFollow.getFollowers_count());
-
+        Assertions.assertEquals(3, resultFollow.getFollowers_count());
     }
 }
