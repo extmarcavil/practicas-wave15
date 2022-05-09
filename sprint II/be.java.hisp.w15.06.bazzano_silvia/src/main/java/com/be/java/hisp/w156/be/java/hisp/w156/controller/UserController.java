@@ -6,7 +6,6 @@ import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.UserFollowersDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.dto.response.SuccessDTO;
 import com.be.java.hisp.w156.be.java.hisp.w156.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -34,7 +33,6 @@ public class UserController {
     public void unfollow(@PathVariable @Min(1) Integer userId, @PathVariable @Min(1) Integer userIdToUnfollow){
         userService.unfollow(userId,userIdToUnfollow);
     }
-
 
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<UserCountFollowersDTO> getCountFollow(@PathVariable @Min(1) Integer userId){

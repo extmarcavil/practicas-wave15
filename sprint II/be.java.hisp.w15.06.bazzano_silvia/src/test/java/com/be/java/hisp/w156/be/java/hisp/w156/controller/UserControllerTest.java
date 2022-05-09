@@ -50,7 +50,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Corroborar que un usuario no pueda seguir a un usuario que ya sigue")
     void followUserNoOK() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isBadRequest();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}", 1,3))
                 .andDo(MockMvcResultHandlers.print())
@@ -70,7 +70,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Corroborar que un usuario no pueda dejar de seguir a un usuario incorrecto (que no sigue)")
     void unfollowUserNoOK() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isBadRequest();
 
         mockMvc.perform(MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}", 4, 3))
                 .andDo(MockMvcResultHandlers.print())
@@ -90,7 +90,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Cantidad de seguidores para un usuario inexistente")
     void countFolowedUserIncorrect() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isNotFound();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/count", 5))
                 .andDo(MockMvcResultHandlers.print())
@@ -110,7 +110,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Erros al pedir lista de personas que siguen a un usuario incorrecto")
     void listFolowersAtUserIncorrect() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isNotFound();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/list", 5))
                 .andDo(MockMvcResultHandlers.print())
@@ -130,7 +130,7 @@ class UserControllerTest {
     @Test
     @DisplayName("Erros al pedir la lista de personas a las que sigue un determinado usuario incorrecto")
     void listFolowedUserIncorrect() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isNotFound();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followed/list", 5))
                 .andDo(MockMvcResultHandlers.print())
