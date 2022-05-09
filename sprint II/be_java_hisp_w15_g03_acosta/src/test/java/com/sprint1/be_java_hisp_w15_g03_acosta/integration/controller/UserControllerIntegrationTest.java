@@ -206,7 +206,7 @@ public class UserControllerIntegrationTest {
 
     //Test de Integracion de US-0003
     @Test
-    @DisplayName("Listado de usuarios que siguen a un vendedor con ID correcto")
+    @DisplayName("Listado de usuarios que siguen a un vendedor con ID incorrecto")
     public void getFollowersListIncorrect() throws Exception{
 
         //Expected
