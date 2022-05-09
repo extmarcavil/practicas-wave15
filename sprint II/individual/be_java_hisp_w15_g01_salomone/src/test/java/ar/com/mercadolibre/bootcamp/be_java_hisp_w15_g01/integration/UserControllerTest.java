@@ -35,8 +35,25 @@ public class UserControllerTest {
         FollowersCountDTO followersCountDTO = FollowersCountDTOFactory.count();
         String listJson = writer.writeValueAsString(followersCountDTO);
         ResultMatcher expectedJson = MockMvcResultMatchers.content().json(listJson);
+
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
-        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/count", 2);
+        PostDTO p = PostDTOFactory.createPost();
+
+        String payload = writer.writeValueAsString(p);
+        MockHttpServletRequestBuilder AuxRequest = MockMvcRequestBuilders
+                .post("/products/post")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(payload);
+
+        mockMvc.perform(AuxRequest);
+
+        MockHttpServletRequestBuilder AuxRequest1 = MockMvcRequestBuilders
+                .post("/users/{userId}/follow/{userIdToFollow}", 2,1)
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc.perform(AuxRequest1);
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/count", 1);
         mockMvc
                 .perform(request)
                 .andDo(MockMvcResultHandlers.print())

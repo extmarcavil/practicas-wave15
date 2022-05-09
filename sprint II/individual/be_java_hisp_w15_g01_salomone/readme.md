@@ -119,15 +119,15 @@ Cookies = []
 
 Comportamiento esperado
 ```
-  MockHttpServletResponse:
-  Status = 200
-  Error message = null
-  Headers = [Content-Type:"application/json"]
-  Content type = application/json
-  Body = {"user_id":2,"user_name":"JLeon","followers_count":1}
-  Forwarded URL = null
-  Redirected URL = null
-  Cookies = []
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:"application/json"]
+     Content type = application/json
+             Body = {"user_id":1,"user_name":"Lukf","followers_count":1}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
 
 ```
 
