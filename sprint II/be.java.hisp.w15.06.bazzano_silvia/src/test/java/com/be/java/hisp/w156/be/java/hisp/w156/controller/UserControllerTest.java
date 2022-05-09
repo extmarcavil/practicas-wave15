@@ -77,6 +77,26 @@ class UserControllerTest {
     }
 
     @Test
+    @DisplayName("Cantidad de seguidores para un usuario existente")
+    void countFolowedUser() throws Exception {
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isOk();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/count", 3))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expetedStatus);
+    }
+
+    @Test
+    @DisplayName("Cantidad de seguidores para un usuario inexistente")
+    void countFolowedUserIncorrect() throws Exception {
+        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/count", 5))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expetedStatus);
+    }
+
+    @Test
     @DisplayName("Lista de personas que siguen al usuario")
     void listFolowersAtUser() throws Exception {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().isOk();
@@ -87,7 +107,7 @@ class UserControllerTest {
     }
 
     @Test
-    @DisplayName("Erros al pedirLista de personas que siguen a un usuario incorrecto")
+    @DisplayName("Erros al pedir lista de personas que siguen a un usuario incorrecto")
     void listFolowersAtUserIncorrect() throws Exception {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
 
@@ -112,26 +132,6 @@ class UserControllerTest {
         ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
 
         mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followed/list", 5))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(expetedStatus);
-    }
-
-    @Test
-    @DisplayName("Cantidad de seguidores para un usuario existente")
-    void countFolowedUser() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().isOk();
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/count", 3))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(expetedStatus);
-    }
-
-    @Test
-    @DisplayName("Cantidad de seguidores para un usuario inexistente")
-    void countFolowedUserIncorrect() throws Exception {
-        ResultMatcher expetedStatus = MockMvcResultMatchers.status().is4xxClientError();
-
-        mockMvc.perform(MockMvcRequestBuilders.get("/users/{userId}/followers/count", 5))
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(expetedStatus);
     }
