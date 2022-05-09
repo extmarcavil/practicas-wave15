@@ -26,7 +26,7 @@ El especialista conoce que los tiempos de desarrollo en bootcamp son acotados, p
 ​
 - Alvarez, Matias;
 - Leonetti, Julieta;
-- Moreira, Silvia;
+- Bazzano, Silvia;
 - Pichetti, Gonzalo;
 - Vilte, Ali;
 - Vitale, Nicolás;
