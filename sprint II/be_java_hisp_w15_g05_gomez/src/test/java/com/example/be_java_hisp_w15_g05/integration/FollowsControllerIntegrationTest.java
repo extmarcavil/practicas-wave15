@@ -24,7 +24,6 @@ public class FollowsControllerIntegrationTest {
     void followersCountOk() throws Exception{
         // Arrange
         ObjectWriter writer = new ObjectMapper()
-                //.registerModule(new JavaTimeModule())//Convertir la fecha
                 .writer();
 
         ResCountFollowersDTO resCountFollowersDTO = new ResCountFollowersDTO(1,"Marcos Galperin",2);

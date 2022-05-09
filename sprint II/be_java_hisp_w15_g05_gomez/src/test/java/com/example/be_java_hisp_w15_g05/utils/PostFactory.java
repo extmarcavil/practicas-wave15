@@ -53,7 +53,7 @@ public class PostFactory {
     }
 
     public static PostDTO galperinNewPostDTO(){
-        return new PostDTO(1,LocalDate.of(2022,5,6),pDTO1,100,202.0);
+        return new PostDTO(1,LocalDate.of(2022,5,9),pDTO1,100,202.0);
     }
 
     public static PostDTO errorDatePostDTO(){
@@ -68,7 +68,7 @@ public class PostFactory {
     public static PostDTO errorPostDTO(){
         return new PostDTO(
                 1,
-                LocalDate.of(2022,5,6),
+                LocalDate.of(2022,5,9),
                 new ProductDTO(0,null,null,"asd$",null,"a"),
                 100,
                 202.0);
