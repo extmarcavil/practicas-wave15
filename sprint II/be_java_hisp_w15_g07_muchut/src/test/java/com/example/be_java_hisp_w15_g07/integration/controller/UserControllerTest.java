@@ -1,8 +1,11 @@
 package com.example.be_java_hisp_w15_g07.integration.controller;
 
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
+import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.repository.IUserRepository;
 import com.example.be_java_hisp_w15_g07.service.IUserService;
+import com.example.be_java_hisp_w15_g07.utils.UserFactory;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.val;
@@ -116,6 +119,32 @@ public class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         expectedStatus
+                );
+    }
+
+    @Test
+    @DisplayName("/{userId}/followers/list -> un usuario obtiene su lista de seguidores")
+    void getFollowersListTest() throws Exception {
+        // Arrange
+        Integer id = 2;
+        FollowersDTO listOfFollowers = UserFactory.getFollowersDTODesc();
+        String listJson = writer.writeValueAsString(listOfFollowers);
+
+        // Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/list", id);
+
+        // Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(listJson);
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // Act and Assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        expectedJson,
+                        expectedContentType
                 );
     }
 }
