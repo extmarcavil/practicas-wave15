@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d1feef11-a169-4a5f-b3ac-e3230c95741b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitkeep" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/be_java_hisp_w15_g08.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/be_java_hisp_w15_g08.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08 2_opitz/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="28vk8u1OqGComeRudbsumGF37O6" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunManager" selected="JUnit.com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g08 2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.Units.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Units" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BeJavaHispW15G08Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="be_java_hisp_w15_g08 2" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="com.bootcamp.be_java_hisp_w15_g08.BeJavaHispW15G08Application" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d1feef11-a169-4a5f-b3ac-e3230c95741b" name="Default Changelist" comment="" />
+      <created>1652104295242</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1652104295242</updated>
+      <workItem from="1652104301376" duration="618000" />
+      <workItem from="1652105339165" duration="696000" />
+      <workItem from="1652106058017" duration="157000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g08$com_bootcamp_be_java_hisp_w15_g08_Units_in_be_java_hisp_w15_g08_2.ic" NAME="com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2 Coverage Results" MODIFIED="1652106186052" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.bootcamp.be_java_hisp_w15_g08.Units.*</FILTER>
+    </SUITE>
+  </component>
+</project>
