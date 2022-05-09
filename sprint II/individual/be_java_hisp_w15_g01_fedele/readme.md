@@ -11,13 +11,16 @@ UserServiceTest.java ->
 - test_02_unfollowAnExistentUser(): Testea poder dejar de seguir a un vendedor (service con mocks) (US 7)
 - test_02_unfollowAnUnexistentUser(): Testea que dejar de seguir a un usuario inexistente levante Excepcion (service con mocks) (US 7)
 
+## Test de integracion Grupal commiteado por mi:
+
+- test_integration_createPost(): Testea poder crear un Producto (US 05)
+
 ## Test de integracion individual:
 
 ProductControllerTest -> 
-- test_integration_createPost(): Testea poder crear un Producto (US 05)
 - test_integration_createPostSadPath(): Testea falla de validacion al crear un Producto y sus mensajes de error (US 05)
 
-[ANALISIS DE COVERAGE JACOCO](http://htmlpreview.github.io/?https://github.com/extmarcavil/practicas-wave15/blob/sinnott_gonzalo/sprint%20II/be_java_hisp_w15_g01_sinnott_gonzalo/jacoco/index.html)
+[ANALISIS DE COVERAGE JACOCO](https://github.com/extmarcavil/practicas-wave15/blob/fedele_lucas/sprint%20II/individual/be_java_hisp_w15_g01_fedele/jacoco/index.html)
 
 
 
