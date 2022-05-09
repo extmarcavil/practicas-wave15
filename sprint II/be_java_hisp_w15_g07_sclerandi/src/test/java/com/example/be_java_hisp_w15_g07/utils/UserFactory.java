@@ -7,6 +7,7 @@ import com.example.be_java_hisp_w15_g07.model.Product;
 import com.example.be_java_hisp_w15_g07.model.User;
 
 import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
@@ -35,6 +36,18 @@ public class UserFactory {
         PostDTO post2 = new PostDTO(2, now, product2, 1, 60000d);
 
         user1.setPosts(Arrays.asList(post1, post2));
+        user1.setUserID(1);
+
+        return user1;
+    }
+
+    public static UserFollowedPostsDTO getUserOneFollowedDTO(){
+        UserFollowedPostsDTO user1 = new UserFollowedPostsDTO();
+
+        ProductDTO product = new ProductDTO(3, "Aire Acondicionado", "Electrodomesticos", "LG", "Blanco", "");
+        PostDTO post = new PostDTO(1, LocalDate.of(2022, Month.APRIL, 26), product, 3, 87000d);
+
+        user1.setPosts(Arrays.asList(post));
         user1.setUserID(1);
 
         return user1;

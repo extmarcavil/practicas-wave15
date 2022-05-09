@@ -4,10 +4,10 @@ import com.example.be_java_hisp_w15_g07.dto.response.ErrorDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
-import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
-import com.example.be_java_hisp_w15_g07.model.User;
 import com.example.be_java_hisp_w15_g07.utils.UserFactory;
-import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class UserControllerTest {
+public class UserControllerIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
@@ -46,9 +46,6 @@ public class UserControllerTest {
     public void countFollowersSuccess() throws Exception {
         // Arrange
         Integer userId = 2;
-        User user1 = UserFactory.getUserOne();
-        User user2 = UserFactory.getUserTwo();
-        UserFactory.setFollowedList(user1, user2);
         FollowersCountDTO followersCount = new FollowersCountDTO(userId, "User 2", 2);
 
         String bodyJson = writer.writeValueAsString(followersCount);
@@ -58,11 +55,11 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followers/count", userId);
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
@@ -74,7 +71,7 @@ public class UserControllerTest {
     public void countFollowersUserNotFound() throws Exception {
         // Arrange
         Integer userId = 100;
-        ErrorDTO error = new ErrorDTO("Usuario no encontrado", "Usuario con id 100 no encontrado.", null);
+        ErrorDTO error = new ErrorDTO("Usuario no encontrado", "Usuario con id 100 no encontrado.");
         String bodyJson = writer.writeValueAsString(error);
 
         // Expected
@@ -82,11 +79,11 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isNotFound();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followers/count", userId);
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
@@ -107,11 +104,11 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followers/list", userId);
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
@@ -132,11 +129,11 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followed/list", userId);
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
@@ -157,12 +154,12 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followers/list", userId)
                 .param("order", "name_desc");
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
@@ -183,12 +180,12 @@ public class UserControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
         ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
 
-        // Act
+        // Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders
                 .get("/users/{userId}/followed/list", userId)
                 .param("order", "name_desc");
 
-        // Assert
+        // Act and Assert
         mockMvc
                 .perform(request)
                 .andDo(print())
