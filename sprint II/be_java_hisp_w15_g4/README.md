@@ -1,4 +1,3 @@
-
 # Bootcamp Backend Java  - Sprint Nº 2 - Testing
 
 ## Objetivo
