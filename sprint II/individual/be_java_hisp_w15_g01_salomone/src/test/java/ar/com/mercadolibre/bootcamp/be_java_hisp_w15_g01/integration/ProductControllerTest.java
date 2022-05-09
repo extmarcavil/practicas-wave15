@@ -24,7 +24,7 @@ public class ProductControllerTest {
 
     @Test
     public void test_integration_createPost() throws Exception {
-        // Arrange
+        // Arrangeit statis
         ObjectWriter writer = ObjectWriterFactory.create();
         PostDTO p = PostDTOFactory.createPost();
         String payload = writer.writeValueAsString(p);
