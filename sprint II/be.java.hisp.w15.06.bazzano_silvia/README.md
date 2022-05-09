@@ -4,16 +4,16 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 
 **Requerimientos**
 
-_**Requerimientos incrementales (Desarrollo INDIVIDUAL)**_: 
+_**Requerimientos incrementales (Desarrollo INDIVIDUAL)**_
 
 Siguiendo con el principio de que MeLi posee unos estándares de calidad muy altos, un especialista sugirió la posibilidad de contar con la implementación de al menos un test de integración para lograr una cobertura de código mayor que la lograda con los tests unitarios.
 Tener en cuenta que, se debe respetar el desarrollo base logrado en equipo para poder realizar este nuevo incremento de manera individual.
 
-**_Bonus (Desarrollo Individual EXTRA)_ **:
+_**Bonus (Desarrollo Individual EXTRA)**_ 
 
 El mismo especialista en calidad que sugirió implementar al menos un test de integración anteriormente, sugiere que sería ideal lograr contar con la implementación de otros tests de integración extra para intentar lograr un coverage mayor o igual al 75%. El especialista conoce que los tiempos de desarrollo en bootcamp son acotados, por lo que sugiere llevar a cabo esta implementación solo en caso de que alcancen los tiempos y se pueda cumplir con la fecha de entrega estimada.
 
-_**Requerimientos implementados **_
+_**Requerimientos implementados**_
 
 - US-0001: Poder realizar la acción de “Follow” (seguir) a un determinado vendedor
 - US 0002: Obtener el resultado de la cantidad de usuarios que siguen a un determinado vendedor
