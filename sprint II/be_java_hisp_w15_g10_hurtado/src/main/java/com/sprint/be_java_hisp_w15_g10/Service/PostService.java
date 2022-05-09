@@ -52,21 +52,21 @@ public class PostService implements IPostService {
                 .orElseThrow(() -> new CategoryNotFoundPostException("La categoría no fue encontrado"));
 
         Post post = modelMapper.map(postCreateDTO, Post.class);
-
-        post.setPost_id(postRepository.nextIndex());
-        post.setCategory(category);
-        User user = userRepository.getById(postCreateDTO.getUser_id())
-                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
-
-        Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
-        if (product.isEmpty()) {
-            productRepository.add(post.getDetail());
-        } else {
-            post.setDetail(product.get());
-        }
-        postRepository.add(post);
-        user.agregarPost(post);
-        return new PostCreatedDTO("Se ha creado el Post con éxito");
+        String message = post.toString();
+//        post.setPost_id(postRepository.nextIndex());
+//        post.setCategory(category);
+//        User user = userRepository.getById(postCreateDTO.getUser_id())
+//                .orElseThrow(() -> new UserNotFoundPostException("El usuario no fue encontrado"));
+//
+//        Optional<Product> product = productRepository.getById(post.getDetail().getProduct_id());
+//        if (product.isEmpty()) {
+//            productRepository.add(post.getDetail());
+//        } else {
+//            post.setDetail(product.get());
+//        }
+//        postRepository.add(post);
+//        user.agregarPost(post);
+        return new PostCreatedDTO(message);
     }
 
     @Override

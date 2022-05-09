@@ -45,17 +45,17 @@ public class TestUtils {
      * @see Product
      */
     public static Product createProduct2() {
-        return new Product(7, "Pantalón", "Teen", "Jeff", "Negro", "Para toda ocasión");
+        return new Product(7, "Pantalon", "Teen", "Jeff", "Negro", "Para toda ocasión");
 
     }
     /**
      * Metodo que crea un productRequestDTO para el uso en los tests
      *
-     * @return {@link productRequestDTO}
+     * @return {@link ProductRequestDTO}
      * @see ProductRequestDTO
      */
     public static ProductRequestDTO createProductRequestDTO() {
-        ProductRequestDTO productRequestDTO = new ProductRequestDTO(1, "Pantalón", "Old", "Jeff", "Rojo", "");
+        ProductRequestDTO productRequestDTO = new ProductRequestDTO(1, "Pantalon", "Old", "Jeff", "Rojo", "");
         return productRequestDTO;
     }
 
@@ -70,7 +70,7 @@ public class TestUtils {
         PostCreateDTO postCreateDTO = new PostCreateDTO();
         postCreateDTO.setCategory_id(1);
         postCreateDTO.setDate(LocalDate.now());
-        postCreateDTO.setUser_id(4);
+        postCreateDTO.setUser_id(1);
         postCreateDTO.setPrice(1D);
         postCreateDTO.setDetail(productRequestDTO);
         return postCreateDTO;

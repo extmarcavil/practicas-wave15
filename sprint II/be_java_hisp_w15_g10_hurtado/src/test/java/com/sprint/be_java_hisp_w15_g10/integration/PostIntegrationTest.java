@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
+import com.sprint.be_java_hisp_w15_g10.utils.TestUtils;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,19 +29,28 @@ public class PostIntegrationTest {
 
     @Autowired
     MockMvc mockMvc;
+    ObjectWriter writer;
+    ProductRequestDTO productRequestDTO;
+    PostCreateDTO postCreateDTO;
+
+    @BeforeEach
+    void setup(){
+        writer = new ObjectMapper()
+                .registerModule(new JavaTimeModule())
+                .writer();
+        productRequestDTO = TestUtils.createProductRequestDTO();
+        postCreateDTO = TestUtils.createPostCreateDTO(productRequestDTO);
+    }
+
 
     @Test
     @DisplayName("Test Post")
-    void createPostIntegrationTest() throws Exception {
-
+    void createPostProductNullIntTest() throws Exception {
 
         //Arrange
-        ObjectWriter writer = new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
-
-        PostCreateDTO postCreateDTO = new PostCreateDTO(1, null, LocalDate.now(), 1, 20.0);
-        String json = writer.writeValueAsString(postCreateDTO);
+        PostCreateDTO postCreateDTO1 = postCreateDTO;
+        postCreateDTO1.setDetail(null);
+        String json = writer.writeValueAsString(postCreateDTO1);
 
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
 
@@ -54,5 +65,27 @@ public class PostIntegrationTest {
 
     }
 
+    @Test
+    @DisplayName("Test Post")
+    void createPostCategorNotFoundIntTest() throws Exception {
+
+        //Arrange
+        PostCreateDTO postCreateDTO1 = postCreateDTO;
+        postCreateDTO1.setCategory_id(1);
+
+        String json = writer.writeValueAsString(postCreateDTO1);
+
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+
+        //Act
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/products/post").contentType(MediaType.APPLICATION_JSON).content(json);
+        //Assert
+
+        mockMvc.perform(request)
+                .andDo(
+                        MockMvcResultHandlers.print())
+                .andExpect(expectedStatus);
+
+    }
 
 }
