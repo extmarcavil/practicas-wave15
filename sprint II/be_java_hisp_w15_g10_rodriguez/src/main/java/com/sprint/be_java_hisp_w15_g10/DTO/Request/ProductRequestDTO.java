@@ -39,4 +39,7 @@ public class ProductRequestDTO {
     @JsonProperty
     private String notes;
 
+    public void setProduct_id(Integer product_id) {
+        this.product_id = product_id;
+    }
 }
