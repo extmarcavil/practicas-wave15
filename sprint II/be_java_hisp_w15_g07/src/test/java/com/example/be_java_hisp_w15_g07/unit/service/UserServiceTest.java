@@ -1,6 +1,5 @@
 package com.example.be_java_hisp_w15_g07.unit.service;
 
-
 import com.example.be_java_hisp_w15_g07.dto.response.FollowedDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
@@ -21,7 +20,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTest {
@@ -32,78 +34,180 @@ public class UserServiceTest {
     private UserService service;
 
     @Test
-    @DisplayName("T0001 - Verificar que el usuario a seguir exista")
-    public void findExistingUser(){
-        //arrange
+    @DisplayName("T0001 - Verificar que el usuario a seguir existe")
+    public void findUserSuccess(){
+        // Arrange
         Integer userId = 4;
         Integer queryId = 2;
         User user4 = UserFactory.getUserFour();
         User user2 = UserFactory.getUserTwo();
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user4);
         when(repository.findById(queryId)).thenReturn(user2);
 
-        //act and assert
+        // Act and assert
         assertDoesNotThrow(() -> service.followUser(userId, queryId));
         verify(repository, times(2)).findById(anyInt());
     }
 
     @Test
-    @DisplayName("T0001 - Verificar que si el usuario a seguir no existe, lanza excepción")
-    public void throwExceptionWhenUserNotFound(){
-        //arrange
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario a seguir no existe")
+    public void findUserNotFound(){
+        // Arrange
         Integer userId = 1;
         Integer queryId = -2;
         User user1 = UserFactory.getUserOne();
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user1);
         when(repository.findById(queryId)).thenThrow(UserNotFoundException.class);
 
-        //act and assert
-        assertThrows(UserNotFoundException.class, () -> service.followUser(userId, queryId));
-        verify(repository, times(2)).findById(anyInt());
+        try {
+            // Act
+            service.followUser(userId, queryId);
+        } catch (UserNotFoundException e) {
+            // assert
+            verify(repository, times(2)).findById(anyInt());
+        }
     }
 
     @Test
-    @DisplayName("T00002 - Verificar que el usuario a dejar de seguir exista")
-    public void findExistingUserToUnfollow(){
-        //arrange
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario a seguir no es vendedor")
+    public void followUserNotSellerBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        Integer queryId = 1;
+        String exceptionMessage = "No se puede seguir un usuario que no es vendedor.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(queryId)).thenReturn(UserFactory.getUserOne());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario se quiere seguir a si mismo")
+    public void followUserSelfBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        String exceptionMessage = "No se puede seguir a si mismo.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, userId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(2)).findById(userId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario ya sigue al vendedor")
+    public void followUserAlreadyFollowedBadRequest(){
+        // Arrange
+        Integer userId = 3;
+        Integer queryId = 2;
+        User user2 = UserFactory.getUserTwo();
+        User user3 = UserFactory.getUserThree();
+        UserFactory.setFollowedList(user3, user2);
+        String exceptionMessage = "Ya estas siguiendo a este usuario.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(user3);
+        when(repository.findById(queryId)).thenReturn(user2);
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0002 - Verificar que se lanza una excepción si el usuario se quiere dejar de seguir a si mismo")
+    public void unfollowUserSelfBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        String exceptionMessage = "No se puede dejar de seguir a si mismo.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.unfollowUser(userId, userId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(2)).findById(userId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0002 - Verificar que se lanza una excepción si el usuario quiere dejar de seguir a alguien que no " +
+            "sigue")
+    public void unfollowUserNotFollowedBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        Integer queryId = 1;
+        String exceptionMessage = "Este usuario no sigue a este vendedor.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(queryId)).thenReturn(UserFactory.getUserOne());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.unfollowUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0002 - Verificar que el usuario a dejar de seguir existe")
+    public void findUserToUnfollowSuccess(){
+        // Arrange
         Integer userId = 1;
         Integer queryId = 2;
         User user1 = UserFactory.getUserOne();
         User user2 = UserFactory.getUserTwo();
         UserFactory.setFollowedList(user1, user2);
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user1);
         when(repository.findById(queryId)).thenReturn(user2);
 
-        //act and assert
+        // Act and assert
         assertDoesNotThrow(() -> service.unfollowUser(userId, queryId));
         verify(repository, times(2)).findById(anyInt());
     }
 
     @Test
-    @DisplayName("T00002 - Verificar que si el usuario a dejar de seguir no existe, lanza excepción")
-    public void throwExceptionWhenUserToUnfollowNotFound(){
-        //arrange
+    @DisplayName("T0002 - Verificar que se lanza una excepción si el usuario a dejar de seguir no existe")
+    public void findUserToUnfollowNotFound(){
+        // Arrange
         Integer userId = 1;
         Integer queryId = -2;
         User user1 = UserFactory.getUserOne();
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user1);
         when(repository.findById(queryId)).thenThrow(UserNotFoundException.class);
 
-        //act and assert
+        // Act and assert
         assertThrows(UserNotFoundException.class, () -> service.unfollowUser(userId, queryId));
         verify(repository, times(2)).findById(anyInt());
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético ascendente exista")
+    @DisplayName("T0003 - (Followers) Verificar que el tipo de ordenamiento alfabético ascendente existe")
     public void findFollowersOrderByNameAscExists(){
         // Arrange
         Integer userId = 2;
@@ -116,15 +220,12 @@ public class UserServiceTest {
         when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
         when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
 
-        // Act
-        FollowersDTO result = service.getFollowersList(userId, order);
-
-        // Assert
-        assertEquals(FollowersDTO.class, result.getClass());
+        // Act and Assert
+        assertDoesNotThrow(() -> service.getFollowersList(userId, order));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético descendente existe")
+    @DisplayName("T0003 - (Followers) Verificar que el tipo de ordenamiento alfabético descendente existe")
     public void findFollowersOrderByNameDescExists(){
         // Arrange
         Integer userId = 2;
@@ -137,22 +238,12 @@ public class UserServiceTest {
         when(repository.findById(1)).thenReturn(UserFactory.getUserOne());
         when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
 
-        // Act
-        FollowersDTO result = service.getFollowersList(userId, order);
-
-        // Assert
-        assertEquals(FollowersDTO.class, result.getClass());
+        // Act and Assert
+        assertDoesNotThrow(() -> service.getFollowersList(userId, order));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que se lanza una excepción cuando el tipo de ordenamiento no existe")
-    public void findFollowersOrderByNameBadRequest(){
-        // Assert
-        assertThrows(BadRequestException.class, () -> service.getFollowersList(1, "otro_ordenamiento"));
-    }
-
-    @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético ascendente exista (followed)")
+    @DisplayName("T0003 - (Followed) Verificar que el tipo de ordenamiento alfabético ascendente existe")
     public void findFollowedOrderByNameAscExists(){
         // Arrange
         Integer userId = 1;
@@ -165,15 +256,12 @@ public class UserServiceTest {
         when(repository.findById(2)).thenReturn(UserFactory.getUserTwo());
         when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
 
-        // Act
-        FollowedDTO result = service.getFollowedList(userId, order);
-
-        // Assert
-        assertEquals(FollowedDTO.class, result.getClass());
+        // Act and Assert
+        assertDoesNotThrow(() -> service.getFollowedList(userId, order));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que el tipo de ordenamiento alfabético descendente existe (followed)")
+    @DisplayName("T0003 - (Followed) Verificar que el tipo de ordenamiento alfabético descendente existe")
     public void findFollowedOrderByNameDescExists(){
         // Arrange
         Integer userId = 1;
@@ -186,23 +274,36 @@ public class UserServiceTest {
         when(repository.findById(3)).thenReturn(UserFactory.getUserThree());
         when(repository.findById(2)).thenReturn(UserFactory.getUserTwo());
 
-        // Act
-        FollowedDTO result = service.getFollowedList(userId, order);
+        // Act and Assert
+        assertDoesNotThrow(() -> service.getFollowedList(userId, order));
+    }
 
-        // Assert
-        assertEquals(FollowedDTO.class, result.getClass());
+
+    @Test
+    @DisplayName("T0003 - (Followers) Verificar que se lanza una excepción cuando el tipo de ordenamiento no existe")
+    public void findFollowersOrderByNameBadRequest(){
+        // Arrange
+        Integer userId = 1;
+        String order = "Otro ordenamiento";
+
+        // Act and assert
+        assertThrows(BadRequestException.class, () -> service.getFollowersList(userId, order));
     }
 
     @Test
-    @DisplayName("T0003 - Verificar que se lanza una excepción cuando el tipo de ordenamiento no existe (followed)")
+    @DisplayName("T0003 - (Followed) Verificar que se lanza una excepción cuando el tipo de ordenamiento no existe")
     public void findFollowedOrderByNameBadRequest(){
-        // Assert
-        assertThrows(BadRequestException.class, () -> service.getFollowedList(1, "otro_ordenamiento"));
+        // Arrange
+        Integer userId = 1;
+        String order = "Otro ordenamiento";
+
+        // Act and assert
+        assertThrows(BadRequestException.class, () -> service.getFollowedList(userId, order));
     }
 
     @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre")
-    public void findFollowersOrderByNameAsc(){
+    @DisplayName("T0004 - (Followers) Verificar el correcto ordenamiento alfabético ascendente por nombre")
+    public void findFollowersOrderByNameAscSuccess(){
         // Arrange
         Integer userId = 2;
         String order = "name_asc";
@@ -223,8 +324,8 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre")
-    public void findFollowersOrderByNameDesc(){
+    @DisplayName("T0004 - (Followers) Verificar el correcto ordenamiento alfabético descendente por nombre")
+    public void findFollowersOrderByNameDescSuccess(){
         // Arrange
         Integer userId = 2;
         String order = "name_desc";
@@ -246,8 +347,8 @@ public class UserServiceTest {
 
 
     @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético ascendente por nombre (followed)")
-    public void findFollowedOrderByNameAsc(){
+    @DisplayName("T0004 - (Followed) Verificar el correcto ordenamiento alfabético ascendente por nombre")
+    public void findFollowedOrderByNameAscSuccess(){
         // Arrange
         Integer userId = 1;
         String order = "name_asc";
@@ -268,8 +369,8 @@ public class UserServiceTest {
     }
 
     @Test
-    @DisplayName("T0004 - Verificar el correcto ordenamiento alfabético descendente por nombre (followed)")
-    public void findFollowedOrderByNameDesc(){
+    @DisplayName("T0004 - (Followers) Verificar el correcto ordenamiento alfabético descendente por nombre")
+    public void findFollowedOrderByNameDescSuccess(){
         // Arrange
         Integer userId = 1;
         String order = "name_desc";
@@ -292,38 +393,38 @@ public class UserServiceTest {
     @Test
     @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea correcta")
     public void returnsCorrectFollowersCount(){
-        //arrange
+        // Arrange
         Integer userId = 2;
         User user2 = UserFactory.getUserTwo();
 
         int expectedFollowersCount = 2;
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user2);
 
-        //act
+        // Act
         FollowersCountDTO result = service.followersCount(user2.getUserId());
 
-        //assert
+        // Assert
         assertEquals(expectedFollowersCount, result.getFollowersCount());
     }
 
     @Test
-    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea 0 ")
+    @DisplayName("T0007 - Verificar que la cantidad de seguidores de un determinado usuario sea 0")
     public void returnsCorrectFollowersCount0(){
-        //arrange
+        // Arrange
         Integer userId = 1;
         User user1 = UserFactory.getUserOne();
 
         int expectedFollowersCount = 0;
 
-        //Mockito
+        // Mock
         when(repository.findById(userId)).thenReturn(user1);
 
-        //act
+        // Act
         FollowersCountDTO result = service.followersCount(user1.getUserId());
 
-        //assert
+        // Assert
         assertEquals(expectedFollowersCount, result.getFollowersCount());
     }
 

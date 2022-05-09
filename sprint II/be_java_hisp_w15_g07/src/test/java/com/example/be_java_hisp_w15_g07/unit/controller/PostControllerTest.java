@@ -20,8 +20,7 @@ import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -36,17 +35,17 @@ public class PostControllerTest {
     @Test
     @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha ascendente existe")
     public void getUserFollowedPostAscExists(){
-        //Arrange
+        // Arrange
         Integer userId = 1;
         String order = "date_asc";
 
-        //Mocks
+        // Mock
         Mockito.when(service.getFollowedPosts(userId, order)).thenReturn(UserFactory.getUserOneFollowedDTOAsc());
 
-        //Act
+        // Act
         ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(userId, order);
 
-        //Assert
+        // Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(ResponseEntity.class, result.getClass()),
                 () -> Assertions.assertEquals(HttpStatus.OK, result.getStatusCode())
@@ -56,17 +55,17 @@ public class PostControllerTest {
     @Test
     @DisplayName("T0005 - Verificar que el tipo de ordenamiento por fecha descendente existe")
     public void getUserFollowedPostDescExists(){
-        //Arrange
+        // Arrange
         Integer userId = 1;
         String order = "date_desc";
 
-        //Mocks
+        // Mocks
         Mockito.when(service.getFollowedPosts(userId, order)).thenReturn(UserFactory.getUserOneFollowedDTODesc());
 
-        //Act
+        // Act
         ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(userId, order);
 
-        //Assert
+        // Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(ResponseEntity.class, result.getClass()),
                 () -> Assertions.assertEquals(HttpStatus.OK, result.getStatusCode())
@@ -74,7 +73,7 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("T0005 - Verificar si se lanza una excepcion cuando el tipo de ordenamiento no existe")
+    @DisplayName("T0005 - Verificar que se lanza una excepcion cuando el tipo de ordenamiento no existe")
     public void getUserFollowedPostBadRequest(){
         // Arrange
         Integer userId = 1;
@@ -90,20 +89,20 @@ public class PostControllerTest {
     @Test
     @DisplayName("T0006 - Verificar el correcto ordenamiento ascendente por fecha")
     public void getUserFollowedPostAsc(){
-        //Arrange
+        // Arrange
         Integer userId = 1;
         String order = "date_asc";
         ResponseEntity<UserFollowedPostsDTO> expected = new ResponseEntity<>(UserFactory.getUserOneFollowedDTOAsc(),
                 HttpStatus.OK);
         UserFollowedPostsDTO expectedBody = UserFactory.getUserOneFollowedDTOAsc();
 
-        //Mocks
+        // Mocks
         Mockito.when(service.getFollowedPosts(userId, order)).thenReturn(UserFactory.getUserOneFollowedDTOAsc());
 
-        //Act
+        // Act
         ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(userId, order);
 
-        //Assert
+        // Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(ResponseEntity.class, result.getClass()),
                 () -> Assertions.assertEquals(expected.getStatusCode(), result.getStatusCode()),
@@ -114,20 +113,20 @@ public class PostControllerTest {
     @Test
     @DisplayName("T0006 - Verificar el correcto ordenamiento descendente por fecha")
     public void getUserFollowedPostDesc(){
-        //Arrange
+        // Arrange
         Integer userId = 1;
         String order = "date_desc";
         ResponseEntity<UserFollowedPostsDTO> expected = new ResponseEntity<>(UserFactory.getUserOneFollowedDTODesc(),
                 HttpStatus.OK);
         UserFollowedPostsDTO expectedBody = UserFactory.getUserOneFollowedDTODesc();
 
-        //Mocks
+        // Mock
         Mockito.when(service.getFollowedPosts(userId, order)).thenReturn(UserFactory.getUserOneFollowedDTODesc());
 
-        //Act
+        // Act
         ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(userId, order);
 
-        //Assert
+        // Assert
         Assertions.assertAll(
                 () -> Assertions.assertEquals(ResponseEntity.class, result.getClass()),
                 () -> Assertions.assertEquals(expected.getStatusCode(), result.getStatusCode()),
@@ -136,21 +135,23 @@ public class PostControllerTest {
     }
 
     @Test
-    @DisplayName("T00008 - Verificar filtro de publicaciones recientes de los usuarios seguidos")
+    @DisplayName("T0008 - Verificar el correcto filtro de publicaciones recientes de los usuarios seguidos")
     public void returnRecentPostsUsersFollowed(){
-        //arrange
+        // Arrange
         Integer userId = 1;
         LocalDate twoWeeksAgo = LocalDate.now().minusWeeks(2);
 
-        //Mockito
+        // Mock
         when(service.getFollowedPosts(userId, "date_asc")).thenReturn(new UserFollowedPostsDTO(1, PostFactory.getPostsDTO()));
 
-        //act
+        // Act
         ResponseEntity<UserFollowedPostsDTO> result = controller.getUserFollowedPosts(1, "date_asc");
 
-        // assert
-        assertEquals(HttpStatus.OK, result.getStatusCode());
-        assertEquals(PostFactory.getPostsDTO().size(), result.getBody().getPosts().size());
+        // Assert
+        assertAll(
+                () -> assertEquals(HttpStatus.OK, result.getStatusCode()),
+                () -> assertEquals(PostFactory.getPostsDTO().size(), result.getBody().getPosts().size())
+        );
         for (PostDTO postDTO: result.getBody().getPosts()) {
             assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
         }
