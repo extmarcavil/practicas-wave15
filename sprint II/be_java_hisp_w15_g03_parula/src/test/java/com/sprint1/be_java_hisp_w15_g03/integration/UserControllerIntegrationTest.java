@@ -9,6 +9,7 @@ import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;
 import com.sprint1.be_java_hisp_w15_g03.exception.OrderInvalidException;
 import com.sprint1.be_java_hisp_w15_g03.exception.PersonNotFoundException;
+import com.sprint1.be_java_hisp_w15_g03.exception.RelationConflictException;
 import com.sprint1.be_java_hisp_w15_g03.model.User;
 import com.sprint1.be_java_hisp_w15_g03.repository.MeliRepository;
 import com.sprint1.be_java_hisp_w15_g03.utils.DataUtil;
@@ -42,17 +43,18 @@ public class UserControllerIntegrationTest {
     @BeforeAll
     static void setup() {
         datos = new DataUtil();
-        meliRepository.loadDataTest(datos.getUsers(),datos.getSellers());
+        meliRepository.loadDataTest(datos.getUsers(),datos.getSellers(),datos.getProducts());
     }
     @AfterAll
     static void setoff(){
+
         meliRepository.deleteDataTest(datos.getUsers(),datos.getSellers());
     }
 
 
     //Test Integracion:Get followers Count: Caso OK
     @Test
-    @DisplayName("Obtengo las ultimas publicaciones de un usuario:Ok")
+    @DisplayName("Obtengo la cantidad de seguidores:Ok")
     void getFollowersCount() throws Exception {
         //Expected
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
@@ -71,9 +73,9 @@ public class UserControllerIntegrationTest {
         SellerCountDTO sellerCountDTO = objectMapper.readValue(response.getResponse().getContentAsString(), SellerCountDTO.class);
         Assertions.assertEquals(3,sellerCountDTO.getFollowersCount());
     }
-    //Test integracion: Get FollowersCount: Caso Borde
+    // Get FollowersCount: Caso Borde
     @Test
-    @DisplayName("Obtengo la cantidad de seguidores de un usuario:Caso borde")
+    @DisplayName("Cantidad de followers = 0:Caso borde")
     void getFollowersCountEmpty() throws Exception {
         //Expected
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
@@ -93,7 +95,7 @@ public class UserControllerIntegrationTest {
         Assertions.assertEquals(0,sellerCountDTO.getFollowersCount());
     }
 
-    //Test Integracion: Get followersCount: Caso fallo
+    //Get followersCount: Caso fallo: No existe el usuario
     @Test
     @DisplayName("Obtengo las ultimas publicaciones de un vendedor inexistente: PersonNotFoundException")
     void getFollowersCountInexistente() throws Exception {
@@ -116,7 +118,7 @@ public class UserControllerIntegrationTest {
 
     //Test getFollowersList: Obtengo la lista de followers de un usuario
     @Test
-    @DisplayName("Obtengo la lista de seguidores de un usuario:Ok")
+    @DisplayName("Obtengo la lista de seguidores de un vendedor:Ok")
     void getFollowersListOk() throws Exception {
         //Arrange
         ObjectWriter writer =  new ObjectMapper()
@@ -131,21 +133,21 @@ public class UserControllerIntegrationTest {
         //Request
         MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/list",5000).contentType(MediaType.APPLICATION_JSON);
         //act &assert
-        MvcResult response = mockMvc
+        mockMvc
                 .perform(request)
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         expectedStatus,
                         expectedJson
-                )
-                .andReturn();
+                );
+
 
     }
 
 
     //Test GetFollowersList: Vacio
     @Test
-    @DisplayName("Obtengo la cantidad de seguidores de un usuario:Caso borde")
+    @DisplayName("Obtengo la cantidad de seguidores de un vendedor:Caso borde")
     void getFollowersListEmpty() throws Exception {
         //Arrange
         //Expected
@@ -471,8 +473,134 @@ public class UserControllerIntegrationTest {
     //POST METHODS
 
 
+    @Test
+    @DisplayName("Realizo el post de follow")
+    void followSeller() throws Exception {
+
+        //Expected
+    ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+    //Request
+    MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}",5001,5002).contentType(MediaType.APPLICATION_JSON);
+    //act &assert
+    mockMvc
+            .perform(request)
+            .andDo(MockMvcResultHandlers.print())
+            .andExpect(expectedStatus);
+    }
+
+    @Test
+    @DisplayName("Realizo el follow a un vendedor ya seguido: RelationConflict")
+    void followSellerFollowed() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}",5001,5001).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof RelationConflictException)),
+                        (result -> Assertions.assertEquals("El usuario: 5001 ya sigue al vendedor: 5001", result.getResolvedException().getMessage()))
+                );
+
+    }
+
+    @Test
+    @DisplayName("Realizo el  follow con validacion mal")
+    void followSellerValidation() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}",0,0).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
+                );
+
+    }
 
 
+    @Test
+    @DisplayName("Se prueba el unfollow: ok")
+    void unfollowSeller() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}",5003,5001).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus);
+    }
+
+    @Test
+    @DisplayName("Realizo el follow a un vendedor ya seguido: RelationConflict")
+    void unfollowSellerUnFollowed() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}",5003,5002).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof RelationConflictException)),
+                        (result -> Assertions.assertEquals("El usuario: 5003 no sigue al vendedor: 5002", result.getResolvedException().getMessage()))
+                );
+
+    }
+
+    @Test
+    @DisplayName("Realizo el  follow con validacion mal")
+    void unfollowSellerValidation() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}",0,0).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof ConstraintViolationException))
+                );
+
+    }
+
+
+    @Test
+    @DisplayName("Realizo el  unfollow con seller inexistente")
+    void unfollowSellerInexistente() throws Exception {
+
+        //Expected
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+        //Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/unfollow/{userIdToFollow}",5000,5999).contentType(MediaType.APPLICATION_JSON);
+        //act &assert
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(
+                        expectedStatus,
+                        (result -> Assertions.assertTrue(result.getResolvedException() instanceof PersonNotFoundException))
+                );
+
+    }
 
 
 }

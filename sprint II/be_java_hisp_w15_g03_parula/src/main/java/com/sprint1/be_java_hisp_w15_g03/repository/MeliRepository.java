@@ -32,13 +32,17 @@ public class MeliRepository implements IMeliRepository {
         cantPublicacion = 0;
     }
 
-    public static void loadDataTest(List<User> userList, List<Seller> sellerList){
+    public static void loadDataTest(List<User> userList, List<Seller> sellerList,List<Product> productList){
         for(User user : userList) {
             users.put(user.getUserId(), user);
         }
         for(Seller seller : sellerList) {
             sellers.put(seller.getUserId(), seller);
         }
+        for(Product prod : productList) {
+            products.put(prod.getProductId(), prod);
+        }
+
 
     }
     public static void deleteDataTest(List<User> userList, List<Seller> sellerList){
