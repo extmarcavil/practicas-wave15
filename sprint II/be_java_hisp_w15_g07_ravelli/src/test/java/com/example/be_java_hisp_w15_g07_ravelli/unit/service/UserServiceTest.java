@@ -53,7 +53,7 @@ public class UserServiceTest {
 
     @Test
     @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario a seguir no existe")
-    public void FindUserNotFound(){
+    public void findUserNotFound(){
         // Arrange
         Integer userId = 1;
         Integer queryId = -2;
@@ -63,9 +63,111 @@ public class UserServiceTest {
         when(repository.findById(userId)).thenReturn(user1);
         when(repository.findById(queryId)).thenThrow(UserNotFoundException.class);
 
+        try {
+            // Act
+            service.followUser(userId, queryId);
+        } catch (UserNotFoundException e) {
+            // assert
+            verify(repository, times(2)).findById(anyInt());
+        }
+    }
+
+    @Test
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario a seguir no es vendedor")
+    public void followUserNotSellerBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        Integer queryId = 1;
+        String exceptionMessage = "No se puede seguir un usuario que no es vendedor.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(queryId)).thenReturn(UserFactory.getUserOne());
         // Act and assert
-        assertThrows(UserNotFoundException.class, () -> service.followUser(userId, queryId));
-        verify(repository, times(2)).findById(anyInt());
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario se quiere seguir a si mismo")
+    public void followUserSelfBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        String exceptionMessage = "No se puede seguir a si mismo.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, userId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(2)).findById(userId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0001 - Verificar que se lanza una excepción si el usuario ya sigue al vendedor")
+    public void followUserAlreadyFollowedBadRequest(){
+        // Arrange
+        Integer userId = 3;
+        Integer queryId = 2;
+        User user2 = UserFactory.getUserTwo();
+        User user3 = UserFactory.getUserThree();
+        UserFactory.setFollowedList(user3, user2);
+        String exceptionMessage = "Ya estas siguiendo a este usuario.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(user3);
+        when(repository.findById(queryId)).thenReturn(user2);
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0002 - Verificar que se lanza una excepción si el usuario se quiere dejar de seguir a si mismo")
+    public void unfollowUserSelfBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        String exceptionMessage = "No se puede dejar de seguir a si mismo.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.unfollowUser(userId, userId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(2)).findById(userId)
+        );
+    }
+
+    @Test
+    @DisplayName("T0002 - Verificar que se lanza una excepción si el usuario quiere dejar de seguir a alguien que no " +
+            "sigue")
+    public void unfollowUserNotFollowedBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        Integer queryId = 1;
+        String exceptionMessage = "Este usuario no sigue a este vendedor.";
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        when(repository.findById(queryId)).thenReturn(UserFactory.getUserOne());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.unfollowUser(userId, queryId));
+        assertAll(
+                () -> assertEquals(exceptionMessage, exception.getMessage()),
+                () -> verify(repository, times(1)).findById(userId),
+                () -> verify(repository, times(1)).findById(queryId)
+        );
     }
 
     @Test

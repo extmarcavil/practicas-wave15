@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.*;
 
+
 @ExtendWith(MockitoExtension.class)
 public class PostServiceTest {
 
@@ -119,12 +120,12 @@ public class PostServiceTest {
 
     @Test
     @DisplayName("T0008 - Verificar que se filtran correctamente las publicaciones recientes de los usuarios seguidos")
-    public void returnRecentPostsUsersFollowed(){
+    public void returnRecentPostsUsersFollowed() {
         // Arrange
         Integer userId = 1;
         User user1 = UserFactory.getUserOne();
         User user2 = UserFactory.getUserTwoWithPosts();
-        for (Post post: PostFactory.getTwoPostsOneOutdated()) {
+        for (Post post : PostFactory.getTwoPostsOneOutdated()) {
             user2.newPost(post);
         }
         User user3 = UserFactory.getUserThreeWithPost();
@@ -141,8 +142,6 @@ public class PostServiceTest {
         // Assert
         assertEquals(1, userFollowedPostsDTO.getUserID());
         assertEquals(userFollowedPostsDTO.getPosts().size(), 5);
-        for (PostDTO postDTO: userFollowedPostsDTO.getPosts()) {
-            assertTrue(postDTO.getDate().isAfter(twoWeeksAgo));
-        }
+        userFollowedPostsDTO.getPosts().forEach(postDTO -> assertTrue(postDTO.getDate().isAfter(twoWeeksAgo)));
     }
 }

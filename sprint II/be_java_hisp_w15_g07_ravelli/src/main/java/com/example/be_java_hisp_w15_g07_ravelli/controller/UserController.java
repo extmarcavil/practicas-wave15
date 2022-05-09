@@ -44,7 +44,6 @@ public class UserController {
      */
     @GetMapping("/{userId}/followers/count")
     public ResponseEntity<FollowersCountDTO> countFollowers(@PathVariable
-                                                            @NotNull(message = "El  id no puede estar vacío.")
                                                             @Positive(message = "El id debe ser mayor a cero")
                                                             Integer userId){
         FollowersCountDTO followers = userService.followersCount(userId);
@@ -62,12 +61,10 @@ public class UserController {
      * @author Tomas Ravelli
      */
     @PostMapping("/{userId}/follow/{userIdToFollow}")
-    public ResponseEntity followUser(@PathVariable
-                                     @NotNull(message = "El  id no puede estar vacío.")
+    public ResponseEntity<?> followUser(@PathVariable
                                      @Positive(message = "El id debe ser mayor a cero")
                                      Integer userId,
                                      @PathVariable
-                                     @NotNull(message = "El  id no puede estar vacío.")
                                      @Positive(message = "El id debe ser mayor a cero")
                                      Integer userIdToFollow){
         userService.followUser(userId, userIdToFollow);
@@ -78,7 +75,7 @@ public class UserController {
      * get followers list optionally ordered by user
      *
      * @param userId Integer
-     * @param order String
+     * @param order String (request param)
      * @return {@link ResponseEntity}
      * @see ResponseEntity
      * @see FollowersDTO
@@ -89,7 +86,6 @@ public class UserController {
     //Tomas
     @GetMapping("/{userId}/followers/list")
     public ResponseEntity<FollowersDTO> getFollowersList(@PathVariable
-                                                         @NotNull(message = "El  id no puede estar vacío.")
                                                          @Positive(message = "El id debe ser mayor a cero")
                                                          Integer userId,
                                                          @RequestParam(defaultValue = "") String order){
@@ -105,7 +101,7 @@ public class UserController {
      * get followed list optionally ordered by user
      *
      * @param userId Integer
-     * @param order String
+     * @param order String (request param)
      * @return {@link ResponseEntity}
      * @see ResponseEntity
      * @see FollowedDTO
@@ -115,7 +111,6 @@ public class UserController {
      */
     @GetMapping("/{userId}/followed/list")
     public ResponseEntity<FollowedDTO> getFollowedList(@PathVariable
-                                                       @NotNull(message = "El  id no puede estar vacío.")
                                                        @Positive(message = "El id debe ser mayor a cero")
                                                        Integer userId,
                                                        @RequestParam(defaultValue = "") String order){
@@ -136,12 +131,10 @@ public class UserController {
      * @author Facundo Chaves del Pino
      */
     @PostMapping("/{userId}/unfollow/{userIdToUnfollow}")
-    public ResponseEntity unfollowUser(@PathVariable
-                                       @NotNull(message = "El  id no puede estar vacío.")
+    public ResponseEntity<?> unfollowUser(@PathVariable
                                        @Positive(message = "El id debe ser mayor a cero")
                                        Integer userId,
                                        @PathVariable
-                                       @NotNull(message = "El  id no puede estar vacío.")
                                        @Positive(message = "El id debe ser mayor a cero")
                                        Integer userIdToUnfollow){
         userService.unfollowUser(userId, userIdToUnfollow);
