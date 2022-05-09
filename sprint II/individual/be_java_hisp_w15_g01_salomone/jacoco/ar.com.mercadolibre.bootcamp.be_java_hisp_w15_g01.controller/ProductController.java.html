@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProductController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller</a> &gt; <span class="el_source">ProductController.java</span></div><h1>ProductController.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.controller;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostListDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.request.WhoAndHowManyFollowsMeRequestDTO;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.service.PostService;
+
+import lombok.extern.java.Log;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.time.LocalDate;
+
+@RestController
+@RequestMapping(&quot;/products&quot;)
+<span class="fc" id="L19">@Log</span>
+public class ProductController {
+
+    private PostService service;
+
+<span class="fc" id="L24">    public ProductController(PostService service) {</span>
+<span class="fc" id="L25">        this.service = service;</span>
+<span class="fc" id="L26">    }</span>
+
+    /**git chec
+     * ProductController
+     * Crea una publicacion
+     *
+     * @param postDTO el dto de la publicacion a crear
+     */
+    @PostMapping(&quot;/post&quot;)
+    public ResponseEntity&lt;ResponseDTO&gt; create(@RequestBody @Valid PostDTO postDTO) {
+<span class="fc" id="L36">        log.info(&quot;Se recibio peticion de creacion de una publicacion&quot;);</span>
+<span class="fc" id="L37">        return ResponseEntity</span>
+<span class="fc" id="L38">                .status(HttpStatus.OK)</span>
+<span class="fc" id="L39">                .body(service.createPost(postDTO));</span>
+    }
+
+    /**
+     * ProductController
+     * Devuelve la lista de usuarios que siguen al parametro userId
+     */
+    @GetMapping(&quot;/followed/{userId}/list&quot;)
+    public ResponseEntity&lt;PostListDTO&gt; followed(@Valid WhoAndHowManyFollowsMeRequestDTO dto) {
+
+<span class="nc" id="L49">        log.info(&quot;Se recibio peticion de obtener todos los posts de las personas que sigue el id &quot; + dto.getUserId());</span>
+<span class="nc" id="L50">        return ResponseEntity</span>
+<span class="nc" id="L51">                .status(HttpStatus.OK)</span>
+<span class="nc" id="L52">                .body(service.getPostsByFollowedUsers(dto));</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>

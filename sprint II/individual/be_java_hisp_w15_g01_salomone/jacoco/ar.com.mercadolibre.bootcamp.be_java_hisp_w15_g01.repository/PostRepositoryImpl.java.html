@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PostRepositoryImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">be_java_hisp_w15_g01</a> &gt; <a href="index.source.html" class="el_package">ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository</a> &gt; <span class="el_source">PostRepositoryImpl.java</span></div><h1>PostRepositoryImpl.java</h1><pre class="source lang-java linenums">package ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.repository;
+
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Post;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.Product;
+import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.model.User;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Repository
+<span class="fc" id="L14">public class PostRepositoryImpl implements PostRepository {</span>
+
+<span class="fc" id="L16">    List&lt;Post&gt; posts = new ArrayList&lt;&gt;();</span>
+
+    @Override
+    public Post create(User user, LocalDate date, Product detail, Integer category, Float price) {
+
+<span class="fc" id="L21">        Post post = new Post();</span>
+<span class="fc" id="L22">        post.setPostId(posts.size() +1L);</span>
+<span class="fc" id="L23">        post.setUser(user);</span>
+<span class="fc" id="L24">        post.setDate(date);</span>
+<span class="fc" id="L25">        post.setDetail(detail);</span>
+<span class="fc" id="L26">        post.setCategory(category);</span>
+<span class="fc" id="L27">        post.setPrice(price);</span>
+
+<span class="fc" id="L29">        posts.add(post);</span>
+
+<span class="fc" id="L31">        return post;</span>
+    }
+    
+    @Override
+    public boolean isseller(User user) {
+<span class="nc" id="L36">        return this.posts.stream().anyMatch(p -&gt; p.getUser().equals(user));</span>
+    }
+
+    @Override
+    public List&lt;Post&gt; getAllPostsByUserWithinTimespan(User user, int daysBack) {
+<span class="fc" id="L41">        LocalDate now = LocalDate.now();</span>
+
+<span class="fc" id="L43">        List&lt;Post&gt; postList = posts.stream()</span>
+<span class="pc bpc" id="L44" title="1 of 2 branches missed.">                .filter( p -&gt; p.getUser().getUserId().equals(user.getUserId()) &amp;&amp;</span>
+<span class="fc bfc" id="L45" title="All 2 branches covered.">                        p.getDate().compareTo(now.minusDays(daysBack)) &gt; 0)</span>
+<span class="fc" id="L46">                .collect(Collectors.toList());</span>
+
+<span class="fc" id="L48">        return postList;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.8.202204050719</span></div></body></html>
