@@ -17,19 +17,19 @@ Siguiendo con el principio de que MeLi posee unos estándares de calidad muy alt
 
 
 # Colaboradores
-- Barraza Miguel Angel -
+- Barraza Miguel Angel 
 
-- Fedele Lucas -
+- Fedele Lucas
 
-- Leon Jesus -
+- Leon Jesus
 
-- Ramirez Thiago -
+- Ramirez Thiago
 
-- Salomone Ana -
+- Salomone Ana
 
-- Sinnott Segura Gonzalo -
+- Sinnott Segura Gonzalo
 
-# 📁 Collection: Main 
+# End-points 
 
 
 ## End-point: US 01 - Follow
