@@ -106,4 +106,45 @@ public class UserControllerIntegrationTest {
 
     }
 
+    @Test
+    @DisplayName("Test for validate the followers are not correct ")
+    public void validateFollowersAreNotCorrect() throws Exception {
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/users/{userId}/followers/list", 10);
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus);
+
+    }
+
+    @Test
+    @DisplayName("Test for validate the follower is not seller")
+    public void validateFollowerIsNotSeller() throws Exception {
+
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}", 2, 1);
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+        .andExpect(expectedStatus);
+
+    }
+
+    @Test
+    @DisplayName("Test for validate that no can't follow yourself ")
+    public void validateCantFollowYourself() throws Exception {
+
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/users/{userId}/follow/{userIdToFollow}", 1, 1);
+
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus);
+
+    }
+
 }

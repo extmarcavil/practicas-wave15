@@ -88,7 +88,33 @@ public class PostControllerIntegrationTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andReturn();
-        String test = mvcResult.getResponse().getContentAsString();
+
         Assertions.assertEquals(expectedString, mvcResult.getResponse().getContentAsString());
     }
+
+    @Test
+    @DisplayName("Test for validate is a post not was created")
+    public void validateIfNotWasCreatedPost() throws Exception {
+        // arrange
+        mockMvc
+                .perform(MockMvcRequestBuilders.post("/products/post")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isBadRequest());
+    }
+
+    @Test
+    @DisplayName("Test for validate if raise 404 when a user not exist")
+    public void validateListPostFollowedByUserError() throws Exception {
+        // arrange
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/products/followed/{userId}/list", 8);
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                .andReturn();
+    }
+
+
+
 }
