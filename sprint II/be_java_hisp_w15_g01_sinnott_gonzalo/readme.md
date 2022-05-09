@@ -4,14 +4,6 @@ versión Beta de la API “SocialMeli”, en donde los compradores van a poder s
 
 Esta API engloba los metodos basicos para dicha funcionalidad
 
-# Colaboradores
-Barraza Miguel Angel
-Fedele Lucas
-Leon Jesus
-Ramirez Thiago
-Salomone Ana
-Sinnott Segura Gonzalo
-
 # Sprint 2
 # Introduccion
 
@@ -26,10 +18,15 @@ Siguiendo con el principio de que MeLi posee unos estándares de calidad muy alt
 
 # Colaboradores
 - Barraza Miguel Angel -
+
 - Fedele Lucas -
+
 - Leon Jesus -
+
 - Ramirez Thiago -
+
 - Salomone Ana -
+
 - Sinnott Segura Gonzalo -
 
 # 📁 Collection: Main 
