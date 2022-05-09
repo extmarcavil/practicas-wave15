@@ -140,6 +140,8 @@ public class MeliRepository implements IMeliRepository {
         return seller;
     }
 
+
+    //---------------- Apartaado para Test de Integracion ------------------//
     public void loadDataTest(List<Seller> sellers, List<User> users)
     {
         for (Seller s : sellers) {
@@ -147,6 +149,16 @@ public class MeliRepository implements IMeliRepository {
         }
         for (User u : users){
             MeliRepository.users.put(u.getUserId(),u);
+        }
+    }
+
+    public void resetDataTest(List<Seller> sellers, List<User> users)
+    {
+        for (Seller s : sellers) {
+            MeliRepository.sellers.remove(s.getUserId(),s);
+        }
+        for (User u : users){
+            MeliRepository.users.remove(u.getUserId(),u);
         }
     }
 }

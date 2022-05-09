@@ -6,6 +6,10 @@ import com.sprint1.be_java_hisp_w15_g03_acosta.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Inicio de datos para Test de Integración
+ */
+
 public class PersonFactor {
 
     public static List<User> users(){
