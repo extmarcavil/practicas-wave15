@@ -31,9 +31,13 @@ public class UserControllerTest {
     @Test
     public void test_integration_howManyFollowsMe() throws Exception {
         ObjectWriter writer = ObjectWriterFactory.create();
+
         ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+
         FollowersCountDTO followersCountDTO = FollowersCountDTOFactory.count();
+
         String listJson = writer.writeValueAsString(followersCountDTO);
+
         ResultMatcher expectedJson = MockMvcResultMatchers.content().json(listJson);
 
         ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);

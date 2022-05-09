@@ -115,6 +115,7 @@ Forwarded URL = null
 Redirected URL = null
 Cookies = []
 ```
+
 - Validacion del endopoint **/users/{userId}/followers/count**
 
 Comportamiento esperado
