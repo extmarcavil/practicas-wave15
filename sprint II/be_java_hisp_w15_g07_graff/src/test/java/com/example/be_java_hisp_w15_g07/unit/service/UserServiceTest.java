@@ -326,4 +326,20 @@ public class UserServiceTest {
         assertEquals(expectedFollowersCount, result.getFollowersCount());
     }
 
+    @Test
+    @DisplayName("TBONUS - Este test prueba la excepción si el usuario se quiere seguir a si mismo")
+    public void followUserSelfBadRequest(){
+        // Arrange
+        Integer userId = 2;
+        // Mock
+        when(repository.findById(userId)).thenReturn(UserFactory.getUserTwo());
+        // Act and assert
+        BadRequestException exception = assertThrows(
+                BadRequestException.class, () -> service.followUser(userId, userId));
+
+        assertAll(
+                () -> verify(repository, times(2)).findById(userId)
+        );
+    }
+
 }

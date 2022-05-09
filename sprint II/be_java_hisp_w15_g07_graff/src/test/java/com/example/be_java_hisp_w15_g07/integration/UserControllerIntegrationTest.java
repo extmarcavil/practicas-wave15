@@ -4,7 +4,9 @@ import com.example.be_java_hisp_w15_g07.dto.response.ErrorDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersCountDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.FollowersDTO;
 import com.example.be_java_hisp_w15_g07.dto.response.UserFollowersDTO;
+import com.example.be_java_hisp_w15_g07.exception.BadRequestException;
 import com.example.be_java_hisp_w15_g07.exception.UserNotFoundException;
+import com.example.be_java_hisp_w15_g07.utils.UserFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -36,7 +38,7 @@ public class UserControllerIntegrationTest {
     MockMvc mockMvc;
 
     @Test
-    @DisplayName("Este Test prueba el retorno de la cuenta de seguiores")
+    @DisplayName("TBONUS - Este Test prueba el retorno de la cuenta de seguiores")
     void countFollowersTest() throws Exception {
 
         ObjectWriter writer =  new ObjectMapper()
@@ -64,7 +66,36 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("Este Test prueba el envio ")
+    @DisplayName("TBONUS - Este Test prueba  que se retorna correctamente la lista de seguidores")
+    public void getFollowersListSuccess() throws Exception {
+        // Arrange
+        Integer userId = 2;
+        FollowersDTO followers = UserFactory.getFollowersDTOAsc();;
+
+        ObjectWriter writer =  new ObjectMapper()
+                .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
+                .registerModule(new JavaTimeModule()) // convertir fechas
+                .writer();
+
+        String bodyJson = writer.writeValueAsString(followers);
+
+        // Expected
+        ResultMatcher expectedJson = MockMvcResultMatchers.content().json(bodyJson);
+        ResultMatcher expectedStatusCode = MockMvcResultMatchers.status().isOk();
+        ResultMatcher expectedContentType = MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON);
+
+        // Request
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/users/{userId}/followers/list", userId);
+
+        // Act and Assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpectAll(expectedJson, expectedContentType, expectedStatusCode);
+    }
+
+    @Test
+    @DisplayName("TBONUS - Este Test prueba la exception cuando un user no es encontrado")
     void countFollowersTestBR() throws Exception {
 
         Integer userId= 999;
@@ -93,20 +124,4 @@ public class UserControllerIntegrationTest {
 
     }
 
-    @Test
-    @DisplayName("Este Test prueba el envio ")
-    void countFollowersTestNF() throws Exception {
-        //UserNotFoundException error = new UserNotFoundException("El id de usuario no es valido");
-
-
-        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isNotFound();
-
-        MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/users/{userId}/followers/count",999);
-
-        mockMvc.perform(requestBuilder)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(
-                        expectedStatus);
-
-    }
 }
