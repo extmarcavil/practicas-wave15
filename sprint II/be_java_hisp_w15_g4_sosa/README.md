@@ -53,6 +53,7 @@ El especialista conoce que los tiempos de desarrollo en bootcamp son acotados, p
 #### Archivos:
 #### _T0009_
 #### _T0010_
+Donde testeo la correcta creacion de un post y el funcionamiento del follow
 
 
 
