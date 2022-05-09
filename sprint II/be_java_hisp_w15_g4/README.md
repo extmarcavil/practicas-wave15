@@ -10,3 +10,24 @@ SocialMeli, la nueva implementación de MercadoLibre que fue realizada por el eq
 Para llevar a cabo estas implementaciones, se deberá tomar como base el proyecto desarrollado de forma grupal en el Sprint Nº 1. A partir de él, se llevarán a cabo cada una de las validaciones y tests unitarios correspondientes.
 Como documentación de respaldo, un analista funcional adjunta el siguiente documento de requerimientos técnicos y funcionales: [Documentacion](https://docs.google.com/document/d/1f-M02GbaXRYO_g3zfcFqzoxZaM7Lg5WY/edit)
 
+### Tests Realizados
+- T-0001: Verificar que el usuario a seguir exista. (US-0001)
+   + Se cumple: Permite continuar con normalidad.
+   + No se cumple: Notifica la no existencia mediante una excepción.
+- T-0002 Verificar que el usuario a dejar de seguir exista. (US-0007)
+   + Se cumple: Permite continuar con normalidad.
+   + No se cumple: Notifica la no existencia mediante una excepción.
+- T-0003 Verificar que el tipo de ordenamiento alfabético exista (US-0008)
+   + Se cumple: Permite continuar con normalidad.
+   + No se cumple: Notifica la no existencia mediante una excepción.
+- T-0004 Verificar el correcto ordenamiento ascendente y descendente por nombre. (US-0008)
+   + Devuelve la lista ordenada según el criterio solicitado
+- T-0005 Verificar que el tipo de ordenamiento por fecha exista (US-0009)
+   + Se cumple: Permite continuar con normalidad.
+   + No se cumple: Notifica la no existencia mediante una excepción.
+- T-0006 Verificar el correcto ordenamiento ascendente y descendente por fecha. (US-0009)
+   + Devuelve la lista ordenada según el criterio solicitado
+- T-0007 Verificar que la cantidad de seguidores de un determinado usuario sea correcta. (US-0002)
+   + Devuelve el cálculo correcto del total de la cantidad de seguidores que posee un usuario.
+- T-0008 Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006)
+   + Devuelve únicamente los datos de las publicaciones que tengan fecha de publicación dentro de las últimas dos semanas a partir del día de la fecha.
