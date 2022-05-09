@@ -201,10 +201,6 @@ Este es el repositorio del segundo Sprint realizado en el bootcamp wave 15 de Ja
     Verificación correcto filtro de fecha
 ```
 
-
-#### Con los presentes tests se alcanza un line coverage de 59%.
-
-
 ## Authors
 
 -[@GomezRodrigoML](https://github.com/GomezRodrigoML)
