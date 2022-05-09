@@ -2,12 +2,9 @@ package com.be.java.hisp.w156.be.java.hisp.w156.controller;
 
 
 import com.be.java.hisp.w156.be.java.hisp.w156.repository.UserRepositoryImpl;
-import com.be.java.hisp.w156.be.java.hisp.w156.service.IUserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -25,12 +22,6 @@ class UserControllerTest {
 
     @Autowired
     MockMvc mockMvc;
-
-    @Mock
-    IUserService service;
-
-    @InjectMocks
-    UserController controller;
 
     @BeforeEach
     public void initDataTest(){
