@@ -35,15 +35,11 @@ public class ProductsServiceTest {
     void verificarCorrectoOrdenAscFecha() {
         //arrange
         User user = UsersFactory.createUserWithFollowed();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-
-        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
-
-        //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
         ResPostListDTO resp = productsService.getPostFollowed(1, "date_asc");
 
         // assert
@@ -55,15 +51,11 @@ public class ProductsServiceTest {
     void verificarCorrectoOrdenDescFecha() {
         //arrange
         User user = UsersFactory.createUserWithFollowed();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-
-        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
-
-        //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsDesc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
         ResPostListDTO resp = productsService.getPostFollowed(1, "date_desc");
 
         // assert
@@ -75,15 +67,11 @@ public class ProductsServiceTest {
     void verificarCorrectoOrdenDefaultFecha() {
         //arrange
         User user = UsersFactory.createUserWithFollowed();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-
-        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
-
-        //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getListPosts());
         ResPostListDTO resp = productsService.getPostFollowed(1, "");
 
         // assert
@@ -104,15 +92,11 @@ public class ProductsServiceTest {
     void verificarCorrectoFiltroPorFecha() {
         //arrange
         User user = UsersFactory.createUserWithFollowed();
-        //mockear repo
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-
-        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getPostsOutOfDate());
-
-        //Crear lista ordenada
         List<PostIdDTO> postsOrdenados = PostFactory.getListPostsAsc();
 
         //act
+        when(userRepository.findById(1)).thenReturn(Optional.of(user));
+        when(userRepository.getPostsById(10)).thenReturn(PostFactory.getPostsOutOfDate());
         ResPostListDTO resp = productsService.getPostFollowed(1, "");
 
         // assert
