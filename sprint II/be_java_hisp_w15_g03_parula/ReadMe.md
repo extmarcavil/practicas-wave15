@@ -267,6 +267,17 @@ public enum Category {
 * sellerId: 2
 * sellerName: Amazon
 
+##Detalles de las pruebas realizadas
+<ul>
+<li>Se realizaron 2 metodos en el repository para poder cargar y borrar informacion para las pruebas: loadDataTest y deleteDataTest.</li>
+<br />
+<li>Se realizo la modificacion del codigo para que los users, sellers y productos a partir de 5000 sean reservados para las pruebas, no permitiendo el ingreso de los mismos.</li>
+<br />
+<li>Ademas, se realizo una clase auxiliar Utils que es donde se definen todos usuarios, vendedores y productos necesario para las pruebas.</li>
+<br />
+<li>Sobre las pruebas: Se probaron los endpoint disponibles, las validaciones de datos y los flujos alternativos que deberia soportar. Algunos casos, dado que era igual en distintos controladores, se realizo uno solo (por ejemplo, prueba de orden en integracion, que se habia realizado en unit test, se hizo solo para Users desde integracion).</li>
+
+</ul>
 
 
 
