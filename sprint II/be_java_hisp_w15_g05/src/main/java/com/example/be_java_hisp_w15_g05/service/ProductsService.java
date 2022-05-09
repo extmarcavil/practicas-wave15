@@ -38,21 +38,22 @@ public class ProductsService implements IProductsService {
 
         User user = validateUserExists(post.getUserId());
         validateDate(post.getDate());
-        validatePrice(post.getPrice());
 
         userRepository.createPost(user, post);
 
         return new ResCreatePostDTO("La publicación se ha creado con éxito");
     }
 
+    /**
+     * De un usuario se obtienen sus seguidos
+     * y se recorren para obtener sus publicaciones de las últimas dos semanas
+     */
     public ResPostListDTO getPostFollowed(int id, String order){
         checkSortDate(order);
         User user = validateUserExists(id);
 
         List<Post> listadoPosteos = new ArrayList<>();
 
-        // De un usuario se obtienen sus seguidos y los recorremos para obtener sus publicaciones de
-        // las últimas dos semanas
         for( User usuario : user.getSeguidos()){
             List<Post> postAux= filterPostsInTwoWeeks( userRepository.getPostsById(usuario.getUserId()) );
             listadoPosteos.addAll(postAux);
@@ -64,7 +65,10 @@ public class ProductsService implements IProductsService {
         return new ResPostListDTO(id,lista);
     }
 
-
+    /**
+     * Verifica que la fecha sea de hoy en adelante.
+     * @param date fecha para corroborar
+     */
     private void validateDate(LocalDate date){
         long period = ChronoUnit.DAYS.between( date , LocalDate.now());
 
@@ -72,16 +76,24 @@ public class ProductsService implements IProductsService {
             throw new InvalidDateException("La fecha de la publicacion debe ser a partir de hoy.");
     }
 
-    private void validatePrice (double price){
-        if(price < 0)
-            throw new InvalidPriceException("El precio del producto debe ser mayor a 0.");
-    }
-
+    /**
+     * Verificar que un id de usuario exista en el repositorio o lanza UserNotFoundException
+     * @param userId id del usuario
+     * @return User
+     */
     private User validateUserExists(Integer userId) {
         return userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException("Usuario " + userId + " no encontrado."));
     }
 
+    /**
+     * Recibe una lista de Post y la ordena seguin el parametro 'order'
+     *
+     * Por defecto ordena de manera asc
+     *
+     * @param list Lista de Post
+     * @param order condición de ordenamiento
+     */
     private void sortListByDate(List<Post> list, String order) {
         if(order.equals("date_desc"))
             list.sort(Comparator.comparing(Post::getDate));
@@ -89,17 +101,34 @@ public class ProductsService implements IProductsService {
             list.sort(Comparator.comparing(Post::getDate).reversed());
     }
 
+    /**
+     * Verificar que sea una condición de ordenamiento valida o lanza OrderNotValidException
+     * @param order condición de ordenamiento
+     */
     private void checkSortDate(String order){
         if(!order.equals("date_asc") && !order.equals("date_desc") && !order.isEmpty())
             throw new OrderNotValidException("El ordenamiento " + order + " no existe.");
 
     }
+
+    /**
+     * Dada una fecha se verifica si esta dentro de los ultimos 14 dias.
+     *
+     * @param fecha fecha a corroborar
+     * @return true o false segun condición
+     */
     private boolean inTwoWeeksRange(LocalDate fecha){
         long differencesInDays = ChronoUnit.DAYS.between( fecha , LocalDate.now() );
 
         return differencesInDays < 14 && differencesInDays >= 0;
     }
 
+    /**
+     * Filtra los Post devolviendo solo aquellos que hallan sido creados en las ultimas dos semanas.
+     *
+     * @param posts Lista de Post
+     * @return Lista de Post filtrada
+     */
     private List<Post> filterPostsInTwoWeeks(List<Post> posts){
        return   posts
                 .stream()

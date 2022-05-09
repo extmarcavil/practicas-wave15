@@ -1,7 +1,7 @@
 
-# Sprint I: SocialMeli
+# Sprint II: SocialMeli
 
-Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Java con Spring Boot. 
+Este es el repositorio del segundo Sprint realizado en el bootcamp wave 15 de Java con Spring Boot. 
 
 
 
@@ -92,6 +92,132 @@ Este es el repositorio del primer Sprint realizado en el bootcamp wave 15 de Jav
 | `userId` | `int` | **Required**.  id de la persona|
 | `order` | `String` | **Optional**.  tipo de orden|
 
+
+## Unit Tests
+
+### Repository Tests
+
+```http
+  VerifyUserExistence()
+    Validación de existencia de usuario a seguir
+```
+
+```http
+  VerifyUserToUnFollowExistence()
+    Validación de existencia de usuario a dejar de seguir
+```
+
+### Service Tests
+#### FollowService
+
+```http
+  verificarCorrectoOrdenAlfabetico()
+    Verificación de orden alfabetico ascendente
+```
+
+```http
+  verificarCorrectoOrdenDescAlfabetico()
+    Verificación de orden alfabetico descendente
+```
+
+```http
+  verificarCorrectoOrdenDefectoAlfabetico()
+    Verificación de orden alfabetico por defecto
+```
+
+```http
+  verificarExcepcionOrdenAlf()
+    Verificación lanzado de excepción
+```
+
+```http
+  correctoOrdenAlfabeticoSellers()
+    Verificación de orden alfabetico ascendente de vendedores
+```
+
+```http
+  correctoOrdenAlfabeticoSellersDesc()
+    Verificación de orden alfabetico descendente de vendedores
+```
+
+```http
+  correctoOrdenAlfabeticoSellersDefault()
+    Verificación de orden alfabetico por defecto de vendedores
+```
+
+```http
+  verificarExcepcionOrdenAlfSellers()
+    Verificación lanzado de excepción sellers
+```
+
+```http
+  verifyFollow()
+    Validación de follow camino feliz
+```
+
+```http
+  VerifyUserExistenceException()
+    Validación de existencia de excepcion cuando no encuentra el usuario a seguir
+```
+
+```http
+  verifyUnfollow()
+    Validación de unfollow camino feliz
+```
+
+```http
+  VerifySellerExistenceException()
+    Validación de existencia de excepcion cuando no encuentra el usuario a dejar de seguir
+```
+
+```http
+  VerifyQuantityFollowers()
+    Validar cantidad de usuarios seguidores
+```
+#### ProductService
+
+```http
+  verificarCorrectoOrdenAscFecha()
+    Verificación de fecha ascendente
+```
+
+```http
+  verificarCorrectoOrdenDescFecha()
+    Verificación de fecha descendente
+```
+
+```http
+  verificarCorrectoOrdenDefaultFecha()
+    Verificación de fecha default
+```
+
+```http
+  verificarExcepcionOrdenFecha()
+    Verificacion lanzado de excepcion OrderNotValidException
+```
+
+```http
+  verificarCorrectoFiltroPorFecha()
+    Verificación correcto filtro de fecha
+```
+
+## Integration Tests
+
+```http
+  integrationTestCountFollowers()
+    Test Integración de cantidad de seguidores (get)
+```
+
+```http
+  integrationTestCreatePost()
+    Test Integración para crear un post (post)
+```
+
+```http
+  integrationTestCreatePostError()
+    Test Integración para crear un post con error (post)
+```
+#### Con los presentes tests se alcanza un line coverage de 77%.
 
 
 ## Authors

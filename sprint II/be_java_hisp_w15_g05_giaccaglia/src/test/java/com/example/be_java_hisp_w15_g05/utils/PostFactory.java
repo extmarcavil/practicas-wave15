@@ -20,7 +20,6 @@ public class PostFactory {
     private static ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
     private static ProductDTO pDTO3 = new ProductDTO(180, "T#%eclado", "Tecnologia", "Teclado%$", "Blanco", "Bluetoo");
 
-
     public static List<Post> getListPosts(){
 
         Post posteo = new Post(10, 20, LocalDate.of(2022, 5, 1), p1, 100, 202.00);
@@ -55,7 +54,7 @@ public class PostFactory {
     }
 
     public static PostDTO createPost(){
-        PostDTO post = new PostDTO(1, LocalDate.of(2022, 5, 6), pDTO2, 100, 202.00);
+        PostDTO post = new PostDTO(1, LocalDate.of(2022, 5, 9), pDTO2, 100, 202.00);
         return post;
     }
 
@@ -65,7 +64,7 @@ public class PostFactory {
     }
 
     public static PostDTO createPostError(){
-        PostDTO post = new PostDTO(1, LocalDate.of(2022, 5, 6), pDTO3, 100, 202.00);
+        PostDTO post = new PostDTO(1, LocalDate.of(2022, 5, 9), pDTO3, 100, 202.00);
         return post;
     }
 }

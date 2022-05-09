@@ -26,11 +26,22 @@ public class ProductsController {
         this.productsService = productsService;
     }
 
+    /**
+     *
+     * @param postDTO publicación a agregar.
+     * @return
+     */
     @PostMapping("/post")
     public ResponseEntity<ResCreatePostDTO> createPost(@Valid @RequestBody PostDTO postDTO) {
         return new ResponseEntity<>(productsService.createPost(postDTO), HttpStatus.CREATED);
     }
 
+    /**
+     *
+     * @param userId id del usuario a buscar los post de los vendedores a los cual sigue
+     * @param order debe ser 'date_asc' | 'date_desc' | ''
+     * @return
+     */
     @GetMapping("/followed/{userId}/list")
     public ResponseEntity<ResPostListDTO> queryPost(
             @Positive(message = FollowsController.userIDPositive)
@@ -40,7 +51,4 @@ public class ProductsController {
         return new ResponseEntity<>(productsService.getPostFollowed(userId, order), HttpStatus.OK);
 
     }
-
-
-
 }

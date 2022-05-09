@@ -1,6 +1,7 @@
 package com.example.be_java_hisp_w15_g05.exceptions;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,6 +11,7 @@ import java.util.*;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 @Getter
 @Setter
+@Data
 @NoArgsConstructor
 public class ErrorDTO {
     String name;
