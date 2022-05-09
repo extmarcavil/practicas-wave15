@@ -32,6 +32,8 @@ public class UserRepository implements IUserRepository {
         users.put(user2.getUserID(),user2);
         users.put(user3.getUserID(),user3);
         users.put(user4.getUserID(),user4);
+        user1.addFollower(user2);
+        user1.addFollower(user3);
     }
 
     @Override

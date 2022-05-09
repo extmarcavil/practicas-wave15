@@ -25,7 +25,7 @@ public class ProductController {
     @PostMapping("/products/post")
     public ResponseEntity<PostNotUserIdDTO> createPost(@RequestBody NewPostDTO newPostDTO) {
         PostNotUserIdDTO newPostDTO1 = service.addPost(newPostDTO);
-        return new ResponseEntity<>(newPostDTO1, HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(newPostDTO1, HttpStatus.CREATED);
     }
 
     @GetMapping("/products/followed/{userId}/list")

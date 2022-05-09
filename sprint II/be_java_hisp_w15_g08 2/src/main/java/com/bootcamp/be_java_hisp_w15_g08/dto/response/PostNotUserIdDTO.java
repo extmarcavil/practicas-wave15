@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class PostNotUserIdDTO {
     private int postID;
-    @JsonFormat(pattern = "dd/MM/yyyy", shape = JsonFormat.Shape.STRING)
+    @JsonFormat(pattern = "dd-MM-yyyy", shape = JsonFormat.Shape.STRING)
     private LocalDate date;
     private DetailDTO detail;
     private Integer category;
