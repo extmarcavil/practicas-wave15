@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.PostCreateDTO;
 import com.sprint.be_java_hisp_w15_g10.DTO.Request.ProductRequestDTO;
+import com.sprint.be_java_hisp_w15_g10.Model.Post;
+import com.sprint.be_java_hisp_w15_g10.Repository.PostRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -58,6 +64,81 @@ public class PostIntegrationTest {
                 .andExpect(expectedStatus);
 
     }
+
+    /**
+     * Valida que arroje una excepcion cuando se ingrese un ID invalido al solicitar la lista de productos
+     *
+     * @throws Exception
+     */
+    @Test
+    @DisplayName("Test Endpoint para retornar una excepción al ingresar un id invalido")
+    public void getInvalidAllPostsByFollowerId() throws Exception {
+        //arrange
+        int userId = 0;
+        //EXPECTED
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isBadRequest();
+
+        //REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/products/followed/{userId}/list", userId);
+
+        //act & assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus)
+                .andExpect(jsonPath("$.name").value("VALIDATION EXCEPTION"))
+                .andExpect(jsonPath("$.message").value("getAllPostsByFollowerId.userId: El id debe ser mayor a cero"));
+    }
+
+
+/**
+     * Valida que arroje la lista de productos al dar un id
+     *
+     * @throws Exception
+     */
+
+    @Test
+    @DisplayName("Test Endpoint para retornar una lista de productos al pedir dar cierto ID")
+    public void getAllPostsByFollowerId() throws Exception {
+        //arrange
+        int userId = 1;
+        ArrayList products = new ArrayList<>();
+        //EXPECTED
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+
+        //REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/products/followed/{userId}/list", userId);
+
+        //act & assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus)
+                .andExpect(jsonPath("$.user_id").value(1))
+                .andExpect(jsonPath("$.posts").value(products));    }
+
+
+    /**
+     * Valida que arroje la lista de todos los post
+     *
+     * @throws Exception
+     */
+
+/*    @Test
+    @DisplayName("Test Endpoint para retornar todos los post")
+    public void getAllPostsTest() throws Exception {
+        //arrange
+
+        //EXPECTED
+        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
+
+        //REQUEST
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.get("/products/list");
+        //act & assert
+        mockMvc.perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(expectedStatus)
+                .andExpect(jsonPath("$.posts").value());    }
+    }*/
+
 
     /**
      * Valida que se pueda crear un post y retorne la respuesta correspondiente
@@ -106,4 +187,4 @@ public class PostIntegrationTest {
 //    }
 
 
-}
+

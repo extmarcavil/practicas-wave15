@@ -201,7 +201,7 @@ class PostServiceTest {
      * Valida que se puedan traer todos los productos
      */
     @Test
-    @DisplayName("Test obtener todos los productos")
+    @DisplayName("Test obtener todos los productos almacenados actualmente")
     void getAllProducts() {
         //Arrange
         ProductResponseDTO prdTo = new ProductResponseDTO();
