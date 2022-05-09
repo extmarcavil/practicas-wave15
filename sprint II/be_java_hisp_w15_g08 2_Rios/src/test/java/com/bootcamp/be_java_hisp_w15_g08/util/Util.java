@@ -1,6 +1,7 @@
 package com.bootcamp.be_java_hisp_w15_g08.util;
 
 import com.bootcamp.be_java_hisp_w15_g08.dto.request.DetailDTO;
+import com.bootcamp.be_java_hisp_w15_g08.dto.request.NewPostDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersListDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostListDTO;
 import com.bootcamp.be_java_hisp_w15_g08.dto.response.PostNotUserIdDTO;
@@ -137,7 +138,10 @@ public class Util {
         return descList;
     }
 
+    public static NewPostDTO newPost() {
+        DetailDTO postDetail3 = new DetailDTO(3,"Mouse","Office","HP","Bluel","Optical");
+        NewPostDTO newPostDTO1 = new NewPostDTO(1,1234,LocalDate.now().minusDays(3),postDetail3,300,75000);
 
-
-
+        return newPostDTO1;
+    }
 }

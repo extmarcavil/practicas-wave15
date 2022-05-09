@@ -85,6 +85,18 @@ public class PostServiceTest {
     }
 
     @Test
+    @DisplayName("Comprobar que se se agrega el post al usuario")
+    public void verifyUserAddPost(){
+        //Arrage
+
+        //Mock
+
+        //Act
+
+        //Assert
+    }
+
+    @Test
     @DisplayName("Comprobar si existe el date_asc")
     public void date_asc() {
         //arrange
@@ -119,5 +131,6 @@ public class PostServiceTest {
 
         Assert.isInstanceOf(PostListDTO.class, result);
     }
+
 
 }
