@@ -111,7 +111,7 @@ public class Data {
     //UserDtos
     public static final UserDto USERDTO_JUAN = new UserDto(null, "Juan", 0, Arrays.asList(), LIST_FOLLOWED_JUAN);
     public static final UserDto USERDTO_PEDRO = new UserDto(null, "Pedro", 2, LIST_FOLLOWERS_PEDRO, LIST_FOLLOWED_PEDRO);
-    public static final UserDto USERDTO_FELIPE = new UserDto(null, "Felipe", 1, LIST_FOLLOWERS_FELIPE, LIST_FOLLOWED_FELIPE);
+    //public static final UserDto USERDTO_FELIPE = new UserDto(null, "Felipe", 1, LIST_FOLLOWERS_FELIPE, LIST_FOLLOWED_FELIPE);
 
 
 }
