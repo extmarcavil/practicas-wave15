@@ -3,14 +3,12 @@ package com.mercadolibre.starwars.unit.controller;
 import com.mercadolibre.starwars.controller.FindController;
 import com.mercadolibre.starwars.dto.CharacterDTO;
 import com.mercadolibre.starwars.service.FindService;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import utils.CharacterFactory;
+import com.mercadolibre.starwars.utils.CharacterFactory;
 
 import java.util.List;
 

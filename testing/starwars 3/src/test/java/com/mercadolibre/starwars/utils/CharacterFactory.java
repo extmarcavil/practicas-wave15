@@ -1,4 +1,4 @@
-package utils;
+package com.mercadolibre.starwars.utils;
 
 import com.mercadolibre.starwars.dto.CharacterDTO;
 
