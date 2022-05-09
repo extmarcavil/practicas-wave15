@@ -102,10 +102,10 @@ public class PostServiceTest {
     }
 
     @Test
-    @DisplayName("Comprobar si existe el date_asc")
+    @DisplayName("Comprobar si existe el date_desc")
     public void date_desc() {
         //arrange
-        String order = "date_asc";
+        String order = "date_desc";
         User user1 = Util.user1();
 
         //Mock

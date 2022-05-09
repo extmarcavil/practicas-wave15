@@ -100,7 +100,7 @@ public class Util {
     }
 
     public static User user2(){
-        User user2 = new User(1234,"Fulano Opitz");
+        User user2 = new User(1250,"Fulano Opitz");
         List<User> list = Arrays.asList(
                 new User(1235,"Klaus Pacheco")
                 ,new User(1236,"Homer Thompson")

@@ -27,11 +27,13 @@ public class UserRepository implements IUserRepository {
         User user2 = new User(1235,"Max Power");
         User user3 = new User(1236,"Homer Thompson");
         User user4 = new User(1237,"Mister Json");
+        User user5 = new User(1250, "Fulanito Opitz");
 
         users.put(user1.getUserID(),user1);
         users.put(user2.getUserID(),user2);
         users.put(user3.getUserID(),user3);
         users.put(user4.getUserID(),user4);
+        users.put(user5.getUserID(),user5);
     }
 
     @Override

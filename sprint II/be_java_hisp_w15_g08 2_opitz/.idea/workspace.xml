@@ -1,81 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="d1feef11-a169-4a5f-b3ac-e3230c95741b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitkeep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/be_java_hisp_w15_g08.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/BeJavaHispW15G08Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/controller/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/request/DetailDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/request/NewPostDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersListDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/PostListDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/PostNotUserIdDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/UserNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/Post.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/PostDetail.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/IUserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/IProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/IUserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/utils/SortUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/BeJavaHispW15G08ApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostRepositoryTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/be_java_hisp_w15_g08.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/BeJavaHispW15G08Application.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/controller/ProductController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/controller/UserController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/request/DetailDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/request/NewPostDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/ErrorDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersListDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/PostListDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/PostNotUserIdDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/UserDTO.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/ControllerAdviceUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/FollowException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/exception/UserNotFoundException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/Post.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/PostDetail.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/model/User.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/IUserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/IProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/IUserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/ProductService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/service/UserService.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/utils/SortUsers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/BeJavaHispW15G08ApplicationTests.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostRepositoryTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserControllerTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserRepositoryTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/UserServiceTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/com/bootcamp/be_java_hisp_w15_g08/util/Util.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/com/bootcamp/be_java_hisp_w15_g08/util/Util.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/dto/response/FollowersCountDTO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/bootcamp/be_java_hisp_w15_g08/repository/UserRepository.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/Units/PostServiceTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/com/bootcamp/be_java_hisp_w15_g08/util/Util.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
@@ -106,14 +56,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="All in be_java_hisp_w15_g08 2 (1)" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="be_java_hisp_w15_g08 2" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="TEST_OBJECT" value="package" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="All in be_java_hisp_w15_g08 2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="be_java_hisp_w15_g08 2" />
       <option name="PACKAGE_NAME" value="" />
@@ -122,15 +64,62 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="UserControllerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="be_java_hisp_w15_g08 2" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.Units.*" />
+          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.Integration.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Units" />
+      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration" />
+      <option name="MAIN_CLASS_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration.UserControllerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.followersCount" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g08 2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.Integration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration" />
+      <option name="MAIN_CLASS_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration.UserControllerTest" />
+      <option name="METHOD_NAME" value="followersCount" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="UserControllerTest.getSellersLastsPosts" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g08 2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.Integration.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration" />
+      <option name="MAIN_CLASS_NAME" value="com.bootcamp.be_java_hisp_w15_g08.Integration.UserControllerTest" />
+      <option name="METHOD_NAME" value="getSellersLastsPosts" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="com.bootcamp.be_java_hisp_w15_g08 in be_java_hisp_w15_g08 2" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="be_java_hisp_w15_g08 2" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="com.bootcamp.be_java_hisp_w15_g08.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="com.bootcamp.be_java_hisp_w15_g08" />
       <option name="TEST_OBJECT" value="package" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -146,8 +135,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.All in be_java_hisp_w15_g08 2" />
-        <item itemvalue="JUnit.All in be_java_hisp_w15_g08 2 (1)" />
-        <item itemvalue="JUnit.com.bootcamp.be_java_hisp_w15_g08.Units in be_java_hisp_w15_g08 2" />
+        <item itemvalue="JUnit.UserControllerTest" />
+        <item itemvalue="JUnit.UserControllerTest.followersCount" />
+        <item itemvalue="JUnit.UserControllerTest.getSellersLastsPosts" />
+        <item itemvalue="JUnit.com.bootcamp.be_java_hisp_w15_g08 in be_java_hisp_w15_g08 2" />
       </list>
     </recent_temporary>
   </component>
@@ -161,10 +152,18 @@
       <updated>1652104295242</updated>
       <workItem from="1652104301376" duration="618000" />
       <workItem from="1652105339165" duration="696000" />
+      <workItem from="1652106219544" duration="5328000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g08$PostControllerTest.ic" NAME="PostControllerTest Coverage Results" MODIFIED="1652112968140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>com.bootcamp.be_java_hisp_w15_g08.Integration.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g08$All_in_be_java_hisp_w15_g08_2__1_.ic" NAME="All in be_java_hisp_w15_g08 2 (1) Coverage Results" MODIFIED="1652106271161" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/be_java_hisp_w15_g08$All_in_be_java_hisp_w15_g08_2.ic" NAME="All in be_java_hisp_w15_g08 2 Coverage Results" MODIFIED="1652112933466" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
