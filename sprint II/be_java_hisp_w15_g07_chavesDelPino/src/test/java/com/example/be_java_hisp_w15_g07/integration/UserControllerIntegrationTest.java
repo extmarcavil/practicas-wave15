@@ -96,7 +96,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("INDIVIDUAL - Verificar que se retorna correctamente la lista en orden descendente de seguidores.")
+    @DisplayName("BONUS - Verificar que se retorna correctamente la lista en orden descendente de seguidores.")
     void getFollowerOrderDesc() throws Exception {
         ObjectWriter writer = new ObjectMapper()
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
@@ -131,7 +131,7 @@ public class UserControllerIntegrationTest {
     }
 
     @Test
-    @DisplayName("INDIVIDUAL - Verificar que se retorna correctamente la lista en orden descendente de seguidos.")
+    @DisplayName("BONUS - Verificar que se retorna correctamente la lista en orden descendente de seguidos.")
     void getFollowedOrderDesc() throws Exception {
         ObjectWriter writer = new ObjectMapper()
                 .setPropertyNamingStrategy(PropertyNamingStrategies.SNAKE_CASE)
@@ -175,7 +175,7 @@ public class UserControllerIntegrationTest {
 
         //Arrange
         Integer userId100 = 100;
-        ErrorDTO error = new ErrorDTO("Usuario no encontrado", "Usuario con id 100 no encontrado.", null);
+        ErrorDTO error = new ErrorDTO("Usuario no encontrado", "Usuario con ID 100 no encontrado.", null);
 
         String listJson = writer.writeValueAsString(error);
 
@@ -197,5 +197,4 @@ public class UserControllerIntegrationTest {
                         expectedContentType
                 );
     }
-
 }
