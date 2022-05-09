@@ -97,7 +97,7 @@ public class UserControllerIntegrationTest {
 
     //Get followersCount: Caso fallo: No existe el usuario
     @Test
-    @DisplayName("Obtengo las ultimas publicaciones de un vendedor inexistente: PersonNotFoundException")
+    @DisplayName("Obtengo la cantidad de seguidores de un vendedor inexistente: PersonNotFoundException")
     void getFollowersCountInexistente() throws Exception {
 
         //Expected

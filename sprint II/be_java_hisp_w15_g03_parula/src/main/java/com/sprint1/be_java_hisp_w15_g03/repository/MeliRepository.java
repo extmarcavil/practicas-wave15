@@ -153,8 +153,8 @@ public class MeliRepository implements IMeliRepository {
     public User addUser(User user){
         int userId = users.size();
         if(userId>=5000){
-            //Se guardan 100 posiciones para testing
-            userId= userId+100;
+            //Se guardan 1000 posiciones para testing
+            userId= userId+1000;
         }
         user.setUserId(userId);
         users.put(user.getUserId(), user);
@@ -164,8 +164,8 @@ public class MeliRepository implements IMeliRepository {
     public Seller addSeller(Seller seller){
         int sellerId = sellers.size();
         if(sellerId>=5000){
-            //Se guardan 100 posiciones para testing
-            sellerId+= 100;
+            //Se guardan 1000 posiciones para testing
+            sellerId+= 1000;
         }
 
         seller.setUserId(sellerId);
