@@ -50,13 +50,13 @@ public class PostFactory {
 
         Post posteo = new Post(10, 20, LocalDate.of(2022, 5, 1), p1, 100, 202.00);
         Post posteo3 = new Post(10, 22, LocalDate.of(2022, 5, 2), p1, 100, 202.00);
-        Post posteo4 = new Post(10, 22, LocalDate.of(2021, 4, 2), p1, 100, 202.00);
+        Post posteo4 = new Post(10, 22, LocalDate.of(2021, 5, 2), p1, 100, 202.00);
 
         return (Arrays.asList(posteo, posteo3,posteo4));
     }
     public static PostDTO createPost(){
 
-        return new PostDTO(1, LocalDate.of(2022, 5, 6), pDTO2, 100, 202.00);
+        return new PostDTO(1, LocalDate.of(2022, 5, 18), pDTO2, 100, 202.00);
     }
 
     public static ProductDTO getpDTO2() {
@@ -68,9 +68,9 @@ public class PostFactory {
         ProductDTO pDTO2 = new ProductDTO(1, "Teclado", "Tecnologia", "Teclado", "Blanco", "Bluetoo");
 
         List<PostIdDTO> posts = new ArrayList<>();
-        PostIdDTO postIdDTO1 = new PostIdDTO(21, LocalDate.of(2022, 4, 26), pDTO2, 100, 202.0);
-        PostIdDTO postIdDTO2 = new PostIdDTO(23, LocalDate.of(2022, 4, 25), pDTO2, 100, 202.0);
-        PostIdDTO postIdDTO3 = new PostIdDTO(22, LocalDate.of(2022, 4, 24), pDTO1, 100, 202.0);
+        PostIdDTO postIdDTO1 = new PostIdDTO(21, LocalDate.of(2022, 5, 26), pDTO2, 100, 202.0);
+        PostIdDTO postIdDTO2 = new PostIdDTO(23, LocalDate.of(2022, 5, 25), pDTO2, 100, 202.0);
+        PostIdDTO postIdDTO3 = new PostIdDTO(22, LocalDate.of(2022, 5, 24), pDTO1, 100, 202.0);
 
         posts.add(postIdDTO1);
         posts.add(postIdDTO2);
@@ -80,6 +80,6 @@ public class PostFactory {
     }
 
     public static PostDTO invalidPost(){
-        return new PostDTO (1,LocalDate.of(2022, 5, 6),pDTO3,100,202.02);
+        return new PostDTO (1,LocalDate.of(2022, 5, 20),pDTO3,100,202.02);
     }
 }

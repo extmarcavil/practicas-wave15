@@ -154,7 +154,7 @@ public class FollowsServiceTest {
     // T001 - Follow
     @Test
     @DisplayName("validación de existencia de usuario a seguir")
-    void VerifyUserExistence() {
+    void VerifyFollow() {
 
         //arrange
 
@@ -199,7 +199,7 @@ public class FollowsServiceTest {
     // T002 - Unfollow
     @Test
     @DisplayName("validación de existencia de usuario a dejar de seguir")
-    void VerifyUserExistenceToUnfollow() {
+    void VerifyUnfollow() {
 
         //arrange
 
@@ -249,14 +249,14 @@ public class FollowsServiceTest {
 
         //arrange
         User user = UsersFactory.createUserWithFolloweds();
-        Mockito.when(userRepository.findById(90)).thenReturn(Optional.of(user));
-        ResCountFollowersDTO userDTO = new ResCountFollowersDTO(user.getUserId(),user.getName(),user.getSeguidores().size());
 
-        //act
         ResCountFollowersDTO resultFollow = followsService.countFollowers(user.getUserId());
+        //act
+        Mockito.when(userRepository.findById(90)).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.cantFollowers(user)).thenReturn(3);
 
         //assert
-        Assertions.assertEquals(userDTO.getFollowers_count(), resultFollow.getFollowers_count());
+        Assertions.assertEquals(3, resultFollow.getFollowers_count());
 
     }
 }
