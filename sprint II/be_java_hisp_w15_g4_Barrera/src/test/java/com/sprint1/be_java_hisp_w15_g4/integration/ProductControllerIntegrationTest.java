@@ -30,8 +30,8 @@ public class ProductControllerIntegrationTest {
     MockMvc mockMvc;
 
     @Test
-    @DisplayName("Verifica que se estan cotando los seguidores del usuario correcto")
-    void A_PostProductOk() throws Exception {
+    @DisplayName("Verifica que se crea un nuevo post de forma correcta")
+    void postProductOk() throws Exception {
         ObjectWriter writer =  new ObjectMapper().registerModule(new JavaTimeModule()).writer();
 
         //Arrange
