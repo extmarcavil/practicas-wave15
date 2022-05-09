@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import sprint2.socialmeli.dto.post.request.RequestPostDTO;
 import sprint2.socialmeli.dto.post.response.ResponsePostListDTO;
 import sprint2.socialmeli.exceptions.InvalidParamsException;
-import sprint2.socialmeli.exceptions.InvalidPostException;
 import sprint2.socialmeli.exceptions.UserNotFound;
 import sprint2.socialmeli.model.Post;
 import sprint2.socialmeli.model.User;
@@ -26,7 +25,7 @@ public class ProductService implements IProductService {
     private final ISocialMeliRepository userRepository;
 
     @Override
-    public Integer save(RequestPostDTO postDTO) throws InvalidPostException {
+    public Integer save(RequestPostDTO postDTO){
         Post newPost = new Post(postDTO);
         return postRepository.save(newPost);
     }

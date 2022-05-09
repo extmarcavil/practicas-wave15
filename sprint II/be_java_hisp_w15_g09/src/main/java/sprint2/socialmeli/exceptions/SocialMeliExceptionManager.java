@@ -28,11 +28,6 @@ public class SocialMeliExceptionManager {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorDTO("UserNotFound",e.getMessage()));
     }
 
-    @ExceptionHandler(InvalidPostException.class)
-    public ResponseEntity<ErrorDTO> invalidPostException(Exception e) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("InvalidPostException",e.getMessage()));
-    }
-
     @ExceptionHandler(InvalidFollower.class)
     public ResponseEntity<ErrorDTO> invalidFollower(Exception e) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorDTO("InvalidFollower",e.getMessage()));

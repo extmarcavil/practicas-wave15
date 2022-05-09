@@ -6,8 +6,8 @@ import sprint2.socialmeli.exceptions.UserNotFound;
 
 public interface IProductService {
     /**
-     * Recibe un RequestPostDTO e intenta convertirlo a Post. Si esta conversion falla,
-     * lanza una excepcion del tipo InvalidPostException. Si logra convertir el Post, llama al metodo save de un
+     * Recibe un RequestPostDTO e intenta convertirlo a Post
+     * Si logra convertir el Post, llama al metodo save de un
      * IPostRepository.
      * @param post RequestPostDTO que se quiere guardar.
      * @return PostId el id del post que se creó.

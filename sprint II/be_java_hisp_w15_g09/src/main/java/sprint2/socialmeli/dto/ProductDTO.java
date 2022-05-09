@@ -20,7 +20,7 @@ public class ProductDTO {
 
     @NotBlank( message = "Que el campo no esté vacío.")
     @Size(max = 40,message =  "Longitud máxima de 40 caracteres")
-    @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú]*$",message = "El campo no puede poseer caracteres especiales")
+    @Pattern(regexp = "([A-Z]|[0-9])[\\s|[0-9]|A-Z|a-z|ñ|ó|í|á|é|ú|Á|Ó|É|Í|Ú||]*$",message = "El campo no puede poseer caracteres especiales")
     private String productName;
 
     @NotBlank( message = "Que el campo no esté vacío.")
