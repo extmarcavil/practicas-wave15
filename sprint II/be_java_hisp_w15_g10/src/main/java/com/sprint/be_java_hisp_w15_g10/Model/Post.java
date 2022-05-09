@@ -1,6 +1,5 @@
 package com.sprint.be_java_hisp_w15_g10.Model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.*;
 
@@ -9,6 +8,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @AllArgsConstructor
+@NoArgsConstructor
 public class Post {
 
     private int post_id;

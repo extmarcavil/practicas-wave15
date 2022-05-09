@@ -10,6 +10,7 @@ import java.time.LocalDate;
 
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
 public class PostResponseDTO {
 
     private int post_id;

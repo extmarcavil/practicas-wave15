@@ -6,5 +6,6 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostCreatedDTO {
+
     private String message;
 }
