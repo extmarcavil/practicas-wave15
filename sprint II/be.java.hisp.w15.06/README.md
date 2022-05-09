@@ -22,7 +22,7 @@ El objetivo de este desafío es aplicar los contenidos dados hasta el momento du
 ​
 - Alvarez, Matias;
 - Leonetti, Julieta;
-- Moreira, Silvia;
+- Bazzano, Silvia;
 - Pichetti, Gonzalo;
 - Vilte, Ali;
 - Vitale, Nicolás;
