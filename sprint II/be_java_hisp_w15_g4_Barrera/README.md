@@ -32,14 +32,24 @@ Como documentación de respaldo, un analista funcional adjunta el siguiente docu
 - T-0008 Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006)
    + Devuelve únicamente los datos de las publicaciones que tengan fecha de publicación dentro de las últimas dos semanas a partir del día de la fecha.
 
+
 ### B. Requerimientos incrementales (Desarrollo INDIVIDUAL)
 Siguiendo con el principio de que MeLi posee unos estándares de calidad muy altos, un especialista sugirió la posibilidad de contar con la implementación de al menos un test de integración para lograr una cobertura de código mayor que la lograda con los tests unitarios.
 Tener en cuenta que, se debe respetar el desarrollo base logrado en equipo para poder realizar este nuevo incremento de manera individual.
-#### Archivos:
-#### _UserControllerIntegrationTest_
-#### _ProductControllerIntegrationTest_
 
 
 ### C. Bonus  (Desarrollo Individual EXTRA)
 El mismo especialista en calidad que sugirió implementar al menos un test de integración anteriormente, sugiere que sería ideal lograr contar con la implementación de otros tests de integración extra para intentar lograr un coverage mayor o igual al 75%.
 El especialista conoce que los tiempos de desarrollo en bootcamp son acotados, por lo que sugiere llevar a cabo esta implementación solo en caso de que alcancen los tiempos y se pueda cumplir con la fecha de entrega estimada.
+
+### Tests de integracion Realizados
+#### Archivos:
+- _UserControllerIntegrationTest_
+   + folowersListOk(): Verifica que se estan cotando los seguidores del usuario correcto.
+   + followUserOK(): Verifica que un usuario siga a otro de forma correcta.
+   + alreadyFollowing(): Verifica que un usuario ya seguia a otro y devuelve un error.
+
+- _ProductControllerIntegrationTest_
+   + postProductOk(): Verifica que se crea un nuevo post de forma correcta.
+
+Se alcanzo un inline coverage del 78%
