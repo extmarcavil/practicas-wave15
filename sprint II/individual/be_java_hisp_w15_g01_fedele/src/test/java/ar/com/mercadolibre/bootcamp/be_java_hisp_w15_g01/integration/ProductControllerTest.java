@@ -16,6 +16,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 public class ProductControllerTest {
@@ -33,8 +36,7 @@ public class ProductControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers
                 .content()
                 .contentType(MediaType.APPLICATION_JSON);
-        ResultMatcher expectedStatus = MockMvcResultMatchers
-                .status()
+        ResultMatcher expectedStatus = status()
                 .isOk();
         ResultMatcher expectedJson = MockMvcResultMatchers
                 .content()
@@ -69,8 +71,7 @@ public class ProductControllerTest {
         ResultMatcher expectedContentType = MockMvcResultMatchers
                 .content()
                 .contentType(MediaType.APPLICATION_JSON);
-        ResultMatcher expectedStatus = MockMvcResultMatchers
-                .status()
+        ResultMatcher expectedStatus = status()
                 .isBadRequest();
         ResultMatcher expectedSuccess = MockMvcResultMatchers
                 .jsonPath("$.success").value(false);
@@ -105,5 +106,27 @@ public class ProductControllerTest {
                         expectedTypeErr,
                         expectedNotesErr
                 );
+    }
+
+    @Test
+    public void test_asd() throws Exception {
+        Long id = 19L;
+
+        ResultMatcher expectedStatus = status()
+                .isNotFound();
+
+        ResultMatcher expectedMessage = MockMvcResultMatchers
+                .jsonPath("$.path").value("false");
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders
+                .get("/users/{seller_id}/followers/count", id);
+        ResultMatcher expectedContentType = MockMvcResultMatchers
+                .content()
+                .contentType(MediaType.APPLICATION_JSON);
+
+        mockMvc
+                .perform(request)
+                .andDo(MockMvcResultHandlers.print())
+                .andExpect(status().reason(containsString("The user does not exists")));
     }
 }
