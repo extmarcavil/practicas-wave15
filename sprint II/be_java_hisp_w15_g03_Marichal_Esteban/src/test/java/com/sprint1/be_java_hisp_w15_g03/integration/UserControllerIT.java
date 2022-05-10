@@ -1,7 +1,6 @@
 package com.sprint1.be_java_hisp_w15_g03.integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerCountDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.SellerFListDTO;
 import com.sprint1.be_java_hisp_w15_g03.dto.response.UserListDTO;

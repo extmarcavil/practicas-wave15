@@ -361,7 +361,7 @@ public class UserServiceTest {
 
     //T-0007
     @Test
-    @DisplayName("Verificar que la cantiodad de seguidores de un usuario sea correcta")
+    @DisplayName("Verificar que la cantidad de seguidores de un usuario sea correcta")
     void getFollowersCountOk(){
         //arrange
         Seller seller = new Seller();
