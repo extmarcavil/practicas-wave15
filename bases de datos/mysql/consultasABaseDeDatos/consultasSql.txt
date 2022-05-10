@@ -44,7 +44,7 @@
 
 12) Mostrar el título de las películas que salieron entre el 2004 y 2008.
 
-	select title from movies where release_date between '2004-01-01' and '2008-12-31';\
+	select title from movies where release_date between '2004-01-01' and '2008-12-31';
 
 13) Traer el título de las películas con el rating mayor a 3, con más de 1 premio y con fecha de lanzamiento entre el año 1988 al 2009. Ordenar los resultados por rating.
 
