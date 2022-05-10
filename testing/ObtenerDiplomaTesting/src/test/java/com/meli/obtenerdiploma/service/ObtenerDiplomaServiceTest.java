@@ -1,4 +1,4 @@
-package com.meli.obtenerdiploma.mock;
+package com.meli.obtenerdiploma.service;
 
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
@@ -40,28 +40,12 @@ public class ObtenerDiplomaServiceTest {
         Assertions.assertEquals(score, result.getAverageScore());
     }
 
-/*
-    No es responsabilidad del metodo validar la existencia del id.
-    @Test
-    @DisplayName("Obtener promedio estudiante - No existe el id y lanza excepción")
-    void analyzeScoresNonExistingId(){
-        // Arrange
-        Long id = 10L;
-
-        // MOCK
-        Mockito.when(this.studentDAO.findById(id)).thenThrow(StudentNotFoundException.class);
-
-        // Act & Assert
-        Assertions.assertThrows(StudentNotFoundException.class, () -> this.service.analyzeScores(id));
-    }
-*/
-
     @Test
     @DisplayName("Obtener promedio estudiante - Puede mejorar")
     void analyzeScoresLessThan10(){
         // Arrange
         Long id = 1L;
-        String message = "El alumno Juan ha obtenido un promedio de 7.33. Puedes mejorar.";
+        String message = "El alumno ha obtenido un promedio de 7.33. Puedes mejorar.";
         StudentDTO studentMock = StudentFactory.createJuan();
 
         // MOCK
@@ -78,7 +62,7 @@ public class ObtenerDiplomaServiceTest {
     @DisplayName("Obtener promedio estudiante - Felicitaciones")
     void analyzeScoresMoreThan9(){
         // Arrange
-        Long id = 2L;
+        Long id = 1L;
         String message = "El alumno Pedro ha obtenido un promedio de 10. Felicitaciones!";
         StudentDTO studentMock = StudentFactory.createPedro();
 

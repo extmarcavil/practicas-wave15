@@ -1,5 +1,8 @@
-package com.meli.obtenerdiploma.mock;
+package com.meli.obtenerdiploma.service;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.repository.IStudentDAO;
 import com.meli.obtenerdiploma.repository.IStudentRepository;
@@ -12,11 +15,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultMatcher;
+import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.Set;
 
 @ExtendWith(MockitoExtension.class)
 public class StudentServiceTest {
+
     @Mock
     IStudentDAO studentDAO;
 
@@ -25,12 +36,13 @@ public class StudentServiceTest {
 
     @InjectMocks
     StudentService service;
-
+    @Autowired
+    MockMvc mockMvc;
     @Test
     @DisplayName("Crear estudiante.")
     void createStudent(){
         // Arrange
-        StudentDTO studentMock = StudentFactory.createJuan();
+       StudentDTO studentMock = StudentFactory.createJuan();
 
         // Act
         this.service.create(studentMock);

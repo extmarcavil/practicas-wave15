@@ -1,188 +1,103 @@
 package com.meli.obtenerdiploma.integration.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.meli.obtenerdiploma.exception.StudentNotFoundException;
+import com.meli.obtenerdiploma.controller.StudentController;
 import com.meli.obtenerdiploma.model.StudentDTO;
 import com.meli.obtenerdiploma.service.IStudentService;
-import com.meli.obtenerdiploma.service.StudentService;
-import com.meli.obtenerdiploma.utils.StudentDTOFactory;
+import com.meli.obtenerdiploma.utils.StudentFactory;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultMatcher;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
-import static org.hamcrest.Matchers.*;
-
-import static org.mockito.Mockito.doReturn;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 public class StudentControllerIntegrationTest {
 
-    @Autowired
-    MockMvc mockMvc;
+    @Mock
+    private IStudentService service;
 
-    //@MockBean
-    //private StudentService studentService;
-    /*public ResponseEntity<?> registerStudent(@RequestBody @Valid StudentDTO stu) {
-        this.studentService.create(stu);
-        return ResponseEntity.ok(null);
-    }
+    @InjectMocks
+    private StudentController controller;
 
-    @GetMapping("/getStudent/{id}")
-    public StudentDTO getStudent(@PathVariable Long id) {
-        return this.studentService.read(id);
-    }
-
-    @PostMapping("/modifyStudent")
-    public ResponseEntity<?> modifyStudent(@RequestBody @Valid StudentDTO stu) {
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/removeStudent/{id}")
-    public ResponseEntity<?> removeStudent(@PathVariable Long id) {
-        return ResponseEntity.ok(null);
-    }
-
-    @GetMapping("/listStudents")
-    public Set<StudentDTO> listStudents() {
-    }*/
     @Test
-    @DisplayName("demo test integration POST")
-    void testPostRegisterUserSuccess() throws Exception {
-        ObjectWriter writer =  new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
+    @DisplayName("Registrar estudiante")
+    public void registerStudent() {
+        // Arrange
+        StudentDTO stu = StudentFactory.createJuan();
+        ResponseEntity<?> expected = ResponseEntity.ok(null);
 
-        // arrange
-        StudentDTO studentDTO1= StudentDTOFactory.createStudent();
+        // Act
+        ResponseEntity<?> result = this.controller.registerStudent(stu);
 
-
-        String studentPayload =
-                writer.writeValueAsString(studentDTO1);
-
-        // EXPECTED
-        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
-
-        // REQUEST
-        MockHttpServletRequestBuilder request =
-                MockMvcRequestBuilders.post(
-                        "/student/registerStudent")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(studentPayload);
-        // act & assert
-        mockMvc
-                .perform(request)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(expectedStatus);
+        // Assert
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("demo test Obtener estudiante correcto GET")
-    void testGetStudentSuccess() throws Exception {
-        //Act
-        mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",2))
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isOk(),
-                        MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON),
-                        MockMvcResultMatchers.jsonPath("$.studentName").value("Pedro"),
-                        MockMvcResultMatchers.jsonPath("$.subjects[:1].name").value("Matemática"),
-                        MockMvcResultMatchers.jsonPath("$.subjects.length()").value(3)
-                );
+    @DisplayName("Obtener estudiante")
+    public void getStudent() {
+        // Arrange
+        StudentDTO stu = StudentFactory.createJuan();
+
+        // MOCK
+        Mockito.when(this.service.read(stu.getId())).thenReturn(stu);
+
+        // Act
+        StudentDTO result = this.controller.getStudent(stu.getId());
+
+        // Assert
+        Assertions.assertEquals(stu, result);
     }
 
     @Test
-    @DisplayName("demo test Obtener estudiante GET")
-    void testGetStudentFail() throws Exception {
-        //Act
-        mockMvc.perform(MockMvcRequestBuilders.get("/student/getStudent/{id}",1000000))
-                .andDo(MockMvcResultHandlers.print())
-                .andExpectAll(
-                    MockMvcResultMatchers.status().isNotFound(),
-                    MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON),
-                    MockMvcResultMatchers.jsonPath("$.description")
-                            .value("El alumno con Id 1000000 no se encuetra registrado.")
-                );
-        //Assert
+    @DisplayName("Modificar estudiante")
+    public void modifyStudent() {
+        // Arrange
+        StudentDTO stu = StudentFactory.createJuan();
+        ResponseEntity<?> expected = ResponseEntity.ok(null);
+
+        // Act
+        ResponseEntity<?> result = this.controller.modifyStudent(stu);
+
+        // Assert
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("demo test integration POST modificar usuario")
-    void testPostModifyUserSuccess() throws Exception {
-        ObjectWriter writer =  new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
-                .writer();
+    @DisplayName("Eliminar estudiante")
+    public void removeStudent() {
+        // Arrange
+        Long id = 1L;
+        ResponseEntity<?> expected = ResponseEntity.ok(null);
 
-        // arrange
-        StudentDTO studentDTO1= StudentDTOFactory.createStudent();
+        // Act
+        ResponseEntity<?> result = this.controller.removeStudent(id);
 
-
-        String studentPayload =
-                writer.writeValueAsString(studentDTO1);
-
-        // EXPECTED
-        ResultMatcher expectedStatus = MockMvcResultMatchers.status().isOk();
-
-        // REQUEST
-        MockHttpServletRequestBuilder request =
-                MockMvcRequestBuilders.post(
-                        "/student/modifyStudent")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(studentPayload);
-        // act & assert
-        mockMvc
-                .perform(request)
-                .andDo(MockMvcResultHandlers.print())
-                .andExpect(expectedStatus);
+        // Assert
+        Assertions.assertEquals(expected, result);
     }
 
     @Test
-    @DisplayName("demo test Eliminar un estudiante correcto GET")
-    void testDeleteStudentSuccess() throws Exception {
-        //Act
-        mockMvc.perform(MockMvcRequestBuilders.get("/student/removeStudent/{id}",2))
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isOk()
-                );
-    }
+    @DisplayName("Obtener todos los estudiantes")
+    public void listStudents() {
+        // Arrange
+        Set<StudentDTO> students = Set.of(StudentFactory.createJuan(), StudentFactory.createPedro());
 
-    @Test
-    @DisplayName("demo test obtener todos los estudiantes GET")
-    void testGetAllStudentSuccess() throws Exception {
-        //Set<StudentDTO> expectedStudents
-        //Act
-        mockMvc.perform(MockMvcRequestBuilders.get("/student/listStudents"))
-                .andExpectAll(
-                        MockMvcResultMatchers.status().isOk(),
-                        MockMvcResultMatchers.content().contentType(MediaType.APPLICATION_JSON),
-                        MockMvcResultMatchers.jsonPath("$.length()", is(2)),
-                        MockMvcResultMatchers.jsonPath("$").isArray()
-                );
-    }
+        // MOCK
+        Mockito.when(this.service.getAll()).thenReturn(students);
 
+        // Act
+        Set<StudentDTO> result = this.controller.listStudents();
+
+        // Assert
+        Assertions.assertEquals(students, result);
+    }
 
 
 }
