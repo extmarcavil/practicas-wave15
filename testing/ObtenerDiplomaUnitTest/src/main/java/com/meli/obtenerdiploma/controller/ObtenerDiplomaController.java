@@ -15,7 +15,7 @@ public class ObtenerDiplomaController {
     IObtenerDiplomaService service;
 
     @GetMapping("/analyzeScores/{studentId}")
-    public StudentDTO analyzeScores(@PathVariable Long studentId) {
+    public StudentDTO analyzeScores(@PathVariable @Valid Long studentId) {
         return service.analyzeScores(studentId);
     }
 }

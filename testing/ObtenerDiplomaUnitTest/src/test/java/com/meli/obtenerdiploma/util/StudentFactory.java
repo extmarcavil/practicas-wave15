@@ -56,22 +56,40 @@ public class StudentFactory {
     }
 
     public  static StudentDTO getStudentJuanInJson(){
-        StudentDTO pedro = new StudentDTO();
-        pedro.setId(1L);
-        pedro.setStudentName("Juan");
-        pedro.setSubjects(Arrays.asList(new SubjectDTO("Matemática", 9.0), new SubjectDTO("Física", 7.0), new SubjectDTO("Química", 6.0)));
-        pedro.setAverageScore(7.3);
-        pedro.setMessage("El alumno Juan ha obtenido un promedio de 7.3. Puedes mejorar.");
-        return pedro;
+        StudentDTO pedro = new StudentDTO(1L,"Juan",
+                "El alumno Juan ha obtenido un promedio de 7.3. Puedes mejorar.",
+                7.3,
+                Arrays.asList(new SubjectDTO("Matemática", 9.0),
+                        new SubjectDTO("Física", 7.0),
+                        new SubjectDTO("Química", 6.0))
+        );
+       return pedro;
     }
 
     public  static StudentDTO getStudentPedroInJson(){
         StudentDTO pedro = new StudentDTO();
         pedro.setId(2L);
         pedro.setStudentName("Pedro");
-        pedro.setSubjects(Arrays.asList(new SubjectDTO("Matemática", 10.0), new SubjectDTO("Física", 8.0), new SubjectDTO("Química", 4.0)));
+        pedro.setSubjects(Arrays.asList(new SubjectDTO("Matemática", 10.0), new SubjectDTO("Física", 8.0), new SubjectDTO("Química", 9.0)));
         return pedro;
     }
 
+    public static StudentDTO getStudentWith3Subjects(String name) {
+        SubjectDTO subject1 = new SubjectDTO("Matemática", 8.0);
+        SubjectDTO subject2 = new SubjectDTO("Lengua", 6.0);
+        SubjectDTO subject3 = new SubjectDTO("Física", 4.0);
+
+        List<SubjectDTO> subjects = new ArrayList<>();
+        subjects.add(subject1);
+        subjects.add(subject2);
+        subjects.add(subject3);
+
+        StudentDTO stu = new StudentDTO();
+        stu.setId(9999L);
+        stu.setStudentName(name);
+        stu.setSubjects(subjects);
+
+        return stu;
+    }
 
 }
