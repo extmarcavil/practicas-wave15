@@ -1,0 +1,62 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2638
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 ArialMT;}
+{\colortbl;\red255\green255\blue255;\red22\green79\blue199;\red255\green255\blue255;}
+{\*\expandedcolortbl;;\cssrgb\c9804\c40392\c82353;\cssrgb\c100000\c100000\c100000;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww13440\viewh10200\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs26 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 select * \
+from movies_db.movies;\
+\
+select first_name, last_name, rating \
+from movies_db.actors;\
+\
+select title as titulo \
+from movies_db.series as serie;\
+\
+select first_name, last_name \
+from movies_db.actors\
+where rating > 7.5;\
+\
+select title, rating, awards \
+from movies_db.movies\
+where rating > 7.5\
+and awards > 2;\
+\
+select title, rating\
+from movies_db.movies\
+order by rating;\
+\
+select title\
+from movies_db.movies\
+limit 3;\
+\
+select *\
+from movies_db.movies\
+order by rating desc\
+limit 5;\
+\
+select *\
+from movies_db.actors\
+limit 10;\
+\
+select title, rating\
+from movies_db.movies\
+where title like "%toy story%";\
+\
+select * \
+from movies_db.actors\
+where first_name like "sam%";\
+\
+select title\
+from movies_db.movies\
+where release_date between "2004-01-01" and "2008-01-01";\
+\
+select title\
+from movies_db.movies\
+where rating > 3\
+and awards > 1\
+and release_date between "1988-01-01" and "2009-01-01"\
+order by rating desc;}
