@@ -78,7 +78,7 @@ public class ObtenerDiplomaServiceTest {
     }
 
     @Test
-    @DisplayName("Obtener promedio estudiante - Felicitaciones")
+    @DisplayName("Obtener promedio estudiante - Puedes mejorar")
     void analyzeScoresMoreThan9(){
         // Arrange
         Long id = 2L;

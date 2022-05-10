@@ -25,6 +25,13 @@ public class SubjectFactory {
         return quimica;
     }
 
+    public static SubjectDTO getIngles(){
+        SubjectDTO ingles = new SubjectDTO();
+        ingles.setName("Inglés");
+        ingles.setScore(8.0);
+        return ingles;
+    }
+
     public static SubjectDTO getLengua(){
         SubjectDTO lengua = new SubjectDTO();
         lengua.setName("Lengua");

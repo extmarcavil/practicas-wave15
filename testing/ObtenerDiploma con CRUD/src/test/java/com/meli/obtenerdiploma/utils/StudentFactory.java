@@ -37,4 +37,20 @@ public class StudentFactory {
 
         return expected;
     }
+
+
+    public static StudentDTO createCarla(){
+        SubjectDTO matematica = SubjectFactory.getMatematica();
+
+        SubjectDTO ingles = SubjectFactory.getIngles();
+
+        List<SubjectDTO> subjects = Arrays.asList(matematica, ingles);
+
+        StudentDTO expected = new StudentDTO();
+        expected.setId(3L);
+        expected.setStudentName("Carla");
+        expected.setSubjects(subjects);
+
+        return expected;
+    }
 }

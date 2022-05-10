@@ -25,7 +25,7 @@ public class StudentDAOTest {
     void existsTrue(){
         //arrange
         StudentDTO stu = new StudentDTO();
-        stu.setId(1L);
+        stu.setId(2L);
 
         //act
         boolean result = this.dao.exists(stu);
@@ -69,7 +69,7 @@ public class StudentDAOTest {
     @DisplayName("Buscar estudiante por id - Existe")
     public void findByExistingId() {
         // Arrange
-        Long id = 1L;
+        Long id = 2L;
 
         // Act
         StudentDTO result = this.dao.findById(id);
