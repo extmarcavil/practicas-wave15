@@ -1,4 +1,12 @@
-drop table if exists empleado;
+drop table if exists empleado,departamento;
+
+CREATE TABLE departamento
+(
+depto_nro VARCHAR(10) NOT NULL PRIMARY KEY,
+nombre_depto VARCHAR(50) NOT NULL,
+localidad VARCHAR(50) NOT NULL
+);
+
 
 CREATE TABLE empleado(
 	cod_emp VARCHAR (10) NOT NULL,
@@ -13,13 +21,6 @@ PRIMARY KEY (cod_emp),
 FOREIGN KEY (depto_nro) References departamento(depto_nro)
 );
 
-CREATE TABLE departamento
-(
-depto_nro VARCHAR(10) NOT NULL PRIMARY KEY,
-nombre_depto VARCHAR(50) NOT NULL,
-localidad VARCHAR(50) NOT NULL
-
-);
 
 #Carga de datos de departamento
 insert into departamento values ('D-000-1', 'Software', 'Los Tigres');
