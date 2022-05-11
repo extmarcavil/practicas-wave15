@@ -1,0 +1,37 @@
+# Agregar una película a la tabla movies.
+INSERT INTO movies (title, rating, awards, release_date, length, genre_id)
+    values ('Fear and loathing en Las Vegas', 8.0, 9, '1998-02-04', 120, 1);
+
+#Agregar un género a la tabla genres.
+INSERT INTO genres (name, ranking, active) values ('Romantica', 13, 1);
+
+#Asociar a la película del punto 1. con el género creado en el punto 2.
+UPDATE movies set genre_id = (select id from genres where name = 'Romantica')
+    where title = 'Fear and loathing en Las Vegas';
+
+# Modificar la tabla actors para que al menos un actor tenga como favorita la película agregada en el punto 1.
+UPDATE actors set favorite_movie_id = (select id from movies where title = 'Fear and loathing en Las Vegas')
+    where first_name = 'Sigourney' and last_name = 'Weaver';
+
+#Crear una tabla temporal copia de la tabla movies.
+CREATE TEMPORARY table copiaMovies select * from movies;
+
+#Eliminar de esa tabla temporal todas las películas que hayan ganado menos de 5 awards.
+-- select * from copiaMovies;
+DELETE from copiaMovies where awards < 5;
+
+# Obtener la lista de todos los géneros que tengan al menos una película.
+select g.name as cantidad from genres g
+    join movies m on g.id = m.genre_id
+group by g.name
+having count(m.id) > 0;
+
+#Obtener la lista de actores cuya película favorita haya ganado más de 3 awards.
+select a.first_name from actors a
+    join movies on a.favorite_movie_id = movies.id and movies.awards > 3;
+
+# Crear un índice sobre el nombre en la tabla movies.
+ALTER TABLE movies ADD INDEX title (title);
+
+#Chequee que el índice fue creado correctamente.
+show index from movies where Key_name = 'title';

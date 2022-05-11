@@ -1,0 +1,20 @@
+# Ej 1 parte 1
+CREATE TEMPORARY table TWD select e.* from episodes e
+    join seasons s on e.season_id = s.id
+    join series s2 on s.serie_id = s2.id
+                          where s2.title like '%The Walking Dead%';
+
+select * from TWD where title = 'Days Gone Bye';
+
+
+# Ej 1 parte 2
+select * from TWD join seasons s on TWD.season_id = s.id where s.title like '%Primer Temporada%';
+
+
+# Ej 2 parte 1
+ALTER TABLE movies ADD INDEX rating_and_date (rating, release_date);
+show index from movies where Key_name = 'rating_and_date';
+
+# Ej 2 parte 2
+# Se crearia un indice en esa tabla dado que es una tabla bastante grande que contiene bastante informacion
+# y se seleccionan esos campos dado que serian una buena idea para filtrar las peliculas por rating y fecha.
