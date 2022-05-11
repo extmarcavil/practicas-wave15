@@ -77,11 +77,11 @@ class PostServiceTest {
 
 
     /**
-     * Valida que se pueda crear un post
+     * Valida que se pueda crear una categoria
      */
 
     @Test
-    @DisplayName("Test creacion de un post")
+    @DisplayName("Test creacion de una categoria")
     void createPostTest() {
         //Arrange
         doReturn(Optional.of(category1))
@@ -201,7 +201,7 @@ class PostServiceTest {
      * Valida que se puedan traer todos los productos
      */
     @Test
-    @DisplayName("Test obtener todos los productos")
+    @DisplayName("Test obtener todos los productos almacenados actualmente")
     void getAllProducts() {
         //Arrange
         ProductResponseDTO prdTo = new ProductResponseDTO();

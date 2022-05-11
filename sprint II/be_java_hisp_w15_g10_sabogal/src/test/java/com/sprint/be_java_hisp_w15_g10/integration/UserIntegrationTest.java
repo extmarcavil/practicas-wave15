@@ -123,7 +123,7 @@ public class UserIntegrationTest {
     }
 
     /**
-     * Valida que se no se pueda seguir a un usuario dado el id del usuario y el id del usuario a seguir
+     * Valida que no se pueda seguir a un usuario dado el id del usuario que no existe
      */
     @Test
     @DisplayName("Test de integracion de seguir a un usuario")
