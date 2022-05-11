@@ -1,0 +1,12 @@
+CREATE TEMPORARY TABLE twd
+SELECT ep.*
+FROM series AS se
+INNER JOIN seasons AS t ON se.id = t.serie_id
+INNER JOIN episodes AS ep ON ep.season_id = t.id
+WHERE se.title LIKE '%The Walking Dead%';
+
+SELECT * FROM twd
+
+SELECT * FROM twd 
+INNER JOIN seasons AS se ON se.id = twd.season_id 
+WHERE se.title LIKE '%Primer Temporada%';
