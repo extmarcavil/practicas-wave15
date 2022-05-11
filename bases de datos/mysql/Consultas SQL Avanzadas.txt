@@ -1,0 +1,32 @@
+
+1)
+SELECT title, genres.name FROM series INNER JOIN genres on series.genre_id = genres.id;
+
+2)
+SELECT title, actors.first_name, actors.last_name 
+FROM episodes
+inner JOIN actor_episode on episodes.id = actor_episode.episode_id 
+inner JOIN actors on actor_episode.actor_id = actors.id;
+
+3)
+SELECT series.title , max(seasons.number) seasons FROM series
+INNER JOIN seasons on series.id = seasons.serie_id
+group by title
+;
+
+4)
+SELECT name, COUNT(movies.genre_id) "number of movies" FROM genres
+INNER JOIN movies on genres.id = movies.genre_id
+group by name
+having COUNT(movies.genre_id)>=3
+;
+
+5)
+SELECT distinct first_name, last_name 
+FROM actors
+inner JOIN actor_movie on actors.id = actor_movie.actor_id
+inner JOIN movies on actor_movie.movie_id = movies.id
+WHERE movies.title like 'La Guerra de las galaxias%'
+;
+
+
