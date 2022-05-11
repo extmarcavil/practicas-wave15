@@ -7,4 +7,5 @@ SELECT s.title titulo, count(t.number) temporadas FROM movies_db.series s LEFT J
 #Mostrar el nombre de todos los géneros y la cantidad total de películas por cada uno, siempre que sea mayor o igual a 3.
 SELECT g.name genero, count(m.title) total_peliculas FROM movies_db.movies m LEFT JOIN movies_db.genres g on g.id = m.genre_id GROUP BY g.name HAVING count(m.title) >= 3;
 #Mostrar sólo el nombre y apellido de los actores que trabajan en todas las películas de la guerra de las galaxias y que estos no se repitan.
-SELECT a.first_name nombre, a.last_name apellido FROM movies_db.movies m LEFT JOIN movies_db.actors a on a.id = m.id WHERE m.title LIKE '%la guerra de las galaxias%';
+SELECT DISTINCT a.first_name nombre, a.last_name apellido FROM movies_db.actors a LEFT JOIN movies_db.actor_movie am ON a.id = am.actor_id
+LEFT JOIN movies_db.movies m ON am.movie_id = m.id WHERE m.title LIKE '%la guerra de las galaxias%' GROUP BY a.id;
