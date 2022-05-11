@@ -17,10 +17,11 @@ inner join seasons s2 on s.id = s2.serie_id
 group by s.title
 
 -- Mostrar el nombre de todos los géneros y la cantidad total de películas por cada uno, siempre que sea mayor o igual a 3.
-select g.name,count(1)
+select g.name,count(1) cont
 from genres g
 inner join movies m on g.id = m.genre_id
-group by name;
+group by name
+having cont>=3;
 
 -- Mostrar sólo el nombre y apellido de los actores que trabajan en todas las películas de la guerra de las galaxias y que estos no se repitan.
 select concat(a.first_name,' ',a.last_name) actor
