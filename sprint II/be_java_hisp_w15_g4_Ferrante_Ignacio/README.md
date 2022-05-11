@@ -39,12 +39,12 @@ correspondientes.
 - T-0008 Verificar que la consulta de publicaciones realizadas en las últimas dos semanas de un determinado vendedor sean efectivamente de las últimas dos semanas. (US-0006)
     + Devuelve únicamente los datos de las publicaciones que tengan fecha de publicación dentro de las últimas dos semanas a partir del día de la fecha.
 
-##Desarrollo individual
+## Desarrollo individual
 Siguiendo con el principio de que MeLi posee unos estándares de calidad muy altos, un especialista sugirió la 
 posibilidad de contar con la implementación de al menos un test de integración para lograr una cobertura de 
 código mayor que la lograda con los tests unitarios.
 
-###Tests realizados
+### Tests realizados
 Desarrolle los test de integración para probar todos los posibles escenarios del seguimiento entre usuarios, obteniendo
 las respuestas esperadas tanto las Ok como las de error. Además, también realice los test del posteo de un producto, verificando
 que las respuestas sean las correctas.
