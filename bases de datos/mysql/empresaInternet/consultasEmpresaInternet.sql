@@ -1,0 +1,10 @@
+SELECT * FROM empresa_internet.cliente ORDER BY apellido DESC;
+SELECT nombre, apellido, plan_id FROM cliente WHERE ciudad = "Mar del Plata";
+SELECT dni, nombre,apellido FROM cliente WHERE fecha_nacimiento BETWEEN "1980-01-01" AND "2000-12-31";
+SELECT * FROM cliente WHERE plan_id = 1;
+SELECT * FROM CLIENTE WHERE apellido LIKE "P%";
+SELECT nombre,apellido FROM cliente WHERE provincia = "Cordoba";
+SELECT * FROM cliente ORDER BY plan_id;
+SELECT plan_id FROM plan WHERE precio > 5000;
+SELECT plan_id,precio FROM plan WHERE velocidad >=100;
+SELECT plan_id,velocidad,precio FROM plan WHERE velocidad >100 AND precio <15000;
