@@ -26,8 +26,8 @@ having cuenta > 2; -- se uso 2 para ver el resultado
 
 -- 03)
 
-select e.nombre, e.salario, d.nombre_dpto from empleado e
-inner join departamento d on e.dpto_id = d.id
+select e.*, d.nombre_dpto from empleado e
+left join departamento d on e.dpto_id = d.id
 where e.puesto = (select puesto from empleado where nombre = "Mito" and apellido = "Barchuk");
 
 -- 04)
