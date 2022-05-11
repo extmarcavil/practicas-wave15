@@ -13,6 +13,7 @@ import java.time.LocalDate;
 @Setter
 @Data
 public class PostCreateDTO {
+
     private Integer user_id;
     @JsonFormat(pattern = "dd-MM-yyyy")
     @NotNull

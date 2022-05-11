@@ -161,7 +161,8 @@ public class PostServiceTest {
             Mockito.when(postRepository.postsByUser(f.getUserToFollow())).thenReturn(posts);
         }
         GetPostsSellerByUserIdDTO postList = postService.getListPostByFollowIdUser(userIdExist, validOrder);
-        boolean isNot2week = postList.getPosts().stream().filter(f -> f.getDate().isBefore(LocalDate.now().minusWeeks(2))).count() > 0;
+        boolean isNot2week = postList.getPosts()
+                .stream().filter(f -> f.getDate().isBefore(LocalDate.now().minusWeeks(2))).count() > 0;
         // act & assert
         Assertions.assertFalse(isNot2week);
     }

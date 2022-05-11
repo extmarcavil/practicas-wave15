@@ -54,7 +54,9 @@ public class UserRepositoryTest {
         //act and assert
         userRepository.follow(1, 4);
 
-        boolean followExist = userRepository.getUserById(1).getFollowList().stream().filter(item -> item.getUserToFollow() == 4).count()>0?true:false;
+        boolean followExist = userRepository.getUserById(1)
+                .getFollowList()
+                .stream().filter(item -> item.getUserToFollow() == 4).count()>0?true:false;
         Assertions.assertTrue(followExist);
     }
 
