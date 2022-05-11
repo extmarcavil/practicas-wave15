@@ -1,0 +1,69 @@
+-- DB INICIAL:
+
+< TABLA: Factura
+    id_factura [PK] int, 
+    fecha_factura date, 
+    forma_pago decimal, 
+    IVA decimal,
+    cantidad int,
+    importe decimal,
+    nombre_cliente varchar(50),
+    apellido_cliente varchar(50),
+    direccion_cliente varchar(50),
+    descripcion_articulo varchar(50)
+/>
+
+-- En primera forma normal ya esta, porque no tiene columnas que contengan mas de un valor
+
+< TABLA: Factura 
+    id_factura [PK] int, 
+    fecha_factura date, 
+    forma_pago decimal, 
+    IVA decimal,
+    cantidad int
+/>
+
+< TABLA: Cliente
+    nombre_cliente varchar(50),
+    apellido_cliente varchar(50),
+    direccion_cliente varchar(50)
+/>
+
+< TABLA: Articulo
+    importe decimal,
+    descripcion_articulo varchar(50),
+/>
+
+-- En el modelo de arriba vemos como se cumple la segunda forma normal porque se separo la tabla
+-- principal en 3 tablas, donde cada columna de cada tabla esta directamente relacionada o
+-- es parte de la clave primaria
+
+< TABLA: Factura 
+    id_factura [PK] int, 
+    fecha_factura date, 
+    IVA decimal,
+    cantidad int
+    id_forma_pago int [FK],
+    id_cliente int [FK],
+    id_articulo int [FK]
+/>
+
+< TABLA: Forma_Pago 
+    id_forma_pago [PK] int,
+    forma_pago varchar(10)
+/>
+
+< TABLA: Cliente
+    id_cliente [PK] int,
+    nombre_cliente varchar(50),
+    apellido_cliente varchar(50),
+    direccion_cliente varchar(50)
+/>
+
+< TABLA: Articulo
+    id_articulo [PK] int,
+    importe decimal,
+    descripcion_articulo varchar(50)
+/>
+
+-- Y finalmente, quedo en tercera forma normal (creo)
