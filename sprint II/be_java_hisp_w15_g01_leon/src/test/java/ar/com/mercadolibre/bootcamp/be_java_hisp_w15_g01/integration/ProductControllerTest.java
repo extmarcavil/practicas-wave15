@@ -4,6 +4,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.PostDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.dto.ResponseDTO;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.*;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -23,13 +24,16 @@ public class ProductControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Create Post")
     public void test_integration_createPost() throws Exception {
         // Arrange
         ObjectWriter writer = ObjectWriterFactory.create();
         PostDTO p = PostDTOFactory.createPost();
         String payload = writer.writeValueAsString(p);
+
         ResponseDTO expectedResponse = ResponseDTOFactory.create("Product Created!");
         String expectedPayload = writer.writeValueAsString(expectedResponse);
+
         ResultMatcher expectedContentType = MockMvcResultMatchers
                 .content()
                 .contentType(MediaType.APPLICATION_JSON);

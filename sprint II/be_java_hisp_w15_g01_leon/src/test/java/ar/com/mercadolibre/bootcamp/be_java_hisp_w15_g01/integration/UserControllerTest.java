@@ -7,6 +7,7 @@ import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.PostDTOFactory;
 import ar.com.mercadolibre.bootcamp.be_java_hisp_w15_g01.utils.ResponseDTOFactory;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,6 +29,7 @@ public class UserControllerTest {
     private MockMvc mockMvc;
 
     @Test
+    @DisplayName("Get Follower Count")
     public void test_integration_getFollowerCount() throws Exception {
         ObjectWriter writer = new ObjectMapper().writer();
 
