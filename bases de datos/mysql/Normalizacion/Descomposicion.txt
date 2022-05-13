@@ -1,0 +1,84 @@
+-- DB INICIAL:
+
+ TABLA: Factura
+    
+    id_factura [PK] int, 
+    fecha_factura date, 
+    forma_pago decimal, 
+    IVA decimal,
+    cantidad int,
+    importe decimal,
+    nombre_cliente varchar(50),
+    apellido_cliente varchar(50),
+    direccion_cliente varchar(50),
+    descripcion_articulo varchar(50)
+
+En la primera forma nomral encontramos la tabla, ya que no contirnr columnas con mas de un valor
+
+*TABLA: Factura 
+
+    id_factura [PK] int, 
+    fecha_factura date, 
+    forma_pago int, 
+    IVA decimal,
+    cantidad int,
+    id_cliente int
+
+
+*TABLA: Cliente
+ 
+    id_cliente [PK] int,
+    nombre_cliente varchar(40),
+    apellido_cliente varchar(40),
+    direccion_cliente varchar(40)
+
+
+*TABLA: Articulo
+
+    id_articulo [PK] int,
+    importe decimal,
+    descripcion_articulo varchar(40),
+
+
+En el esquema anterior se cumple la segunda forma normal ya que separamos la tabla principal en tres 
+tablas, donde cada una de las columnas esta directamente relacionada o es parte de la PK.
+
+*TABLA: Factura 
+ 
+    id_factura [PK] int, 
+    fecha_factura date, 
+    IVA decimal,
+    cantidad int
+    id_forma_pago int [FK],
+    id_cliente int [FK],
+
+
+*TABLA: Forma_Pago 
+ 
+    id_forma_pago [PK] int,
+    forma_pago varchar(10),
+
+
+
+*TABLA: Cliente
+
+    id_cliente [PK] int,
+    nombre_cliente varchar(50),
+    apellido_cliente varchar(50),
+    direccion_cliente varchar(50)
+
+
+*TABLA Intermedia: Detalle
+
+    detalle id int [PK],
+    id_factura int [FK],
+    id articulo int [FK]
+
+
+*TABLA: Articulo
+ 
+    id_articulo [PK] int,
+    importe decimal,
+    descripcion_articulo varchar(50)
+
+Finaliza con el esquema en 3 forma normal.
