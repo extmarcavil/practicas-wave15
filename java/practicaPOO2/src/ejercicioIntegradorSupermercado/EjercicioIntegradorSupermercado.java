@@ -42,68 +42,76 @@ mediante el llamado de métodos.
 */
 
 
+import ejercicioIntegradorSupermercado.model.Cliente;
+import ejercicioIntegradorSupermercado.model.Factura;
+import ejercicioIntegradorSupermercado.model.Producto;
+import ejercicioIntegradorSupermercado.repository.ClienteImpRepository;
+import ejercicioIntegradorSupermercado.repository.FacturaImpRepository;
+import ejercicioIntegradorSupermercado.repository.ProductoImpRepository;
+
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class EjercicioIntegradorSupermercado {
     public static void main(String[] args) {
-        Cliente cliente1 = new Cliente(1, "Claudio", "Lopez");
-        Cliente cliente2 = new Cliente(2, "Romina", "Costa");
-        Cliente cliente3 = new Cliente(3, "Martina", "Ruiz");
 
-        ArrayList<Cliente> clientes = new ArrayList<>();
-        clientes.add(cliente1);
-        clientes.add(cliente2);
-        clientes.add(cliente3);
+        //Alta de los clientes
+        Cliente cliente1 = new Cliente(123456789L, "Claudio", "Lopez");
+        Cliente cliente2 = new Cliente(234567891L, "Romina", "Costa");
+        Cliente cliente3 = new Cliente(345678912L, "Martina", "Ruiz");
 
-        RepositorioCliente repoCliente = new RepositorioCliente(clientes);
+        ClienteImpRepository repoCliente = new ClienteImpRepository();
 
-        for (Cliente cliente : clientes) { System.out.println(cliente.toString()); }
+        repoCliente.guardar(cliente1);
+        repoCliente.guardar(cliente2);
+        repoCliente.guardar(cliente3);
 
-        //Eliminando cliente en la posición 1 --> Romina
-        System.out.println();
-        System.out.println("Eliminando cliente...");
-        clientes.remove(1);
+        //Mostrar los clientes en pantalla
+        repoCliente.mostrarEnPantalla();
 
-        for (Cliente cliente : clientes) { System.out.println(cliente.toString()); }
-
+        //Buscar cliente por dni
         Scanner scanner = new Scanner(System.in);
-
         System.out.println("Ingrese el dni de un cliente para buscarlo en la lista: ");
-        int dni = Integer.parseInt(scanner.nextLine());
-        boolean encontrado = false;
-        int cont = 0;
-        do {
-            if(clientes.get(cont).getDni() == dni) {
-                encontrado = true;
-                System.out.println("Cliente encontrado.");
-                System.out.println(clientes.get(cont).toString());
-            }
+        Long dniABuscar = scanner.nextLong();
+        repoCliente.buscar(dniABuscar);
 
-            cont++;
-        } while (!encontrado && cont < clientes.size());
+        //Eliminar cliente
+        System.out.println("Ingrese el dni de un cliente para buscarlo en la lista: ");
+        Long dniAEliminar = scanner.nextLong();
+        repoCliente.eliminar(dniAEliminar);
 
-        //Otra manera de buscar
-//        for (Cliente cliente : clientes) {
-//            if (cliente.getDni() == dni) {
-//                clientes.remove(cliente);
-//                encontrado = true;
-//                break;
-//            }
-//        }
-
-        if (!encontrado)
-            System.out.println("Cliente no encontrado");
+        //Mostrar los clientes en pantalla luego de eliminar
+        repoCliente.mostrarEnPantalla();
 
         scanner.close();
 
-        //Validar si un cliente existe
-        //Producto
+        //Creación de factura con productos y cliente
+        FacturaImpRepository repoFactura = new FacturaImpRepository();
 
-        //Factura factura = new Factura(cliente1, );
+        Producto producto1 = new Producto(123L, "Fideos Spaghetti Lucchetti", 2, 95);
+        Producto producto2 = new Producto(345L, "Agua Villavicencio 1,5L", 3, 140);
 
-        //if(repoCliente.validarCliente(cliente1))
+        ProductoImpRepository repoProducto = new ProductoImpRepository();
 
-        //Factura factura = new Factura();
+        repoProducto.guardar(producto1);
+        repoProducto.guardar(producto2);
+
+        Factura factura = new Factura(12345L, cliente1, (ArrayList<Producto>) repoProducto.traerTodos());
+
+        //Validar si existe el cliente
+        Optional<Cliente> clienteBuscado = repoCliente.buscar(factura.getCliente().getDni());
+
+        if(clienteBuscado.isEmpty())
+            System.out.println("Guardando el cliente en el repositorio...");
+            repoCliente.guardar(factura.getCliente());
+
+        repoFactura.guardar(factura);
+
+        //Calcular el importe total de la factura
+        factura.calcularTotal();
+
+        System.out.println(factura.toString());
+
     }
 }

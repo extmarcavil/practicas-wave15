@@ -1,22 +1,22 @@
-package ejercicioIntegradorSupermercado;
+package ejercicioIntegradorSupermercado.model;
 
 public class Cliente {
 
-    private int dni;
+    private Long dni;
     private String nombre;
     private String apellido;
 
-    public Cliente(int dni, String nombre, String apellido) {
+    public Cliente(Long dni, String nombre, String apellido) {
         this.dni = dni;
         this.nombre = nombre;
         this.apellido = apellido;
     }
 
-    public int getDni() {
+    public Long getDni() {
         return dni;
     }
 
-    public void setDni(int dni) {
+    public void setDni(Long dni) {
         this.dni = dni;
     }
 
