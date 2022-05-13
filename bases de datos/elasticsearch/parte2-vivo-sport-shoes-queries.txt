@@ -1,0 +1,225 @@
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "",
+  "size": ""
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "White",
+  "size": 38.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "Red",
+  "size": 39
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "black",
+  "size": 40
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 2",
+  "category": "Running",
+  "color": "Red",
+  "size": 41.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 2",
+  "category": "Running",
+  "color": "Yellow",
+  "size": 41
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 3",
+  "category": "Urban",
+  "color": "White",
+  "size": 39
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 3",
+  "category": "Urban",
+  "color": "Black",
+  "size": 42
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 3",
+  "category": "Urban",
+  "color": "Brown",
+  "size": 42.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 4",
+  "category": "Soccer",
+  "color": "Blue",
+  "size": 41
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Adides",
+  "model": "Model 1",
+  "category": "Soccer",
+  "color": "Yellow",
+  "size": 41.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "White",
+  "size": 37
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "Black",
+  "size": 37.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 1",
+  "category": "Running",
+  "color": "Reed",
+  "size": 38
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 2",
+  "category": "Running",
+  "color": "Blue",
+  "size": 38.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 2",
+  "category": "Running",
+  "color": "Green",
+  "size": 39
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 3",
+  "category": "Basketball",
+  "color": "Red",
+  "size": 40
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 3",
+  "category": "Basketball",
+  "color": "Red",
+  "size": 40.5
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 3",
+  "category": "Basketball",
+  "color": "White",
+  "size": 41
+}
+
+POST /sport-shoes/_doc
+{
+  "brand": "Neki",
+  "model": "Model 4",
+  "category": "Soccer",
+  "color": "Black",
+  "size": 42
+}
+
+GET /sport-shoes/_search
+
+GET /sport-shoes/_search
+{
+  "query": {
+    "match": {
+      "size": 40
+    }
+  }
+}
+
+GET /sport-shoes/_search
+{
+  "query": {
+    "match": {
+      "brand": "adides"
+    }
+  }
+}
+
+GET /sport-shoes/_search
+{
+  "query": {
+    "match": {
+      "color": "red"
+    }
+  }
+}
+
+GET /sport-shoes/_search
+{ 
+  "query": { 
+    "bool": {
+      "must": [{
+        "match": {
+          "brand": "Adides"
+        }
+      }, {
+        "match": {
+          "color": "White"
+        }
+      }]
+    }
+  }
+}

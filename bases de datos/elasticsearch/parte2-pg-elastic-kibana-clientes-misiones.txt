@@ -1,0 +1,16 @@
+GET /clientes-misiones/_search/
+{
+  "query": {
+    "match": {
+      "Nombre": "Tomas"
+    }
+  }
+}
+
+POST /clientes-misiones/_doc 
+{
+  "Nombre" : "Tomas",
+  "Apellido" : "Ravelli",
+  "Localidad" : "Iguazu",
+  "Pais" : "AR"
+}
