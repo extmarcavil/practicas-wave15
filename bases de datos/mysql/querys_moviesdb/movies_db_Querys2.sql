@@ -34,7 +34,7 @@ DELETE FROM moviesTemporal
 WHERE awards < 5;
 
 -- Obtener la lista de todos los géneros que tengan al menos una película.
-SELECT m.genre_id, COUNT(m.genre_id)AS num_peliculas , g.name 
+SELECT g.name, COUNT(m.genre_id)AS num_peliculas
 FROM movies m 
 JOIN genres g
 ON m.genre_id = g.id
@@ -66,7 +66,10 @@ EXPLAIN SELECT rating
 FROM movies
 WHERE rating >= 7.9; 
 
--- ¿En qué otra tabla crearía un índice y por qué? Justificar la respuesta
+SELECT rating 
+FROM movies
+WHERE rating >= 7.9;
+
 
 
 

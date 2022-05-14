@@ -49,8 +49,42 @@ WHERE release_date BETWEEN "2004-01-02" AND "2008-01-01";
  SELECT * FROM movies 
  WHERE rating > 3 AND  awards > 1 AND release_date BETWEEN "1988" AND "2009";
  
+
+ -- BONUS --
+ -- Mostrar el título y el nombre del género de todas las series.
+ SELECT m.title, g.name
+ FROM movies m 
+ JOIN genres g 
+ ON m.genre_id = g.id;
  
- -- BONUS -- 
+-- Mostrar el título de los episodios, el nombre y apellido de los actores que trabajan en cada uno de ellos.
+SELECT e.title, CONCAT(a.first_name, " ", a.last_name) AS Actor 
+FROM actors a 
+JOIN actor_episode ae ON a.id = ae.actor_id
+JOIN episodes e ON ae.episode_id = e.id;
+
+-- Mostrar el título de todas las series y el total de temporadas que tiene cada una de ellas.
+SELECT s.title, COUNT(t.serie_id) AS total_temporadas
+FROM series s 
+JOIN seasons t ON t.serie_id = s.id
+GROUP BY t.serie_id;
+
+-- Mostrar el nombre de todos los géneros y la cantidad total de películas por cada uno, siempre que sea mayor o igual a 3.
+SELECT g.name, COUNT(m.title) AS total_movies_by_genre
+FROM movies m 
+JOIN genres g ON m.genre_id = g.id
+GROUP BY m.genre_id
+HAVING COUNT(m.title) >= 3;
+
+-- Mostrar sólo el nombre y apellido de los actores que trabajan en todas las películas de la guerra de las galaxias y que estos no se repitan.
+SELECT DISTINCT CONCAT(a.first_name," ",a.last_name) AS full_name
+FROM actors a 
+JOIN actor_movie am ON am.actor_id = a.id
+JOIN movies m ON am.movie_id = m.id
+GROUP BY m.title, a.first_name, a.last_name 
+HAVING m.title LIKE "%La Guerra de las galaxias%"
+
+
  
  
 

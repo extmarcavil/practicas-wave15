@@ -24,7 +24,7 @@ WHERE numero_temporada = 1;
 #Ejercicio 2
 -- En la base de datos “movies”, seleccionar una tabla donde crear un índice y luego chequear la creación del mismo. 
 -- Analizar por qué crearía un índice en la tabla indicada y con qué criterio se elige/n el/los campos.
-show index from movies;
+SHOW INDEX FROM movies;
 
 CREATE INDEX titleIndex ON movies(title);
 
