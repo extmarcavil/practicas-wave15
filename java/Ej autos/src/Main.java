@@ -40,7 +40,7 @@ public class Main {
         System.out.println("------Ej 4--------");
         g1.getVehiculos().sort(Comparator.comparing(Vehiculo::getMarca).thenComparing(Vehiculo::getCosto));
         System.out.println(g1.getVehiculos());
-        
+
         System.out.println("------Ej 5--------");
         System.out.println("------ Precio menor a 1000--------");
         List<Vehiculo> menores= g1.getVehiculos()
