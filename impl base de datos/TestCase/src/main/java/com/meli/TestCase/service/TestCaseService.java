@@ -6,6 +6,7 @@ import com.meli.TestCase.model.TestCase;
 import com.meli.TestCase.repository.ITestCaseRespository;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -24,6 +25,7 @@ public class TestCaseService implements ITestCaseService{
     }
 
     @Override
+    @Transactional
     public ResTestDto saveTest(ReqTestDto test){
         TestCase t = mapper.map(test, TestCase.class);
         repository.save(t);
@@ -32,19 +34,21 @@ public class TestCaseService implements ITestCaseService{
     }
 
     @Override
-    public List<ResTestDto> getTests(String lastUpdate){
-        List<TestCase> tests = repository.findAll();
+    @Transactional(readOnly = true)
+    public List<ResTestDto> getTests(LocalDate lastUpdate){
+        List<TestCase> tests;
 
-        if (lastUpdate != null){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            LocalDate date = LocalDate.parse(lastUpdate, formatter);
-            tests = tests.stream().filter(v -> v.getLastUpdate().isAfter(date)).collect(Collectors.toList());
+        if (lastUpdate == null){
+            tests = repository.findAll();
+        } else {
+            tests = repository.findAllByLastUpdateAfter(lastUpdate);
         }
 
         return tests.stream().map(v -> mapper.map(v, ResTestDto.class)).collect(Collectors.toList());
     }
 
     @Override
+    @Transactional(readOnly = true)
     public ResTestDto getTestById(Long id){
         TestCase test = repository.findById(id).orElseThrow(RuntimeException::new);
 
@@ -52,8 +56,10 @@ public class TestCaseService implements ITestCaseService{
     }
 
     @Override
+    @Transactional
     public ResTestDto updateTest(Long id, ReqTestDto newData) {
         TestCase test = repository.findById(id).orElseThrow(RuntimeException::new);
+
         test.setDescription(newData.getDescription());
         test.setTested(newData.isTested());
         test.setPassed(newData.isPassed());
@@ -65,6 +71,7 @@ public class TestCaseService implements ITestCaseService{
     }
 
     @Override
+    @Transactional
     public Long deleteTest(Long id) {
         repository.deleteById(id);
 

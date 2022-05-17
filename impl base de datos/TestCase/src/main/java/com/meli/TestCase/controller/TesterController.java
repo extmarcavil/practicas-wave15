@@ -3,6 +3,7 @@ package com.meli.TestCase.controller;
 import com.meli.TestCase.Dto.ReqTestDto;
 import com.meli.TestCase.Dto.ResTestDto;
 import com.meli.TestCase.service.ITestCaseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,8 @@ public class TesterController {
     }
 
     @GetMapping("")
-    public ResponseEntity<List<ResTestDto>> getTests(@RequestParam(required = false) String lastUpdate){
+    public ResponseEntity<List<ResTestDto>> getTests(
+            @RequestParam(required = false) @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate lastUpdate){
         return new ResponseEntity<>(service.getTests(lastUpdate),HttpStatus.OK);
     }
 
@@ -35,7 +37,7 @@ public class TesterController {
         return new ResponseEntity<>(service.getTestById(id),HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<ResTestDto> updateTestCase(@PathVariable Long id, @RequestBody ReqTestDto newData){
         return new ResponseEntity<>(service.updateTest(id, newData), HttpStatus.OK);
     }
