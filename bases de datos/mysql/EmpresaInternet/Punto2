@@ -1,0 +1,13 @@
+a. ¿Cuál es la primary key para la tabla de clientes? Justificar respuesta
+
+La Primary Key para la tabla clientes debe ser un dato de tipo int llamado “client_id” para identificar unívocamente a cada cliente (ya que hay casos de personas que poseen el mismo dni en nuestro país) porque el enunciado no nombra ningún dato que pueda ser único para cada tupla de la tabla.
+
+b. ¿Cuál es la primary key para la tabla de planes de Internet? Justificar respuesta.
+
+La Primary Key para la tabla de planes de Internet debe ser un dato de tipo int llamado “plan_id” para identificar unívocamente a cada plan porque (según el enunciado) hay un dato que hace referencia a la “identificación del plan”. Dicho dato se utiliza para identificar al plan que es único en el sistema.
+
+c. ¿Cómo serían las relaciones entre tablas? ¿En qué tabla debería haber foreign key? ¿A qué campo de qué tabla hace referencia dicha foreign key? Justificar respuesta.
+
+Para este problema en particular, consideré que habrá una relación n:n entre ambas tablas. Así la empresa puede generar por un lado los clientes y por el otro lado los planes de Internet sin relación y cuando un cliente contrata uno de los planes (que ya van a existir) se crea dicha relación. Entonces la misma persona cliente podría contratar mas de un plan y, un mismo plan, podría ser contratado por más de una persona. 
+Debido a esto, hay que crear una tabla extra, que se llama “Cliente_PlanInternet” en donde cada registro hace referencia a la contratación de un plan de Internet por parte de un cliente. Esta tabla es la única que contiene foreign keys, las cuales son “client_id” que hace referencia a la primary key de la tabla de clientes y “plan_id” que hace referencia a la primary key de la tabla de planes de internet.
+El principal inconveniente con esta solución es cuando se otorogan descuentos personales a un determinado cliente, podría solucionarse poniendo dicho atributo en la tabla de la relación n:n.
