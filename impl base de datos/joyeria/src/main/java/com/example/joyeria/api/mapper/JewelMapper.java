@@ -1,11 +1,12 @@
-package com.example.joyeria.mapper;
+package com.example.joyeria.api.mapper;
 
-import com.example.joyeria.dto.JewelDto;
+import com.example.joyeria.api.dto.JewelDto;
 import com.example.joyeria.entity.Jewel;
 import org.mapstruct.*;
 
 @Mapper(unmappedTargetPolicy = ReportingPolicy.IGNORE, componentModel = "spring")
 public interface JewelMapper {
+    
     Jewel jewelDtoToJewel(JewelDto jewelDto);
 
     JewelDto jewelToJewelDto(Jewel jewel);

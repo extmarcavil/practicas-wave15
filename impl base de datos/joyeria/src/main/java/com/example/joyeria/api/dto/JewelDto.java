@@ -1,4 +1,4 @@
-package com.example.joyeria.dto;
+package com.example.joyeria.api.dto;
 
 import lombok.Data;
 
