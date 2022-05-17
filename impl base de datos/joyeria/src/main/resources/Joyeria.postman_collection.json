@@ -1,0 +1,104 @@
+{
+	"info": {
+		"_postman_id": "5fc2559a-03f6-4e76-ba0c-3b9e4de1f1ef",
+		"name": "Joyeria",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "FindAllJewerly",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jewerly",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "New jewerly",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \n    \"nombre\" : \"Anillo\",\n\t\"material\": \"oro\",\n\t\"peso\": 300,\n\t\"particularidad\" : \"Forma circular con triángulos\",\n\t\"posee_piedra\" : false,\n\t\"ventaONo\" : true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/jewerly/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update jewerly by id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"material\": \"plata\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/jewerly/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteJewerlyById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jewerly/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
