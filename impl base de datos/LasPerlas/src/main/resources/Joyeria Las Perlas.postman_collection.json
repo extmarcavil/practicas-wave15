@@ -1,0 +1,117 @@
+{
+	"info": {
+		"_postman_id": "e90f8c43-ba0c-454c-8b06-ffa4937727a2",
+		"name": "Joyeria Las Perlas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Nuevo Collar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\" : \"Collar\",\n    \"material\": \"oro\",\n    \"peso\": 500.00,\n    \"particularidad\" : \"Forma circular con triángulos\",\n    \"posee_piedra\" : true,\n    \"ventaONo\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jewerly/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Nuevo Anillo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nombre\" : \"Anillo\",\n    \"material\": \"oro\",\n    \"peso\": 300.00,\n    \"particularidad\" : \"Forma circular con triángulos\",\n    \"posee_piedra\" : false,\n    \"ventaONo\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/jewerly/new",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listado Joyas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/jewerly",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Anillo",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/jewerly/update/2?nombre=Anillo Azul&particularidad=Azuuuuuuuuul como el mar azul",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"update",
+						"2"
+					],
+					"query": [
+						{
+							"key": "nombre",
+							"value": "Anillo Azul"
+						},
+						{
+							"key": "particularidad",
+							"value": "Azuuuuuuuuul como el mar azul"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
