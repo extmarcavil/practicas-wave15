@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "a3f0f1f6-3960-40bc-b57f-5dde19a7750d",
+		"name": "Joyeria Las Perlas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear Nueva Joya",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"nombre\" : \"Anillo\",\n\t\"material\": \"oro\",\n\t\"pesoEnGramos\": 300,\n\t\"particularidad\" : \"Forma circular con triángulos\",\n\t\"ventaONo\" : true\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/jewerly/new",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"new"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Joyas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jewerly/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Eliminar Joya",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"id\", 1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/jewerly/delete/{{id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"delete",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Modificar Joya",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.collectionVariables.set(\"id\", 1);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{   \"nombre\" : \"Collar\",\n\t\"material\": \"oro\",\n\t\"pesoEnGramos\": 300,\n\t\"particularidad\" : \"Forma circular con diamantes\",\n\t\"ventaONo\" : true\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/jewerly/update/{{id}}",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"jewerly",
+						"update",
+						"{{id}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
