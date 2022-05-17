@@ -14,5 +14,25 @@ En caso contrario podria ser que primero se almacene en KVS DB y a dada alguna m
 
 -----------
 
+Caso de Uso Nº 1
+
+Tengo una base de datos relacional que utilizo para guardar información sobre el carrito de compras. 
+• Cuando alguien abandona el carrito, se inserta un registro en una tabla. 
+• Quiero que cuando eso pase, la API de Growth pueda enviar una notificación al usuario para que retome el carrito. 
+¿Cómo resuelvo el Caso de Uso? ¿Por qué?
+
+El caso podria resolverse con CDC o ASYNC. Y se puede aprovechar la implementacion de RDBMS Integration. Con Golden Gate se publica el evento en un topico "Carrito Abandonado", a partir de esto la API de Growth tendra que consumir este evento a traves de BigQueue Consumer, una vez que se consume el nuevo evento, utilizar su servicio de notificacion para que el usuario vuelva a su carrito.
+
+-----------
+
+Caso de Uso Nº 2
+
+Tengo un KVS que utilizo para guardar mis items, a los cuales se accede habitualmente por clave, no obstante, ahora me surgió una necesidad de que en ciertos casos quiero poder buscar y agrupar por categoría.
+¿Qué solución proponen? ¿Por qué?
+
+Como necesito poder buscar y hacer agregacion de los datos, propongo tener la integracion con document search que esta optimizado para este tipo de consultas. Debemos recordar que la sync es eventual. Por lo que puede ser que al momento de alguna consulta no esten todos los items registrados en la KVS.
+
+-----------
+
 
 
