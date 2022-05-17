@@ -5,6 +5,7 @@ import com.example.crudjoyeria.repository.JoyasRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class JoyeriaService implements IJoyeriaService {
@@ -17,21 +18,27 @@ public class JoyeriaService implements IJoyeriaService {
 
     @Override
     public List<Joya> getJoyas() {
-        return repo.findAll();
+        return repo.findAll().stream().filter(Joya::isVentaONo).collect(Collectors.toList());
     }
 
     @Override
-    public void saveJoya(Joya joya) {
-        repo.save(joya);
+    public Joya saveJoya(Joya joya) {
+        return repo.save(joya);
     }
 
     @Override
     public void deleteJoya(long id) {
-        repo.deleteById(id);
+        findJoya(id).setVentaONo(false);
     }
 
     @Override
     public Joya findJoya(long id) {
         return repo.getById(id);
+    }
+
+    @Override
+    public Joya updateJoya(Long id, Joya joya) {
+        //findJoya(id);
+        return saveJoya(joya);
     }
 }
