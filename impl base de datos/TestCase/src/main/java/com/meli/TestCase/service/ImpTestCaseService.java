@@ -5,6 +5,7 @@ import com.meli.TestCase.Dto.ResPostTestDto;
 import com.meli.TestCase.model.TestCase;
 import com.meli.TestCase.repository.ITestCaseRespository;
 import org.springframework.stereotype.Service;
+import org.modelmapper.ModelMapper;
 
 import java.util.List;
 
