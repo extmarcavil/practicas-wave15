@@ -4,10 +4,12 @@ import com.example.qatesters.api.dto.IdCaseDto;
 import com.example.qatesters.api.dto.TestCaseDto;
 import com.example.qatesters.service.TestCaseService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -23,8 +25,9 @@ public class TestCaseController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<TestCaseDto>> getAll(){
-        return new ResponseEntity<>(service.findAll(),HttpStatus.OK);
+    public ResponseEntity<List<TestCaseDto>> getAll(@RequestParam(required = false,name = "last_update")
+                                                    @DateTimeFormat(pattern = "dd/MM/yyyy") LocalDate date){
+        return new ResponseEntity<>(service.findAll(date),HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -36,4 +39,11 @@ public class TestCaseController {
     public ResponseEntity<TestCaseDto> updateTest(@PathVariable Long id,@RequestBody TestCaseDto test){
         return new ResponseEntity<>(service.update(id,test),HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity updateTest(@PathVariable Long id){
+        service.delete(id);
+        return new ResponseEntity(HttpStatus.OK);
+    }
+
 }
