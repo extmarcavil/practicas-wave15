@@ -25,5 +25,14 @@ public class JewelController {
         return jewelService.findAll();
     }
 
+    @PostMapping("/delete/{id}")
+    public NroIdentificatorioDto deleteJewel(@PathVariable Long id){
+        return jewelService.delete(id);
+    }
+
+    @PostMapping("/update/{id}")
+    public JewelDto updateJewel(@PathVariable Long id,@RequestBody JewelDto jewelDto){
+        return jewelService.update(id,jewelDto);
+    }
 
 }
