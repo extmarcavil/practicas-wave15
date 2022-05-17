@@ -50,7 +50,7 @@ public class JoyaService implements IJoyaService{
 
     @Override
     public JoyaResponseDTO findById(Long id) {
-        Joya joya = joyaRepository.findById(id).orElseThrow(JoyaNotFoundException::new);
+        Joya joya = joyaRepository.findById(id).orElseThrow(() -> new JoyaNotFoundException("No existe joya con id: " + id));
         if(!joya.getVentaONo()){
             throw new JoyaNotFoundException("No existe joya con id: " + id);
         }
