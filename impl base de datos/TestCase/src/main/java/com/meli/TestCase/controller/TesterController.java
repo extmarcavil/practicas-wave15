@@ -1,6 +1,5 @@
 package com.meli.TestCase.controller;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.meli.TestCase.Dto.ReqTestCaseDto;
 import com.meli.TestCase.Dto.ResPostTestDto;
 import com.meli.TestCase.model.TestCase;
@@ -40,7 +39,7 @@ public class TesterController {
 
     @PutMapping("/{id}")
     public ResponseEntity<TestCase> actualizarTest(@PathVariable Long id,
-                                                         @RequestBody ReqTestCaseDto test){
+                                                   @RequestBody ReqTestCaseDto test){
         return new ResponseEntity<>(service.actualizar(id,test), HttpStatus.OK);
     }
 
