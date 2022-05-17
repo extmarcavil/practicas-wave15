@@ -4,10 +4,12 @@ import com.meli.TestCase.Dto.ReqTestCaseDto;
 import com.meli.TestCase.Dto.ResPostTestDto;
 import com.meli.TestCase.model.TestCase;
 import com.meli.TestCase.service.ITestCaseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -34,5 +36,24 @@ public class TesterController {
     public ResponseEntity<TestCase> obtenerUnoPorId(@PathVariable Long id){
         return new ResponseEntity<>(service.obtenerPorId(id),HttpStatus.OK);
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResPostTestDto> actualizarRegistroTest (@PathVariable Long id, @RequestBody ReqTestCaseDto test) {
+        return new ResponseEntity<>(service.actualizar(id, test), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> eliminarRegistroTest (@PathVariable Long id) {
+        service.eliminarPorId(id);
+        return new ResponseEntity<>("Registro eliminado correctamente", HttpStatus.OK);
+    }
+
+
+    @GetMapping("/fecha")
+    public ResponseEntity<List<TestCase>> obtenerTodosPorFechaDeActualizacion (@RequestParam ("last_update") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate lastUpdate) {
+        return  new ResponseEntity<>(service.obtenerTodosPorFechaDeActualizacion(lastUpdate), HttpStatus.OK);
+    }
+
+
 
 }
