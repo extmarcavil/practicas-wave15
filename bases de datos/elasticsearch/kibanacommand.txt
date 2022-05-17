@@ -1,0 +1,110 @@
+#Get all 
+GET _search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+GET _cat/indices 
+
+GET .kibana_task_manager/_search
+{
+  "query":{
+    "match_all":{}
+  }
+}
+
+#Buscar todos los clientes
+GET /clientes/_search
+{
+   "query": {
+    "match_all":{}
+  }
+}
+
+#Buscar todos los clientes desde el 2 y lo resultados de tamano 2
+GET /clientes/_search
+{
+  "from": 1,"size": 2, 
+   "query": {
+    "match_all":{}
+  }
+}
+
+#Buscar clientes por localidad 
+GET /clientes/_search
+{
+   "query": {
+    "match": {
+      "Localidad": "San Vicente"
+    }
+  }
+}
+
+#Buscar clientes por localidad
+GET /clientes/_search
+{
+   "query": {
+    "match": {
+      "Localidad": "Obera"
+    }
+  }
+}
+
+#Buscar clientes por localidad
+GET /clientes/_search
+{
+   "query": {
+    "match": {
+      "Localidad": "Posadas"
+    }
+  }
+}
+
+#Insertar un nuevo registro 
+POST /clientes/_doc
+{
+  "Nombre" : "Puro Huesos",
+  "Apellido" : "La muerte",
+  "Localidad" : "Posadas",
+  "Pais" : "IT"
+}
+#Insertar un nuevo registro 
+POST /clientes/_doc
+{
+  "Nombre" : "Billy",
+  "Apellido" : "Las aventuras",
+  "Localidad" : "Posadas",
+  "Pais" : "IT"
+}
+#Insertar un nuevo registro 
+POST /clientes/_doc
+{
+  "Nombre" : "Mandy",
+  "Apellido" : "Las aventuras",
+  "Localidad" : "Posadas",
+  "Pais" : "IT"
+}
+
+#Buscar por pais
+GET /clientes/_search
+{
+   "query": {
+    "match": {
+      "Pais": "IT"
+    }
+  }
+}
+
+#Buscar de forma corta por pais 
+GET /clientes/_search?q=Pais:"IT"
+
+#Insertar un nuevo registro 
+POST /clientes/_update
+{
+  "Nombre" : "Mandy",
+  "Apellido" : "Las aventuras",
+  "Localidad" : "Posadas",
+  "Pais" : "IT"
+}

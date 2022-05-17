@@ -1,21 +1,18 @@
 package com.bootcamp.be_java_hisp_w15_g08.IntegrationTest;
 
-import com.bootcamp.be_java_hisp_w15_g08.dto.response.FollowersCountDTO;
-import com.bootcamp.be_java_hisp_w15_g08.util.Utils2;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultMatcher;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -46,21 +43,17 @@ public class UserControllerTest {
 
     @Test
     public void followersCount() throws Exception {
-//        ObjectWriter writer = new ObjectMapper()
-//                .writer();
         //Arrange
         Integer id1 = 1234;
-//        FollowersCountDTO followersCountDTO = Utils2.followersCountDTO1();
-//        ResponseEntity<FollowersCountDTO> expected = new ResponseEntity<>(followersCountDTO, HttpStatus.ACCEPTED);
-//        String responseJson = writer.writeValueAsString(expected);
-
 
         //Expected
-      //  ResultMatcher expecteJson = MockMvcResultMatchers.content().json(responseJson);
         ResultMatcher expextedStatus = MockMvcResultMatchers.status().isAccepted();
+        ResultMatcher expectedJson = content().contentType("application/json");
+        ResultMatcher expectedValue = jsonPath("$.followers_count").value(2);
 
         //Request
         MockHttpServletRequestBuilder req = MockMvcRequestBuilders.get("/users/{userId}/followers/count",id1);
+        System.out.println(req.toString());
 
         //Act y Assert
         mockMvc
@@ -68,7 +61,8 @@ public class UserControllerTest {
                 .andDo(MockMvcResultHandlers.print())
                 .andExpectAll(
                         expextedStatus
-//                        , expecteJson
+                        , expectedValue
+                        , expectedJson
                 );
     }
 
