@@ -1,0 +1,18 @@
+Ejercicio 1: 
+Si tengo que almacenar archivos binarios (recibos) para mi sistema de procesamiento de Billing…. 
+¿Qué tipo de base de datos debo utilizar? ¿Por qué?
+Siguiendo el arbol de decision, al tener archivos binarios se elije un Object Storage.
+
+
+Ejercicio Nº 2
+Si tengo que guardar todos los datos de los usuarios de MELI 
+¿Qué tipo de base de datos debo utilizar? ¿Por qué?
+
+Siguiendo el arbol de decision, podria ser en Audits. O bien KVS DB + Audits.
+Se piensa en Audits ya que si el usuario no realiza compras, los datos no van a ser consultados frecuentemente y la vez obtengo una persistencia de los datos.
+En caso contrario podria ser que primero se almacene en KVS DB y a dada alguna metrica que indique que ciertos KV no son consultados estos podrian migrar a Audits.
+
+-----------
+
+
+
