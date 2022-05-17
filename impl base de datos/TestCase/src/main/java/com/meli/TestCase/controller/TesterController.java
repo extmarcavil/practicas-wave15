@@ -5,6 +5,7 @@ import com.meli.TestCase.Dto.ReqTestCaseDto;
 import com.meli.TestCase.Dto.ResPostTestDto;
 import com.meli.TestCase.model.TestCase;
 import com.meli.TestCase.service.ITestCaseService;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -49,8 +50,8 @@ public class TesterController {
     }
 
     @GetMapping("/testfecha")
-    public ResponseEntity<List<TestCase>> testXFecha(@RequestParam   String  last_update){
-        return new ResponseEntity<>(service.testxFecha(LocalDate.parse(last_update)),HttpStatus.OK);
+    public ResponseEntity<List<TestCase>> testXFecha(@RequestParam @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate last_update){
+        return new ResponseEntity<>(service.testxFecha(last_update),HttpStatus.OK);
     }
 
 }
