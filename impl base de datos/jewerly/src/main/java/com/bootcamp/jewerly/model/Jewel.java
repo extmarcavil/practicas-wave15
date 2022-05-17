@@ -21,4 +21,6 @@ public class Jewel {
     private Boolean owns_stone;
     private Boolean saleOrNot;
 
+
+
 }
