@@ -38,7 +38,7 @@ public class JoyeriaService implements IJoyeriaService {
 
     @Override
     public Joya updateJoya(Long id, Joya joya) {
-        //findJoya(id);
+        joya.setId(id);
         return saveJoya(joya);
     }
 }
