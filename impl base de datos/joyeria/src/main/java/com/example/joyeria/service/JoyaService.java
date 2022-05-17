@@ -27,9 +27,7 @@ public class JoyaService implements IJoyaService {
     @Transactional
     public Long saveJoya(Joya joya) {
         joya.setVentaONo(true);
-        repository.save(joya);
-
-        return joya.getId();
+        return repository.save(joya).getId();
     }
 
     @Override
