@@ -1,14 +1,17 @@
-package com.bootcamp.jewerly.model;
+package com.bootcamp.jewelry.model;
 
-import lombok.Getter;
-import lombok.Setter;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-@Getter @Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Jewel {
     @Id
@@ -18,9 +21,7 @@ public class Jewel {
     private String material;
     private Double weight;
     private String particularity;
-    private Boolean owns_stone;
-    private Boolean saleOrNot;
-
-
+    private boolean owns_stone;
+    private boolean available;
 
 }
