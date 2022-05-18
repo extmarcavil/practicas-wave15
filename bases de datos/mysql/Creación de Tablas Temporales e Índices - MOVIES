@@ -1,0 +1,23 @@
+#Ejercicio 1
+#Con la base de datos “movies”, se propone crear una tabla temporal llamada “TWD” y 
+#guardar en la misma los episodios de todas las temporadas de “The Walking Dead”.
+#Realizar una consulta a la tabla temporal para ver los episodios de la primera temporada.
+
+use movies_db;
+
+CREATE TEMPORARY TABLE TWD (episodeTitle VARCHAR(50), season int);
+
+INSERT INTO TWD SELECT ep.title, sea.number from episodes ep 
+JOIN seasons sea ON ep.season_id=sea.id
+JOIN series se ON sea.serie_id=se.id
+WHERE se.title="The Walking Dead";
+
+SELECT * FROM TWD where season=1;
+
+
+#Ejercicio 2
+#En la base de datos “movies”, seleccionar una tabla donde crear un índice y luego chequear la creación del mismo. 
+#Analizar por qué crearía un índice en la tabla indicada y con qué criterio se elige/n el/los campos.
+
+
+CREATE INDEX seasonId ON episodes (season_id);
