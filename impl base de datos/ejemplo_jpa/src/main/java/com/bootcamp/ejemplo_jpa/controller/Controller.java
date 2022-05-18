@@ -4,8 +4,6 @@ import com.bootcamp.ejemplo_jpa.model.Student;
 import com.bootcamp.ejemplo_jpa.service.IStudentService;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.GeneratedValue;
-import java.rmi.StubNotFoundException;
 import java.util.List;
 
 @RestController

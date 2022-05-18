@@ -26,8 +26,7 @@ public class StudentService implements IStudentService {
     @Override
     @Transactional
     public void saveStudent(Student stu) {
-        stuRepo.save(stu);
-
+      stuRepo.save(stu);
     }
 
     @Override
