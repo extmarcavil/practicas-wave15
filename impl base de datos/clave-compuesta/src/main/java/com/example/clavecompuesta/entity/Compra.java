@@ -14,7 +14,7 @@ public class Compra {
     @Id
     @ManyToOne
     @JoinColumn(name = "cliente_id",referencedColumnName = "id")
-    private Cliente clienteId;
+    private Cliente cliente;
 
     @Id
     private LocalDate fecha;

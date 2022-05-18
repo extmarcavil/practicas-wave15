@@ -9,7 +9,7 @@ import java.util.Objects;
 
 @Getter @Setter
 public class CompraKey implements Serializable {
-    private Long clienteId;
+    private Long cliente;
     private LocalDate fecha;
 
     @Override
@@ -17,11 +17,11 @@ public class CompraKey implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CompraKey compraKey = (CompraKey) o;
-        return Objects.equals(clienteId, compraKey.clienteId) && Objects.equals(fecha, compraKey.fecha);
+        return Objects.equals(cliente, compraKey.cliente) && Objects.equals(fecha, compraKey.fecha);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(clienteId, fecha);
+        return Objects.hash(cliente, fecha);
     }
 }
