@@ -1,6 +1,7 @@
 package com.bootcamp.relaciones.jpa.entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "sales")
