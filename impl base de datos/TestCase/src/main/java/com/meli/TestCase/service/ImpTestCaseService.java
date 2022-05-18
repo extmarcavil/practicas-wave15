@@ -4,7 +4,6 @@ import com.meli.TestCase.Dto.ReqTestCaseDto;
 import com.meli.TestCase.Dto.ResPostTestDto;
 import com.meli.TestCase.model.TestCase;
 import com.meli.TestCase.repository.ITestCaseRespository;
-import org.apache.tomcat.jni.Local;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -12,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ImpTestCaseService implements ITestCaseService{
+public class ImpTestCaseService implements ITestCaseService {
     private ITestCaseRespository repo;
 
     public ImpTestCaseService(ITestCaseRespository repo) {
@@ -20,7 +19,7 @@ public class ImpTestCaseService implements ITestCaseService{
     }
 
     @Override
-    public ResPostTestDto guardar(ReqTestCaseDto test){
+    public ResPostTestDto guardar(ReqTestCaseDto test) {
         TestCase t = new TestCase(test.getDesc(),
                 test.isTested(),
                 test.isPassed(),
@@ -29,14 +28,15 @@ public class ImpTestCaseService implements ITestCaseService{
         repo.save(t);
 
         ResPostTestDto respuesta = new ResPostTestDto(t.getDescription(),
-                t.isTested(),t.isPassed(),t.getNumber_of_tries(),t.getLastUpdate(),"todo ok");
+                t.isTested(), t.isPassed(), t.getNumber_of_tries(), t.getLastUpdate(), "todo ok");
 
         return respuesta;
     }
+
     @Override
-    public List<TestCase> obtenerTodos(String last_update){
+    public List<TestCase> obtenerTodos(String last_update) {
         // si no existe el filtro devuelve todos
-        if(last_update.equals("")) return repo.findAll();
+        if (last_update.equals("")) return repo.findAll();
 
         String[] dates = last_update.split("-");
 
@@ -53,9 +53,10 @@ public class ImpTestCaseService implements ITestCaseService{
 
         return respuesta;
     }
+
     @Override
-    public TestCase obtenerPorId(Long id){
-        TestCase test = repo.findById(id).orElseThrow(()->new RuntimeException());
+    public TestCase obtenerPorId(Long id) {
+        TestCase test = repo.findById(id).orElseThrow(() -> new RuntimeException());
         return test;
     }
 
