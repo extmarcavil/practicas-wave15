@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/api/testcases")
 public class TesterController {
 
-    private ITestCaseService service;
+    private final ITestCaseService service;
 
     public TesterController(ITestCaseService service) {
         this.service = service;

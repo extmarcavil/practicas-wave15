@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class ImpTestCaseService implements ITestCaseService{
-    private ITestCaseRespository repo;
+    private final ITestCaseRespository repo;
 
     public ImpTestCaseService(ITestCaseRespository repo) {
         this.repo = repo;
