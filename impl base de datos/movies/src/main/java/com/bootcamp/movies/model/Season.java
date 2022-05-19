@@ -26,9 +26,17 @@ public class Season {
     private LocalDate releaseDate;
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
-    @OneToMany(mappedBy = "seasonsBySeasonId")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "seasonsBySeasonId")
     private List<Episode> episodesById;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "serie_id")
     private Serie seriesBySerieId;
 

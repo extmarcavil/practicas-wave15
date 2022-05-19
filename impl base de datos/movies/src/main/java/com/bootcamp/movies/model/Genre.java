@@ -25,9 +25,17 @@ public class Genre {
     private Double ranking;
     @Column(name = "active", nullable = false)
     private boolean active;
-    @OneToMany(mappedBy = "genresByGenreId")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "genresByGenreId")
     private List<Movie> moviesById;
-    @OneToMany(mappedBy = "genresByGenreId")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "genresByGenreId")
     private List<Serie> seriesById;
 
 

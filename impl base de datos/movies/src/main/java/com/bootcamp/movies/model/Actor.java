@@ -26,7 +26,11 @@ public class Actor {
     private String lastName;
     @Column(name = "rating", nullable = true)
     private Double rating;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "actor_episode",
             joinColumns = @JoinColumn(name = "actor_id"),
@@ -34,14 +38,22 @@ public class Actor {
     )
     private Set<Episode> actorEpisodesById;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinTable(
             name = "actor_movie",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "movie_id")
     )
     private Set<Movie> actorMoviesById;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "favorite_movie_id")
     private Movie moviesByFavoriteMovieId;
 

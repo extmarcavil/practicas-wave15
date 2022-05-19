@@ -27,9 +27,17 @@ public class Episode {
     private LocalDate releaseDate;
     @Column(name = "rating", nullable = false)
     private Double rating;
-    @ManyToMany(mappedBy = "actorEpisodesById")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "actorEpisodesById")
     private Set<Actor> actorEpisodesById;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "season_id")
     private Season seasonsBySeasonId;
 

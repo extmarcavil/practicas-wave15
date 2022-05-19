@@ -12,6 +12,6 @@ import java.util.List;
 public interface ActorRepository extends JpaRepository<Actor, Long> {
     List<Actor> findAllByMoviesByFavoriteMovieIdIsNotNull();
     List<Actor> findActorsByRatingIsGreaterThan(Double rating);
-    @Query("SELECT a FROM Actor a JOIN a.actorMoviesById am WHERE am.title like :movieName")
+    @Query("FROM Actor a JOIN a.actorMoviesById am WHERE am.title like :movieName")
     List<Actor> findActorsByMovieName(@Param("movieName") String name);
 }

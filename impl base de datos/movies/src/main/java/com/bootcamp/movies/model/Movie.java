@@ -30,11 +30,23 @@ public class Movie {
     private LocalDate releaseDate;
     @Column(name = "length", nullable = true)
     private Integer length;
-    @ManyToMany(mappedBy = "actorMoviesById")
+    @ManyToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "actorMoviesById")
     private Set<Actor> actorMoviesById;
-    @OneToMany(mappedBy = "moviesByFavoriteMovieId")
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            },mappedBy = "moviesByFavoriteMovieId")
     private List<Actor> actorsById;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY,
+            cascade = {
+                    CascadeType.PERSIST,
+                    CascadeType.MERGE
+            })
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genresByGenreId;
 
