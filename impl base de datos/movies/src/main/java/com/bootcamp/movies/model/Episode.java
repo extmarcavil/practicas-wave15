@@ -27,7 +27,7 @@ public class Episode {
     private LocalDate releaseDate;
     @Column(name = "rating", nullable = false)
     private Double rating;
-    @ManyToMany(mappedBy = "episodesByEpisodeId")
+    @ManyToMany(mappedBy = "actorEpisodesById")
     private Set<Actor> actorEpisodesById;
     @ManyToOne
     @JoinColumn(name = "season_id")

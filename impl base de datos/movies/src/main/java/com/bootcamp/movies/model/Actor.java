@@ -26,13 +26,13 @@ public class Actor {
     private String lastName;
     @Column(name = "rating", nullable = true)
     private Double rating;
-    @OneToMany(mappedBy = "actorsByActorId")
+    @ManyToMany
     @JoinTable(
             name = "actor_episode",
             joinColumns = @JoinColumn(name = "actor_id"),
             inverseJoinColumns = @JoinColumn(name = "episode_id")
     )
-    private List<Episode> actorEpisodesById;
+    private Set<Episode> actorEpisodesById;
 
     @ManyToMany
     @JoinTable(

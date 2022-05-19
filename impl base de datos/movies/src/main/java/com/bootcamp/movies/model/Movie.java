@@ -30,7 +30,7 @@ public class Movie {
     private LocalDate releaseDate;
     @Column(name = "length", nullable = true)
     private Integer length;
-    @ManyToMany(mappedBy = "moviesByMovieId")
+    @ManyToMany(mappedBy = "actorMoviesById")
     private Set<Actor> actorMoviesById;
     @OneToMany(mappedBy = "moviesByFavoriteMovieId")
     private List<Actor> actorsById;
