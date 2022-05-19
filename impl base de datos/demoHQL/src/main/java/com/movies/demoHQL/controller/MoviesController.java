@@ -1,6 +1,6 @@
 package com.movies.demoHQL.controller;
 
-import com.movies.demoHQL.model.DTO.MovieDTO;
+import com.movies.demoHQL.DTO.MovieDTO;
 import com.movies.demoHQL.service.IMoviesService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;

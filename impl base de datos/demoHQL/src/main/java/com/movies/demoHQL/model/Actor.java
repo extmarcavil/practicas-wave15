@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Set;
 
 
 @Entity @Getter @Setter
@@ -22,5 +23,13 @@ public class Actor {
 
     @Column(name = "favorite_movie_id")
     Integer favoriteMovieId;
+
+    @ManyToMany(cascade = CascadeType.ALL)
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<Movie> actorMoviesById;
 
 }

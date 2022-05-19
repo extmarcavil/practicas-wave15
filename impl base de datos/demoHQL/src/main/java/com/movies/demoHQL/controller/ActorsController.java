@@ -1,8 +1,7 @@
 package com.movies.demoHQL.controller;
 
-import com.movies.demoHQL.model.DTO.ActorDTO;
-import com.movies.demoHQL.model.DTO.MovieDTO;
-import com.movies.demoHQL.model.DTO.ActorMovieResponceDTO;
+import com.movies.demoHQL.DTO.ActorDTO;
+import com.movies.demoHQL.DTO.ActorMovieResponseDTO;
 import com.movies.demoHQL.service.IActorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,26 +28,23 @@ public class ActorsController {
     }
 
     @GetMapping("/actormovie")
-    public ActorMovieResponceDTO getActorWithfavoriteMovie (@RequestParam String name){
+    public ActorMovieResponseDTO getActorWithfavoriteMovie (@RequestParam String name){
 
         return service.getActorWithfavoriteMovie(name);
     }
 
     @GetMapping("/actorsfavorites")
-    public List<ActorMovieResponceDTO> getActorsWithFavoritesMovies(){
+    public List<ActorMovieResponseDTO> getActorsWithFavoritesMovies(){
         return service.getActorsWithFavoriteMovies();
     }
 
     @GetMapping("/actorsrating/{rating}")
-    public List<ActorMovieResponceDTO> getActorsByRating(@PathVariable Double rating){
+    public List<ActorMovieResponseDTO> getActorsByRating(@PathVariable Double rating){
         return service.getActorsByRating(rating);
     }
 
-    @GetMapping("/actor/worksat/{id}")
-    public List<ActorMovieResponceDTO> getActorsOfMovie(@PathVariable Integer id){
-        return service.getActorsOfMovie(id);
+    @GetMapping("/actorsOfMovie/{movie}")
+    public List<ActorMovieResponseDTO> getActorsOfMovie (@PathVariable String movie) {
+        return service.getActorsOfMovie(movie);
     }
-
-
-
 }

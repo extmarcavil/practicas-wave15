@@ -27,6 +27,6 @@ public interface IActorRepository extends JpaRepository<Actor, Integer> {
     @Query("FROM Actor a WHERE a.rating >:rating")
     List<Actor> findAllActorsByRating(Double rating);
 
-    @Query("FROM Actor a WHERE a.favoriteMovieId =:movie_id")
-    List<Actor> findAllActorsByMovie(int movie_id);
+    @Query("FROM Actor a JOIN a.actorMoviesById am WHERE am.title like :movieName")
+    List<Actor> findActorsByMovieName(@Param("movieName") String name);
 }

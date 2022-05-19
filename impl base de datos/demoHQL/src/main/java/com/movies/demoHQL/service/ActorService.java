@@ -1,9 +1,9 @@
 package com.movies.demoHQL.service;
 
 import com.movies.demoHQL.model.Actor;
-import com.movies.demoHQL.model.DTO.ActorDTO;
-import com.movies.demoHQL.model.DTO.ActorMovieResponceDTO;
-import com.movies.demoHQL.model.DTO.MovieDTO;
+import com.movies.demoHQL.DTO.ActorDTO;
+import com.movies.demoHQL.DTO.ActorMovieResponseDTO;
+import com.movies.demoHQL.DTO.MovieDTO;
 import com.movies.demoHQL.model.Movie;
 import com.movies.demoHQL.repository.IActorRepository;
 import org.modelmapper.ModelMapper;
@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,8 +49,8 @@ public class ActorService implements IActorService {
     }
 
 
-    public ActorMovieResponceDTO getActorWithfavoriteMovie(String name) {
-        ActorMovieResponceDTO actorMovie = new ActorMovieResponceDTO();
+    public ActorMovieResponseDTO getActorWithfavoriteMovie(String name) {
+        ActorMovieResponseDTO actorMovie = new ActorMovieResponseDTO();
         ActorDTO actor = getActorByName(name);
         MovieDTO movie = getMovieOfActor(actor.getFavoriteMovieId());
         actorMovie.setActor(actor);
@@ -61,22 +60,21 @@ public class ActorService implements IActorService {
 
     }
 
-    public List<ActorMovieResponceDTO> getActorsWithFavoriteMovies(){
+    public List<ActorMovieResponseDTO> getActorsWithFavoriteMovies(){
         List<Actor> actors = repository.findAllActorsFavoriteMovie();
-        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
+        Type listType = new TypeToken<List<ActorMovieResponseDTO>>(){}.getType();
         return mapper.map(actors, listType);
     }
 
-    public List<ActorMovieResponceDTO> getActorsByRating(Double rating){
+    public List<ActorMovieResponseDTO> getActorsByRating(Double rating){
         List<Actor> actors = repository.findAllActorsByRating(rating);
-        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
+        Type listType = new TypeToken<List<ActorMovieResponseDTO>>(){}.getType();
         return mapper.map(actors, listType);
     }
 
-    public List<ActorMovieResponceDTO> getActorsOfMovie(Integer id){
-        List<Actor> actors = repository.findAllActorsByMovie(id);
-        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
-        return mapper.map(actors, listType);
+    public List<ActorMovieResponseDTO> getActorsOfMovie(String movie){
+        List<Actor> list = repository.findActorsByMovieName(movie);
+        return list.stream().map(a -> mapper.map(a, ActorMovieResponseDTO.class)).collect(Collectors.toList());
     }
 
 }

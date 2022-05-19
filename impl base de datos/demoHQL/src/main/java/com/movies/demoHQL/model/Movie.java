@@ -5,6 +5,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Set;
 
 @Entity @Getter @Setter
 @Table(name= "movies")
@@ -28,5 +29,8 @@ public class Movie {
 
     @Column(name  = "genre_id")
     Integer genreId;
+
+    @ManyToMany(cascade = CascadeType.ALL ,mappedBy = "actorMoviesById")
+    private Set<Actor> actorMoviesById;
 
 }

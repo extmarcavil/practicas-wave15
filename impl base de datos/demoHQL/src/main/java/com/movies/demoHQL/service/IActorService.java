@@ -1,8 +1,8 @@
 package com.movies.demoHQL.service;
 
-import com.movies.demoHQL.model.DTO.ActorDTO;
-import com.movies.demoHQL.model.DTO.ActorMovieResponceDTO;
-import com.movies.demoHQL.model.DTO.MovieDTO;
+import com.movies.demoHQL.DTO.ActorDTO;
+import com.movies.demoHQL.DTO.ActorMovieResponseDTO;
+import com.movies.demoHQL.DTO.MovieDTO;
 
 import java.util.List;
 
@@ -14,11 +14,11 @@ public interface IActorService {
 
     MovieDTO getMovieOfActor(Integer id);
 
-    public ActorMovieResponceDTO getActorWithfavoriteMovie(String name);
+    public ActorMovieResponseDTO getActorWithfavoriteMovie(String name);
 
-    List<ActorMovieResponceDTO> getActorsWithFavoriteMovies();
+    List<ActorMovieResponseDTO> getActorsWithFavoriteMovies();
 
-    List<ActorMovieResponceDTO> getActorsByRating(Double rating);
+    List<ActorMovieResponseDTO> getActorsByRating(Double rating);
 
-    List<ActorMovieResponceDTO> getActorsOfMovie(Integer id);
+    List<ActorMovieResponseDTO> getActorsOfMovie(String movie);
 }

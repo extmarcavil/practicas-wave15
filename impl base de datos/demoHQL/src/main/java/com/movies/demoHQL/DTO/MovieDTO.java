@@ -1,9 +1,7 @@
-package com.movies.demoHQL.model.DTO;
+package com.movies.demoHQL.DTO;
 
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.Date;
 
 @Getter @Setter
 public class MovieDTO {

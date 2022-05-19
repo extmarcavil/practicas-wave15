@@ -1,4 +1,4 @@
-package com.movies.demoHQL.model.DTO;
+package com.movies.demoHQL.DTO;
 
 import lombok.Getter;
 import lombok.Setter;

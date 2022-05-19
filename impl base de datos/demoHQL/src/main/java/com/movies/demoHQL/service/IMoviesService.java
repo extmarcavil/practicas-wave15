@@ -1,6 +1,6 @@
 package com.movies.demoHQL.service;
 
-import com.movies.demoHQL.model.DTO.MovieDTO;
+import com.movies.demoHQL.DTO.MovieDTO;
 
 import java.util.List;
 
