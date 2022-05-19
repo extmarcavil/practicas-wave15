@@ -20,4 +20,13 @@ public interface IActorRepository extends JpaRepository<Actor, Integer> {
 
    @Query("FROM Movie M  WHERE M.id = :id")
    Movie findMovieOfActor(@Param("id") Integer id);
+
+    @Query("FROM Actor a WHERE a.favoriteMovieId IS NOT NULL")
+    List<Actor> findAllActorsFavoriteMovie();
+
+    @Query("FROM Actor a WHERE a.rating >:rating")
+    List<Actor> findAllActorsByRating(Double rating);
+
+    @Query("FROM Actor a WHERE a.favoriteMovieId =:movie_id")
+    List<Actor> findAllActorsByMovie(int movie_id);
 }

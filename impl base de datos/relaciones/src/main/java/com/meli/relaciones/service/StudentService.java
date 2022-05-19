@@ -1,6 +1,7 @@
 package com.meli.relaciones.service;
 
 import com.meli.relaciones.dto.StudentDTO;
+import com.meli.relaciones.entities.Course;
 import com.meli.relaciones.entities.Student;
 import com.meli.relaciones.repository.CourseRepository;
 import com.meli.relaciones.repository.StudentRepository;

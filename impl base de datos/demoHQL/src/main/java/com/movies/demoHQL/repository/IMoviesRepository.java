@@ -17,5 +17,17 @@ public interface IMoviesRepository extends JpaRepository<Movie, Integer> {
     @Query("FROM Movie m WHERE m.title LIKE %:title%")
     List<Movie> findMoviesByTitleLike(@Param("title") String title);
 
+    @Query("SELECT   m.id," +
+            "m.title," +
+            "m.awards," +
+            "m.rating," +
+            "m.genreId," +
+            "m.length," +
+            "m.releaseDate " +
+            "FROM Movie m" +
+            "JOIN FETCH Actor a ON a.favoriteMovieId = m.id" +
+            "WHERE a.rating >: rating")
+    List<Movie> findAllMoviesActorsSuperiorRating();
+
 
 }

@@ -7,9 +7,12 @@ import com.movies.demoHQL.model.DTO.MovieDTO;
 import com.movies.demoHQL.model.Movie;
 import com.movies.demoHQL.repository.IActorRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +59,24 @@ public class ActorService implements IActorService {
 
         return actorMovie;
 
+    }
+
+    public List<ActorMovieResponceDTO> getActorsWithFavoriteMovies(){
+        List<Actor> actors = repository.findAllActorsFavoriteMovie();
+        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
+        return mapper.map(actors, listType);
+    }
+
+    public List<ActorMovieResponceDTO> getActorsByRating(Double rating){
+        List<Actor> actors = repository.findAllActorsByRating(rating);
+        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
+        return mapper.map(actors, listType);
+    }
+
+    public List<ActorMovieResponceDTO> getActorsOfMovie(Integer id){
+        List<Actor> actors = repository.findAllActorsByMovie(id);
+        Type listType = new TypeToken<List<ActorMovieResponceDTO>>(){}.getType();
+        return mapper.map(actors, listType);
     }
 
 }
