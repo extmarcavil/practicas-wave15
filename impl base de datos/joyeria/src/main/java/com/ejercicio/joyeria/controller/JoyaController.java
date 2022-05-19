@@ -1,7 +1,6 @@
 package com.ejercicio.joyeria.controller;
 
 import com.ejercicio.joyeria.dto.JoyaDTO;
-import com.ejercicio.joyeria.model.Joya;
 import com.ejercicio.joyeria.service.IJoyaService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
