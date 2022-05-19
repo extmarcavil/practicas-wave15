@@ -21,7 +21,7 @@ public class JewelService implements IJewelService{
     @Override
     @Transactional(readOnly = true)
     public List<Jewel> getJewels() {
-        return jewelRepo.findAll().stream().filter( Jewel::getVentaONo).collect(Collectors.toList());
+        return jewelRepo.findByVentaONoIsTrue();
     }
 
     @Override
