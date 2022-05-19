@@ -6,5 +6,7 @@ import com.bootcamp.movies.model.Actor;
 import java.util.List;
 
 public interface ActorService {
-    List<RespActorDTO> getAllActorWhoHaveFavoriteMovie();
+    List<RespActorDTO> getAllActorsWhoHaveFavoriteMovie();
+    List<RespActorDTO> getAllActorsWhoHaveRatingGreaterThan(Double rating);
+    List<RespActorDTO> getAllActorsWhoWorkingInTheMovieByName(String name);
 }

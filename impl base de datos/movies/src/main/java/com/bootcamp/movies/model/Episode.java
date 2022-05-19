@@ -4,8 +4,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -27,8 +27,8 @@ public class Episode {
     private LocalDate releaseDate;
     @Column(name = "rating", nullable = false)
     private Double rating;
-    @OneToMany(mappedBy = "episodesByEpisodeId")
-    private List<ActorEpisode> actorEpisodesById;
+    @ManyToMany(mappedBy = "episodesByEpisodeId")
+    private Set<Actor> actorEpisodesById;
     @ManyToOne
     @JoinColumn(name = "season_id")
     private Season seasonsBySeasonId;

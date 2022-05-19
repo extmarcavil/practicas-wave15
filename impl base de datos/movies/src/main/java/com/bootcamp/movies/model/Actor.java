@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -26,9 +27,20 @@ public class Actor {
     @Column(name = "rating", nullable = true)
     private Double rating;
     @OneToMany(mappedBy = "actorsByActorId")
-    private List<ActorEpisode> actorEpisodesById;
-    @OneToMany(mappedBy = "actorsByActorId")
-    private List<ActorMovie> actorMoviesById;
+    @JoinTable(
+            name = "actor_episode",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "episode_id")
+    )
+    private List<Episode> actorEpisodesById;
+
+    @ManyToMany
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = @JoinColumn(name = "actor_id"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id")
+    )
+    private Set<Movie> actorMoviesById;
     @ManyToOne
     @JoinColumn(name = "favorite_movie_id")
     private Movie moviesByFavoriteMovieId;

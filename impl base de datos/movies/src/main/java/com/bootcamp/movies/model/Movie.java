@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Data
 @Entity
@@ -29,8 +30,8 @@ public class Movie {
     private LocalDate releaseDate;
     @Column(name = "length", nullable = true)
     private Integer length;
-    @OneToMany(mappedBy = "moviesByMovieId")
-    private List<ActorMovie> actorMoviesById;
+    @ManyToMany(mappedBy = "moviesByMovieId")
+    private Set<Actor> actorMoviesById;
     @OneToMany(mappedBy = "moviesByFavoriteMovieId")
     private List<Actor> actorsById;
     @ManyToOne

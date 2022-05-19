@@ -21,9 +21,25 @@ public class ActorServiceImpl implements ActorService{
     }
 
     @Override
-    public List<RespActorDTO> getAllActorWhoHaveFavoriteMovie() {
+    public List<RespActorDTO> getAllActorsWhoHaveFavoriteMovie() {
         List<Actor> actorsList = actorRepository.findAllByMoviesByFavoriteMovieIdIsNotNull();
-        List<RespActorDTO> actorsDTOList =actorsList
+        return getRespActorDTOS(actorsList);
+    }
+
+    @Override
+    public List<RespActorDTO> getAllActorsWhoHaveRatingGreaterThan(Double rating) {
+        List<Actor> actorsList = actorRepository.findActorsByRatingIsGreaterThan(rating);
+        return getRespActorDTOS(actorsList);
+    }
+
+    @Override
+    public List<RespActorDTO> getAllActorsWhoWorkingInTheMovieByName(String name) {
+        List<Actor> actorsList = actorRepository.findActorsByMovieName(name);
+        return getRespActorDTOS(actorsList);
+    }
+
+    private List<RespActorDTO> getRespActorDTOS(List<Actor> actorsList) {
+        List<RespActorDTO> actorsDTOList = actorsList
                 .stream()
                 .map(actor -> modelMapper.map(actor, RespActorDTO.class))
                 .collect(Collectors.toList());
