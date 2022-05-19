@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "49a45e69-6652-43a3-8710-f8a3d549ff38",
+		"name": "HQL-Ej1-Movies",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Peliculas con actores que tengan rating mayor al parametro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/movies/with-actor-rating/9.5",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies",
+						"with-actor-rating",
+						"9.5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Películas que pertenezcan al genero del paramtero",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/movies/with-genre/drama",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"movies",
+						"with-genre",
+						"drama"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actores que tengan declarada una película favorita",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actors/with-favourite-movie",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actors",
+						"with-favourite-movie"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actores que tengan rating superior al parametro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actors/with-rating-greater/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actors",
+						"with-rating-greater",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Series que tengan más de cantidad de temporadas del parametro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/series/with-seasons-amount-greater/11",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"series",
+						"with-seasons-amount-greater",
+						"11"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Actores que trabajan en la <película recibida por parámetro>",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/actors/work-movie/titanic",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"actors",
+						"work-movie",
+						"titanic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Episodios (de cualquier serie) donde trabaja el actor que viene como parametro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/episodes/with-actor?first-name=emilia&last-name=clarke",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"episodes",
+						"with-actor"
+					],
+					"query": [
+						{
+							"key": "first-name",
+							"value": "emilia"
+						},
+						{
+							"key": "last-name",
+							"value": "clarke"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

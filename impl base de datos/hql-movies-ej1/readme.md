@@ -1,0 +1,1 @@
+Para tests leer: **src/main/resources/HQL-Ej1-Movies.postman_collection.json**
