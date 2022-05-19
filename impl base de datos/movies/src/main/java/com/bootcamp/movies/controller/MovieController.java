@@ -1,6 +1,5 @@
 package com.bootcamp.movies.controller;
 
-import com.bootcamp.movies.dto.RespActorDTO;
 import com.bootcamp.movies.dto.RespMovieDTO;
 import com.bootcamp.movies.service.MovieService;
 import org.springframework.http.HttpStatus;

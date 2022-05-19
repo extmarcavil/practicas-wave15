@@ -1,6 +1,5 @@
 package com.bootcamp.movies.service;
 
-import com.bootcamp.movies.dto.RespActorDTO;
 import com.bootcamp.movies.dto.RespMovieDTO;
 
 import java.util.List;

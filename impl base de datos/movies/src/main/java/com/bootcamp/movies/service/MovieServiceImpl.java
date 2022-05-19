@@ -1,8 +1,6 @@
 package com.bootcamp.movies.service;
 
-import com.bootcamp.movies.dto.RespActorDTO;
 import com.bootcamp.movies.dto.RespMovieDTO;
-import com.bootcamp.movies.model.Actor;
 import com.bootcamp.movies.model.Movie;
 import com.bootcamp.movies.repository.MovieRepository;
 import org.modelmapper.ModelMapper;

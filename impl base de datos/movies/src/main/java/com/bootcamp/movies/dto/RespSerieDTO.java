@@ -5,18 +5,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RespMovieDTO {
+public class RespSerieDTO {
     private Long id;
     private String title;
-    private Double rating;
-    private Integer awards;
     private LocalDate releaseDate;
-    private Integer length;
-    private Set<RespActorDTO> actorMoviesById;
+    private LocalDate endDate;
+    private List<RespSeasonDTO> seasonsById;
     private RespGenreDTO genresByGenreId;
 }

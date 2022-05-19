@@ -10,13 +10,12 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RespMovieDTO {
+public class RespEpisodeDTO {
     private Long id;
     private String title;
-    private Double rating;
-    private Integer awards;
+    private Integer number;
     private LocalDate releaseDate;
-    private Integer length;
-    private Set<RespActorDTO> actorMoviesById;
-    private RespGenreDTO genresByGenreId;
+    private Double rating;
+    private Set<RespActorDTO> actorEpisodesById;
+    private RespSeasonDTO seasonsBySeasonId;
 }
