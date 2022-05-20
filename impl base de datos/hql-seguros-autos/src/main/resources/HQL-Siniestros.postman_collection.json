@@ -1,0 +1,131 @@
+{
+	"info": {
+		"_postman_id": "6fc5640f-9c8e-4726-8644-4a3e5b8cdd24",
+		"name": "HQL-Siniestros",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Crear siniestro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \n    \"fecha\": \"13-04-1998\",\n    \"perdidaEconomica\": 20000,\n    \"vehiculo\":{\n        \"patente\": \"12234\",\n        \"marca\": \"marca2\",\n        \"modelo\": \"model1\",\n        \"anioFabricacion\": 2022,\n        \"cantRuedas\":6\n    }\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/siniestro",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"siniestro"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patentes de todos los vehículos registrados",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/vehiculo/registrados",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehiculo",
+						"registrados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patente y la marca de todos los vehículos ordenados por año de fabricación",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/vehiculo/ordenados",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehiculo",
+						"ordenados"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Patente de todos los vehículos que tengan más de cuatro ruedas y hayan sido fabricados en el corriente año",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/vehiculo/current-year",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehiculo",
+						"current-year"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Matrícula, marca y modelo de todos los vehículos que hayan tenido un siniestro con pérdida mayor de 10000 pesos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/vehiculo/big-cost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehiculo",
+						"big-cost"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Matrícula, marca y modelo de todos los vehículos que hayan tenido un siniestro con pérdida mayor de 10000 pesos y pérdida total de todos ellos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/vehiculo/big-total-cost",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"vehiculo",
+						"big-total-cost"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
