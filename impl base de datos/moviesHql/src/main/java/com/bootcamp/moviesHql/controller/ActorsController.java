@@ -19,16 +19,19 @@ public class ActorsController {
         this.service = service;
     }
 
+    //http://localhost:8080/actors/favorite
     @GetMapping("/favorite")
-    public ResponseEntity<List<Actors>> getAllFavorite(){
+    public ResponseEntity<List<ActorDto>> getAllFavorite(){
         return ResponseEntity.ok().body(service.getAllFavorite());
     }
 
+    //http://localhost:8080/actors/rating?rating=7.4
     @GetMapping("/rating")
-    public ResponseEntity<List<Actors>> getAllRating(@RequestParam Double rating){
+    public ResponseEntity<List<ActorDto>> getAllRating(@RequestParam Double rating){
         return ResponseEntity.ok().body(service.getAllRating(rating));
     }
 
+    //http://localhost:8080/actors/movie?title=Avatar
     @GetMapping("/movie")
     public ResponseEntity<List<ActorDto>> getAllActorsMovie(@RequestParam String title){
         return ResponseEntity.ok().body(service.getAllActorsMovie(title));

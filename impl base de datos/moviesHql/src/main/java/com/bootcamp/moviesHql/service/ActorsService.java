@@ -19,16 +19,18 @@ public class ActorsService implements IActorsService{
     }
 
     @Override
-    public List<Actors> getAllFavorite() {
+    public List<ActorDto> getAllFavorite() {
 
         List<Actors> actors = repository.getAllFavorite();
-        return actors;
+        List<ActorDto> actorsDto = getActorsDto(actors);
+        return actorsDto;
     }
 
     @Override
-    public List<Actors> getAllRating(Double rating) {
+    public List<ActorDto> getAllRating(Double rating) {
         List<Actors> actors = repository.getAllRating(rating);
-        return actors;
+        List<ActorDto> actorsDto = getActorsDto(actors);
+        return actorsDto;
     }
 
     @Override
