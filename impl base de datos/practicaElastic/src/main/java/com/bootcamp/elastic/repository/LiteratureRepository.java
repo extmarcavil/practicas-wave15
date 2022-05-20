@@ -10,9 +10,9 @@ import java.util.List;
 @Repository
 public interface LiteratureRepository extends ElasticsearchRepository<Literature, String> {
     List<Literature> findLiteratureByAuthorEquals(String autor);
-    List<Literature> findLiteratureByTitleContaining(String word);
+    List<Literature> findLiteratureByTitleIn(List<String> words);
     List<Literature> findLiteratureByCantPagesGreaterThan(Integer pages);
     List<Literature> findLiteratureByFirstPostBefore(LocalDate date);
     List<Literature> findLiteratureByFirstPostAfter(LocalDate date);
-    List<Literature> findLiteratureByEditorialEquals(String editorial);
+    List<Literature> findLiteratureByEditorial(String editorial);
 }

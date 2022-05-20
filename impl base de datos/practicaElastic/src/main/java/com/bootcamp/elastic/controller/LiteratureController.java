@@ -1,7 +1,6 @@
 package com.bootcamp.elastic.controller;
 
 import com.bootcamp.elastic.dto.request.DateDTO;
-import com.bootcamp.elastic.dto.request.WordsDTO;
 import com.bootcamp.elastic.entity.Literature;
 import com.bootcamp.elastic.repository.LiteratureRepository;
 import org.springframework.http.ResponseEntity;
@@ -22,47 +21,42 @@ public class LiteratureController {
         this.literatureRepository = literatureRepository;
     }
 
-    @GetMapping("/books")
+    @GetMapping("")
     public ResponseEntity<?> getBooks () {
         return new ResponseEntity<>(literatureRepository.findAll(), OK);
     }
 
-    @GetMapping("/books/{autor}")
-    public ResponseEntity<?> getBooksByAutor (@PathVariable String autor) {
-        return new ResponseEntity<>(literatureRepository.findLiteratureByAuthorEquals(autor), OK);
+    @GetMapping("/one")
+    public ResponseEntity<?> getBooksByAutor (@RequestParam String author) {
+        return new ResponseEntity<>(literatureRepository.findLiteratureByAuthorEquals(author), OK);
     }
 
-//    @GetMapping("/books/with")
-//    public ResponseEntity<?> getBooksWithWordsinTittle (@RequestBody WordsDTO words) {
-//        return new ResponseEntity<>(literatureRepository.findLiteratureByTitleContaining(words.getWords()), OK);
-//    }
-
-    @GetMapping("/books/with")
-    public ResponseEntity<?> getBooksWithWordsinTittle (@RequestParam String word) {
-        return new ResponseEntity<>(literatureRepository.findLiteratureByTitleContaining(word), OK);
+    @GetMapping("/two")
+    public ResponseEntity<?> getBooksWithWordsinTittle (@RequestBody List<String> words) {
+        return new ResponseEntity<>(literatureRepository.findLiteratureByTitleIn(words), OK);
     }
 
-    @GetMapping("/books/bigger")
-    public ResponseEntity<?> getBooksBiggerThan (@RequestParam Integer pages) {
-        return new ResponseEntity<>(literatureRepository.findLiteratureByCantPagesGreaterThan(pages), OK);
+    @GetMapping("/three")
+    public ResponseEntity<?> getBooksBiggerThan (@RequestParam Integer cantPages) {
+        return new ResponseEntity<>(literatureRepository.findLiteratureByCantPagesGreaterThan(cantPages), OK);
     }
 
-    @GetMapping("/books/before")
+    @GetMapping("/four")
     public ResponseEntity<?> getBooksBeforeThan (@RequestBody DateDTO date) {
         return new ResponseEntity<>(literatureRepository.findLiteratureByFirstPostBefore(date.getDate()), OK);
     }
 
-    @GetMapping("/books/after")
+    @GetMapping("/four2")
     public ResponseEntity<?> getBooksAfterThan (@RequestBody DateDTO date) {
         return new ResponseEntity<>(literatureRepository.findLiteratureByFirstPostAfter(date.getDate()), OK);
     }
 
-    @GetMapping("/books/{editorial}")
-    public ResponseEntity<?> getBooksByEditorial (@PathVariable String editorial) {
-        return new ResponseEntity<>(literatureRepository.findLiteratureByEditorialEquals(editorial), OK);
+    @GetMapping("/five")
+    public ResponseEntity<?> getBooksByEditorial (@RequestParam String editorial) {
+        return new ResponseEntity<>(literatureRepository.findLiteratureByEditorial(editorial), OK);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/")
     public ResponseEntity<?> saveBooks ( @RequestBody List<Literature> books ) {
         return new ResponseEntity<>(literatureRepository.saveAll(books), CREATED);
     }
