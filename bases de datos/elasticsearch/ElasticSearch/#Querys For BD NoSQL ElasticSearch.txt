@@ -1,0 +1,164 @@
+#Querys For BD NoSQL ElasticSearch
+
+#Get All
+GET /clientes/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+#Get All paginacion
+GET /clientes/_search
+{
+  "from":20, 
+  "size":1,
+  "query": {
+    "match_all": {}
+  }
+}
+
+#Get All paginacion
+GET /clientes/_search
+{
+  "from":750, 
+  "size":16
+  }
+
+
+#Get All by Localidad
+GET /clientes/_search
+{
+  "query": {
+    "match": {
+      "localidad": "Posadas"
+    }
+  }
+}
+
+#Create Cliente 
+POST /clientes/_doc
+{
+  "nombre":"Paolo",
+  "apellido":"Maldini",
+  "pais": "IT",
+  "localidad": "Posadas"
+}
+
+#Get by id
+GET /clientes/_search?q=_id: Ofbtv4ABVFb-owlWY8qB
+
+#Get by nombre
+GET /clientes/_search
+{
+  "query": {
+    "match": {
+      "nombre": "Paolo"
+    }
+  }
+}
+
+#Create Cliente != 
+POST /cliente/_doc
+{
+  "name":"Pedro",
+  "last_name":"Pablo",
+  "country": "CO"
+}
+
+#Get by id
+GET /clientes/_search?q=_id: OPbsv4ABVFb-owlWxMod
+
+#Get by name
+GET /clientes/_search?q=name: Pedro
+
+GET /clientes/_search?q=name:"Pedro", last_name: "Pablo"
+
+
+#Creando otro indice clientenuevo
+POST /clientenuevo/_doc/1
+{
+  "name": "Juan",
+  "last_name": "Pablo",
+  "country": "CO"
+}
+
+#Get All clientenuevo
+GET /clientenuevo/_search
+{
+  "query": {
+    "match_all": {}
+  }
+}
+
+DELETE /clientenuevo/_doc/1
+
+#Get by name
+GET /clientenuevo/_search?q=_id: O_YJwIABVFb-owlWeMrc
+
+#Isertar datos dentro del formato por default con el id indicado en el _doc/10
+POST /clientes/_doc/10
+{
+    "nombre": "pepe",
+    "apellido": "mora",
+    "pais": "is",
+    "localidad": "Posadas",
+    "name": "Pedro",
+    "last_name": "Pablo",
+    "country": "CO"
+}
+
+#Get by id
+GET /clientes/_search?q=_id: 10
+
+
+#Actualizar un registro
+POST /clientes/_doc/10
+{
+   "nombre": "pepe",
+    "apellido": "mora",
+    "pais": "is",
+    "localidad": "nn",
+    "name": "oscar",
+    "last_name": "rangel",
+    "country": "CO"
+}
+
+#Otra forma de actualizar
+PUT /clientes/_doc/10
+{
+  "body": {
+    "nombre": "pepe",
+    "apellido": "mora",
+    "pais": "is",
+    "localidad": "nn",
+    "name": "oscar",
+    "last_name": "rendom",
+    "country": "CO"
+  }
+}
+
+
+#Otra manera de hacer busquedas
+GET /clientes/_search
+{
+  "query": {
+    "multi_match": {
+      "query": "Oscar",
+      "fields": ["nombre", "name"]
+    }
+  }
+}
+
+#Buscamos texto en cualquier lugar 
+GET /clientes/_search
+{
+  "query": {
+    "query_string": {
+      "query": "pepe"
+    }
+  }
+}
+
+
+
