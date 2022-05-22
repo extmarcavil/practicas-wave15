@@ -1,5 +1,6 @@
 package ar.com.mercadolibre.bootcamp.lfedele.hqlmoviesdb.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +12,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "series")
-public class Serie {
+@Table(name = "seasons")
+public class Season {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,8 +25,11 @@ public class Serie {
     @Column(name = "updated_at")
     private LocalDate updatedAt;
 
-    @Column(name = "title", nullable = false)
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "number")
+    private Integer number;
 
     @Column(name = "release_date", nullable = false)
     private LocalDate releaseDate;
@@ -33,11 +37,12 @@ public class Serie {
     @Column(name = "end_date", nullable = false)
     private LocalDate endDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "genre_id", referencedColumnName = "id")
-    private Genre genre;
+    @ManyToOne
+    @JoinColumn(name = "serie_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Serie serie;
 
-    @OneToMany(mappedBy = "serie")
+    @OneToMany(mappedBy = "season")
     @JsonManagedReference
-    private Set<Season> seasons;
+    private Set<Episode> episodes;
 }

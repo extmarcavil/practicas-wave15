@@ -4,14 +4,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.util.Set;
 
 @Getter
 @Setter
-public class SerieDto {
+public class MovieDto {
     private String title;
+    private Integer rating;
+    private Integer awards;
     private LocalDate releaseDate;
-    private LocalDate endDate;
+    private Integer length;
     private GenreDto genre;
-    private Set<SeasonDto> seasons;
 }

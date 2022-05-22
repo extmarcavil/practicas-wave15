@@ -8,10 +8,10 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class SerieDto {
+public class SeasonDto {
     private String title;
+    private Integer number;
     private LocalDate releaseDate;
     private LocalDate endDate;
-    private GenreDto genre;
-    private Set<SeasonDto> seasons;
+    private Set<EpisodeDto> episodes;
 }

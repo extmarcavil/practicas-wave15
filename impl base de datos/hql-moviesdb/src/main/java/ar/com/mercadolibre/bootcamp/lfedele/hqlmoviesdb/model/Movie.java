@@ -11,8 +11,8 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Table(name = "series")
-public class Serie {
+@Table(name = "movies")
+public class Movie {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -27,17 +27,27 @@ public class Serie {
     @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "rating", nullable = false)
+    private Integer rating;
+
+    @Column(name = "awards", nullable = false)
+    private Integer awards;
+
     @Column(name = "release_date", nullable = false)
     private LocalDate releaseDate;
 
-    @Column(name = "end_date", nullable = false)
-    private LocalDate endDate;
+    @Column(name = "length")
+    private Integer length;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genre;
 
-    @OneToMany(mappedBy = "serie")
-    @JsonManagedReference
-    private Set<Season> seasons;
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "actor_movie",
+            joinColumns = { @JoinColumn(name = "movie_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "actor_id", referencedColumnName = "id") }
+    )
+    private Set<Actor> actors;
 }
