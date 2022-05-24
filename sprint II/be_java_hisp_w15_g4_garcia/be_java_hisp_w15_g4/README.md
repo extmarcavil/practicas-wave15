@@ -43,3 +43,4 @@ correspondientes.
 ### Test de Integración
 
 Se agregaron dos archivos: UserControllerIntegrationTest.java y ProductControllerIntegrationTest.java. En el primero se probaron la totalidad de las funcionalides del UserController, integrando distintas acciones de la aplicación. En el segundo se probó crear un Post con normalidad. Mediante estos test de integración se logró llegar al 75% de coverage que se pedía en la consigna.
+
