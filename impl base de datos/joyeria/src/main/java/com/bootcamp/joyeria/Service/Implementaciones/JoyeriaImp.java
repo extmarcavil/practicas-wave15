@@ -1,6 +1,7 @@
 package com.bootcamp.joyeria.Service.Implementaciones;
 
 import com.bootcamp.joyeria.Dto.Request.JoyaRequestDTO;
+import com.bootcamp.joyeria.Dto.Response.JoyaResponseDTO;
 import com.bootcamp.joyeria.Model.Joya;
 import com.bootcamp.joyeria.Repository.JoyeriaRepository;
 import com.bootcamp.joyeria.Service.Interfaces.JoyeriaInterface;
@@ -23,9 +24,11 @@ public class JoyeriaImp implements JoyeriaInterface {
 
 
     @Override
-    public void guardarJoya(JoyaRequestDTO joyaRequestDTO) {
-       Joya joya = mapper.map(joyaRequestDTO, Joya.class);
+    public Long guardarJoya(JoyaRequestDTO joyaRequestDTO) {
+        Joya joya = mapper.map(joyaRequestDTO, Joya.class);
+        joya.setVentaONo(true);
         repo.save(joya);
+        return joya.getNro_identificatorio();
     }
 
     @Override
@@ -37,12 +40,8 @@ public class JoyeriaImp implements JoyeriaInterface {
     @Override
     public void eliminarJoya(Long id) {
         Joya joya = repo.findById(id).orElse(null);
-        try{
-            repo.delete(joya);
-        }catch (Exception e){
-            System.out.println("No se puede eliminar");
-            return;
-        }
+        joya.setVentaONo(false);
+        repo.save(joya);
     }
 
     @Override
@@ -53,8 +52,12 @@ public class JoyeriaImp implements JoyeriaInterface {
     }
 
     @Override
-    public List<Joya> listarJoyas() {
-        return repo.findAll();
+    public List<JoyaResponseDTO> listarJoyas() {
+        List<JoyaResponseDTO> joyasDTO = new ArrayList<>();
+        return joyasDTO = repo.findAll().stream()
+                .filter(joya -> joya.isVentaONo())
+                .map(joya -> mapper.map(joya, JoyaResponseDTO.class))
+                .collect(java.util.stream.Collectors.toList());
     }
 
     @Override
@@ -62,9 +65,9 @@ public class JoyeriaImp implements JoyeriaInterface {
         List<Joya> joyas = repo.findAll();
         List<JoyaRequestDTO> joyasDTO = new ArrayList<>();
 
-        joyas.forEach((joya)->{
-            if(joya.isVentaONo()){
-                joyasDTO.add(mapper.map(joya,JoyaRequestDTO.class));
+        joyas.forEach((joya) -> {
+            if (joya.isVentaONo()) {
+                joyasDTO.add(mapper.map(joya, JoyaRequestDTO.class));
             }
         });
 

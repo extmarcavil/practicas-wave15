@@ -13,8 +13,7 @@ import javax.persistence.*;
 public class Joya {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-    private Integer nro_identificatorio;
+    private Long nro_identificatorio;
     private String nombre;
     private String material;
     private double peso;
