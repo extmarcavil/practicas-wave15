@@ -4,6 +4,7 @@ package com.bootcamp.moviesHql.controller;
 import com.bootcamp.moviesHql.dto.ActorDTO;
 import com.bootcamp.moviesHql.model.Actors;
 import com.bootcamp.moviesHql.service.IActorsService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,17 +22,18 @@ public class ActorsController {
 
     @GetMapping("/favorite")
     public ResponseEntity<List<Actors>> getAllFavorite(){
-        return ResponseEntity.ok().body(service.getAllFavorite());
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAllFavorite());
     }
 
     @GetMapping("/rating")
     public ResponseEntity<List<Actors>> getAllRating(@RequestParam Double rating){
-        return ResponseEntity.ok().body(service.getAllRating(rating));
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAllRating(rating));
+
     }
 
     @GetMapping("/movie")
     public ResponseEntity<List<ActorDTO>> getAllActorsMovie(@RequestParam Integer id){
-        return ResponseEntity.ok().body(service.getAllActorsMovie(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAllActorsMovie(id));
     }
 
 }

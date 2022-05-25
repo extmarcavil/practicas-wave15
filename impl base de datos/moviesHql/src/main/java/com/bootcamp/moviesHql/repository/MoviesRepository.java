@@ -13,4 +13,8 @@ public interface MoviesRepository extends JpaRepository <Movies, Integer> {
 
     @Query("FROM Movies m JOIN m.actors a WHERE a.rating > :rating")
     List<Movies> findMoviesByActorsByRatingIsGreaterThan(@Param("rating") Double rating);
+
+    @Query("FROM Movies m JOIN m.genre g WHERE g.name  = :genreName")
+    List<Movies> findAllWithGenre(@Param("genreName") String genreName);
+
 }

@@ -6,6 +6,7 @@ import com.bootcamp.moviesHql.model.Actors;
 import java.util.List;
 
 public interface IActorsService {
+
     List<Actors> getAllFavorite();
 
     List<Actors> getAllRating(Double rating);

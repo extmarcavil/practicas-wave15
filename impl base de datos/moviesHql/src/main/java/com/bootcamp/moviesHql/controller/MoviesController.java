@@ -1,23 +1,30 @@
 package com.bootcamp.moviesHql.controller;
 
-import com.bootcamp.moviesHql.dto.ActorDTO;
 import com.bootcamp.moviesHql.dto.MoviesDTO;
 import com.bootcamp.moviesHql.service.IMoviesService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@RequestMapping("/movies")
 @RestController
-public class MoviesController {
+public class  MoviesController {
 
     IMoviesService service;
 
+    public MoviesController(IMoviesService service) {
+        this.service = service;
+    }
+
     @GetMapping("/rating")
     public ResponseEntity<List<MoviesDTO>> getAllMovieActorsRating(@RequestParam Double id){
-        return ResponseEntity.ok().body(service.getAllMovieActorsRating(id));
+        return ResponseEntity.status(HttpStatus.OK).body(service.getAllMovieActorsRating(id));
+    }
+
+    @GetMapping("/withgenre/{genre}")
+    public ResponseEntity<List<MoviesDTO>> findAllWithGenre(@PathVariable String genre) {
+        return ResponseEntity.status(HttpStatus.OK).body(service.findAllWithGenre(genre));
     }
 }

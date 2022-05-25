@@ -11,42 +11,45 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "movies")
 public class Movies {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column(name = "created_at", nullable = true)
     private LocalDate created_at;
+
+    @Column(name = "updated_at", nullable = true)
     private LocalDate updated_at;
+
+    @Column(name = "title", nullable = true)
     private String title;
+
+    @Column(name = "rating", nullable = true)
     private Double rating;
+
+    @Column(name = "awards", nullable = true)
     private Integer awards;
+
+    @Column(name = "relase_date", nullable = true)
     private LocalDate relase_date;
+
+    @Column(name = "length", nullable = true)
     private Integer length;
+
+    @Column(name = "genre_id", nullable = true)
     private Integer genre_id;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany
-    @JoinTable(
-            name = "actor_movie",
-            joinColumns = @JoinColumn (name = "movie_id"),
-            inverseJoinColumns = @JoinColumn(name = "actor_id")
-    )
+    @JoinTable(name = "actor_movie", joinColumns = @JoinColumn (name = "movie_id"),
+               inverseJoinColumns = @JoinColumn(name = "actor_id"))
     private Set<Actors> actors;
 
-    public Movies(Integer id, LocalDate created_at, LocalDate updated_at, String title, Double rating, Integer awards, LocalDate relase_date, Integer length, Integer genre_id, Set<Actors> actors) {
-        this.id = id;
-        this.created_at = created_at;
-        this.updated_at = updated_at;
-        this.title = title;
-        this.rating = rating;
-        this.awards = awards;
-        this.relase_date = relase_date;
-        this.length = length;
-        this.genre_id = genre_id;
-        this.actors = actors;
-    }
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "genre_id", referencedColumnName = "id")
+    private Genre genre;
 
-    public Movies() {
-    }
 }

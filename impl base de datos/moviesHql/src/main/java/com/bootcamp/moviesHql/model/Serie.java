@@ -1,13 +1,15 @@
 package com.bootcamp.moviesHql.model;
 
 import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "series")
 public class Serie {
@@ -39,17 +41,4 @@ public class Serie {
     @JoinColumn(name = "genre_id", referencedColumnName = "id")
     private Genre genresByGenreId;
 
-
- /*   @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Serie series = (Serie) o;
-        return Objects.equals(id, series.id) && Objects.equals(createdAt, series.createdAt) && Objects.equals(updatedAt, series.updatedAt) && Objects.equals(title, series.title) && Objects.equals(releaseDate, series.releaseDate) && Objects.equals(endDate, series.endDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, title, releaseDate, endDate);
-    }*/
 }

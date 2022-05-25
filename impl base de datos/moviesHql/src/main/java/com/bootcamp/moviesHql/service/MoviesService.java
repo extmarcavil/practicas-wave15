@@ -1,11 +1,8 @@
 package com.bootcamp.moviesHql.service;
 
-import com.bootcamp.moviesHql.dto.ActorDTO;
 import com.bootcamp.moviesHql.dto.MoviesDTO;
-import com.bootcamp.moviesHql.model.Actors;
 import com.bootcamp.moviesHql.model.Movies;
 import com.bootcamp.moviesHql.repository.MoviesRepository;
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -13,10 +10,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class MoviesService {
+public class MoviesService implements IMoviesService {
 
     MoviesRepository repository;
-    private ModelMapper mapper;
+    private final ModelMapper mapper;
 
     public MoviesService(MoviesRepository repository) {
         this.repository = repository;
@@ -32,6 +29,11 @@ public class MoviesService {
 
     public List<MoviesDTO> getAllMovieActorsRating(Double rating){
         List<Movies> moviesList = repository.findMoviesByActorsByRatingIsGreaterThan(rating);
+        return getMovieDTOS(moviesList);
+    }
+
+    public List<MoviesDTO> findAllWithGenre(String genre){
+        List<Movies> moviesList = repository.findAllWithGenre(genre);
         return getMovieDTOS(moviesList);
     }
 }

@@ -1,13 +1,14 @@
 package com.bootcamp.moviesHql.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "episodes")
 public class Episode {
@@ -35,24 +36,11 @@ public class Episode {
     @Column(name = "rating", nullable = false)
     private Double rating;
 
-    //@ManyToMany(mappedBy = "actorEpisodesById")
-    //private Set<Actors> actorEpisodesById;
+    @ManyToMany(mappedBy = "actorEpisodesById")
+    private Set<Actors> actorEpisodesById;
 
     @ManyToOne
     @JoinColumn(name = "season_id")
     private Season seasonsBySeasonId;
 
-
- /*   @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Episode episodes = (Episode) o;
-        return Objects.equals(id, episodes.id) && Objects.equals(createdAt, episodes.createdAt) && Objects.equals(updatedAt, episodes.updatedAt) && Objects.equals(title, episodes.title) && Objects.equals(number, episodes.number) && Objects.equals(releaseDate, episodes.releaseDate) && Objects.equals(rating, episodes.rating);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, title, number, releaseDate, rating);
-    }*/
 }

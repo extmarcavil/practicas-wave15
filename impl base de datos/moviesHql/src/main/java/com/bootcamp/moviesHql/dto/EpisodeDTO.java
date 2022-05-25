@@ -6,11 +6,11 @@ import lombok.*;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class ActorDTO {
+public class EpisodeDTO {
 
     private Long id;
-    private String firstName;
-    private String lastName;
+    private String title;
+    private Integer number;
     private Double rating;
 
 }

@@ -1,13 +1,14 @@
 package com.bootcamp.moviesHql.model;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name = "genres")
 public class Genre {
@@ -32,23 +33,10 @@ public class Genre {
     @Column(name = "active", nullable = false)
     private boolean active;
 
-  //  @OneToMany(mappedBy = "genresByGenreId")
-  //  private List<Movies> moviesById;
+    @OneToMany(mappedBy = "genresByGenreId")
+    private List<Movies> moviesById;
 
- //   @OneToMany(mappedBy = "genresByGenreId")
- //   private List<Serie> seriesById;
+    @OneToMany(mappedBy = "genresByGenreId")
+    private List<Serie> seriesById;
 
-/*
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Genre genres = (Genre) o;
-        return active == genres.active && Objects.equals(id, genres.id) && Objects.equals(createdAt, genres.createdAt) && Objects.equals(updatedAt, genres.updatedAt) && Objects.equals(name, genres.name) && Objects.equals(ranking, genres.ranking);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, createdAt, updatedAt, name, ranking, active);
-    }*/
 }

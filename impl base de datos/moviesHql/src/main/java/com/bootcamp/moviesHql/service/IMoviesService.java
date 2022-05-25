@@ -8,4 +8,6 @@ public interface IMoviesService {
 
     List<MoviesDTO> getAllMovieActorsRating(Double id);
 
+    List<MoviesDTO> findAllWithGenre(String genre);
+
 }

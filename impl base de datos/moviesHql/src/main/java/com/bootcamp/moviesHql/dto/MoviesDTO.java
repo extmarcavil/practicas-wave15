@@ -4,7 +4,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class MoviesDTO {
@@ -18,7 +19,5 @@ public class MoviesDTO {
     private LocalDate relase_date;
     private Integer length;
     private Integer genre_id;
-
-
 
 }

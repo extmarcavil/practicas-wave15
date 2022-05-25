@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ActorsService implements IActorsService{
+public class ActorsService implements IActorsService {
 
     ActorsRepository repository;
     private final ModelMapper modelMapper;
