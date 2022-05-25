@@ -34,9 +34,6 @@ public class Genre {
     private boolean active;
 
     @OneToMany(mappedBy = "genresByGenreId")
-    private List<Movies> moviesById;
-
-    @OneToMany(mappedBy = "genresByGenreId")
     private List<Serie> seriesById;
 
 }

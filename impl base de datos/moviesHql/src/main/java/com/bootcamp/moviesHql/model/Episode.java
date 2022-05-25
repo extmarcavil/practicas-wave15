@@ -36,7 +36,10 @@ public class Episode {
     @Column(name = "rating", nullable = false)
     private Double rating;
 
-    @ManyToMany(mappedBy = "actorEpisodesById")
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "actor_episode",
+            joinColumns = { @JoinColumn(name = "episode_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "actor_id", referencedColumnName = "id") })
     private Set<Actors> actorEpisodesById;
 
     @ManyToOne

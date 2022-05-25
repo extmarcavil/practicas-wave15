@@ -39,9 +39,6 @@ public class Movies {
     @Column(name = "length", nullable = true)
     private Integer length;
 
-    @Column(name = "genre_id", nullable = true)
-    private Integer genre_id;
-
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToMany
     @JoinTable(name = "actor_movie", joinColumns = @JoinColumn (name = "movie_id"),

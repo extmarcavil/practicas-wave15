@@ -40,4 +40,10 @@ public class Actors {
     @ManyToMany(mappedBy = "actors", cascade = CascadeType.ALL, fetch= FetchType.LAZY)
     private Set<Movies> movies;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinTable(name = "actor_episode",
+            joinColumns = { @JoinColumn(name = "actor_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "episode_id", referencedColumnName = "id") })
+    private Set<Episode> episodes;
+
 }
