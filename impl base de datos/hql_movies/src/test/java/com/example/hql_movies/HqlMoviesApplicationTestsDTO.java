@@ -1,13 +1,13 @@
-package com.example.claveCompuesta;
+package com.example.hql_movies;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClaveCompuestaApplicationTests {
+class HqlMoviesApplicationTestsDTO {
 
-	@Test
-	void contextLoads() {
-	}
+    @Test
+    void contextLoads() {
+    }
 
 }
