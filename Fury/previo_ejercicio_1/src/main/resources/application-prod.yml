@@ -1,2 +1,0 @@
-# "prod" suffix properties file. Scopes name samples: "prod", "web-prod", "api-prod", etc.
-# Overrides application.yml default properties

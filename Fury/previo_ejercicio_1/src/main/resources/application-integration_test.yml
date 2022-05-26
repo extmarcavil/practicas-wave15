@@ -1,5 +1,0 @@
-# Properties file for integration tests
-# Overrides application.yml default properties
-meli:
-  base:
-    url: http://fake.api.mercadolibre.com
