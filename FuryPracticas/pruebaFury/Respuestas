@@ -1,0 +1,4 @@
+
+2. Fury va escalando horizontalmente la aplicación a medida que el tráfico aumenta, para poder continuar trabajando sin interrupciones.
+3. Una vez realizado el deploy observaría las métricas de la aplicación en DataDog.
+4. Se podría utilizar una caché para mantener guardado el valor, y actualizarlo una vez al día.
