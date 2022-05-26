@@ -2,7 +2,6 @@ package com.movies.movies.controller;
 
 import com.movies.movies.dto.MovieDTO;
 import com.movies.movies.service.IMovieService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,11 +10,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-class MoviesController {
+public class MovieController {
 
     private final IMovieService service;
 
-    public MoviesController(IMovieService service) {
+    public MovieController(IMovieService service) {
         this.service = service;
     }
 

@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-class MoviesService implements IMovieService {
+public class MoviesService implements IMovieService {
 
     private final MovieRepository movieRepo;
 
