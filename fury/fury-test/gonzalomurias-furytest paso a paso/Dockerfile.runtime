@@ -1,0 +1,1 @@
+FROM hub.furycloud.io/mercadolibre/java:1.11-runtime-mini

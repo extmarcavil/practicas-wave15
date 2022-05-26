@@ -1,0 +1,17 @@
+repos:
+  - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    - id: pretty-format-java
+      args: [--autofix]
+  - repo: https://github.com/mercadolibre/fury_code-quality-pre-commit-java
+    rev: 1.0.1
+    hooks:
+    - id: checkstyle
+      args:
+        - -c
+        - .code_quality/checkstyle_rules.xml
+    - id: pmd
+      args:
+        - -R
+        - .code_quality/pmd_rules.xml
