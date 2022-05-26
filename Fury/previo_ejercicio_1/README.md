@@ -1,3 +1,13 @@
+# Endpoints
+
+## Run it in Local Environment
+
+### Get price of one item
+localhost:8080/prices/<item_id>
+
+### Currency conversion
+localhost:8080/prices_usd/<item_id>?from=<sourceCurrency>&to=<destintionCurrency>
+
 #### ¿Qué ocurriría si nos llegan 1000 requests por minuto? ¿Y si llegaran 100.000? ¿Esta API tiene una implementación correcta? ¿Qué preguntas harías para pensar en optimizaciones a hacerle a la API?
 Preguntaría sobre el SLA de la API que convierte precios. 
 
