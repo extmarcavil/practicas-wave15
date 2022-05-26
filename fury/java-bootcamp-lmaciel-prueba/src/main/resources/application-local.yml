@@ -1,0 +1,14 @@
+# Properties file for local/dev environment
+# You need to configure the environment variable in your IDE, more info in README.md
+# Overrides application.yml default properties
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://${DB_MYSQL_DESAENV05_BLMACBITT_BLMACBITT_ENDPOINT}/dbproject?useSSL=0
+    username: dbproject_WPROD
+    password: ${DB_MYSQL_DESAENV05_BLMACBITT_BLMACBITT_RPROD}
+
+    jpa:
+      show-sql: false
+      hibernate:
+      ddl-auto: none
