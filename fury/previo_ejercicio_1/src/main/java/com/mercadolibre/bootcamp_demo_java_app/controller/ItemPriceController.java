@@ -26,7 +26,13 @@ public class ItemPriceController {
 		return new ItemPriceResponseDTO(itemId, price);
 	}
 	
-	@GetMapping("/prices_usd/{itemId}")
+/*	@GetMapping("/prices_usd/{itemId}")
+	public ItemUSDPriceResponseDTO getItemPriceUSD(@PathVariable String itemId) throws ParseException, RestException {
+		Double usdPrice = itemsService.getItemUSDPrice(itemId);
+		return new ItemUSDPriceResponseDTO(itemId, usdPrice);
+	}*/
+
+	@GetMapping("items/prices/{itemId}")
 	public ItemUSDPriceResponseDTO getItemPriceUSD(@PathVariable String itemId) throws ParseException, RestException {
 		Double usdPrice = itemsService.getItemUSDPrice(itemId);
 		return new ItemUSDPriceResponseDTO(itemId, usdPrice);
