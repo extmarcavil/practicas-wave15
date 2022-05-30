@@ -34,8 +34,11 @@ public class Vehicle {
     @Column(name = "cant_ruedas")
     private Integer cantRuedas;
 
-    @OneToMany(mappedBy = "vehicle", cascade = CascadeType.ALL, orphanRemoval = true)
-    @JsonManagedReference
+    @OneToMany(mappedBy = "vehicle",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    //@JsonManagedReference
     private Set<Accident> accidents = new LinkedHashSet<>();
 
     @Override
@@ -49,5 +52,22 @@ public class Vehicle {
     @Override
     public int hashCode() {
         return getClass().hashCode();
+    }
+
+    public Vehicle() {}
+
+    public Vehicle(String patente) {
+        this.patente = patente;
+    }
+
+    public Vehicle(String patente, String marca) {
+        this.patente = patente;
+        this.marca = marca;
+    }
+
+    public Vehicle(String patente, String marca, String modelo) {
+        this.patente = patente;
+        this.marca = marca;
+        this.modelo = modelo;
     }
 }

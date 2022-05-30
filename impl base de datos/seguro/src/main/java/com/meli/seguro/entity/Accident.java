@@ -30,7 +30,7 @@ public class Accident {
 
     @ManyToOne(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name = "vehicle_id")
-    @JsonBackReference
+    //@JsonBackReference
     private Vehicle vehicle;
 
     @Override
