@@ -7,14 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="bootcamp-demo-java-app" />
-        <module name="previo_ejercicio_1" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="bootcamp-demo-java-app" options="-parameters" />
-      <module name="previo_ejercicio_1" options="-parameters" />
     </option>
   </component>
 </project>

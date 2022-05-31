@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>com.mercadolibre.bootcamp_demo_java_app.exceptions.InternalServerErrorException</OriginalElement>
+  <nodes>
+    <node x="0.0" y="400.0">com.mercadolibre.bootcamp_demo_java_app.exceptions.InternalServerErrorException</node>
+    <node x="196.0" y="80.0">java.lang.Throwable</node>
+    <node x="0.0" y="1125.0">com.mercadolibre.bootcamp_demo_java_app.api.services.CurrencyConversionApiService</node>
+    <node x="1385.0" y="555.0">org.springframework.scheduling.annotation.EnableAsync</node>
+    <node x="354.0" y="160.0">com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyEnum</node>
+    <node x="974.0" y="555.0">org.springframework.scheduling.annotation.AsyncConfigurer</node>
+    <node x="355.28928571428565" y="645.0">com.mercadolibre.bootcamp_demo_java_app.config.SpringConfig</node>
+    <node x="1164.0" y="475.0">java.lang.FunctionalInterface</node>
+    <node x="1160.0" y="555.0">org.springframework.scheduling.annotation.SchedulingConfigurer</node>
+    <node x="385.0" y="80.0">java.lang.Enum</node>
+    <node x="287.0" y="1125.0">com.mercadolibre.bootcamp_demo_java_app.api.services.ItemsApiService</node>
+    <node x="451.75" y="1035.0">org.springframework.stereotype.Service</node>
+    <node x="0.0" y="960.0">com.mercadolibre.bootcamp_demo_java_app.dtos.ItemPriceResponseDTO</node>
+    <node x="363.70833333333326" y="960.0">com.mercadolibre.bootcamp_demo_java_app.dtos.ItemUSDPriceResponseDTO</node>
+    <node x="98.0392857142856" y="725.0">com.mercadolibre.bootcamp_demo_java_app.Application</node>
+    <node x="781.0" y="555.0">org.springframework.scheduling.annotation.EnableScheduling</node>
+    <node x="737.0" y="1125.0">com.mercadolibre.bootcamp_demo_java_app.services.ItemsService</node>
+    <node x="978.0" y="645.0">com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig</node>
+    <node x="603.0" y="645.0">com.mercadolibre.bootcamp_demo_java_app.config.SpringDocConfig</node>
+    <node x="296.0" y="1200.0">com.mercadolibre.bootcamp_demo_java_app.util.ScopeUtils</node>
+    <node x="39.0" y="1200.0">org.springframework.web.bind.annotation.ControllerAdvice</node>
+    <node x="184.5" y="320.0">com.mercadolibre.bootcamp_demo_java_app.exceptions.ApiException</node>
+    <node x="59.0392857142856" y="645.0">org.springframework.boot.autoconfigure.SpringBootApplication</node>
+    <node x="0.0" y="555.0">org.springframework.boot.autoconfigure.EnableAutoConfiguration</node>
+    <node x="924.0" y="1115.0">com.mercadolibre.bootcamp_demo_java_app.controller.PingController</node>
+    <node x="168.99999999999994" y="240.0">java.lang.RuntimeException</node>
+    <node x="467.0" y="1200.0">com.mercadolibre.bootcamp_demo_java_app.exceptions.ApiError</node>
+    <node x="1022.75" y="1035.0">org.springframework.web.bind.annotation.RestController</node>
+    <node x="224.99999999999997" y="960.0">com.mercadolibre.bootcamp_demo_java_app.dtos.ItemDTO</node>
+    <node x="248.0" y="555.0">org.springframework.context.annotation.ComponentScan</node>
+    <node x="195.99999999999994" y="160.0">java.lang.Exception</node>
+    <node x="220.0" y="0.0">java.io.Serializable</node>
+    <node x="611.0" y="555.0">org.springframework.context.annotation.Configuration</node>
+    <node x="1102.0" y="1115.0">com.mercadolibre.bootcamp_demo_java_app.controller.ItemPriceController</node>
+    <node x="91.52083333333337" y="1035.0">com.mercadolibre.bootcamp_demo_java_app.api.services.RestClientService</node>
+    <node x="536.1458333333333" y="800.0">lombok.Data</node>
+    <node x="382.0" y="0.0">java.lang.Comparable</node>
+    <node x="287.0" y="400.0">com.mercadolibre.bootcamp_demo_java_app.exceptions.NotFoundException</node>
+    <node x="290.45833333333326" y="800.0">lombok.AllArgsConstructor</node>
+    <node x="418.0" y="555.0">org.springframework.web.servlet.config.annotation.WebMvcConfigurer</node>
+    <node x="473.0" y="1125.0">com.mercadolibre.bootcamp_demo_java_app.services.CurrencyConversionService</node>
+    <node x="0.0" y="1280.0">com.mercadolibre.bootcamp_demo_java_app.config.ControllerExceptionHandler</node>
+    <node x="611.7083333333333" y="960.0">com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyConversionDTO</node>
+    <node x="89.45833333333326" y="800.0">lombok.NoArgsConstructor</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemPriceResponseDTO" target="lombok.Data">
+      <point x="68.33333333333331" y="-15.0" />
+      <point x="170.83333333333331" y="920.0" />
+      <point x="546.1458333333333" y="920.0" />
+      <point x="-30.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.api.services.CurrencyConversionApiService" target="com.mercadolibre.bootcamp_demo_java_app.api.services.RestClientService">
+      <point x="-66.75" y="-15.0" />
+      <point x="66.75" y="1105.0" />
+      <point x="136.77083333333337" y="1105.0" />
+      <point x="-45.25" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemUSDPriceResponseDTO" target="lombok.Data">
+      <point x="76.0" y="-15.0" />
+      <point x="553.7083333333333" y="940.0" />
+      <point x="586.1458333333333" y="940.0" />
+      <point x="10.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyEnum" target="java.lang.Enum">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ControllerExceptionHandler" target="org.springframework.web.bind.annotation.ControllerAdvice">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.exceptions.InternalServerErrorException" target="com.mercadolibre.bootcamp_demo_java_app.exceptions.ApiException">
+      <point x="0.0" y="-15.0" />
+      <point x="133.5" y="375.0" />
+      <point x="220.0" y="375.0" />
+      <point x="-35.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.services.CurrencyConversionService" target="org.springframework.stereotype.Service">
+      <point x="0.0" y="-15.0" />
+      <point x="595.0" y="1105.0" />
+      <point x="516.125" y="1105.0" />
+      <point x="12.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.controller.ItemPriceController" target="org.springframework.web.bind.annotation.RestController">
+      <point x="0.0" y="-15.0" />
+      <point x="1200.5" y="1090.0" />
+      <point x="1141.25" y="1090.0" />
+      <point x="39.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.api.services.ItemsApiService" target="com.mercadolibre.bootcamp_demo_java_app.api.services.RestClientService">
+      <point x="-41.5" y="-15.0" />
+      <point x="328.5" y="1085.0" />
+      <point x="227.27083333333337" y="1085.0" />
+      <point x="45.25" y="15.0" />
+    </edge>
+    <edge source="java.lang.Throwable" target="java.io.Serializable">
+      <point x="0.0" y="-15.0" />
+      <point x="-35.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemUSDPriceResponseDTO" target="lombok.NoArgsConstructor">
+      <point x="-76.0" y="-15.0" />
+      <point x="401.70833333333326" y="880.0" />
+      <point x="202.58333333333326" y="880.0" />
+      <point x="22.625" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.SpringConfig" target="org.springframework.boot.autoconfigure.EnableAutoConfiguration">
+      <point x="-53.25" y="-15.0" />
+      <point x="373.03928571428565" y="615.0" />
+      <point x="171.0" y="615.0" />
+      <point x="57.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.SpringConfig" target="org.springframework.context.annotation.ComponentScan">
+      <point x="-17.75" y="-15.0" />
+      <point x="408.53928571428565" y="605.0" />
+      <point x="360.5" y="605.0" />
+      <point x="37.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemDTO" target="lombok.AllArgsConstructor">
+      <point x="0.0" y="-15.0" />
+      <point x="276.5" y="910.0" />
+      <point x="361.33333333333326" y="910.0" />
+      <point x="-23.625" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig" target="org.springframework.scheduling.annotation.EnableScheduling">
+      <point x="-31.600000000000023" y="-15.0" />
+      <point x="1025.4" y="615.0" />
+      <point x="867.5" y="615.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.lang.RuntimeException" target="java.lang.Exception">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig" target="org.springframework.scheduling.annotation.AsyncConfigurer">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.lang.Exception" target="java.lang.Throwable">
+      <point x="2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.io.Serializable">
+      <point x="-20.0" y="-15.0" />
+      <point x="405.0" y="55.0" />
+      <point x="326.49999999999994" y="55.0" />
+      <point x="35.49999999999997" y="15.0" />
+    </edge>
+    <edge source="org.springframework.boot.autoconfigure.SpringBootApplication" target="org.springframework.context.annotation.ComponentScan">
+      <point x="53.0" y="-15.0" />
+      <point x="218.0392857142856" y="625.0" />
+      <point x="285.5" y="625.0" />
+      <point x="-37.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemDTO" target="lombok.NoArgsConstructor">
+      <point x="-34.33333333333337" y="-15.0" />
+      <point x="242.1666666666666" y="890.0" />
+      <point x="157.33333333333326" y="890.0" />
+      <point x="-22.625" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemPriceResponseDTO" target="lombok.AllArgsConstructor">
+      <point x="0.0" y="-15.0" />
+      <point x="102.5" y="900.0" />
+      <point x="314.08333333333326" y="900.0" />
+      <point x="-70.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemDTO" target="lombok.Data">
+      <point x="34.33333333333337" y="-15.0" />
+      <point x="310.83333333333337" y="930.0" />
+      <point x="566.1458333333333" y="930.0" />
+      <point x="-10.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig" target="org.springframework.scheduling.annotation.SchedulingConfigurer">
+      <point x="31.59999999999991" y="-15.0" />
+      <point x="1088.6" y="615.0" />
+      <point x="1262.5" y="615.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemPriceResponseDTO" target="lombok.NoArgsConstructor">
+      <point x="-68.33333333333331" y="-15.0" />
+      <point x="34.166666666666686" y="890.0" />
+      <point x="112.08333333333326" y="890.0" />
+      <point x="-67.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.ItemUSDPriceResponseDTO" target="lombok.AllArgsConstructor">
+      <point x="0.0" y="-15.0" />
+      <point x="477.70833333333326" y="910.0" />
+      <point x="408.58333333333326" y="910.0" />
+      <point x="23.625" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.api.services.CurrencyConversionApiService" target="org.springframework.stereotype.Service">
+      <point x="66.75" y="-15.0" />
+      <point x="200.25" y="1095.0" />
+      <point x="464.625" y="1095.0" />
+      <point x="-38.625" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.services.ItemsService" target="org.springframework.stereotype.Service">
+      <point x="0.0" y="-15.0" />
+      <point x="808.0" y="1095.0" />
+      <point x="541.875" y="1095.0" />
+      <point x="38.625" y="15.0" />
+    </edge>
+    <edge source="org.springframework.boot.autoconfigure.SpringBootApplication" target="org.springframework.boot.autoconfigure.EnableAutoConfiguration">
+      <point x="-53.0" y="-15.0" />
+      <point x="112.0392857142856" y="625.0" />
+      <point x="57.0" y="625.0" />
+      <point x="-57.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.SpringConfig" target="org.springframework.context.annotation.Configuration">
+      <point x="53.25" y="-15.0" />
+      <point x="479.53928571428565" y="625.0" />
+      <point x="636.0" y="625.0" />
+      <point x="-50.0" y="15.0" />
+    </edge>
+    <edge source="java.lang.Enum" target="java.lang.Comparable">
+      <point x="20.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.controller.PingController" target="org.springframework.web.bind.annotation.RestController">
+      <point x="0.0" y="-15.0" />
+      <point x="1003.0" y="1090.0" />
+      <point x="1062.25" y="1090.0" />
+      <point x="-39.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.Application" target="org.springframework.boot.autoconfigure.SpringBootApplication">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.exceptions.ApiException" target="java.lang.RuntimeException">
+      <point x="-2.8421709430404007E-14" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyConversionDTO" target="lombok.NoArgsConstructor">
+      <point x="-70.66666666666669" y="-15.0" />
+      <point x="647.0416666666665" y="870.0" />
+      <point x="247.83333333333326" y="870.0" />
+      <point x="67.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.exceptions.NotFoundException" target="com.mercadolibre.bootcamp_demo_java_app.exceptions.ApiException">
+      <point x="0.0" y="-15.0" />
+      <point x="377.5" y="375.0" />
+      <point x="291.0" y="375.0" />
+      <point x="35.5" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig" target="org.springframework.scheduling.annotation.EnableAsync">
+      <point x="63.200000000000045" y="-15.0" />
+      <point x="1120.2" y="625.0" />
+      <point x="1452.0" y="625.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.api.services.ItemsApiService" target="org.springframework.stereotype.Service">
+      <point x="41.5" y="-15.0" />
+      <point x="411.5" y="1105.0" />
+      <point x="490.375" y="1105.0" />
+      <point x="-12.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.SpringDocConfig" target="org.springframework.context.annotation.Configuration">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyConversionDTO" target="lombok.AllArgsConstructor">
+      <point x="-1.4210854715202004E-14" y="-15.0" />
+      <point x="717.7083333333333" y="860.0" />
+      <point x="455.83333333333326" y="860.0" />
+      <point x="70.875" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.dtos.CurrencyConversionDTO" target="lombok.Data">
+      <point x="70.66666666666669" y="-15.0" />
+      <point x="788.375" y="850.0" />
+      <point x="606.1458333333333" y="850.0" />
+      <point x="30.00000000000003" y="15.0" />
+    </edge>
+    <edge source="org.springframework.scheduling.annotation.SchedulingConfigurer" target="java.lang.FunctionalInterface">
+      <point x="0.0" y="-15.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.ExecutorConfig" target="org.springframework.context.annotation.Configuration">
+      <point x="-63.200000000000045" y="-15.0" />
+      <point x="993.8" y="625.0" />
+      <point x="736.0" y="625.0" />
+      <point x="50.0" y="15.0" />
+    </edge>
+    <edge source="com.mercadolibre.bootcamp_demo_java_app.config.SpringConfig" target="org.springframework.web.servlet.config.annotation.WebMvcConfigurer">
+      <point x="17.75" y="-15.0" />
+      <point x="444.03928571428565" y="615.0" />
+      <point x="504.5" y="615.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.47969924812030074" x="759.5" y="655.0" />
+  <SelectedNodes>
+    <node>com.mercadolibre.bootcamp_demo_java_app.exceptions.InternalServerErrorException</node>
+  </SelectedNodes>
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
