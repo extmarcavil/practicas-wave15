@@ -1,0 +1,34 @@
+# Default properties file
+spring:
+  #profiles:
+  #  active: ${SCOPE_SUFFIX} # Comma-separated list of active profiles. Can be overridden by a command line switch.
+  datasource:
+    url: jdbc:mysql://proxysql.master.meliseginf.com:6612/lufktest?useSSL=false&serverTimezone=UTC
+    username: lfedele
+    password: OMW21FRZ
+  jpa:
+    hibernate:
+      ddl-auto: update
+  mvc:
+    throw-exception-if-no-handler-found: true # Whether a "NoHandlerFoundException" should be thrown if no Handler was found to process a request.
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  compression:
+    enabled: true # Whether response compression is enabled.
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json # Comma-separated list of MIME types that should be compressed.
+    min-response-size: 1024 # Minimum "Content-Length" value that is required for compression to be performed.
+
+springdoc:
+  packages-to-scan: com.mercadolibre.lfedele_bootcamp_001.controller
+  show-actuator: true
+  swagger-ui:
+    operations-sorter: alpha
+    disable-swagger-default-url: true
+
+app:
+  title: lfedele-bootcamp-001
+  description: '@project.description@'
+  version: @project.version@
