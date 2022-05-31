@@ -1,0 +1,6 @@
+# Properties file for local/dev enviroment
+# You need to configure the environment variable in your IDE, more info in README.md
+# Overrides application.yml default properties
+meli:
+  base:
+    url: https://api.mercadolibre.com

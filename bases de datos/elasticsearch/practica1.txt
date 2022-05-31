@@ -1,0 +1,31 @@
+#get all
+GET /clientes2/_search
+
+#creando clientes
+POST /clientes2/_doc
+{
+  "name": "Edgar",
+  "lastname": "Ocampo",
+  "country": "AR"
+}
+POST /clientes2/_doc/1
+{
+  "name": "Gisela",
+  "lastname": "Seran",
+  "country": "Argentina"
+}
+
+#get clientes creados
+GET /clientes2/_search?q=_id:hFykuYABBD7v7KKQW1Y7
+GET /clientes2/_search?q=name:"Edgar"
+GET /clientes2/_search?q=_id:1
+
+#get all paginacion
+GET /clientes2/_search
+{
+  "from": 1
+  , "size": 1, 
+  "query": {
+    "match_all": {}
+  }
+}
