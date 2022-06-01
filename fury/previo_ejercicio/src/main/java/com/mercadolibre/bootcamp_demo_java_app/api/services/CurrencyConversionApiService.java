@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.annotation.PostConstruct;
 
+import com.mercadolibre.bootcamp_demo_java_app.dtos.ItemDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -36,6 +37,8 @@ public class CurrencyConversionApiService extends RestClientService{
     }
 
     public CurrencyConversionDTO getCurrencyConversion(CurrencyEnum sourceCurrency, CurrencyEnum destCurrency) throws RestException, ParseException {
-        //UNIMPLEMENTED
+       String currentConversion = currencyConversionApiBaseUrl + "?from=" + sourceCurrency + "&to=" + destCurrency;
+       Response res = currencyConversionApiClient.get(currentConversion);
+       return handleApiResponse(res, CurrencyConversionDTO.class);
 	}
 }

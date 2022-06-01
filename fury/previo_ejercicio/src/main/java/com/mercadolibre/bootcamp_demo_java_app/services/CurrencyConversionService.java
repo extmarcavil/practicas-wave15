@@ -22,10 +22,11 @@ public class CurrencyConversionService {
 	}
 	
 	public Double getCurrencyConversionRatioToUSD(CurrencyEnum sourceCurrency) throws ParseException, RestException {
-		//UNIMPLEMENTED
+		return currencyConversionApiService.getCurrencyConversion(sourceCurrency, CurrencyEnum.USD).getRatio();
 	}
 	
 	public Double getCurrencyConversionRatio(CurrencyEnum sourceCurrency, CurrencyEnum destCurrency) throws ParseException, RestException {
-		//UNIMPLEMENTED
+		CurrencyConversionDTO currencyConversionDTO =  currencyConversionApiService.getCurrencyConversion(sourceCurrency, destCurrency);
+		return currencyConversionDTO.getRatio();
 	}
 }
