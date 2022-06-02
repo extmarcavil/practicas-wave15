@@ -22,14 +22,14 @@ public class CurrencyConversionService {
 	}
 	
 	public Double getCurrencyConversionRatioToUSD(CurrencyEnum sourceCurrency) throws ParseException, RestException {
-		Double conversionRatio = getCurrencyConversionRatio(sourceCurrency, CurrencyEnum.USD);
-		if (log.isDebugEnabled()) {
-			log.debug("Conversion ratio: {}", conversionRatio);
-		}
-		return conversionRatio;
+		return getCurrencyConversionRatio(sourceCurrency, CurrencyEnum.USD);
 	}
-	
+
 	public Double getCurrencyConversionRatio(CurrencyEnum sourceCurrency, CurrencyEnum destCurrency) throws ParseException, RestException {
-		return currencyConversionApiService.getCurrencyConversion(sourceCurrency, destCurrency).getRatio();
+		CurrencyConversionDTO currencyConversion = currencyConversionApiService.getCurrencyConversion(sourceCurrency, destCurrency);
+		if (log.isDebugEnabled()) {
+			log.debug("Currency conversion info lookup: {}", currencyConversion);
+		}
+		return currencyConversion.getRatio();
 	}
 }
