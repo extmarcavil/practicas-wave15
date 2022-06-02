@@ -8,9 +8,11 @@ Ejercicio Nº 2
 Si tengo que guardar todos los datos de los usuarios de MELI 
 ¿Qué tipo de base de datos debo utilizar? ¿Por qué?
 
-Siguiendo el arbol de decision, podria ser en Audits. O bien KVS DB + Audits.
-Se piensa en Audits ya que si el usuario no realiza compras, los datos no van a ser consultados frecuentemente y la vez obtengo una persistencia de los datos.
-En caso contrario podria ser que primero se almacene en KVS DB y a dada alguna metrica que indique que ciertos KV no son consultados estos podrian migrar a Audits.
+Siguiendo el arbol de decision: KVS DB + DS + Audits.
+
+KVS: En el caso que se tenga una key para consultar.
+DS: Para buscar por cualquier campo.
+Audits: Para registrar cualquier cambio en los clientes dado la importancia de tener estos datos.
 
 -----------
 
@@ -33,6 +35,16 @@ Tengo un KVS que utilizo para guardar mis items, a los cuales se accede habitual
 Como necesito poder buscar y hacer agregacion de los datos, propongo tener la integracion con document search que esta optimizado para este tipo de consultas. Debemos recordar que la sync es eventual. Por lo que puede ser que al momento de alguna consulta no esten todos los items registrados en la KVS.
 
 -----------
+
+Caso de Uso Nº 3 
+
+Haciendo un dump a OS para procesar los archivos.
+
+-----------
+
+Caso de Uso Nº 4
+
+Haciendo uso del servicio de BigQueue o Stream.
 
 
 
