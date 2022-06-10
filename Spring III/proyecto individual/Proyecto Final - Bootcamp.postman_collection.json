@@ -1,0 +1,982 @@
+{
+	"info": {
+		"_postman_id": "a40cbb25-3f69-4af4-8b56-7d1af2ea1173",
+		"name": "Proyecto Final - Bootcamp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20592972"
+	},
+	"item": [
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "Login Admin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = JSON.parse(responseBody)",
+									"const token = `${json.token}`",
+									"pm.collectionVariables.set('token-admin',token)",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"description": "vence en 12 horas, 13:00 inicio",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\":\"buyer\",\n    \"password\":\"123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/sign-in",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sign-in"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "jperez",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "abc123",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login Buyer",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const json = JSON.parse(responseBody)",
+									"const token = `${json.token}`",
+									"pm.collectionVariables.set('token-buyer', token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"description": "vence en 12 horas, 13:00 inicio",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_name\":\"Jahn\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/sign-in",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"sign-in"
+							],
+							"query": [
+								{
+									"key": "username",
+									"value": "John",
+									"disabled": true
+								},
+								{
+									"key": "password",
+									"value": "123456",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Req 1 - Admin",
+			"item": [
+				{
+					"name": "Req1 - 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"inbound_order\": {\n        \"order_number\": 1,\n        \"order_date\": \"02-06-2022\",\n        \"section\": {\n            \"section_code\": \"1\",\n            \"warehouse_code\": \"1\"\n        },\n        \"batch_stock\": [\n            {\n                \"batch_number\": 1,\n                \"product_id\": \"3\",\n                \"current_temperature\": 40,\n                \"minimum_temperature\": 10,\n                \"initial_quantity\": 16,\n                \"current_quantity\": 16,\n                \"manufacturing_date\": \"01-06-2022 10:20:38\",\n                \"due_date\": \"10-02-2022\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/inboundorder",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req1 - 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"inbound_order\": {\n        \"order_number\": 1,\n        \"order_date\": \"02-06-2022\",\n        \"section\": {\n            \"section_code\": \"1\",\n            \"warehouse_code\": \"1\"\n        },\n        \"batch_stock\": [\n            {\n                \"batch_number\": 1,\n                \"product_id\": \"3\",\n                \"current_temperature\": 40,\n                \"minimum_temperature\": 10,\n                \"initial_quantity\": 16,\n                \"current_quantity\": 16,\n                \"manufacturing_date\": \"01-06-2022 10:20:38\",\n                \"due_date\": \"10-02-2022\"\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/inboundorder",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"inboundorder"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token-admin}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Req 2 - Buyer",
+			"item": [
+				{
+					"name": "Req2 - 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/list",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req2 - 2",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/list?category=FS",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"list"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "FS"
+								},
+								{
+									"key": "category",
+									"value": "RF",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "FF",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req2 - 3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"purchase_order\": {\n        \"date\": \"02-02-2022\",\n        \"buyer_id\": \"1\",\n        \"order_status\": {\n            \"status_code\": \"CARRITO\"\n        },\n        \"products\": [\n            {\n                \"product_id\": 2,\n                \"quantity\": 10\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/orders",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req2 - 4",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idOrder\", 3);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/orders/{{idOrder}}",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"{{idOrder}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req2 - 5",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idOrder\", 3);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"purchase_order\": {\n        \"date\": \"20-09-2021\",\n        \"buyer_id\": \"1\",\n        \"order_status\": {\n            \"status_code\": \"CARRITO\"\n        },\n        \"products\": [\n            {\n                \"product_id\": \"1\",\n                \"quantity\": 15\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/orders/{{idOrder}}",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"orders",
+								"{{idOrder}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token-buyer}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Req 3, 4, 5 - Admin",
+			"item": [
+				{
+					"name": "Req3 - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idProduct\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/{{idProduct}}/batch/list",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"{{idProduct}}",
+								"batch",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req3 - 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idProduct\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/{{idProduct}}/batch/list?order=L",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"{{idProduct}}",
+								"batch",
+								"list"
+							],
+							"query": [
+								{
+									"key": "order",
+									"value": "L"
+								},
+								{
+									"key": "order",
+									"value": "C",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "F",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req4 - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idProduct\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/{{idProduct}}/warehouse/list",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"{{idProduct}}",
+								"warehouse",
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req5 - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"cantDays\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/batch/list/due-date/{{cantDays}}",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"batch",
+								"list",
+								"due-date",
+								"{{cantDays}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Req5 - 2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"cantDays\", 1);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/batch/list/due-date/{{cantDays}}?category=FS&order=date_desc",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"batch",
+								"list",
+								"due-date",
+								"{{cantDays}}"
+							],
+							"query": [
+								{
+									"key": "category",
+									"value": "FS"
+								},
+								{
+									"key": "category",
+									"value": "RF",
+									"disabled": true
+								},
+								{
+									"key": "category",
+									"value": "FF",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "date_asc",
+									"disabled": true
+								},
+								{
+									"key": "order",
+									"value": "date_desc"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token-admin}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Req 6 -Template",
+			"item": [
+				{
+					"name": "Req6 - 1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"idSection\", 1);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Auth-Token",
+								"value": "{{token-fury}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url-app}}/api/v1/fresh-products/{{idSection}}",
+							"host": [
+								"{{url-app}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"fresh-products",
+								"{{idSection}}"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": [
+					{
+						"key": "token",
+						"value": "{{token-admin}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Ping",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "x-auth-token",
+						"value": "{{token-fury}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{url-app}}/ping",
+					"host": [
+						"{{url-app}}"
+					],
+					"path": [
+						"ping"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token-fury",
+			"value": "huella fury"
+		},
+		{
+			"key": "url-app",
+			"value": "localhost:8080"
+		},
+		{
+			"key": "token-buyer",
+			"value": "token de buyer"
+		},
+		{
+			"key": "token-admin",
+			"value": "token de admin"
+		},
+		{
+			"key": "idOrder",
+			"value": "1"
+		},
+		{
+			"key": "idProduct",
+			"value": "1"
+		},
+		{
+			"key": "cantDays",
+			"value": "1"
+		},
+		{
+			"key": "idSection",
+			"value": ""
+		},
+		{
+			"key": "section_id",
+			"value": ""
+		}
+	]
+}

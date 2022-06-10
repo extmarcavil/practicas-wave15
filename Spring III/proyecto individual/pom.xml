@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://maven.apache.org/POM/4.0.0"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.6.6</version>
+  </parent>
+
+  <groupId>com.mercadolibre</groupId>
+  <artifactId>fp-be-java-hisp-w15-g06sbazzan</artifactId>
+
+  <version>last</version>
+  <packaging>jar</packaging>
+
+  <name>fp-be-java-hisp-w15-g06sbazzan</name>
+  <description>fp-be-java-hisp-w15-g06sbazzan</description>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+
+    <!-- Plugins versions -->
+    <jacoco-maven-plugin.version>0.8.7</jacoco-maven-plugin.version>
+    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+    <maven-surefire-plugin.version>3.0.0-M5</maven-surefire-plugin.version>
+    <!-- <maven-enforcer-plugin.version>3.0.0</maven-enforcer-plugin.version> -->
+
+    <!-- External versions -->
+    <asm.version>9.2</asm.version>
+    <newrelic-api.version>7.4.3</newrelic-api.version>
+    <springdoc.version>1.6.3</springdoc.version>
+
+    <!-- MercadoLibre versions -->
+    <ml-java-melitk-bom.version>0.2.1</ml-java-melitk-bom.version>
+
+    <!-- Test versions -->
+    <junit-jupiter.version>5.8.2</junit-jupiter.version>
+    <mockito.version>4.1.0</mockito.version>
+    <system-stubs.version>1.2.0</system-stubs.version>
+  </properties>
+
+  <build>
+    <finalName>application</finalName>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <configuration>
+          <excludes>
+            <exclude>**/com/mercadolibre/**/dtos/**</exclude>
+            <exclude>**/com/mercadolibre/**/api/**</exclude>
+            <exclude>**/com/mercadolibre/**/model/**</exclude>
+            <exclude>**/com/mercadolibre/**/exceptions/**</exclude>
+            <exclude>**/com/mercadolibre/**/security/**</exclude>
+            <exclude>**/com/mercadolibre/**/service/securitySession/**</exclude>
+            <exclude>**/com/mercadolibre/**/config/**</exclude>
+            <exclude>**/com/mercadolibre/**/util/**</exclude>
+            <exclude>**/com/mercadolibre/**/enums/**</exclude>
+            <exclude>**/com/mercadolibre/**/controller/controllerSecurity/**</exclude>
+            <exclude>**/com/mercadolibre/**/service/**</exclude>
+           <exclude>**/com/mercadolibre/**/controller/**</exclude>
+          </excludes>
+        </configuration>
+      </plugin>
+    </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>${maven-compiler-plugin.version}</version>
+          <configuration>
+            <optimize>true</optimize>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <version>${maven-surefire-plugin.version}</version>
+          <configuration>
+            <forkCount>1</forkCount>
+            <reuseForks>true</reuseForks>
+            <argLine>@{argLine} -Xmx1g -Xms1g</argLine>
+            <useFile>false</useFile>
+            <trimStackTrace>false</trimStackTrace>
+            <redirectTestOutputToFile>false</redirectTestOutputToFile>
+            <useSystemClassLoader>true</useSystemClassLoader>
+            <useManifestOnlyJar>false</useManifestOnlyJar>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.jacoco</groupId>
+          <artifactId>jacoco-maven-plugin</artifactId>
+          <version>${jacoco-maven-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>default-prepare-agent</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>default-report</id>
+              <phase>prepare-package</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+            </execution>
+            <execution>
+              <id>default-check</id>
+              <goals>
+                <goal>check</goal>
+              </goals>
+              <configuration>
+                <rules>
+                  <rule>
+                    <element>CLASS</element>
+                    <excludes>
+                      <exclude>*Test</exclude>
+                    </excludes>
+                    <limits>
+                      <limit>
+                        <counter>LINE</counter>
+                        <value>COVEREDRATIO</value>
+                        <minimum>0.0</minimum>
+                      </limit>
+                    </limits>
+                  </rule>
+                </rules>
+              </configuration>
+            </execution>
+            <execution>
+              <id>pre-unit-test</id>
+              <goals>
+                <goal>prepare-agent</goal>
+              </goals>
+              <configuration>
+                <destFile>target/jacoco.exec</destFile>
+                <propertyName>argLine</propertyName>
+              </configuration>
+            </execution>
+            <execution>
+              <id>post-unit-test</id>
+              <phase>test</phase>
+              <goals>
+                <goal>report</goal>
+              </goals>
+              <configuration>
+                <dataFile>target/jacoco.exec</dataFile>
+                <outputDirectory>target/site/jacoco</outputDirectory>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>${maven-enforcer-plugin.version}</version>
+          <executions>
+            <execution>
+              <id>enforce</id>
+              <goals>
+                <goal>enforce</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <rules>
+              <requireJavaVersion>
+                <version>${maven.compiler.source}.0</version>
+              </requireJavaVersion>
+              <requireMavenVersion>
+                <version>3.3.0</version>
+              </requireMavenVersion>
+              <DependencyConvergence/>
+            </rules>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+  <dependencyManagement>
+    <dependencies>
+
+      <!-- External dependencies -->
+      <dependency>
+        <groupId>org.ow2.asm</groupId>
+        <artifactId>asm</artifactId>
+        <version>${asm.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>com.newrelic.agent.java</groupId>
+        <artifactId>newrelic-api</artifactId>
+        <version>${newrelic-api.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>org.springdoc</groupId>
+        <artifactId>springdoc-openapi-ui</artifactId>
+        <version>${springdoc.version}</version>
+      </dependency>
+
+      <!-- MercadoLibre dependencies -->
+      <dependency>
+        <groupId>com.mercadolibre.library</groupId>
+        <artifactId>java-melitk-bom</artifactId>
+        <version>${ml-java-melitk-bom.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+
+      <!-- Test dependencies -->
+      <dependency>
+        <groupId>uk.org.webcompere</groupId>
+        <artifactId>system-stubs-jupiter</artifactId>
+        <version>${system-stubs.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <!-- Internal application dependencies -->
+    <dependency>
+      <groupId>com.mercadolibre.metrics</groupId>
+      <artifactId>metrics-core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mercadolibre.metrics</groupId>
+      <artifactId>datadog-metric-wrapper</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mercadolibre</groupId>
+      <artifactId>threading</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.mercadolibre.json_jackson</groupId>
+      <artifactId>json-jackson</artifactId>
+    </dependency>
+
+    <!-- External application dependencies -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jetty</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <version>2.7.0</version>
+      <exclusions>
+        <exclusion>
+          <groupId>io.github.classgraph</groupId>
+          <artifactId>classgraph</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.module</groupId>
+      <artifactId>jackson-module-blackbird</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.datatype</groupId>
+      <artifactId>jackson-datatype-jsr310</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springdoc</groupId>
+      <artifactId>springdoc-openapi-ui</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>io.github.classgraph</groupId>
+          <artifactId>classgraph</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+    <dependency>
+      <groupId>com.newrelic.agent.java</groupId>
+      <artifactId>newrelic-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>8.0.16</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fury</groupId>
+      <artifactId>furyutils</artifactId>
+      <version>0.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/io.github.classgraph/classgraph -->
+    <dependency>
+      <groupId>io.github.classgraph</groupId>
+      <artifactId>classgraph</artifactId>
+      <version>4.8.147</version>
+    </dependency>
+    <!--  MODEL MAPPER  -->
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+
+    <!-- Test dependencies for all projects -->
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>uk.org.webcompere</groupId>
+      <artifactId>system-stubs-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.mockito</groupId>
+      <artifactId>mockito-junit-jupiter</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.mercadolibre.restclient</groupId>
+      <artifactId>restclient-core</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.mercadolibre.restclient</groupId>
+      <artifactId>restclient-core</artifactId>
+      <classifier>tests</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+    </dependency>
+
+    <!-- Dependencias nuevas para JWT -->
+    <dependency>
+      <groupId>io.jsonwebtoken</groupId>
+      <artifactId>jjwt</artifactId>
+      <version>0.9.1</version>
+    </dependency>
+
+    <!-- JWT -->
+    <dependency>
+      <groupId>com.auth0</groupId>
+      <artifactId>java-jwt</artifactId>
+      <version>3.4.1</version>
+    </dependency>
+    <!-- Seguridad de SPRING BOOT-->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Model Mapper -->
+    <dependency>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>3.1.0</version>
+    </dependency>
+  </dependencies>
+
+  <repositories>
+    <repository>
+      <id>all</id>
+      <url>https://maven.artifacts.furycloud.io/repository/all/</url>
+    </repository>
+  </repositories>
+</project>

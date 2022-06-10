@@ -1,0 +1,18 @@
+# "prod" suffix properties file. Scopes name samples: "prod", "web-prod", "api-prod", etc.
+# Overrides application.yml default properties
+spring:
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://proxysql.master.meliseginf.com:6612/w15g06?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false
+    username: alivilte
+    password: L4HFL9DQ
+  jpa:
+    defer-datasource-initialization: true
+    hibernate.ddl-auto: create-drop
+    generate-ddl: true
+    show-sql: true
+  sql:
+    init:
+      mode: always
+      data-locations: classpath:meli_fresco.sql
+      platform: mysql
