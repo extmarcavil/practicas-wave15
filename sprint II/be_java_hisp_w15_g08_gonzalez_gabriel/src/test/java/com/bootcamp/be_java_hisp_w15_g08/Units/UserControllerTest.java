@@ -106,7 +106,7 @@ public class UserControllerTest {
     public void unFollowUser() throws Exception {
 
         ObjectWriter writer =  new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
+                .registerModule(new JavaTimeModule())
                 .writer();
 
         Integer user_id1 = 1234;

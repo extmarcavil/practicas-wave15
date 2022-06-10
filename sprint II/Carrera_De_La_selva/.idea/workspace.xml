@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="fd806370-6eb1-4cdf-b024-7d81bb1832b5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08_gonzalez_gabriel/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/PostControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08_gonzalez_gabriel/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/PostControllerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../be_java_hisp_w15_g08_gonzalez_gabriel/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/UserControllerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/../be_java_hisp_w15_g08_gonzalez_gabriel/src/test/java/com/bootcamp/be_java_hisp_w15_g08/Units/UserControllerTest.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="ProjectId" id="29XvnKz0h71c7u3vv00ixkAyQin" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="ArquillianJUnit" factoryName="" nameIsGenerated="true">
+      <option name="arquillianRunConfiguration">
+        <value>
+          <option name="containerStateName" value="" />
+        </value>
+      </option>
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="fd806370-6eb1-4cdf-b024-7d81bb1832b5" name="Default Changelist" comment="" />
+      <created>1653272414649</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1653272414649</updated>
+      <workItem from="1653272424175" duration="252000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

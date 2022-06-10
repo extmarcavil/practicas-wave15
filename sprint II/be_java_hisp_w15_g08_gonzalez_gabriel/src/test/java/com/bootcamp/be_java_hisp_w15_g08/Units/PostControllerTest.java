@@ -28,7 +28,7 @@ public class PostControllerTest {
     @Test
     public void createPost() throws Exception{
         ObjectWriter writer =  new ObjectMapper()
-                .registerModule(new JavaTimeModule()) // convertir fechas
+                .registerModule(new JavaTimeModule())
                 .writer();
 
         NewPostDTO newPost = Util.newPost();
