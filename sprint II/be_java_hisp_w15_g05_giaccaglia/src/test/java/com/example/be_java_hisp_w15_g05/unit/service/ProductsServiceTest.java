@@ -82,8 +82,7 @@ public class ProductsServiceTest {
     @DisplayName("Verificacion lanzado de excepcion OrderNotValidException")
     void verificarExcepcionOrdenFecha() {
         Assertions.assertThrows(
-                OrderNotValidException.class,
-                () -> productsService.getPostFollowed(1, "cualquierorden"));
+                OrderNotValidException.class, () -> productsService.getPostFollowed(1, "cualquierorden"));
     }
 
     // T008

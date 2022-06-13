@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.mercadolibre.restclient:restclient-default-parsers:0.3.51">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-default-parsers/0.3.51/restclient-default-parsers-0.3.51.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-default-parsers/0.3.51/restclient-default-parsers-0.3.51-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-default-parsers/0.3.51/restclient-default-parsers-0.3.51-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

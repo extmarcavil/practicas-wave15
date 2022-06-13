@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: com.mercadolibre.restclient:restclient-core:tests:0.3.51">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-core/0.3.51/restclient-core-0.3.51-tests.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-core/0.3.51/restclient-core-0.3.51-test-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/com/mercadolibre/restclient/restclient-core/0.3.51/restclient-core-0.3.51-test-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
