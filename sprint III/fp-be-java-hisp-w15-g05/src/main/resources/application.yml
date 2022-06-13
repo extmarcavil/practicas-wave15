@@ -1,0 +1,29 @@
+# Default properties file
+spring:
+  jpa:
+    open-in-view: false
+  profiles:
+    active: ${SCOPE_SUFFIX} # Comma-separated list of active profiles. Can be overridden by a command line switch.
+  mvc:
+    throw-exception-if-no-handler-found: true # Whether a "NoHandlerFoundException" should be thrown if no Handler was found to process a request.
+  web:
+    resources:
+      add-mappings: false
+
+server:
+  compression:
+    enabled: true # Whether response compression is enabled.
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json # Comma-separated list of MIME types that should be compressed.
+    min-response-size: 1024 # Minimum "Content-Length" value that is required for compression to be performed.
+
+springdoc:
+  packages-to-scan: com.mercadolibre.fp_be_java_hisp_w15_g05.controller
+  show-actuator: true
+  swagger-ui:
+    operations-sorter: alpha
+    disable-swagger-default-url: true
+
+app:
+  title: fp-be-java-hisp-w15-g05
+  description: '@project.description@'
+  version: @project.version@
